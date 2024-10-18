@@ -1,0 +1,11 @@
+{
+	"name" : "Cicool Ecommerce",
+	"description" : "Cicool Ecommerce",
+	"type" : "page",
+    "version" : "1.0",
+    "author" : "cicool",
+    "regid" : "cicool-ecommerce",
+	"loader" : [
+		"essential.php"
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"name" : "demo mode",
+	"description" : "demo mode, for demo you can't remove data from module",
+    "type" : "page",
+    "version" : "1.0",
+    "author" : "cicool",
+	"regid" : "cicool-demo-mode",
+	"loader" : [
+		"demo-mode.php"
+	]
+}

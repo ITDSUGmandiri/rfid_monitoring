@@ -1,0 +1,514 @@
+{
+"type": "post",
+"url": "/tag_reader/add",
+"title": "Add Tag reader.",
+"version": "0.1.0",
+"name": "Addtag_reader",
+"group": "tag_reader",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag reader unique access-key.</p>"
+}
+,
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag reader unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag reader Cant be Accessed permission name : api_tag_reader_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag_reader.php",
+"groupTitle": "Tag reader"
+},
+{
+"type": "get",
+"url": "/tag_reader/all",
+"title": "Get all Tag readers.",
+"version": "0.1.0",
+"name": "Alltag_reader",
+"group": "tag_reader",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag readers unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag readers unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tag reader_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tag readers.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tag readers.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tag readers.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "reader_id",
+"description": "<p>Sort data by this field. reader_id, librarian_id, reader_name, reader_serialnumber, reader_type, reader_ip, reader_port, reader_com, reader_baudrate, reader_power, reader_interval, reader_mode, reader_updatedby, reader_updated, reader_createdby, reader_created</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>reader_id</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tag reader.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTag reader",
+"description": "<p>Tag reader data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag reader.php",
+"groupTitle": "Tag reader"
+},
+{
+"type": "post",
+"url": "/tag_reader/delete",
+"title": "Delete Tag reader.",
+"version": "0.1.0",
+"name": "Deletetag_reader",
+"group": "tag_reader",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag readers unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag readers unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag reader Cant be Accessed permission name : api_Tag reader_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tag readers .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag reader.php",
+"groupTitle": "Tag reader"
+},
+{
+"type": "get",
+"url": "/tag_reader/detail",
+"title": "Detail Tag reader.",
+"version": "0.1.0",
+"name": "Detailtag_reader",
+"group": "tag_reader",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag readers unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag readers unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag reader Cant be Accessed permission name : api_Tag reader_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tag readers.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tag reader.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tag readerNotFound",
+"description": "<p>Tag reader data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag reader.php",
+"groupTitle": "Tag reader"
+},
+{
+"type": "post",
+"url": "/tag_reader/update",
+"title": "Update Tag reader.",
+"version": "0.1.0",
+"name": "Updatetag_reader",
+"group": "tag_reader",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag readers unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag readers unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag reader Cant be Accessed permission name : api_Tag reader_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag reader.php",
+"groupTitle": "Tag reader"
+}

@@ -1,0 +1,12 @@
+{
+	"name" : "Cicool Chat",
+	"description" : "Cicool Chat",
+	"type" : "page",
+    "version" : "1.0",
+    "author" : "cicool",
+    "regid" : "cicool-chat",
+	"loader" : [
+		"config.php",
+		"essential.php"
+	]
+}

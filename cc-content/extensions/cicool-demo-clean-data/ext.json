@@ -1,0 +1,11 @@
+{
+	"name" : "demo mode clean data",
+	"description" : "demo mode clean data you can refresh data from fresh cicool application ",
+	"type" : "page",
+    "version" : "1.0",
+    "author" : "cicool",
+    "regid" : "cicool-demo-mode-clean-data",
+	"loader" : [
+		"clean-data.php"
+	]
+}

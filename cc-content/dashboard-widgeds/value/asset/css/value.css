@@ -1,0 +1,61 @@
+#dateperiod {
+	background: #fff;
+	cursor: pointer;
+	padding: 5px 10px;
+	border: 1px solid #F7F7F7;
+	margin: 10px 0px;
+	border-radius: 3px;
+	float: left;
+
+}
+
+#dateperiod .fa-caret-down {
+	margin-left: 10px;
+	margin-top: 2px;
+}
+
+.remove-condition-wrapper {
+	position: absolute;
+	right: 50px;
+	margin-top: 35px;
+}
+
+.condition-item-wrapper {
+	padding-left: 0px !important;
+}
+
+
+.icon-preview {
+	margin: 25px 0px !important;
+	cursor: pointer;
+}
+
+.modal {
+	z-index: 2999998 !important;
+}
+
+.widged-value-option-style {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.widged-value-option-style.selected {
+	opacity: 1 !important;
+	border: 5px solid #6d868a;
+}
+
+
+.widged-value-option-style:hover {
+	opacity: 1;
+}
+
+.widged-value-option-style label {
+	opacity: 0;
+	position: absolute;
+	left: -999;
+}
+
+.widged-value-style-1 .value-wrapper, .widged-value-style-1 .info-box-icon {
+	height: 100%;
+
+}

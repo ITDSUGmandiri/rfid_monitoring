@@ -1,0 +1,25 @@
+#dateperiod {
+	background: #fff;
+	cursor: pointer;
+	padding: 5px 10px;
+	border: 1px solid #F7F7F7;
+	margin: 10px 0px;
+	border-radius: 3px;
+	float: left;
+
+}
+
+#dateperiod .fa-caret-down {
+	margin-left: 10px;
+	margin-top: 2px;
+}
+
+.remove-condition-wrapper {
+	position: absolute;
+	right: 50px;
+	margin-top: 35px;
+}
+
+.condition-item-wrapper {
+	padding-left: 0px !important;
+}

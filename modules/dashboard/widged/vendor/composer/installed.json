@@ -1,0 +1,50 @@
+[
+    {
+        "name": "spatie/html-element",
+        "version": "1.1.1",
+        "version_normalized": "1.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/spatie/html-element.git",
+            "reference": "22a3cebf2754c2e01fd259274c59cdcfa85d9541"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/spatie/html-element/zipball/22a3cebf2754c2e01fd259274c59cdcfa85d9541",
+            "reference": "22a3cebf2754c2e01fd259274c59cdcfa85d9541",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.4"
+        },
+        "time": "2018-12-26T15:32:40+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Spatie\\HtmlElement\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian De Deyne",
+                "email": "sebastian@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Html rendering in php inspired by hyperscript",
+        "homepage": "https://github.com/spatie/html-element",
+        "keywords": [
+            "html-element",
+            "spatie"
+        ]
+    }
+]
