@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -75,11 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '38.47.91.245',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'Developer2023!@#',
 	'database' => 'ug_inventory_asset_tracking',
-	'port' 	   => '3307',
+	'port' 	   => '3306',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -118,7 +118,7 @@
 
       <a href="<?= site_url('/'); ?>" class="logo">
         <span class="logo-mini"><b><img src="<?= BASE_ASSET ?>img/icon-small.png" height="40px"></b></span>
-        <span class="logo-lg"><b><img src="<?= base_url($logo) ?>" height="40px"></b></span>
+        <span class="logo-lg"><b><img src="<?= base_url('asset/img/iconnavbar.png') ?>" height="50px"></b></span>
       </a>
       <nav class="navbar navbar-static-top">
 
@@ -150,7 +150,8 @@
                       <a href="<?= admin_site_url('/user/profile'); ?>" class="btn btn-default btn-flat"><?= cclang('profile'); ?></a>
                     </div>
                     <div class="pull-right">
-                      <a href="<?= admin_site_url('/auth/logout'); ?>" class="btn btn-default btn-flat"><?= cclang('sign_out'); ?></a>
+
+                      <a href="<?= admin_site_url('/auth/logout/' . get_user_data('id')); ?>" class="btn btn-default btn-flat"><?= cclang('sign_out'); ?></a>
                     </div>
                   </li>
                 </ul>

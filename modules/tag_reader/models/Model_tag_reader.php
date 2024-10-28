@@ -5,7 +5,7 @@ class Model_tag_reader extends MY_Model {
 
     private $primary_key    = 'reader_id';
     private $table_name     = 'tag_reader';
-    public $field_search   = ['librarian_id', 'reader_name', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_baudrate', 'reader_power', 'reader_interval', 'reader_mode', 'reader_family', 'tag_librarian.librarian_name'];
+    public $field_search   = ['room_id', 'setfor', 'reader_type', 'reader_ip', 'reader_mode', 'connecting', 'tb_room_master.name_room'];
     public $sort_option = ['reader_id', 'DESC'];
     
     public function __construct()
@@ -103,9 +103,9 @@ class Model_tag_reader extends MY_Model {
     }
 
     public function join_avaiable() {
-        $this->db->join('tag_librarian', 'tag_librarian.librarian_id = tag_reader.librarian_id', 'LEFT');
+        $this->db->join('tb_room_master', 'tb_room_master.room_id = tag_reader.room_id', 'LEFT');
         
-        $this->db->select('tag_librarian.librarian_name,tag_reader.*,tag_librarian.librarian_name as tag_librarian_librarian_name,tag_librarian.librarian_name as librarian_name');
+        $this->db->select('tb_room_master.name_room,tag_reader.*,tb_room_master.name_room as tb_room_master_name_room,tb_room_master.name_room as name_room');
 
 
         return $this;
@@ -114,9 +114,7 @@ class Model_tag_reader extends MY_Model {
     public function filter_avaiable() {
 
         if (!$this->aauth->is_admin()) {
-            $this->db->where($this->table_name.'.reader_createdby', get_user_data('id'));
-        $this->db->where($this->table_name.'.reader_updatedby', get_user_data('id'));
-        }
+            }
 
         return $this;
     }

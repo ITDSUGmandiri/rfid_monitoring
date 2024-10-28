@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= get_option('site_name') ?> | Log in</title>
+  <title><?= get_option('site_name') ?></title>
+  <link rel="shortcut icon" href="<?= BASE_URL() ?>asset/img/icon/titleIcon.png">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -24,7 +25,8 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href=""><b><?= cclang('login'); ?></b> <?= get_option('site_name'); ?></a>
+      <img src="<?= BASE_URL() ?>asset/img/icon/titleIcon.png" width="60">
+      <a href=""><?= get_option('site_name'); ?></a>
     </div>
     <div class="login-box-body">
       <p class="login-box-msg"><?= cclang('sign_to_start_your_session'); ?></p>
@@ -49,11 +51,11 @@
         'method'  => 'POST'
       ]); ?>
       <div class="form-group has-feedback <?= form_error('username') ? 'has-error' : ''; ?>">
-        <input type="email" class="form-control" placeholder="Email" name="username" value="<?= set_value('username', 'admin@admin.com'); ?>">
+        <input type="email" class="form-control" placeholder="Email" name="username" value="">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback <?= form_error('password') ? 'has-error' : ''; ?>">
-        <input type="password" class="form-control" placeholder="Password" name="password" value="admin123">
+        <input type="password" class="form-control" placeholder="Password" name="password" value="">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -69,14 +71,14 @@
         </div>
       </div>
       <?= form_close(); ?>
-
+      <br>
       <a href="<?= admin_site_url('/forgot-password'); ?>"><?= cclang('i_forgot_my_password'); ?></a><br>
       <a href="<?= admin_site_url('/register'); ?>" class="text-center"><?= cclang('register_a_new_membership'); ?></a>
 
       <br>
       <br>
-      <p align="center"><b>-<?= cclang('or') ?>-</b></p>
-      <a href="<?= site_url('oauth/v/google'); ?>" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google"></i> <?= cclang('sign_in_using') ?> Google+</a>
+      <!-- <p align="center"><b>-<?= cclang('or') ?>-</b></p>
+      <a href="<?= site_url('oauth/v/google'); ?>" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google"></i> <?= cclang('sign_in_using') ?> Google+</a> -->
 
     </div>
   </div>

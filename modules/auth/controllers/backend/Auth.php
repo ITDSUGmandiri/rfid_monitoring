@@ -40,7 +40,7 @@ class Auth extends Admin
 				if ($ref) {
 					redirect($ref, 'refresh');
 				} else {
-					redirect(ADMIN_NAMESPACE_URL . '/user/profile', 'refresh');
+					redirect(ADMIN_NAMESPACE_URL . '/dashboard', 'refresh');
 				}
 			} else {
 				$data['error'] = $this->aauth->print_errors(TRUE);
@@ -63,8 +63,8 @@ class Auth extends Admin
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]');
 		$this->form_validation->set_rules('full_name', 'Full Name', 'trim|required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[aauth_users.email]');
-		$this->form_validation->set_rules('agree', 'Agree', 'trim|required');
-		$this->form_validation->set_rules('captcha', 'Captcha', 'trim|required|callback_valid_captcha');
+		$this->form_validation->set_rules('agree', 'Term & Condition', 'trim|required');
+		// $this->form_validation->set_rules('captcha', 'Captcha', 'trim|required|callback_valid_captcha');
 
 		$this->form_validation->set_message('is_unique', 'User already used');
 
@@ -124,7 +124,8 @@ class Auth extends Admin
 	 */
 	public function logout()
 	{
-		$this->aauth->logout();
+		$data_id = $this->uri->segment(4);
+		$this->aauth->logout($data_id);
 		redirect('/');
 	}
 

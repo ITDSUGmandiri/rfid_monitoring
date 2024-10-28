@@ -24,7 +24,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b><?= cclang('reset_password'); ?></b></a>
+            <a href="#">xxx<b><?= cclang('reset_password'); ?></b></a>
         </div>
         <div class="login-box-body">
             <p class="login-box-msg"><?= cclang('reset_your_password'); ?></p>

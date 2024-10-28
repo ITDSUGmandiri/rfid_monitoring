@@ -101,6 +101,7 @@ $config_aauth["default"] = array(
     'pms'                            => 'aauth_pms',
     'user_variables'                 => 'aauth_user_variables',
     'login_attempts'                 => 'aauth_login_attempts',
+    'log_activity'                   => 'tb_log_act',
 
     'remember'                       => ' +3 days',
 
@@ -134,7 +135,7 @@ $config_aauth["default"] = array(
 
     'verification'                   => false,
     'verification_link'              => '/account/verification/',
-    'reset_password_link'            => ADMIN_NAMESPACE_URL.'/auth/reset_password/',
+    'reset_password_link'            => ADMIN_NAMESPACE_URL . '/auth/reset_password/',
 
     'hash'                           => 'sha256',
     'use_password_hash'              => false,

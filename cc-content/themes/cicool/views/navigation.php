@@ -10,8 +10,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <?php foreach (get_menu('top-menu') as $menu) : ?>
-                    <?php if (app()->aauth->is_allowed('menu_' . $menu->label)) : 
-                        ?>
+                    <?php if (app()->aauth->is_allowed('menu_' . $menu->label)) :
+                    ?>
                         <li>
                             <a class="page-scroll" href="<?= site_url(replace_admin_url($menu->link)); ?>"><?= $menu->label; ?></a>
                         </li>

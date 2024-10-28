@@ -24,10 +24,11 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="#"><b><?= cclang('register'); ?></b> </a>
+      <img src = "<?= BASE_URL() ?>asset/img/icon/titleIcon.png" width="60">
+      <a href="#"><?= cclang('register'); ?></a>
     </div>
     <div class="login-box-body">
-      <p class="login-box-msg"><?= cclang('register_a_new_membership'); ?></p>
+      <p class="login-box-msg"><?= cclang('register_form'); ?></p>
       <?php if (isset($error) and !empty($error)) : ?>
         <div class="callout callout-error">
           <h4><?= cclang('error'); ?>!</h4>
@@ -59,7 +60,7 @@
         <input type="password" class="form-control" placeholder="Password" name="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <?php $cap = get_captcha(); ?>
+      <!-- <?php $cap = get_captcha(); ?>
       <div class="form-group <?= form_error('email') ? 'has-error' : ''; ?>">
         <label><?= cclang('human_challenge'); ?> <span class="required">*</span> </label>
         <div class="captcha-box" data-captcha-time="<?= $cap['time']; ?>">
@@ -67,7 +68,7 @@
           <a class="btn btn-flat  refresh-captcha  "><i class="fa fa-refresh text-danger"></i></a>
           <span class="box-image"><?= $cap['image']; ?></span>
         </div>
-      </div>
+      </div> -->
       <small class="info help-block">
       </small>
       <div class="row">
@@ -79,11 +80,11 @@
           </div>
         </div>
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat"><?= cclang('register'); ?></button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
         </div>
       </div>
       <?= form_close(); ?>
-
+      <br>
       <a href="<?= admin_site_url('/login'); ?>" class="text-center"><?= cclang('i_already_a_new_membership'); ?></a>
 
     </div>

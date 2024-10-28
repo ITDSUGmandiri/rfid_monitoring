@@ -257,6 +257,16 @@ class Aauth
 		// if email and pass matches and not banned
 		if ($row) {
 			$password = ($this->config_vars['use_password_hash'] ? $pass : $this->hash_password($pass, $row->id));
+			$dataAct = array(
+				'log_id' => 'ACT' . date("isa") . rand(1000, 9999),
+				'act_id' => 0,
+				'keterangan' => 'Login',
+				'user' => $row->id,
+				'date' => date("Y-m-d"),
+				'time' => date("h:i:sa")
+			);
+
+			$this->aauth_db->insert($this->config_vars['log_activity'], $dataAct);
 		} else {
 			$password = '';
 		}
@@ -290,6 +300,8 @@ class Aauth
 					$this->CI->input->set_cookie($cookie);
 				}
 			}
+
+
 
 
 			// update last login
@@ -405,7 +417,7 @@ class Aauth
 	 * Destroys the CodeIgniter session and remove cookies to log out user.
 	 * @return bool If session destroy successful
 	 */
-	public function logout()
+	public function logout($username)
 	{
 
 		$cookie = array(
@@ -415,6 +427,17 @@ class Aauth
 			'path'	 => '/',
 		);
 		$this->CI->input->set_cookie($cookie);
+
+		$dataAct = array(
+			'log_id' => 'ACT' . date("isa") . rand(1000, 9999),
+			'act_id' => 0,
+			'keterangan' => 'Logout',
+			'user' => $username,
+			'date' => date("Y-m-d"),
+			'time' => date("h:i:sa")
+		);
+
+		$this->aauth_db->insert($this->config_vars['log_activity'], $dataAct);
 
 		return $this->CI->session->sess_destroy();
 	}

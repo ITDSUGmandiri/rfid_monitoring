@@ -60,6 +60,27 @@ class Dashboard extends Admin
 					";
 				$data_json = $CI->db->query($query_total)->result();
 				break;
+			case "anomali":
+				$query_anomali = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kode_brg = '' AND nup = ''";
+				$data_json = $CI->db->query($query_anomali)->result();
+				break;
+			case "mutation":
+				$query_mut = "SELECT COUNT(*) as total FROM tb_asset_master WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
+				$data_json = $CI->db->query($query_mut)->result();
+				break;
+			case "disposal":
+				$query_disp = "SELECT COUNT(*) as total FROM tb_asset_master WHERE status_id = 8";
+				$data_json = $CI->db->query($query_disp)->result();
+				break;
+			case "koreksi":
+				$query_disp = "SELECT c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi, x.name_room AS room2, z.name_room AS room1 FROM tb_asset_master AS o 
+				INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code 
+				INNER JOIN tb_room_master AS x ON x.id = c.id_room 
+				INNER JOIN tb_room_master AS z ON z.id = o.lokasi
+				AND o.lokasi != c.id_room ORDER BY o.tag_code";
+				$data_json = $CI->db->query($query_disp)->result();
+				break;
+
 			case "ontime":
 				$query_ontime = "
 						SELECT 
@@ -164,6 +185,88 @@ class Dashboard extends Admin
 
 		// Mengirimkan data dalam format JSON ke klien
 		echo json_encode($data_json);
+	}
+
+	public function getSumAsetRoom()
+	{
+		$CI = &get_instance();
+
+		// Ambil data untuk chart
+		$query_total = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kode_brg != '' AND nup != '' AND tag_code != ''";
+		$result_total = $CI->db->query($query_total);
+		$row_total = $result_total->row();
+
+		// Ambil data untuk chart
+		$query_anomali = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kode_brg = '' AND nup = ''";
+		$result_total = $CI->db->query($query_anomali);
+		$row_anomali = $result_total->row();
+
+		$query_on_time = "SELECT COUNT(*) as total, c.tag_code, o.tag_code, o.status_id, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_asset_moving AS c ON c.tag_code = o.tag_code AND o.lokasi = '' AND o.status_id = 7";
+		$result_on_time = $CI->db->query($query_on_time);
+		$row_on_time = $result_on_time->row();
+
+		$query_mutation = "SELECT COUNT(*) as total FROM tb_asset_master WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
+		$result_mutation = $CI->db->query($query_mutation);
+		$mutation = $result_mutation->row();
+
+		$query_disp = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kondisi = 08";
+		$result_dispo = $CI->db->query($query_disp);
+		$disposal = $result_dispo->row();
+		// $query_on_time = "SELECT COUNT(*) as total FROM tb_asset_master WHERE lokasi = 0 AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";
+		// $result_on_time = $CI->db->query($query_on_time);
+		// $row_on_time = $result_on_time->row();
+
+		$query_overdue = "SELECT COUNT(*) as total FROM tag_location WHERE location_status='TERSEDIA' AND librarian_id = '1' AND location_updated <= DATE_SUB(NOW(), INTERVAL 2 DAY)";
+		$result_overdue = $CI->db->query($query_overdue);
+		$row_overdue = $result_overdue->row();
+
+		$query_pinjam = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kondisi = 07";
+		$result_pinjam = $CI->db->query($query_pinjam);
+		$row_pinjam = $result_pinjam->row();
+
+		$query_rusak = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kondisi = 03 AND kondisi = 04";
+		$result_rusak = $CI->db->query($query_rusak);
+		$row_rusak = $result_rusak->row();
+
+		$query_anomaly = "SELECT COUNT(*) as total, c.id,c.rfid_code_tag, o.tag_code, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.Lokasi != c.id_room ORDER BY o.tag_code";
+		$result_anomaly = $CI->db->query($query_anomaly);
+		$row_anomaly = $result_anomaly->row();
+
+		$data_chart = array(
+			"TOTAL" => $row_total->total,
+			"ANOMALI" => $row_anomali->total,
+			"MUTASI" => $mutation,
+			"DISPOSAL" => $disposal,
+			"ON TIME" => $row_on_time->total,
+			"OVERDUE" => $row_overdue->total,
+			"PINJAM" => $row_pinjam->total,
+			"RUSAK" => $row_rusak->total
+		);
+
+		$querylibrarian = "
+		SELECT b.name_room as building_name, b.id, b.name_room, COUNT(CASE WHEN tl.Lokasi != '' THEN tl.Lokasi ELSE NULL END) as total_rfid FROM tb_room_master b LEFT JOIN tb_asset_master tl ON b.id = tl.Lokasi GROUP BY b.id, tl.Lokasi ORDER BY b.id;
+		";
+
+		$result = $CI->db->query($querylibrarian);
+
+		$data = array(
+			"total" 	=> $row_total->total,
+			"anomali"   => $row_anomali->total,
+			"mutation"	=> $mutation->total,
+			"disposal"	=> $disposal->total,
+			"ontime" 	=> $row_on_time->total,
+			"overdue"	=> $row_overdue->total,
+			"borrow" 	=> $row_pinjam->total,
+			"broken" 	=> $row_rusak->total,
+			"anomaly" 	=> $row_anomaly->total,
+			"label" 	=> array_keys($data_chart),
+			"values"	=> array_values($data_chart),
+			"librarian"	=> $result->result_array()
+		);
+
+		// Encode data untuk chart menjadi format JSON
+		$data_json = json_encode($data);
+		echo $data_json;
 	}
 
 	public function reza()

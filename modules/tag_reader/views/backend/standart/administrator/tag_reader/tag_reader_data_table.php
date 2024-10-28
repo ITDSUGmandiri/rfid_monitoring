@@ -4,21 +4,15 @@
             <input type="checkbox" class="flat-red check" name="id[]" value="<?= $tag_reader->reader_id; ?>">
         </td>
                 
-        <td><?php if  ($tag_reader->librarian_id) {
+        <td><?php if  ($tag_reader->room_id) {
 
-            echo admin_anchor('/tag_librarian/view/'.$tag_reader->librarian_id.'?popup=show', $tag_reader->tag_librarian_librarian_name, ['class' => 'popup-view']); }?> </td>
+            echo admin_anchor('/tb_room_master/view/'.$tag_reader->room_id.'?popup=show', $tag_reader->tb_room_master_name_room, ['class' => 'popup-view']); }?> </td>
          
-        <td><span class="list_group-reader_name"><?= _ent($tag_reader->reader_name); ?></span></td> 
-        <td><span class="list_group-reader_serialnumber"><?= _ent($tag_reader->reader_serialnumber); ?></span></td> 
+        <td><span class="list_group-setfor"><?= _ent($tag_reader->setfor); ?></span></td> 
         <td><span class="list_group-reader_type"><?= _ent($tag_reader->reader_type); ?></span></td> 
         <td><span class="list_group-reader_ip"><?= _ent($tag_reader->reader_ip); ?></span></td> 
-        <td><span class="list_group-reader_port"><?= _ent($tag_reader->reader_port); ?></span></td> 
-        <td><span class="list_group-reader_com"><?= _ent($tag_reader->reader_com); ?></span></td> 
-        <td><span class="list_group-reader_baudrate"><?= _ent($tag_reader->reader_baudrate); ?></span></td> 
-        <td><span class="list_group-reader_power"><?= _ent($tag_reader->reader_power); ?></span></td> 
-        <td><span class="list_group-reader_interval"><?= _ent($tag_reader->reader_interval); ?></span></td> 
         <td><span class="list_group-reader_mode"><?= _ent($tag_reader->reader_mode); ?></span></td> 
-        <td><span class="list_group-reader_family"><?= _ent($tag_reader->reader_family); ?></span></td> 
+        <td><span class="list_group-connecting"><?= _ent($tag_reader->connecting); ?></span></td> 
         <td width="200">
         
                         <?php is_allowed('tag_reader_view', function() use ($tag_reader){?>
@@ -36,7 +30,7 @@
     <?php if ($tag_reader_counts == 0) :?>
         <tr>
         <td colspan="100">
-        Reader data is not available
+        Tag Reader data is not available
         </td>
         </tr>
     <?php endif; ?>

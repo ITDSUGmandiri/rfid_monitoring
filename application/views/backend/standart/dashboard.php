@@ -14,6 +14,15 @@ $CI = &get_instance();
     padding-left: 20px !important;
   }
 
+  .bgcard {
+    background-color: burlywood;
+  }
+
+  .readerOn {
+    background-color: #008d4c;
+  }
+
+
   .warning {
     color: #fff;
     animation: blink 1s infinite;
@@ -71,14 +80,14 @@ $CI = &get_instance();
 <link rel="stylesheet" href="<?= BASE_ASSET; ?>admin-lte/plugins/morris/morris.css">
 
 <section class="content-header">
-  <h1>
+  <!-- <h1>
     <?= cclang('DASHBOARD INVENTORY ASET') ?>
     <small>
 
       <?= cclang('Dashboard') ?>
     </small>
-  </h1>
-  <ol class="breadcrumb">
+  </h1> -->
+  <!-- <ol class="breadcrumb">
     <li>
       <a href="#">
         <i class="fa fa-dashboard">
@@ -89,15 +98,16 @@ $CI = &get_instance();
     <li class="active">
       <?= cclang('dashboard') ?>
     </li>
-  </ol>
+  </ol> -->
 </section>
 
-    <section class="content">
+<section class="content">
   <div class="row">
+
     <div class="col-md-12">
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">DASHBOARD</h3>
+          <h3 class="box-title">ISTANA MERDEKA JAKARTA</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -107,20 +117,62 @@ $CI = &get_instance();
 
           <!-- Modal -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
+            <div class="modal-body" role="document">
               <div class="modal-content">
                 <!-- Konten modal akan ditampilkan di sini -->
               </div>
             </div>
           </div>
-
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">POSISI ASET</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
 
-              <?php
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <!-- Konten modal akan ditampilkan di sini -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id='librarian'></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">PERGERAKAN ASET</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
 
-              // Tampilkan hasil
-              echo "
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <!-- Konten modal akan ditampilkan di sini -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+
+                      <?php
+
+                      // Tampilkan hasil
+                      echo "
                   <div class='info-box bg-grey'>
                       <span id='tape_total' class='info-box-icon'></span>
                       <div class='info-box-content'>
@@ -129,14 +181,14 @@ $CI = &get_instance();
                               <div class='progress-bar' style='width: 50%'></div>
                           </div>
                           <span class='progress-description'>
-                              Total Aset Yang Ada Di Semua Ruangan.
+                              Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
                           </span>
                       </div>
                   </div>";
 
-              // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-              echo "
-                  <div class='info-box bg-green'>
+                      // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
+                      echo "
+                  <div class='info-box bg-olive'>
                       <span id='tape_ontime' class='info-box-icon'></span>
                       <div class='info-box-content'>
                           <span class='info-box-text'>ASET MOVING (On Time)</span>
@@ -149,24 +201,24 @@ $CI = &get_instance();
                       </div>
                   </div>";
 
-              /// Kueri untuk menghitung jumlah tape yang telah diperbarui lebih dari 2 hari yang lalu
+                      /// Kueri untuk menghitung jumlah tape yang telah diperbarui lebih dari 2 hari yang lalu
 
-              echo "
-                  <div class='info-box bg-yellow'>
-                      <span id='tape_overdue' class='info-box-icon'></span>
-                      <div class='info-box-content'>
-                          <span class='info-box-text'>ASET MOVING (Overdue 2 Days)</span>
-                          <div class='progress'>
-                              <div class='progress-bar' style='width: 50%'></div>
-                          </div>
-                          <span class='progress-description'>
-                              Total Aset Yang Sedang Moving Lewat 2 Hari.
-                          </span>
-                      </div>
-                  </div>";
+                      //     echo "
+                      // <div class='info-box bg-yellow'>
+                      //     <span id='tape_overdue' class='info-box-icon'></span>
+                      //     <div class='info-box-content'>
+                      //         <span class='info-box-text'>ASET MOVING (Overdue 2 Days)</span>
+                      //         <div class='progress'>
+                      //             <div class='progress-bar' style='width: 50%'></div>
+                      //         </div>
+                      //         <span class='progress-description'>
+                      //             Total Aset Yang Sedang Moving Lewat 2 Hari.
+                      //         </span>
+                      //     </div>
+                      // </div>";
 
-              // Query count dari tabel pinjam
-              echo "
+                      // Query count dari tabel pinjam
+                      echo "
                   <div class='info-box bg-blue'>
                     <span id='tape_borrow' class='info-box-icon'></span>
                     <div class='info-box-content'>
@@ -181,8 +233,8 @@ $CI = &get_instance();
                     </div>
                   </div>";
 
-              // Query count dari tabel pinjam
-              echo "
+                      // Query count dari tabel pinjam
+                      echo "
                   <div class='info-box bg-red'>
                     <span id='tape_broken' class='info-box-icon'></span>
                     <div class='info-box-content'>
@@ -197,38 +249,116 @@ $CI = &get_instance();
                     </div>
                   </div>";
 
-              // Query count dari tabel pinjam
-              echo "
+
+                      ?>
+
+                    </div>
+                    <!-- <div class="col-md-6"><canvas id="myChart" width="400" height="250"></canvas></div> -->
+
+                    <div class="col-md-6">
+                      <?php
+
+                      // Tampilkan hasil
+                      //     echo "
+                      // <div class='info-box bg-white'>
+                      //     <span id='aset_anomali' class='info-box-icon'></span>
+                      //     <div class='info-box-content'>
+                      //         <span class='info-box-text'>Total Aset Anomali</span>
+                      //         <div class='progress'>
+                      //             <div class='progress-bar' style='width: 50%'></div>
+                      //         </div>
+                      //         <span class='progress-description'>
+                      //             Total Aset Yang datanya tidak sesuai atau tidak lengkap.
+                      //         </span>
+                      //     </div>
+                      // </div>";
+
+                      // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
+                      echo "
+                  <div class='info-box bg-green'>
+                      <span id='aset_mutasi' class='info-box-icon'></span>
+                      <div class='info-box-content'>
+                          <span class='info-box-text'>ASET MUTASI</span>
+                          <div class='progress'>
+                              <div class='progress-bar' style='width: 50%'></div>
+                          </div>
+                          <span class='progress-description'>
+                              Total Aset Yang Sudah Pindah Ruangan Atau Penanggung Jawab.
+                          </span>
+                      </div>
+                  </div>";
+
+                      // Query count dari tabel pinjam
+                      echo "
+                          <div class='info-box bg-grey'>
+                            <span id='aset_disposal' class='info-box-icon'></span>
+                            <div class='info-box-content'>
+                              <span class='info-box-text'>DISPOSAL ASET</span>
+
+                              <div class='progress'>
+                                <div class='progress-bar' style='width: 50%'></div>
+                              </div>
+                              <span class='progress-description'>
+                                Total Aset Yang akan atau sudah dihapus atau dijual.
+                              </span>
+                            </div>
+                          </div>";
+
+                      // Query count dari tabel pinjam
+                      echo "
               <div class='info-box bg-black'>
                 <span id='tape_anomaly' class='info-box-icon'></span>
                 <div class='info-box-content'>
-                  <span class='info-box-text'>ASET ANOMALI</span>
+                  <span class='info-box-text'>KOREKSI ASET</span>
 
                   <div class='progress'>
                     <div class='progress-bar' style='width: 50%'></div>
                   </div>
                   <span class='progress-description'>
-                    Total Kondisi Aset Yang Salah Ruangan.
+                    Total Kondisi Aset Yang Salah Ruangan atau Pemilik.
                   </span>
                 </div>
               </div>";
-              ?>
+                      ?>
 
+                    </div>
+                  </div>
+
+                  <!--  -->
+
+
+                </div>
+              </div>
             </div>
-            <div class="col-md-6"><canvas id="myChart" width="400" height="250"></canvas></div>
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">MONITORING READER</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
 
-
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <!-- Konten modal akan ditampilkan di sini -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id='librarian2'></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id='librarian'></div>
-
-          <!--  -->
-
-
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -256,7 +386,7 @@ $CI = &get_instance();
     };
 
     // Fungsi untuk menampilkan modal saat div dengan ID tertentu diklik
-    $('#tape_total, #tape_ontime, #tape_overdue, #tape_borrow, #tape_broken, #tape_anomaly').click(function() {
+    $('#tape_total, #aset_anomali,#aset_mutasi,#aset_disposal, #tape_ontime, #tape_overdue, #tape_borrow, #tape_broken, #tape_anomaly').click(function() {
       var divId = $(this).attr('id'); // Mendapatkan ID div yang diklik
       var title = '';
       // Menggunakan ID div untuk memilih endpoint yang sesuai
@@ -264,28 +394,40 @@ $CI = &get_instance();
       switch (divId) {
         case 'tape_total':
           // console.log('tape total');
-          endpoint  = BASE_URL + '/administrator/dashboard/abc/total';
-          title     = 'TOTAL TAPE';
+          endpoint = BASE_URL + '/administrator/dashboard/abc/total';
+          title = 'TOTAL TAPE';
+          break;
+        case 'aset_anomali':
+          endpoint = BASE_URL + '/administrator/dashboard/abc/anomali';
+          title = 'TOTAL ANOMALI';
+          break;
+        case 'aset_mutasi':
+          endpoint = BASE_URL + '/administrator/dashboard/abc/mutation';
+          title = 'TOTAL MUTASI';
+          break;
+        case 'aset_disposal':
+          endpoint = BASE_URL + '/administrator/dashboard/abc/disposal';
+          title = 'TOTAL HAPUS';
           break;
         case 'tape_ontime':
-          endpoint  = BASE_URL + '/administrator/dashboard/abc/ontime';
-          title     = 'TAPE ON TIME';
+          endpoint = BASE_URL + '/administrator/dashboard/abc/ontime';
+          title = 'TAPE ON TIME';
           break;
         case 'tape_overdue':
-          endpoint  = BASE_URL + '/administrator/dashboard/abc/overdue';
-          title     = 'TAPE OVER DUE';
+          endpoint = BASE_URL + '/administrator/dashboard/abc/overdue';
+          title = 'TAPE OVER DUE';
           break;
         case 'tape_borrow':
-          endpoint  = BASE_URL + '/administrator/dashboard/abc/borrow';
-          title     = 'TAPE DIPINJAM';
+          endpoint = BASE_URL + '/administrator/dashboard/abc/borrow';
+          title = 'TAPE DIPINJAM';
           break;
         case 'tape_broken':
-          endpoint  = BASE_URL + '/administrator/dashboard/abc/broken';
-          title     = 'TAPE RUSAK';
+          endpoint = BASE_URL + '/administrator/dashboard/abc/broken';
+          title = 'TAPE RUSAK';
           break;
         case 'tape_anomaly':
-          endpoint  = BASE_URL + '/administrator/dashboard/abc/anomaly';
-          title     = 'TAPE ANOMALY';
+          endpoint = BASE_URL + '/administrator/dashboard/abc/koreksi';
+          title = 'KOREKSI ASET';
           break;
         default:
           endpoint = '';
@@ -297,6 +439,7 @@ $CI = &get_instance();
 
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
     function showModalWithPagination(endpoint, title) {
+      console.log("mm", endpoint);
       // Lakukan request AJAX ke endpoint yang diberikan
       $.ajax({
         url: endpoint,
@@ -305,24 +448,25 @@ $CI = &get_instance();
         success: function(data) {
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
-          var modalContent = '<div class="modal-header"><h1>'+title+'</h1></div>'; // Contoh pembuatan konten modal
+          var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
           modalContent += '<table class="table">';
-          modalContent += '<tr><th>No</th><th>Barcode</th><th>RFID</th><th>Ruangan</th><th>Aging</th><th>Status</th><th>Updated</th></tr>';
+          modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Ruangan Seharusnya</th><th>Ruangan Saat Ini</th><th></th></tr>';
           // Proses data dari respons JSON dan tambahkan ke dalam tabel
           // Misalnya, untuk setiap item dalam data, tambahkan baris baru ke tabel
           data.forEach(function(item, index) {
-            var no = index + 1; 
+            var no = index + 1;
             // Misalnya, tambahkan baris baru dengan data item ke dalam tabel
             modalContent += '<tr>';
             modalContent += '<td>' + no + '</td>';
-            modalContent += '<td>' + item.barcode + '</td>'; // Misalnya, ambil field1 dari item
-            modalContent += '<td>' + item.rfid + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.aging + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.status + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.updated + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.rfid_code_tag + '</td>'; // Misalnya, ambil field1 dari item
+            modalContent += '<td>' + item.kode_brg + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.nama_brg + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.room2 + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.room1 + '</td>';
+            modalContent += '<td><button onclick="#">Rekonsiliasi</button></td>'; // Misalnya, ambil field2 dari item
             // Lanjutkan untuk setiap field yang diperlukan
             modalContent += '</tr>';
           });
@@ -348,6 +492,9 @@ $CI = &get_instance();
     function updateDashboard(data) {
       // console.log(data);
       $('#tape_total').text(data.total);
+      $('#aset_anomali').text(data.anomali);
+      $('#aset_mutasi').text(data.mutation);
+      $('#aset_disposal').text(data.disposal);
       $('#tape_ontime').text(data.ontime);
       $('#tape_overdue').text(data.overdue);
       $('#tape_borrow').text(data.borrow);
@@ -356,6 +503,7 @@ $CI = &get_instance();
     }
 
     function librarian(data) {
+      console.log("xx", data);
       var output = '';
 
       // Variabel untuk menyimpan nama bangunan terakhir
@@ -369,20 +517,21 @@ $CI = &get_instance();
             output += "</div>"; // Menutup row sebelumnya
           }
           output += "<div class='row'>";
-          output += "<div class='col-md-12'><h2>" + item.building_name + "</h2></div>"; // Tambahkan pemisah
+          // output += "<div class='col-md-12'><h2>" + item.building_name + "</h2></div>"; // Tambahkan pemisah
           current_building = item.building_name; // Perbarui nama bangunan saat ini
         }
 
         // Tambahkan informasi librarian ke output HTML
-        output += "<div class='col-md-4 col-sm-6 col-xs-12'>";
+        output += "<div class='col-md-4 col-sm-8 col-xs-12'>";
         output += "<div class='warning2 info-box'>";
-        output += "<span id='" + item.librarian_id + "' class='info-box-icon'>" + item.total_rfid + "</span>";
+        output += "<span id='" + item.room_id + "' class='info-box-icon'>" + item.total_rfid + "</span>";
         output += "<div class='info-box-content'>";
-        output += "<span class='info-box-text'>" + item.librarian_name + "</span>";
+        output += "<span class='info-box-text'>" + item.name_room + "</span>";
         output += "<div class='progress'>";
         output += "<div class='progress-bar' style='width: 95%'></div>";
         output += "</div>";
         output += "<span class='progress-description'>" + item.building_name + "</span>";
+
         output += "</div></div></div>";
       });
 
@@ -393,6 +542,45 @@ $CI = &get_instance();
 
       // Memasukkan output HTML ke dalam elemen dengan ID tertentu
       $('#librarian').html(output);
+    }
+
+    function readerradar(data) {
+      var output = '';
+
+      // Variabel untuk menyimpan nama bangunan terakhir
+      var current_building = '';
+
+      // Iterasi melalui setiap item dalam array 'librarian' di respons JSON
+      data.librarian.forEach(function(item) {
+        // Jika nama bangunan tidak sama dengan nama bangunan saat ini, tambahkan pemisah (div row)
+        if (item.building_name !== current_building) {
+          if (current_building !== '') {
+            output += "</div>"; // Menutup row sebelumnya
+          }
+          output += "<div class='row'>";
+          // output += "<div class='col-md-12'><h2>" + item.building_name + "</h2></div>"; // Tambahkan pemisah
+          current_building = item.building_name; // Perbarui nama bangunan saat ini
+        }
+
+        // Tambahkan informasi librarian ke output HTML
+        output += "<div class='col-md-4 col-xs-12'>";
+        output += "<div class='bgcard info-box'>";
+
+        output += "<span id='" + item.room_id + "' class='readerOn info-box-icon' style='font-size:14px'>" + "Reader A" + "</span>";
+        output += "<span id='" + item.room_id + "' class='warning2 info-box-icon' style='font-size:14px'>" + "Reader B" + "</span>";
+        output += "<div class='info-box-content'>";
+        output += "<span class='info-box-text' style='text-wrap: wrap; text-align: center'>" + item.name_room + "</span>";
+
+        output += "</div></div></div>";
+      });
+
+      // Menutup div terakhir jika ada
+      if (current_building !== '') {
+        output += "</div>"; // Menutup row terakhir
+      }
+
+      // Memasukkan output HTML ke dalam elemen dengan ID tertentu
+      $('#librarian2').html(output);
     }
 
     function newLibraraian() {
@@ -418,12 +606,13 @@ $CI = &get_instance();
 
     // Panggil fungsi AJAX saat halaman dimuat
     $.ajax({
-      url: BASE_URL + '/administrator/dashboard/reza',
+      url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
       method: 'GET',
       dataType: 'json',
       success: function(data) {
         updateDashboard(data);
         librarian(data);
+        readerradar(data);
 
         myChart.data.labels = data.label; // Mengganti labels
         myChart.data.datasets[0].data = data.values; // Mengganti data

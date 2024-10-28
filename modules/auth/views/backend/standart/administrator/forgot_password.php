@@ -24,7 +24,8 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="#"><b><?= cclang('login'); ?></b></a>
+      <img src = "<?= BASE_URL() ?>asset/img/icon/titleIcon.png" width="60">
+      <a href="#"><?= cclang('reset'); ?></a>
     </div>
     <div class="login-box-body">
       <p class="login-box-msg"><?= cclang('send_me_link_to_reset_password'); ?></p>
@@ -68,7 +69,7 @@
         <div class="col-xs-8">
         </div>
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat"><?= cclang('reset'); ?></button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
         </div>
       </div>
       <?= form_close(); ?>

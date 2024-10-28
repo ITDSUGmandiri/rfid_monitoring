@@ -9,5 +9,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Your site name,
 |
 */
-$config['site_name'] = 'Tape Management';
-$config['version'] = '3.4.3';
+$config['site_name'] = 'Asset Management';
+$config['version'] = '1.0.0';

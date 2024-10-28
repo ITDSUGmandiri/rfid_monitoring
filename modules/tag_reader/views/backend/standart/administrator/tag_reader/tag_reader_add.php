@@ -25,11 +25,11 @@
     </style>
 <section class="content-header">
     <h1>
-        Reader        <small><?= cclang('new', ['Reader']); ?> </small>
+        Tag Reader        <small><?= cclang('new', ['Tag Reader']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a href="<?= admin_site_url('/tag_reader'); ?>">Reader</a></li>
+        <li class=""><a href="<?= admin_site_url('/tag_reader'); ?>">Tag Reader</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -43,8 +43,8 @@
                             <div class="widget-user-image">
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
-                            <h3 class="widget-user-username">Reader</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Reader']); ?></h5>
+                            <h3 class="widget-user-username">Tag Reader</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Tag Reader']); ?></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
@@ -58,55 +58,65 @@
                         $user_groups = $this->model_group->get_user_group_ids();
                         ?>
 
-                        <div class="form-group group-librarian_id ">
-                            <label for="librarian_id" class="col-sm-2 control-label">Librarian                                <i class="required">*</i>
+                        <div class="form-group group-room_id ">
+                            <label for="room_id" class="col-sm-2 control-label">Room Id                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="librarian_id" id="librarian_id" data-placeholder="Select Librarian">
+                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Room Id">
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
                                     ];
                                     ?>
 
-                                    <?php foreach (db_get_all_data('tag_librarian', $conditions) as $row): ?>
-                                    <option value="<?= $row->librarian_id ?>"><?= $row->librarian_name; ?></option>
+                                    <?php foreach (db_get_all_data('tb_room_master', $conditions) as $row): ?>
+                                    <option value="<?= $row->room_id ?>"><?= $row->name_room; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
-                                    </small>
+                                    <b>Input Room Id</b> Max Length : 255.</small>
                             </div>
                         </div>
 
                     
 
-    <div class="form-group group-reader_name ">
-                            <label for="reader_name" class="col-sm-2 control-label">Name                                <i class="required">*</i>
+    <div class="form-group  wrapper-options-crud">
+                            <label for="setfor" class="col-sm-2 control-label">Posisi (IN/OUT)                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="reader_name" id="reader_name" placeholder="Name" value="<?= set_value('reader_name'); ?>">
-                                <small class="info help-block">
-                                    <b>Input Reader Name</b> Max Length : 255.</small>
+                                <div class="col-md-3 padding-left-0">
+                                        <label>
+                                            <input type="radio" class="flat-red" name="setfor" value="1"> IN                                        </label>
+                                    </div>
+                                <div class="col-md-3 padding-left-0">
+                                        <label>
+                                            <input type="radio" class="flat-red" name="setfor" value="7"> OUT                                        </label>
+                                    </div>
+                                </select>
+                                <div class="row-fluid clear-both">
+                                    <small class="info help-block">
+                                        Reader di set untu Posisi IN atau OUT</small>
+                                </div>
                             </div>
                         </div>
                     
 
     <div class="form-group group-reader_serialnumber ">
-                            <label for="reader_serialnumber" class="col-sm-2 control-label">SN                                <i class="required">*</i>
+                            <label for="reader_serialnumber" class="col-sm-2 control-label">Reader Serialnumber                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="reader_serialnumber" id="reader_serialnumber" placeholder="SN" value="<?= set_value('reader_serialnumber'); ?>">
+                                <input type="text" class="form-control" name="reader_serialnumber" id="reader_serialnumber" placeholder="Reader Serialnumber" value="<?= set_value('reader_serialnumber'); ?>">
                                 <small class="info help-block">
-                                    <b>Input Reader Serialnumber</b> Max Length : 10.</small>
+                                    Masukan Serial Number Perangkat</small>
                             </div>
                         </div>
                     
 
     <div class="form-group group-reader_type ">
-                            <label for="reader_type" class="col-sm-2 control-label">Type                                <i class="required">*</i>
+                            <label for="reader_type" class="col-sm-2 control-label">Reader Type                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select" name="reader_type" id="reader_type" data-placeholder="Select Type">
+                                <select class="form-control chosen chosen-select" name="reader_type" id="reader_type" data-placeholder="Select Reader Type">
                                     <option value=""></option>
                                     <option value="tcp">tcp</option>
                                     <option value="serial">serial</option>
@@ -119,32 +129,21 @@
                     
 
     <div class="form-group group-reader_ip ">
-                            <label for="reader_ip" class="col-sm-2 control-label">IP                                <i class="required">*</i>
+                            <label for="reader_ip" class="col-sm-2 control-label">Reader Ip                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="reader_ip" id="reader_ip" placeholder="IP" value="<?= set_value('reader_ip'); ?>">
+                                <input type="text" class="form-control" name="reader_ip" id="reader_ip" placeholder="Reader Ip" value="<?= set_value('reader_ip'); ?>">
                                 <small class="info help-block">
-                                    <b>Format Reader Ip must</b> Valid Ip,  <b>Input Reader Ip</b> Max Length : 45.</small>
-                            </div>
-                        </div>
-                    
-
-    <div class="form-group group-reader_port ">
-                            <label for="reader_port" class="col-sm-2 control-label">Port                                <i class="required">*</i>
-                                </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="reader_port" id="reader_port" placeholder="Port" value="<?= set_value('reader_port'); ?>">
-                                <small class="info help-block">
-                                    <b>Input Reader Port</b> Max Length : 7.</small>
+                                    <b>Input Reader Ip</b> Max Length : 45.</small>
                             </div>
                         </div>
                     
 
     <div class="form-group group-reader_com ">
-                            <label for="reader_com" class="col-sm-2 control-label">Com Port                                <i class="required">*</i>
+                            <label for="reader_com" class="col-sm-2 control-label">Reader Com                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select" name="reader_com" id="reader_com" data-placeholder="Select Com Port">
+                                <select class="form-control chosen chosen-select" name="reader_com" id="reader_com" data-placeholder="Select Reader Com">
                                     <option value=""></option>
                                     <option value="/dev/cu.usbserial-1410">/dev/cu.usbserial-1410</option>
                                     <option value="/dev/cu.usbserial-1420">/dev/cu.usbserial-1420</option>
@@ -166,49 +165,17 @@
                         </div>
                     
 
-    <div class="form-group  wrapper-options-crud">
-                            <label for="reader_baudrate" class="col-sm-2 control-label">Baud Rate                                <i class="required">*</i>
+    <div class="form-group group-reader_baudrate ">
+                            <label for="reader_baudrate" class="col-sm-2 control-label">Reader Baudrate                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_baudrate" value="9600"> 9600                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_baudrate" value="19200"> 19200                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_baudrate" value="38400"> 38400                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_baudrate" value="57600"> 57600                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_baudrate" value="115200"> 115200                                        </label>
-                                    </div>
-                                </select>
-                                <div class="row-fluid clear-both">
-                                    <small class="info help-block">
-                                        </small>
-                                </div>
-                            </div>
-                        </div>
-                    
-
-    <div class="form-group group-reader_power ">
-                            <label for="reader_power" class="col-sm-2 control-label">Power                                <i class="required">*</i>
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select" name="reader_power" id="reader_power" data-placeholder="Select Power">
+                                <select class="form-control chosen chosen-select" name="reader_baudrate" id="reader_baudrate" data-placeholder="Select Reader Baudrate">
                                     <option value=""></option>
-                                    <option value="1">1 Dbi</option>
-                                    <option value="2">2 Dbi</option>
-                                    <option value="3">3 Dbi</option>
-                                    <option value="25">25 Dbi</option>
+                                    <option value="9600">9600</option>
+                                    <option value="19200">19200</option>
+                                    <option value="38400">38400</option>
+                                    <option value="57600">57600</option>
+                                    <option value="115200">115200</option>
                                                                     </select>
                                 <small class="info help-block">
 
@@ -217,54 +184,35 @@
                         </div>
                     
 
-    <div class="form-group  wrapper-options-crud">
-                            <label for="reader_interval" class="col-sm-2 control-label">Interval                                <i class="required">*</i>
+    <div class="form-group group-reader_interval ">
+                            <label for="reader_interval" class="col-sm-2 control-label">Reader Interval                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="10"> 10                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="100"> 100                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="1000"> 1000                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="2000"> 2000                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="5000"> 5000                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="10000"> 10000                                        </label>
-                                    </div>
-                                <div class="col-md-3 padding-left-0">
-                                        <label>
-                                            <input type="radio" class="flat-red" name="reader_interval" value="15000"> 15000                                        </label>
-                                    </div>
-                                </select>
-                                <div class="row-fluid clear-both">
-                                    <small class="info help-block">
-                                        </small>
-                                </div>
+                                <select class="form-control chosen chosen-select" name="reader_interval" id="reader_interval" data-placeholder="Select Reader Interval">
+                                    <option value=""></option>
+                                    <option value="10">10</option>
+                                    <option value="100">100</option>
+                                    <option value="1000">1000</option>
+                                    <option value="2000">2000</option>
+                                    <option value="5000">5000</option>
+                                    <option value="10000">10000</option>
+                                    <option value="15000">15000</option>
+                                                                    </select>
+                                <small class="info help-block">
+
+                                    </small>
                             </div>
                         </div>
                     
 
     <div class="form-group group-reader_mode ">
-                            <label for="reader_mode" class="col-sm-2 control-label">Mode                                </label>
+                            <label for="reader_mode" class="col-sm-2 control-label">Reader Mode                                <i class="required">*</i>
+                                </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select" name="reader_mode" id="reader_mode" data-placeholder="Select Mode">
+                                <select class="form-control chosen chosen-select" name="reader_mode" id="reader_mode" data-placeholder="Select Reader Mode">
                                     <option value=""></option>
-                                    <option value="answer">Answer</option>
-                                    <option value="active">Active</option>
+                                    <option value="answer">answer</option>
+                                    <option value="active">active</option>
                                                                     </select>
                                 <small class="info help-block">
 
@@ -273,17 +221,23 @@
                         </div>
                     
 
-    <div class="form-group group-reader_family ">
-                            <label for="reader_family" class="col-sm-2 control-label">Reader Family                                </label>
+    <div class="form-group  wrapper-options-crud">
+                            <label for="connecting" class="col-sm-2 control-label">Connecting                                <i class="required">*</i>
+                                </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select" name="reader_family" id="reader_family" data-placeholder="Select Reader Family">
-                                    <option value=""></option>
-                                    <option value="hw">HW</option>
-                                    <option value="rc">RC</option>
-                                                                    </select>
-                                <small class="info help-block">
-
-                                    </small>
+                                <div class="col-md-3 padding-left-0">
+                                        <label>
+                                            <input type="radio" class="flat-red" name="connecting" value="0"> Disconnected                                        </label>
+                                    </div>
+                                <div class="col-md-3 padding-left-0">
+                                        <label>
+                                            <input type="radio" class="flat-red" name="connecting" value="1"> Connected                                        </label>
+                                    </div>
+                                </select>
+                                <div class="row-fluid clear-both">
+                                    <small class="info help-block">
+                                        </small>
+                                </div>
                             </div>
                         </div>
                     
