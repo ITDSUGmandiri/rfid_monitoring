@@ -275,7 +275,7 @@ $CI = &get_instance();
 
                       // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                       echo "
-                  <div class='info-box bg-green'>
+                  <div class='info-box bg-orange'>
                       <span id='aset_mutasi' class='info-box-icon'></span>
                       <div class='info-box-content'>
                           <span class='info-box-text'>ASET MUTASI</span>
@@ -503,7 +503,6 @@ $CI = &get_instance();
     }
 
     function librarian(data) {
-      console.log("xx", data);
       var output = '';
 
       // Variabel untuk menyimpan nama bangunan terakhir
@@ -523,7 +522,7 @@ $CI = &get_instance();
 
         // Tambahkan informasi librarian ke output HTML
         output += "<div class='col-md-4 col-sm-8 col-xs-12'>";
-        output += "<div class='warning2 info-box'>";
+        output += "<div class='bg-grey info-box'>";
         output += "<span id='" + item.room_id + "' class='info-box-icon'>" + item.total_rfid + "</span>";
         output += "<div class='info-box-content'>";
         output += "<span class='info-box-text'>" + item.name_room + "</span>";
