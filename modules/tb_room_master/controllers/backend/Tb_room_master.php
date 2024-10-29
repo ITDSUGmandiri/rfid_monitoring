@@ -1,17 +1,17 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 /**
-*| --------------------------------------------------------------------------
-*| Tb Room Master Controller
-*| --------------------------------------------------------------------------
-*| Tb Room Master site
-*|
-*/
-class Tb_room_master extends Admin	
+ *| --------------------------------------------------------------------------
+ *| Tb Room Master Controller
+ *| --------------------------------------------------------------------------
+ *| Tb Room Master site
+ *|
+ */
+class Tb_room_master extends Admin
 {
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,10 +22,10 @@ class Tb_room_master extends Admin
 	}
 
 	/**
-	* show all Tb Room Masters
-	*
-	* @var $offset String
-	*/
+	 * show all Tb Room Masters
+	 *
+	 * @var $offset String
+	 */
 	public function index($offset = 0)
 	{
 		$this->is_allowed('tb_room_master_list');
@@ -44,9 +44,9 @@ class Tb_room_master extends Admin
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
-		
+
 		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_room_master/tb_room_master_data_table', $this->data, true);
-		
+
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
@@ -56,13 +56,15 @@ class Tb_room_master extends Admin
 		}
 
 		$this->template->title('Tb Room Master List');
+		echo json_encode($this->data);
+		exit();
 		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_list', $this->data);
 	}
-	
+
 	/**
-	* Add new tb_room_masters
-	*
-	*/
+	 * Add new tb_room_masters
+	 *
+	 */
 	public function add()
 	{
 		$this->is_allowed('tb_room_master_add');
@@ -72,45 +74,45 @@ class Tb_room_master extends Admin
 	}
 
 	/**
-	* Add New Tb Room Masters
-	*
-	* @return JSON
-	*/
+	 * Add New Tb Room Masters
+	 *
+	 * @return JSON
+	 */
 	public function add_save()
 	{
 		if (!$this->is_allowed('tb_room_master_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
-				]);
+			]);
 			exit;
 		}
-		
-		
+
+
 
 		$this->form_validation->set_rules('gedung_id', 'Gedung Id', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required|max_length[30]');
-		
+
 
 		$this->form_validation->set_rules('reader_id', 'Reader Id', 'trim|max_length[30]');
-		
+
 
 		$this->form_validation->set_rules('name_room', 'Name Room', 'trim|required|max_length[30]');
-		
 
-		
 
-		
+
+
+
 
 		$this->form_validation->set_rules('PIC', 'PIC', 'trim|max_length[10]');
-		
 
-		
+
+
 
 		if ($this->form_validation->run()) {
-		
+
 			$save_data = [
 				'gedung_id' => $this->input->post('gedung_id'),
 				'room_id' => $this->input->post('room_id'),
@@ -119,21 +121,21 @@ class Tb_room_master extends Admin
 				'PIC' => $this->input->post('PIC'),
 			];
 
-			
-			
 
 
 
-			
-			
+
+
+
+
 			$save_tb_room_master = $id = $this->model_tb_room_master->store($save_data);
-            
+
 
 			if ($save_tb_room_master) {
-				
-				
-					
-				
+
+
+
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_tb_room_master;
@@ -144,10 +146,12 @@ class Tb_room_master extends Admin
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						admin_anchor('/tb_room_master/edit/' . $save_tb_room_master, 'Edit Tb Room Master')
-					]), 'success');
+							admin_anchor('/tb_room_master/edit/' . $save_tb_room_master, 'Edit Tb Room Master')
+						]),
+						'success'
+					);
 
-            		$this->data['success'] = true;
+					$this->data['success'] = true;
 					$this->data['redirect'] = admin_base_url('/tb_room_master');
 				}
 			} else {
@@ -155,12 +159,11 @@ class Tb_room_master extends Admin
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
 				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
 					$this->data['redirect'] = admin_base_url('/tb_room_master');
 				}
 			}
-
 		} else {
 			$this->data['success'] = false;
 			$this->data['message'] = 'Opss validation failed';
@@ -169,12 +172,12 @@ class Tb_room_master extends Admin
 
 		$this->response($this->data);
 	}
-	
-		/**
-	* Update view Tb Room Masters
-	*
-	* @var $id String
-	*/
+
+	/**
+	 * Update view Tb Room Masters
+	 *
+	 * @var $id String
+	 */
 	public function edit($id)
 	{
 		$this->is_allowed('tb_room_master_update');
@@ -186,41 +189,41 @@ class Tb_room_master extends Admin
 	}
 
 	/**
-	* Update Tb Room Masters
-	*
-	* @var $id String
-	*/
+	 * Update Tb Room Masters
+	 *
+	 * @var $id String
+	 */
 	public function edit_save($id)
 	{
 		if (!$this->is_allowed('tb_room_master_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
-				]);
+			]);
 			exit;
 		}
-				$this->form_validation->set_rules('gedung_id', 'Gedung Id', 'trim|required|max_length[50]');
-		
+		$this->form_validation->set_rules('gedung_id', 'Gedung Id', 'trim|required|max_length[50]');
+
 
 		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required|max_length[30]');
-		
+
 
 		$this->form_validation->set_rules('reader_id', 'Reader Id', 'trim|max_length[30]');
-		
+
 
 		$this->form_validation->set_rules('name_room', 'Name Room', 'trim|required|max_length[30]');
-		
 
-		
 
-		
+
+
+
 
 		$this->form_validation->set_rules('PIC', 'PIC', 'trim|max_length[10]');
-		
 
-		
+
+
 		if ($this->form_validation->run()) {
-		
+
 			$save_data = [
 				'gedung_id' => $this->input->post('gedung_id'),
 				'room_id' => $this->input->post('room_id'),
@@ -229,21 +232,21 @@ class Tb_room_master extends Admin
 				'PIC' => $this->input->post('PIC'),
 			];
 
-			
-
-			
 
 
-			
-			
+
+
+
+
+
 			$save_tb_room_master = $this->model_tb_room_master->change($id, $save_data);
 
 			if ($save_tb_room_master) {
 
-				
 
-				
-				
+
+
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
@@ -252,10 +255,11 @@ class Tb_room_master extends Admin
 					]);
 				} else {
 					set_message(
-						cclang('success_update_data_redirect', [
-					]), 'success');
+						cclang('success_update_data_redirect', []),
+						'success'
+					);
 
-            		$this->data['success'] = true;
+					$this->data['success'] = true;
 					$this->data['redirect'] = admin_base_url('/tb_room_master');
 				}
 			} else {
@@ -263,8 +267,8 @@ class Tb_room_master extends Admin
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
 				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
 					$this->data['redirect'] = admin_base_url('/tb_room_master');
 				}
 			}
@@ -276,12 +280,12 @@ class Tb_room_master extends Admin
 
 		$this->response($this->data);
 	}
-	
+
 	/**
-	* delete Tb Room Masters
-	*
-	* @var $id String
-	*/
+	 * delete Tb Room Masters
+	 *
+	 * @var $id String
+	 */
 	public function delete($id = null)
 	{
 		$this->is_allowed('tb_room_master_delete');
@@ -293,7 +297,7 @@ class Tb_room_master extends Admin
 
 		if (!empty($id)) {
 			$remove = $this->_remove($id);
-		} elseif (count($arr_id) >0) {
+		} elseif (count($arr_id) > 0) {
 			foreach ($arr_id as $id) {
 				$remove = $this->_remove($id);
 			}
@@ -311,7 +315,6 @@ class Tb_room_master extends Admin
 					"message" => cclang('error_delete', 'tb_room_master')
 				]);
 			}
-
 		} else {
 			if ($remove) {
 				set_message(cclang('has_been_deleted', 'tb_room_master'), 'success');
@@ -320,14 +323,13 @@ class Tb_room_master extends Admin
 			}
 			redirect_back();
 		}
-
 	}
 
-		/**
-	* View view Tb Room Masters
-	*
-	* @var $id String
-	*/
+	/**
+	 * View view Tb Room Masters
+	 *
+	 * @var $id String
+	 */
 	public function view($id)
 	{
 		$this->is_allowed('tb_room_master_view');
@@ -337,43 +339,43 @@ class Tb_room_master extends Admin
 		$this->template->title('Tb Room Master Detail');
 		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_view', $this->data);
 	}
-	
+
 	/**
-	* delete Tb Room Masters
-	*
-	* @var $id String
-	*/
+	 * delete Tb Room Masters
+	 *
+	 * @var $id String
+	 */
 	private function _remove($id)
 	{
 		$tb_room_master = $this->model_tb_room_master->find($id);
 
-		
-		
+
+
 		return $this->model_tb_room_master->remove($id);
 	}
-	
-	
+
+
 	/**
-	* Export to excel
-	*
-	* @return Files Excel .xls
-	*/
+	 * Export to excel
+	 *
+	 * @return Files Excel .xls
+	 */
 	public function export()
 	{
 		$this->is_allowed('tb_room_master_export');
 
 		$this->model_tb_room_master->export(
-			'tb_room_master', 
+			'tb_room_master',
 			'tb_room_master',
 			$this->model_tb_room_master->field_search
 		);
 	}
 
 	/**
-	* Export to PDF
-	*
-	* @return Files PDF .pdf
-	*/
+	 * Export to PDF
+	 *
+	 * @return Files PDF .pdf
+	 */
 	public function export_pdf()
 	{
 		$this->is_allowed('tb_room_master_export');
@@ -388,34 +390,32 @@ class Tb_room_master extends Admin
 
 		$table = $title = 'tb_room_master';
 		$this->load->library('HtmlPdf');
-      
-        $config = array(
-            'orientation' => 'p',
-            'format' => 'a4',
-            'marges' => array(5, 5, 5, 5)
-        );
 
-        $this->pdf = new HtmlPdf($config);
-        $this->pdf->setDefaultFont('stsongstdlight'); 
+		$config = array(
+			'orientation' => 'p',
+			'format' => 'a4',
+			'marges' => array(5, 5, 5, 5)
+		);
 
-        $result = $this->db->get($table);
-       
-        $data = $this->model_tb_room_master->find($id);
-        $fields = $result->list_fields();
+		$this->pdf = new HtmlPdf($config);
+		$this->pdf->setDefaultFont('stsongstdlight');
 
-        $content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
-            'data' => $data,
-            'fields' => $fields,
-            'title' => $title
-        ], TRUE);
+		$result = $this->db->get($table);
 
-        $this->pdf->initialize($config);
-        $this->pdf->pdf->SetDisplayMode('fullpage');
-        $this->pdf->writeHTML($content);
-        $this->pdf->Output($table.'.pdf', 'H');
+		$data = $this->model_tb_room_master->find($id);
+		$fields = $result->list_fields();
+
+		$content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
+			'data' => $data,
+			'fields' => $fields,
+			'title' => $title
+		], TRUE);
+
+		$this->pdf->initialize($config);
+		$this->pdf->pdf->SetDisplayMode('fullpage');
+		$this->pdf->writeHTML($content);
+		$this->pdf->Output($table . '.pdf', 'H');
 	}
-
-	
 }
 
 

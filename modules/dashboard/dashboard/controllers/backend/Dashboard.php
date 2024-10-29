@@ -244,7 +244,7 @@ class Dashboard extends Admin
 		);
 
 		$querylibrarian = "
-		SELECT b.name_room as building_name, b.id, b.name_room, COUNT(CASE WHEN tl.Lokasi != '' THEN tl.Lokasi ELSE NULL END) as total_rfid FROM tb_room_master b LEFT JOIN tb_asset_master tl ON b.id = tl.Lokasi GROUP BY b.id, tl.Lokasi ORDER BY b.id;
+		SELECT b.name_room as building_name, b.id_room, b.name_room, COUNT(CASE WHEN tl.Lokasi != '' THEN tl.Lokasi ELSE NULL END) as total_rfid FROM tb_room_master b LEFT JOIN tb_asset_master tl ON b.id_room = tl.Lokasi GROUP BY b.id_room, tl.Lokasi ORDER BY b.id_room;
 		";
 
 		$result = $CI->db->query($querylibrarian);
