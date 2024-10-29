@@ -12,9 +12,9 @@
         <td><span class="list_group-room_id"><?= _ent($tb_room_master->id_room); ?></span></td>
         <td><span class="list_group-reader_id"><?= _ent($tb_room_master->reader_id); ?></span></td>
         <td><span class="list_group-name_room"><?= _ent($tb_room_master->name_room); ?></span></td>
-        <td><?php if ($tb_room_master->PIC) {
+        <td><?php if ($tb_room_master->pic) {
 
-                echo admin_anchor('/tb_pegawai_master/view/' . $tb_room_master->PIC . '?popup=show', $tb_room_master->tb_pegawai_master_Pegawai, ['class' => 'popup-view']);
+                echo admin_anchor('/tb_pegawai_master/view/' . $tb_room_master->pic . '?popup=show', $tb_room_master->tb_pegawai_master_Pegawai, ['class' => 'popup-view']);
             } ?> </td>
 
         <td width="200">
