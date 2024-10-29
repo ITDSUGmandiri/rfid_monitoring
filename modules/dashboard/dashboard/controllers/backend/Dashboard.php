@@ -74,37 +74,19 @@ class Dashboard extends Admin
 				break;
 			case "koreksi":
 				$query_disp = "SELECT c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi, x.name_room AS room2, z.name_room AS room1 FROM tb_asset_master AS o 
-				INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code 
+				INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code
 				INNER JOIN tb_room_master AS x ON x.id = c.id_room 
 				INNER JOIN tb_room_master AS z ON z.id = o.lokasi
-				AND o.lokasi != c.id_room ORDER BY o.tag_code";
+				AND o.lokasi != c.id_room AND NOT EXISTS 
+    (SELECT * 
+     FROM tb_asset_moving AS p 
+     WHERE p.tag_code = o.tag_code)
+ ORDER BY o.tag_code";
 				$data_json = $CI->db->query($query_disp)->result();
 				break;
 
 			case "ontime":
-				$query_ontime = "
-						SELECT 
-							tl.rfid_id AS rfid,
-							tl.location_status AS status,
-							CASE
-								WHEN tl.location_aging IS NOT NULL THEN DATEDIFF(NOW(), tl.location_aging)
-								ELSE '~'
-							END AS aging,
-							tl.location_created AS created,
-							tl.location_updated AS updated,
-							l.librarian_name AS ruangan
-						FROM 
-							tag_location tl
-						JOIN 
-							tag_librarian l ON tl.librarian_id = l.librarian_id
-						WHERE 
-							tl.location_status = 'TERSEDIA' 
-							AND tl.librarian_id = '1' 
-							AND tl.location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)
-						ORDER BY
-							tl.location_updated DESC
-						LIMIT 20;
-					";
+				$query_ontime = "SELECT o.tag_code, count(distinct c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
 				$data_json = $CI->db->query($query_ontime)->result();
 				break;
 			case "overdue":
@@ -201,7 +183,7 @@ class Dashboard extends Admin
 		$result_total = $CI->db->query($query_anomali);
 		$row_anomali = $result_total->row();
 
-		$query_on_time = "SELECT COUNT(*) as total, c.tag_code, o.tag_code, o.status_id, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_asset_moving AS c ON c.tag_code = o.tag_code AND o.lokasi = '' AND o.status_id = 7";
+		$query_on_time = "SELECT o.tag_code, count(distinct c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
 		$result_on_time = $CI->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
