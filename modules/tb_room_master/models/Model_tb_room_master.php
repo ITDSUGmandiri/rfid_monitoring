@@ -6,7 +6,7 @@ class Model_tb_room_master extends MY_Model
 
     private $primary_key    = 'id_room';
     private $table_name     = 'tb_room_master';
-    public $field_search   = ['gedung_id', 'id_room', 'reader_id', 'name_room', 'PIC', 'tag_reader.reader_id', 'tb_gedung_master.gedung', 'tb_pegawai_master.Pegawai'];
+    public $field_search   = ['gedung_id', 'id_room', 'name_room', 'PIC', 'tag_reader.reader_id', 'tb_gedung_master.gedung', 'tb_pegawai_master.Pegawai'];
     public $sort_option = ['id_room', 'DESC'];
 
     public function __construct()
@@ -108,7 +108,7 @@ class Model_tb_room_master extends MY_Model
         $this->db->join('tb_gedung_master', 'tb_gedung_master.id_gedung = tb_room_master.gedung_id', 'LEFT');
         $this->db->join('tb_pegawai_master', 'tb_pegawai_master.NIP = tb_room_master.PIC', 'LEFT');
         $this->db->join('tag_reader', 'tag_reader.room_id = tb_room_master.id_room', 'LEFT');
-        $this->db->select('tb_gedung_master.gedung,tb_pegawai_master.Pegawai,tb_room_master.*,tb_gedung_master.gedung as tb_gedung_master_gedung,tb_gedung_master.gedung as gedung,tb_pegawai_master.Pegawai as tb_pegawai_master_Pegawai,tb_pegawai_master.Pegawai as Pegawai');
+        $this->db->select('tag_reader.reader_id,tb_gedung_master.gedung,tb_pegawai_master.Pegawai,tb_room_master.*,tb_gedung_master.gedung as tb_gedung_master_gedung,tb_gedung_master.gedung as gedung,tb_pegawai_master.Pegawai as tb_pegawai_master_Pegawai,tb_pegawai_master.Pegawai as Pegawai');
 
 
         return $this;

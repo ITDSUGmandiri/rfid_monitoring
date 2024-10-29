@@ -56,8 +56,6 @@ class Tb_room_master extends Admin
 		}
 
 		$this->template->title('Tb Room Master List');
-		echo json_encode($this->data);
-		exit();
 		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_list', $this->data);
 	}
 
