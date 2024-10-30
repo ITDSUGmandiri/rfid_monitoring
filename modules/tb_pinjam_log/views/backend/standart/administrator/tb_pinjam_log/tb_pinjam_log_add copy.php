@@ -25,11 +25,11 @@
     </style>
 <section class="content-header">
     <h1>
-        Tb Asset Moving        <small><?= cclang('new', ['Tb Asset Moving']); ?> </small>
+        Tb Pinjam Log        <small><?= cclang('new', ['Tb Pinjam Log']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a href="<?= admin_site_url('/tb_asset_moving'); ?>">Tb Asset Moving</a></li>
+        <li class=""><a href="<?= admin_site_url('/tb_pinjam_log'); ?>">Tb Pinjam Log</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -43,14 +43,14 @@
                             <div class="widget-user-image">
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
-                            <h3 class="widget-user-username">Tb Asset Moving</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Asset Moving']); ?></h5>
+                            <h3 class="widget-user-username">Tb Pinjam Log</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Pinjam Log']); ?></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
-                            'name' => 'form_tb_asset_moving_add',
+                            'name' => 'form_tb_pinjam_log_add',
                             'class' => 'form-horizontal form-step',
-                            'id' => 'form_tb_asset_moving_add',
+                            'id' => 'form_tb_pinjam_log_add',
                             'enctype' => 'multipart/form-data',
                             'method' => 'POST'
                         ]); ?>
@@ -58,12 +58,12 @@
                         $user_groups = $this->model_group->get_user_group_ids();
                         ?>
 
-                        <div class="form-group group-tanggal ">
-                            <label for="tanggal" class="col-sm-2 control-label">Tanggal                                <i class="required">*</i>
+                        <div class="form-group group-tanggal_pinjam ">
+                            <label for="tanggal_pinjam" class="col-sm-2 control-label">Tanggal Pinjam                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-6">
                                 <div class="input-group date col-sm-8">
-                                    <input type="text" class="form-control pull-right datepicker" name="tanggal" placeholder="Tanggal" id="tanggal">
+                                    <input type="text" class="form-control pull-right datepicker" name="tanggal_pinjam" placeholder="Tanggal Pinjam" id="tanggal_pinjam">
                                 </div>
                                 <small class="info help-block">
                                     </small>
@@ -71,12 +71,12 @@
                         </div>
                     
 
-    <div class="form-group group-waktu ">
-                            <label for="waktu" class="col-sm-2 control-label">Waktu                                <i class="required">*</i>
+    <div class="form-group group-waktu_pinjam ">
+                            <label for="waktu_pinjam" class="col-sm-2 control-label">Waktu Pinjam                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-6">
                                 <div class="input-group date col-sm-8">
-                                    <input type="text" class="form-control pull-right timepicker" name="waktu" id="waktu">
+                                    <input type="text" class="form-control pull-right timepicker" name="waktu_pinjam" id="waktu_pinjam">
                                 </div>
                                 <small class="info help-block">
                                     </small>
@@ -84,90 +84,146 @@
                         </div>
                     
 
-    <div class="form-group group-reader_id ">
-                            <label for="reader_id" class="col-sm-2 control-label">Reader                                <i class="required">*</i>
+    <div class="form-group group-tanggal_kembali ">
+                            <label for="tanggal_kembali" class="col-sm-2 control-label">Tanggal Kembali                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-6">
+                                <div class="input-group date col-sm-8">
+                                    <input type="text" class="form-control pull-right datepicker" name="tanggal_kembali" placeholder="Tanggal Kembali" id="tanggal_kembali">
+                                </div>
+                                <small class="info help-block">
+                                    </small>
+                            </div>
+                        </div>
+                    
+
+    <div class="form-group group-waktu_kembali ">
+                            <label for="waktu_kembali" class="col-sm-2 control-label">Waktu Kembali                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-6">
+                                <div class="input-group date col-sm-8">
+                                    <input type="text" class="form-control pull-right timepicker" name="waktu_kembali" id="waktu_kembali">
+                                </div>
+                                <small class="info help-block">
+                                    </small>
+                            </div>
+                        </div>
+                    
+
+    <div class="form-group group-lend_id ">
+                            <label for="lend_id" class="col-sm-2 control-label">Lend Id                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-<<<<<<< HEAD
-                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader Id">
-=======
-                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader">
->>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
+                                <select class="form-control chosen chosen-select-deselect" name="lend_id" id="lend_id" data-placeholder="Select Lend Id">
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
                                     ];
                                     ?>
 
-                                    <?php foreach (db_get_all_data('tag_reader', $conditions) as $row): ?>
-                                    <option value="<?= $row->reader_id ?>"><?= $row->reader_name; ?></option>
+                                    <?php foreach (db_get_all_data('tb_pegawai_master', $conditions) as $row): ?>
+                                    <option value="<?= $row->NIP ?>"><?= $row->Pegawai; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
-                                    </small>
+                                    <b>Input Lend Id</b> Max Length : 255.</small>
                             </div>
                         </div>
 
                     
 
-    <div class="form-group group-room_id ">
-                            <label for="room_id" class="col-sm-2 control-label">Ruangan                                <i class="required">*</i>
+    <div class="form-group group-peminjam ">
+                            <label for="peminjam" class="col-sm-2 control-label">Peminjam                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-<<<<<<< HEAD
-                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Room Id">
-=======
-                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Ruangan">
->>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
+                                <input type="text" class="form-control" name="peminjam" id="peminjam" placeholder="Peminjam" value="<?= set_value('peminjam'); ?>">
+                                <small class="info help-block">
+                                    <b>Input Peminjam</b> Max Length : 255.</small>
+                            </div>
+                        </div>
+                    
+
+    <div class="form-group group-job ">
+                            <label for="job" class="col-sm-2 control-label">Job                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select-deselect" name="job" id="job" data-placeholder="Select Job">
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
                                     ];
                                     ?>
 
-                                    <?php foreach (db_get_all_data('tb_room_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->id_room ?>"><?= $row->name_room; ?></option>
+                                    <?php foreach (db_get_all_data('tb_kelompok_kerjaan', $conditions) as $row): ?>
+                                    <option value="<?= $row->kode ?>"><?= $row->jenis; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
-                                    </small>
+                                    <b>Input Job</b> Max Length : 255.</small>
                             </div>
                         </div>
 
+                    
+
+    <div class="form-group group-alamat ">
+                            <label for="alamat" class="col-sm-2 control-label">Alamat                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?= set_value('alamat'); ?>">
+                                <small class="info help-block">
+                                    <b>Input Alamat</b> Max Length : 255.</small>
+                            </div>
+                        </div>
+                    
+
+    <div class="form-group group-telp ">
+                            <label for="telp" class="col-sm-2 control-label">Telp                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="telp" id="telp" placeholder="Telp" value="<?= set_value('telp'); ?>">
+                                <small class="info help-block">
+                                    <b>Input Telp</b> Max Length : 11.</small>
+                            </div>
+                        </div>
                     
 
     <div class="form-group group-tag_code ">
                             <label for="tag_code" class="col-sm-2 control-label">Aset                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-<<<<<<< HEAD
-                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Tag Code">
-=======
-                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Aset">
->>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
+                                <select class="form-control chosen chosen-select" name="tag_code[]" id="tag_code" data-placeholder="Select Aset" multiple>
                                     <option value=""></option>
+
                                     <?php
                                     $conditions = [
                                     ];
                                     ?>
-
                                     <?php foreach (db_get_all_data('tb_asset_master', $conditions) as $row): ?>
                                     <option value="<?= $row->tag_code ?>"><?= $row->nama_brg; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
-                                    <b>Input Tag Code</b> Max Length : 96.</small>
+                                    Pilih Aset yang di Pinjam</small>
                             </div>
                         </div>
-
                     
 
-    <div class="form-group group-status_moving ">
-                            <label for="status_moving" class="col-sm-2 control-label">Status Moving                                </label>
+    <div class="form-group  wrapper-options-crud">
+                            <label for="status" class="col-sm-2 control-label">Status                                </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="status_moving" id="status_moving" placeholder="Status Moving" value="<?= set_value('status_moving'); ?>">
-                                <small class="info help-block">
-                                    </small>
+                                <div class="col-md-3 padding-left-0">
+                                        <label>
+                                            <input type="radio" class="flat-red" name="status" value="1"> Selesai                                        </label>
+                                    </div>
+                                <div class="col-md-3 padding-left-0">
+                                        <label>
+                                            <input type="radio" class="flat-red" name="status" value="2"> Pinjam                                        </label>
+                                    </div>
+                                </select>
+                                <div class="row-fluid clear-both">
+                                    <small class="info help-block">
+                                        </small>
+                                </div>
                             </div>
                         </div>
                     
@@ -206,7 +262,7 @@
 </section>
 
 <script>
-  var module_name = "tb_asset_moving"
+  var module_name = "tb_pinjam_log"
   var use_ajax_crud = false
 </script>
 
@@ -237,7 +293,7 @@
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    window.location.href = ADMIN_BASE_URL + '/tb_asset_moving';
+                    window.location.href = ADMIN_BASE_URL + '/tb_pinjam_log';
                 }
             });
 
@@ -247,8 +303,8 @@
     $('.btn_save').click(function() {
         $('.message').fadeOut();
         
-    var form_tb_asset_moving = $('#form_tb_asset_moving_add');
-    var data_post = form_tb_asset_moving.serializeArray();
+    var form_tb_pinjam_log = $('#form_tb_pinjam_log_add');
+    var data_post = form_tb_pinjam_log.serializeArray();
     var save_type = $(this).attr('data-stype');
 
     data_post.push({
@@ -266,7 +322,7 @@
     $('.loading').show();
 
     $.ajax({
-            url: ADMIN_BASE_URL + '/tb_asset_moving/add_save',
+            url: ADMIN_BASE_URL + '/tb_pinjam_log/add_save',
             type: 'POST',
             dataType: 'json',
             data: data_post,
@@ -321,7 +377,7 @@
 
             if (use_ajax_crud == true) {
 
-                var url = BASE_URL + ADMIN_NAMESPACE_URL + '/tb_asset_moving/index/?ajax=1'
+                var url = BASE_URL + ADMIN_NAMESPACE_URL + '/tb_pinjam_log/index/?ajax=1'
                 reloadDataTable(url);
             }
 

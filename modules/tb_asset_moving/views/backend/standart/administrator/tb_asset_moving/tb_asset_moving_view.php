@@ -68,7 +68,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Id </label>
+                        <label for="content" class="col-sm-2 control-label">Reader </label>
 
                         <div class="col-sm-8">
                            <?= _ent($tb_asset_moving->tag_reader_reader_name); ?>
@@ -76,7 +76,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Room Id </label>
+                        <label for="content" class="col-sm-2 control-label">Ruangan </label>
 
                         <div class="col-sm-8">
                            <?= _ent($tb_asset_moving->tb_room_master_name_room); ?>
@@ -84,7 +84,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Tag Code </label>
+                        <label for="content" class="col-sm-2 control-label">Aset </label>
 
                         <div class="col-sm-8">
                            <?= _ent($tb_asset_moving->tb_asset_master_nama_brg); ?>

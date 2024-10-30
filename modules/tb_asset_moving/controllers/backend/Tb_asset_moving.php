@@ -94,13 +94,17 @@ class Tb_asset_moving extends Admin
 		$this->form_validation->set_rules('waktu', 'Waktu', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_id', 'Reader Id', 'trim|required');
+		$this->form_validation->set_rules('reader_id', 'Reader', 'trim|required');
 		
 
-		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required');
+		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
 		
 
+<<<<<<< HEAD
 		$this->form_validation->set_rules('tag_code', 'Tag Code', 'trim|required|max_length[96]');
+=======
+		$this->form_validation->set_rules('tag_code', 'Aset', 'trim|required|max_length[96]');
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
 		
 
 		
@@ -202,13 +206,17 @@ class Tb_asset_moving extends Admin
 		$this->form_validation->set_rules('waktu', 'Waktu', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_id', 'Reader Id', 'trim|required');
+		$this->form_validation->set_rules('reader_id', 'Reader', 'trim|required');
 		
 
-		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required');
+		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
 		
 
+<<<<<<< HEAD
 		$this->form_validation->set_rules('tag_code', 'Tag Code', 'trim|required|max_length[96]');
+=======
+		$this->form_validation->set_rules('tag_code', 'Aset', 'trim|required|max_length[96]');
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
 		
 
 		

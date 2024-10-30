@@ -25,11 +25,11 @@
     </style>
 <section class="content-header">
     <h1>
-        Tb Asset Moving        <small><?= cclang('new', ['Tb Asset Moving']); ?> </small>
+        Tb Kelompok Kerjaan        <small><?= cclang('new', ['Tb Kelompok Kerjaan']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a href="<?= admin_site_url('/tb_asset_moving'); ?>">Tb Asset Moving</a></li>
+        <li class=""><a href="<?= admin_site_url('/tb_kelompok_kerjaan'); ?>">Tb Kelompok Kerjaan</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -43,14 +43,14 @@
                             <div class="widget-user-image">
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
-                            <h3 class="widget-user-username">Tb Asset Moving</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Asset Moving']); ?></h5>
+                            <h3 class="widget-user-username">Tb Kelompok Kerjaan</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Kelompok Kerjaan']); ?></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
-                            'name' => 'form_tb_asset_moving_add',
+                            'name' => 'form_tb_kelompok_kerjaan_add',
                             'class' => 'form-horizontal form-step',
-                            'id' => 'form_tb_asset_moving_add',
+                            'id' => 'form_tb_kelompok_kerjaan_add',
                             'enctype' => 'multipart/form-data',
                             'method' => 'POST'
                         ]); ?>
@@ -58,116 +58,46 @@
                         $user_groups = $this->model_group->get_user_group_ids();
                         ?>
 
-                        <div class="form-group group-tanggal ">
-                            <label for="tanggal" class="col-sm-2 control-label">Tanggal                                <i class="required">*</i>
-                                </label>
-                            <div class="col-sm-6">
-                                <div class="input-group date col-sm-8">
-                                    <input type="text" class="form-control pull-right datepicker" name="tanggal" placeholder="Tanggal" id="tanggal">
-                                </div>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-                    
-
-    <div class="form-group group-waktu ">
-                            <label for="waktu" class="col-sm-2 control-label">Waktu                                <i class="required">*</i>
-                                </label>
-                            <div class="col-sm-6">
-                                <div class="input-group date col-sm-8">
-                                    <input type="text" class="form-control pull-right timepicker" name="waktu" id="waktu">
-                                </div>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-                    
-
-    <div class="form-group group-reader_id ">
-                            <label for="reader_id" class="col-sm-2 control-label">Reader                                <i class="required">*</i>
+                        <div class="form-group group-id ">
+                            <label for="id" class="col-sm-2 control-label">Id                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-<<<<<<< HEAD
-                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader Id">
-=======
-                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader">
->>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
-                                    <option value=""></option>
-                                    <?php
-                                    $conditions = [
-                                    ];
-                                    ?>
-
-                                    <?php foreach (db_get_all_data('tag_reader', $conditions) as $row): ?>
-                                    <option value="<?= $row->reader_id ?>"><?= $row->reader_name; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="number" class="form-control" name="id" id="id" placeholder="Id" value="<?= set_value('id'); ?>">
                                 <small class="info help-block">
                                     </small>
                             </div>
                         </div>
-
                     
 
-    <div class="form-group group-room_id ">
-                            <label for="room_id" class="col-sm-2 control-label">Ruangan                                <i class="required">*</i>
+    <div class="form-group group-kode ">
+                            <label for="kode" class="col-sm-2 control-label">Kode                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-<<<<<<< HEAD
-                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Room Id">
-=======
-                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Ruangan">
->>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
-                                    <option value=""></option>
-                                    <?php
-                                    $conditions = [
-                                    ];
-                                    ?>
-
-                                    <?php foreach (db_get_all_data('tb_room_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->id_room ?>"><?= $row->name_room; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="number" class="form-control" name="kode" id="kode" placeholder="Kode" value="<?= set_value('kode'); ?>">
                                 <small class="info help-block">
                                     </small>
                             </div>
                         </div>
-
                     
 
-    <div class="form-group group-tag_code ">
-                            <label for="tag_code" class="col-sm-2 control-label">Aset                                <i class="required">*</i>
+    <div class="form-group group-jenis ">
+                            <label for="jenis" class="col-sm-2 control-label">Jenis                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-<<<<<<< HEAD
-                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Tag Code">
-=======
-                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Aset">
->>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
-                                    <option value=""></option>
-                                    <?php
-                                    $conditions = [
-                                    ];
-                                    ?>
-
-                                    <?php foreach (db_get_all_data('tb_asset_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->tag_code ?>"><?= $row->nama_brg; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" class="form-control" name="jenis" id="jenis" placeholder="Jenis" value="<?= set_value('jenis'); ?>">
                                 <small class="info help-block">
-                                    <b>Input Tag Code</b> Max Length : 96.</small>
+                                    <b>Input Jenis</b> Max Length : 255.</small>
                             </div>
                         </div>
-
                     
 
-    <div class="form-group group-status_moving ">
-                            <label for="status_moving" class="col-sm-2 control-label">Status Moving                                </label>
+    <div class="form-group group-kelompok ">
+                            <label for="kelompok" class="col-sm-2 control-label">Kelompok                                <i class="required">*</i>
+                                </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="status_moving" id="status_moving" placeholder="Status Moving" value="<?= set_value('status_moving'); ?>">
+                                <input type="text" class="form-control" name="kelompok" id="kelompok" placeholder="Kelompok" value="<?= set_value('kelompok'); ?>">
                                 <small class="info help-block">
-                                    </small>
+                                    <b>Input Kelompok</b> Max Length : 255.</small>
                             </div>
                         </div>
                     
@@ -206,7 +136,7 @@
 </section>
 
 <script>
-  var module_name = "tb_asset_moving"
+  var module_name = "tb_kelompok_kerjaan"
   var use_ajax_crud = false
 </script>
 
@@ -237,7 +167,7 @@
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    window.location.href = ADMIN_BASE_URL + '/tb_asset_moving';
+                    window.location.href = ADMIN_BASE_URL + '/tb_kelompok_kerjaan';
                 }
             });
 
@@ -247,8 +177,8 @@
     $('.btn_save').click(function() {
         $('.message').fadeOut();
         
-    var form_tb_asset_moving = $('#form_tb_asset_moving_add');
-    var data_post = form_tb_asset_moving.serializeArray();
+    var form_tb_kelompok_kerjaan = $('#form_tb_kelompok_kerjaan_add');
+    var data_post = form_tb_kelompok_kerjaan.serializeArray();
     var save_type = $(this).attr('data-stype');
 
     data_post.push({
@@ -266,7 +196,7 @@
     $('.loading').show();
 
     $.ajax({
-            url: ADMIN_BASE_URL + '/tb_asset_moving/add_save',
+            url: ADMIN_BASE_URL + '/tb_kelompok_kerjaan/add_save',
             type: 'POST',
             dataType: 'json',
             data: data_post,
@@ -321,7 +251,7 @@
 
             if (use_ajax_crud == true) {
 
-                var url = BASE_URL + ADMIN_NAMESPACE_URL + '/tb_asset_moving/index/?ajax=1'
+                var url = BASE_URL + ADMIN_NAMESPACE_URL + '/tb_kelompok_kerjaan/index/?ajax=1'
                 reloadDataTable(url);
             }
 

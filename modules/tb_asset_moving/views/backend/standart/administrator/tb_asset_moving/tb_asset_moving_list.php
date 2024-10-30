@@ -85,9 +85,15 @@ jQuery(document).ready(domo);
                               <option value=""><?= cclang('all'); ?></option>
                                <option <?= $this->input->get('f') == 'tanggal' ? 'selected' :''; ?> value="tanggal">Tanggal</option>
                             <option <?= $this->input->get('f') == 'waktu' ? 'selected' :''; ?> value="waktu">Waktu</option>
+<<<<<<< HEAD
                             <option <?= $this->input->get('f') == 'reader_id' ? 'selected' :''; ?> value="reader_id">Reader Id</option>
                             <option <?= $this->input->get('f') == 'room_id' ? 'selected' :''; ?> value="room_id">Room Id</option>
                             <option <?= $this->input->get('f') == 'tag_code' ? 'selected' :''; ?> value="tag_code">Tag Code</option>
+=======
+                            <option <?= $this->input->get('f') == 'reader_id' ? 'selected' :''; ?> value="reader_id">Reader</option>
+                            <option <?= $this->input->get('f') == 'room_id' ? 'selected' :''; ?> value="room_id">Ruangan</option>
+                            <option <?= $this->input->get('f') == 'tag_code' ? 'selected' :''; ?> value="tag_code">Aset</option>
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
                             <option <?= $this->input->get('f') == 'status_moving' ? 'selected' :''; ?> value="status_moving">Status Moving</option>
                            </select>
                         </div>
