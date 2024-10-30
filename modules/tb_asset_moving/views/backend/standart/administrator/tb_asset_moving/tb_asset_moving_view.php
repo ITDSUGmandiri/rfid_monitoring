@@ -71,7 +71,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Reader Id </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-reader_id"><?= _ent($tb_asset_moving->reader_id); ?></span>
+                           <?= _ent($tb_asset_moving->tag_reader_reader_name); ?>
                         </div>
                     </div>
                                         
@@ -79,7 +79,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Room Id </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-room_id"><?= _ent($tb_asset_moving->room_id); ?></span>
+                           <?= _ent($tb_asset_moving->tb_room_master_name_room); ?>
                         </div>
                     </div>
                                         
@@ -87,15 +87,15 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Tag Code </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-tag_code"><?= _ent($tb_asset_moving->tag_code); ?></span>
+                           <?= _ent($tb_asset_moving->tb_asset_master_nama_brg); ?>
                         </div>
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Id Moving </label>
+                        <label for="content" class="col-sm-2 control-label">Status Moving </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-id_moving"><?= _ent($tb_asset_moving->id_moving); ?></span>
+                        <span class="detail_group-status_moving"><?= _ent($tb_asset_moving->status_moving); ?></span>
                         </div>
                     </div>
                                         

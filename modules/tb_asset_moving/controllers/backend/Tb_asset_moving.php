@@ -103,9 +103,6 @@ class Tb_asset_moving extends Admin
 		$this->form_validation->set_rules('tag_code', 'Tag Code', 'trim|required|max_length[96]');
 		
 
-		$this->form_validation->set_rules('id_moving', 'Id Moving', 'trim|required');
-		
-
 		
 
 		if ($this->form_validation->run()) {
@@ -116,7 +113,7 @@ class Tb_asset_moving extends Admin
 				'reader_id' => $this->input->post('reader_id'),
 				'room_id' => $this->input->post('room_id'),
 				'tag_code' => $this->input->post('tag_code'),
-				'id_moving' => $this->input->post('id_moving'),
+				'status_moving' => $this->input->post('status_moving'),
 			];
 
 			
@@ -214,9 +211,6 @@ class Tb_asset_moving extends Admin
 		$this->form_validation->set_rules('tag_code', 'Tag Code', 'trim|required|max_length[96]');
 		
 
-		$this->form_validation->set_rules('id_moving', 'Id Moving', 'trim|required');
-		
-
 		
 		if ($this->form_validation->run()) {
 		
@@ -226,7 +220,7 @@ class Tb_asset_moving extends Admin
 				'reader_id' => $this->input->post('reader_id'),
 				'room_id' => $this->input->post('room_id'),
 				'tag_code' => $this->input->post('tag_code'),
-				'id_moving' => $this->input->post('id_moving'),
+				'status_moving' => $this->input->post('status_moving'),
 			];
 
 			

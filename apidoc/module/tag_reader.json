@@ -34,6 +34,167 @@
 "parameter": {
 "fields": {
 "Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_id",
+  "description": "<p>Mandatory room_id of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_name",
+  "description": "<p>Mandatory reader_name of Tag readers Input Reader Name Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Setfor",
+  "description": "<p>Mandatory setfor of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_serialnumber",
+  "description": "<p>Mandatory reader_serialnumber of Tag readers Input Reader Serialnumber Max Length : 10..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_type",
+  "description": "<p>Mandatory reader_type of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_ip",
+  "description": "<p>Mandatory reader_ip of Tag readers Input Reader Ip Max Length : 45..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_port",
+  "description": "<p>Mandatory reader_port of Tag readers Input Reader Port Max Length : 7..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_com",
+  "description": "<p>Mandatory reader_com of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_baudrate",
+  "description": "<p>Mandatory reader_baudrate of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_power",
+  "description": "<p>Mandatory reader_power of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_interval",
+  "description": "<p>Mandatory reader_interval of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_mode",
+  "description": "<p>Mandatory reader_mode of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updatedby",
+  "description": "<p>Mandatory reader_updatedby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updated",
+  "description": "<p>Mandatory reader_updated of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_createdby",
+  "description": "<p>Mandatory reader_createdby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_created",
+  "description": "<p>Mandatory reader_created of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_family",
+  "description": "<p>Mandatory reader_family of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Connecting",
+  "description": "<p>Mandatory connecting of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_model",
+  "description": "<p>Mandatory reader_model of Tag readers Input Reader Model Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_identity",
+  "description": "<p>Mandatory reader_identity of Tag readers Input Reader Identity Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_antena",
+  "description": "<p>Mandatory reader_antena of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_angle",
+  "description": "<p>Mandatory reader_angle of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_gate",
+  "description": "<p>Mandatory reader_gate of Tag readers Input Reader Gate Max Length : 50..</p>"
+  }
 ]
 }
 },
@@ -153,7 +314,7 @@
 "optional": true,
 "field": "Sort_field",
 "defaultValue": "reader_id",
-"description": "<p>Sort data by this field. reader_id, librarian_id, reader_name, reader_serialnumber, reader_type, reader_ip, reader_port, reader_com, reader_baudrate, reader_power, reader_interval, reader_mode, reader_updatedby, reader_updated, reader_createdby, reader_created</p>"
+"description": "<p>Sort data by this field. reader_id, room_id, reader_name, setfor, reader_serialnumber, reader_type, reader_ip, reader_port, reader_com, reader_baudrate, reader_power, reader_interval, reader_mode, reader_updatedby, reader_updated, reader_createdby, reader_created, reader_family, connecting, reader_model, reader_identity, reader_antena, reader_angle, reader_gate</p>"
 },
 {
 "group": "Parameter",
@@ -460,6 +621,167 @@
 "parameter": {
 "fields": {
 "Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_id",
+  "description": "<p>Mandatory room_id of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_name",
+  "description": "<p>Mandatory reader_name of Tag readers Input Reader Name Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Setfor",
+  "description": "<p>Mandatory setfor of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_serialnumber",
+  "description": "<p>Mandatory reader_serialnumber of Tag readers Input Reader Serialnumber Max Length : 10..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_type",
+  "description": "<p>Mandatory reader_type of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_ip",
+  "description": "<p>Mandatory reader_ip of Tag readers Input Reader Ip Max Length : 45..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_port",
+  "description": "<p>Mandatory reader_port of Tag readers Input Reader Port Max Length : 7..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_com",
+  "description": "<p>Mandatory reader_com of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_baudrate",
+  "description": "<p>Mandatory reader_baudrate of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_power",
+  "description": "<p>Mandatory reader_power of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_interval",
+  "description": "<p>Mandatory reader_interval of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_mode",
+  "description": "<p>Mandatory reader_mode of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updatedby",
+  "description": "<p>Mandatory reader_updatedby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updated",
+  "description": "<p>Mandatory reader_updated of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_createdby",
+  "description": "<p>Mandatory reader_createdby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_created",
+  "description": "<p>Mandatory reader_created of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_family",
+  "description": "<p>Mandatory reader_family of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Connecting",
+  "description": "<p>Mandatory connecting of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_model",
+  "description": "<p>Mandatory reader_model of Tag readers Input Reader Model Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_identity",
+  "description": "<p>Mandatory reader_identity of Tag readers Input Reader Identity Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_antena",
+  "description": "<p>Mandatory reader_antena of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_angle",
+  "description": "<p>Mandatory reader_angle of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_gate",
+  "description": "<p>Mandatory reader_gate of Tag readers Input Reader Gate Max Length : 50..</p>"
+  }
 ]
 }
 },

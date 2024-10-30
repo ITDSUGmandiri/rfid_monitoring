@@ -88,7 +88,7 @@ jQuery(document).ready(domo);
                             <option <?= $this->input->get('f') == 'reader_id' ? 'selected' :''; ?> value="reader_id">Reader Id</option>
                             <option <?= $this->input->get('f') == 'room_id' ? 'selected' :''; ?> value="room_id">Room Id</option>
                             <option <?= $this->input->get('f') == 'tag_code' ? 'selected' :''; ?> value="tag_code">Tag Code</option>
-                            <option <?= $this->input->get('f') == 'id_moving' ? 'selected' :''; ?> value="id_moving">Id Moving</option>
+                            <option <?= $this->input->get('f') == 'status_moving' ? 'selected' :''; ?> value="status_moving">Status Moving</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -122,7 +122,7 @@ jQuery(document).ready(domo);
                            <th data-field="reader_id"data-sort="1" data-primary-key="0"> <?= cclang('reader_id') ?></th>
                            <th data-field="room_id"data-sort="1" data-primary-key="0"> <?= cclang('room_id') ?></th>
                            <th data-field="tag_code"data-sort="1" data-primary-key="0"> <?= cclang('tag_code') ?></th>
-                           <th data-field="id_moving"data-sort="1" data-primary-key="0"> <?= cclang('id_moving') ?></th>
+                           <th data-field="status_moving"data-sort="1" data-primary-key="0"> <?= cclang('status_moving') ?></th>
                            <th>Action</th>                        </tr>
                      </thead>
                      <tbody id="tbody_tb_asset_moving">

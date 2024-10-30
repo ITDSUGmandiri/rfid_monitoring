@@ -8,4 +8,4 @@ $lang['waktu'] = 'Waktu';
 $lang['reader_id'] = 'Reader Id';
 $lang['room_id'] = 'Room Id';
 $lang['tag_code'] = 'Tag Code';
-$lang['id_moving'] = 'Id Moving';
+$lang['status_moving'] = 'Status Moving';

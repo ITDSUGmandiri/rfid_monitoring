@@ -1773,6 +1773,167 @@ define({ "api": [{
 "parameter": {
 "fields": {
 "Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_id",
+  "description": "<p>Mandatory room_id of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_name",
+  "description": "<p>Mandatory reader_name of Tag readers Input Reader Name Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Setfor",
+  "description": "<p>Mandatory setfor of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_serialnumber",
+  "description": "<p>Mandatory reader_serialnumber of Tag readers Input Reader Serialnumber Max Length : 10..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_type",
+  "description": "<p>Mandatory reader_type of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_ip",
+  "description": "<p>Mandatory reader_ip of Tag readers Input Reader Ip Max Length : 45..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_port",
+  "description": "<p>Mandatory reader_port of Tag readers Input Reader Port Max Length : 7..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_com",
+  "description": "<p>Mandatory reader_com of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_baudrate",
+  "description": "<p>Mandatory reader_baudrate of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_power",
+  "description": "<p>Mandatory reader_power of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_interval",
+  "description": "<p>Mandatory reader_interval of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_mode",
+  "description": "<p>Mandatory reader_mode of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updatedby",
+  "description": "<p>Mandatory reader_updatedby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updated",
+  "description": "<p>Mandatory reader_updated of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_createdby",
+  "description": "<p>Mandatory reader_createdby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_created",
+  "description": "<p>Mandatory reader_created of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_family",
+  "description": "<p>Mandatory reader_family of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Connecting",
+  "description": "<p>Mandatory connecting of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_model",
+  "description": "<p>Mandatory reader_model of Tag readers Input Reader Model Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_identity",
+  "description": "<p>Mandatory reader_identity of Tag readers Input Reader Identity Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_antena",
+  "description": "<p>Mandatory reader_antena of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_angle",
+  "description": "<p>Mandatory reader_angle of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_gate",
+  "description": "<p>Mandatory reader_gate of Tag readers Input Reader Gate Max Length : 50..</p>"
+  }
 ]
 }
 },
@@ -1892,7 +2053,7 @@ define({ "api": [{
 "optional": true,
 "field": "Sort_field",
 "defaultValue": "reader_id",
-"description": "<p>Sort data by this field. reader_id, librarian_id, reader_name, reader_serialnumber, reader_type, reader_ip, reader_port, reader_com, reader_baudrate, reader_power, reader_interval, reader_mode, reader_updatedby, reader_updated, reader_createdby, reader_created</p>"
+"description": "<p>Sort data by this field. reader_id, room_id, reader_name, setfor, reader_serialnumber, reader_type, reader_ip, reader_port, reader_com, reader_baudrate, reader_power, reader_interval, reader_mode, reader_updatedby, reader_updated, reader_createdby, reader_created, reader_family, connecting, reader_model, reader_identity, reader_antena, reader_angle, reader_gate</p>"
 },
 {
 "group": "Parameter",
@@ -2199,6 +2360,167 @@ define({ "api": [{
 "parameter": {
 "fields": {
 "Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_id",
+  "description": "<p>Mandatory room_id of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_name",
+  "description": "<p>Mandatory reader_name of Tag readers Input Reader Name Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Setfor",
+  "description": "<p>Mandatory setfor of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_serialnumber",
+  "description": "<p>Mandatory reader_serialnumber of Tag readers Input Reader Serialnumber Max Length : 10..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_type",
+  "description": "<p>Mandatory reader_type of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_ip",
+  "description": "<p>Mandatory reader_ip of Tag readers Input Reader Ip Max Length : 45..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_port",
+  "description": "<p>Mandatory reader_port of Tag readers Input Reader Port Max Length : 7..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_com",
+  "description": "<p>Mandatory reader_com of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_baudrate",
+  "description": "<p>Mandatory reader_baudrate of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_power",
+  "description": "<p>Mandatory reader_power of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_interval",
+  "description": "<p>Mandatory reader_interval of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_mode",
+  "description": "<p>Mandatory reader_mode of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updatedby",
+  "description": "<p>Mandatory reader_updatedby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_updated",
+  "description": "<p>Mandatory reader_updated of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_createdby",
+  "description": "<p>Mandatory reader_createdby of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_created",
+  "description": "<p>Mandatory reader_created of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_family",
+  "description": "<p>Mandatory reader_family of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Connecting",
+  "description": "<p>Mandatory connecting of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_model",
+  "description": "<p>Mandatory reader_model of Tag readers Input Reader Model Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_identity",
+  "description": "<p>Mandatory reader_identity of Tag readers Input Reader Identity Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_antena",
+  "description": "<p>Mandatory reader_antena of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_angle",
+  "description": "<p>Mandatory reader_angle of Tag readers .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_gate",
+  "description": "<p>Mandatory reader_gate of Tag readers Input Reader Gate Max Length : 50..</p>"
+  }
 ]
 }
 },
@@ -2250,6 +2572,1913 @@ define({ "api": [{
 },
 "filename": "application/controllers/api/Tag reader.php",
 "groupTitle": "Tag reader"
+},{
+"type": "post",
+"url": "/tag_temp_table/add",
+"title": "Add Tag temp table.",
+"version": "0.1.0",
+"name": "Addtag_temp_table",
+"group": "tag_temp_table",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag temp table unique access-key.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag temp table Cant be Accessed permission name : api_tag_temp_table_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_id",
+  "description": "<p>Mandatory room_id of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_name",
+  "description": "<p>Mandatory room_name of Tag temp tables Input Room Name Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_id",
+  "description": "<p>Mandatory reader_id of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_antena",
+  "description": "<p>Mandatory reader_antena of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_angle",
+  "description": "<p>Mandatory reader_angle of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_gate",
+  "description": "<p>Mandatory reader_gate of Tag temp tables Input Reader Gate Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Rfid_tag_number",
+  "description": "<p>Mandatory rfid_tag_number of Tag temp tables Input Rfid Tag Number Max Length : 96..</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag_temp_table.php",
+"groupTitle": "Tag temp table"
+},
+{
+"type": "get",
+"url": "/tag_temp_table/all",
+"title": "Get all Tag temp tables.",
+"version": "0.1.0",
+"name": "Alltag_temp_table",
+"group": "tag_temp_table",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag temp tables unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag temp tables unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tag temp table_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tag temp tables.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tag temp tables.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tag temp tables.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "id_temp_table",
+"description": "<p>Sort data by this field. id_temp_table, room_id, room_name, reader_id, reader_antena, reader_angle, reader_gate, rfid_tag_number, waktu, output</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>id_temp_table</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tag temp table.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTag temp table",
+"description": "<p>Tag temp table data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag temp table.php",
+"groupTitle": "Tag temp table"
+},
+{
+"type": "post",
+"url": "/tag_temp_table/delete",
+"title": "Delete Tag temp table.",
+"version": "0.1.0",
+"name": "Deletetag_temp_table",
+"group": "tag_temp_table",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag temp tables unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag temp tables unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag temp table Cant be Accessed permission name : api_Tag temp table_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tag temp tables .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag temp table.php",
+"groupTitle": "Tag temp table"
+},
+{
+"type": "get",
+"url": "/tag_temp_table/detail",
+"title": "Detail Tag temp table.",
+"version": "0.1.0",
+"name": "Detailtag_temp_table",
+"group": "tag_temp_table",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag temp tables unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag temp tables unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag temp table Cant be Accessed permission name : api_Tag temp table_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tag temp tables.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tag temp table.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tag temp tableNotFound",
+"description": "<p>Tag temp table data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag temp table.php",
+"groupTitle": "Tag temp table"
+},
+{
+"type": "post",
+"url": "/tag_temp_table/update",
+"title": "Update Tag temp table.",
+"version": "0.1.0",
+"name": "Updatetag_temp_table",
+"group": "tag_temp_table",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tag temp tables unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tag temp tables unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tag temp table Cant be Accessed permission name : api_Tag temp table_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_id",
+  "description": "<p>Mandatory room_id of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Room_name",
+  "description": "<p>Mandatory room_name of Tag temp tables Input Room Name Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_id",
+  "description": "<p>Mandatory reader_id of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_antena",
+  "description": "<p>Mandatory reader_antena of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_angle",
+  "description": "<p>Mandatory reader_angle of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Reader_gate",
+  "description": "<p>Mandatory reader_gate of Tag temp tables Input Reader Gate Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Rfid_tag_number",
+  "description": "<p>Mandatory rfid_tag_number of Tag temp tables Input Rfid Tag Number Max Length : 96..</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tag temp table.php",
+"groupTitle": "Tag temp table"
+},{
+"type": "post",
+"url": "/tb_asset_master/add",
+"title": "Add Tb asset master.",
+"version": "0.1.0",
+"name": "Addtb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset master unique access-key.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_tb_asset_master_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_brg",
+  "description": "<p>Mandatory kode_brg of Tb asset masters Input Kode Brg Max Length : 15..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nup",
+  "description": "<p>Mandatory nup of Tb asset masters Input Nup Max Length : 11..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tag_code",
+  "description": "<p>Mandatory tag_code of Tb asset masters Input Tag Code Max Length : 96..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_brg",
+  "description": "<p>Mandatory nama_brg of Tb asset masters Input Nama Brg Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Merk",
+  "description": "<p>Mandatory merk of Tb asset masters Input Merk Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe",
+  "description": "<p>Mandatory tipe of Tb asset masters Input Tipe Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kondisi",
+  "description": "<p>Mandatory kondisi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nilai",
+  "description": "<p>Mandatory nilai of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kelompok",
+  "description": "<p>Mandatory kelompok of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_inventarisasi",
+  "description": "<p>Mandatory tgl_inventarisasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tglperolehan",
+  "description": "<p>Mandatory tglperolehan of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi",
+  "description": "<p>Mandatory lokasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Status_id",
+  "description": "<p>Mandatory status_id of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Keterangan",
+  "description": "<p>Mandatory keterangan of Tb asset masters Input Keterangan Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic_aset",
+  "description": "<p>Mandatory pic_aset of Tb asset masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb_asset_master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "get",
+"url": "/tb_asset_master/all",
+"title": "Get all Tb asset masters.",
+"version": "0.1.0",
+"name": "Alltb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tb asset master_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tb asset masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tb asset masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tb asset masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "id",
+"description": "<p>Sort data by this field. id, kode_brg, nup, tag_code, nama_brg, merk, tipe, kondisi, nilai, kelompok, tgl_inventarisasi, tglperolehan, lokasi, status_id, keterangan, pic_aset</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>id</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb asset master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTb asset master",
+"description": "<p>Tb asset master data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "post",
+"url": "/tb_asset_master/delete",
+"title": "Delete Tb asset master.",
+"version": "0.1.0",
+"name": "Deletetb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_Tb asset master_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb asset masters .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "get",
+"url": "/tb_asset_master/detail",
+"title": "Detail Tb asset master.",
+"version": "0.1.0",
+"name": "Detailtb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_Tb asset master_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb asset masters.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb asset master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tb asset masterNotFound",
+"description": "<p>Tb asset master data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "post",
+"url": "/tb_asset_master/update",
+"title": "Update Tb asset master.",
+"version": "0.1.0",
+"name": "Updatetb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_Tb asset master_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_brg",
+  "description": "<p>Mandatory kode_brg of Tb asset masters Input Kode Brg Max Length : 15..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nup",
+  "description": "<p>Mandatory nup of Tb asset masters Input Nup Max Length : 11..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tag_code",
+  "description": "<p>Mandatory tag_code of Tb asset masters Input Tag Code Max Length : 96..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_brg",
+  "description": "<p>Mandatory nama_brg of Tb asset masters Input Nama Brg Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Merk",
+  "description": "<p>Mandatory merk of Tb asset masters Input Merk Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe",
+  "description": "<p>Mandatory tipe of Tb asset masters Input Tipe Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kondisi",
+  "description": "<p>Mandatory kondisi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nilai",
+  "description": "<p>Mandatory nilai of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kelompok",
+  "description": "<p>Mandatory kelompok of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_inventarisasi",
+  "description": "<p>Mandatory tgl_inventarisasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tglperolehan",
+  "description": "<p>Mandatory tglperolehan of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi",
+  "description": "<p>Mandatory lokasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Status_id",
+  "description": "<p>Mandatory status_id of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Keterangan",
+  "description": "<p>Mandatory keterangan of Tb asset masters Input Keterangan Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic_aset",
+  "description": "<p>Mandatory pic_aset of Tb asset masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},{
+"type": "post",
+"url": "/tb_room_master/add",
+"title": "Add Tb room master.",
+"version": "0.1.0",
+"name": "Addtb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room master unique access-key.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_tb_room_master_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Gedung_id",
+  "description": "<p>Mandatory gedung_id of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_room",
+  "description": "<p>Mandatory kode_room of Tb room masters Input Kode Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Name_room",
+  "description": "<p>Mandatory name_room of Tb room masters Input Name Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lat",
+  "description": "<p>Mandatory lat of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Long",
+  "description": "<p>Mandatory long of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic",
+  "description": "<p>Mandatory pic of Tb room masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb_room_master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "get",
+"url": "/tb_room_master/all",
+"title": "Get all Tb room masters.",
+"version": "0.1.0",
+"name": "Alltb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tb room master_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tb room masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tb room masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tb room masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "id_room",
+"description": "<p>Sort data by this field. id_room, kode_room, name_room</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>id_room</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb room master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTb room master",
+"description": "<p>Tb room master data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "post",
+"url": "/tb_room_master/delete",
+"title": "Delete Tb room master.",
+"version": "0.1.0",
+"name": "Deletetb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_Tb room master_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb room masters .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "get",
+"url": "/tb_room_master/detail",
+"title": "Detail Tb room master.",
+"version": "0.1.0",
+"name": "Detailtb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_Tb room master_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb room masters.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb room master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tb room masterNotFound",
+"description": "<p>Tb room master data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "post",
+"url": "/tb_room_master/update",
+"title": "Update Tb room master.",
+"version": "0.1.0",
+"name": "Updatetb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_Tb room master_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Gedung_id",
+  "description": "<p>Mandatory gedung_id of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_room",
+  "description": "<p>Mandatory kode_room of Tb room masters Input Kode Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Name_room",
+  "description": "<p>Mandatory name_room of Tb room masters Input Name Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lat",
+  "description": "<p>Mandatory lat of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Long",
+  "description": "<p>Mandatory long of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic",
+  "description": "<p>Mandatory pic of Tb room masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
 },{
   "type": "post",
   "url": "/user/add",
