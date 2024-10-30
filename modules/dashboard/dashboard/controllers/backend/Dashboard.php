@@ -73,20 +73,12 @@ class Dashboard extends Admin
 				$data_json = $CI->db->query($query_disp)->result();
 				break;
 			case "koreksi":
-				$query_disp = "SELECT c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi, x.name_room AS room2, z.name_room AS room1 FROM tb_asset_master AS o 
-				INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code
-				INNER JOIN tb_room_master AS x ON x.id = c.id_room 
-				INNER JOIN tb_room_master AS z ON z.id = o.lokasi
-				AND o.lokasi != c.id_room AND NOT EXISTS 
-    (SELECT * 
-     FROM tb_asset_moving AS p 
-     WHERE p.tag_code = o.tag_code)
- ORDER BY o.tag_code";
+				$query_disp = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
 				$data_json = $CI->db->query($query_disp)->result();
 				break;
 
 			case "ontime":
-				$query_ontime = "SELECT o.tag_code, count(distinct c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
+				$query_ontime = "SELECT o.tag_code, count(c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
 				$data_json = $CI->db->query($query_ontime)->result();
 				break;
 			case "overdue":
@@ -210,7 +202,7 @@ class Dashboard extends Admin
 		$result_rusak = $CI->db->query($query_rusak);
 		$row_rusak = $result_rusak->row();
 
-		$query_anomaly = "SELECT COUNT(*) as total, c.id,c.rfid_code_tag, o.tag_code, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.Lokasi != c.id_room ORDER BY o.tag_code";
+		$query_anomaly = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
 		$result_anomaly = $CI->db->query($query_anomaly);
 		$row_anomaly = $result_anomaly->row();
 

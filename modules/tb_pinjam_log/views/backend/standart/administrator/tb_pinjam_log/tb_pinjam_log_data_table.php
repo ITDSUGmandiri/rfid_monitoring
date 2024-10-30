@@ -6,8 +6,8 @@
                 
         <td><span class="list_group-pinjam_id"><?= _ent($tb_pinjam_log->pinjam_id); ?></span></td> 
         <td><span class="list_group-tanggal_proses"><?= _ent($tb_pinjam_log->tanggal_proses); ?></span></td> 
-        <td><span class="list_group-waktu_pinjam"><?= _ent($tb_pinjam_log->waktu_pinjam); ?></span></td> 
         <td><span class="list_group-tanggal_pinjam"><?= _ent($tb_pinjam_log->tanggal_pinjam); ?></span></td> 
+        <td><span class="list_group-waktu_pinjam"><?= _ent($tb_pinjam_log->waktu_pinjam); ?></span></td> 
         <td><span class="list_group-tanggal_kembali"><?= _ent($tb_pinjam_log->tanggal_kembali); ?></span></td> 
         <td><span class="list_group-waktu_kembali"><?= _ent($tb_pinjam_log->waktu_kembali); ?></span></td> 
         <td><?php if  ($tb_pinjam_log->lend_id) {
@@ -15,12 +15,14 @@
             echo admin_anchor('/tb_pegawai_master/view/'.$tb_pinjam_log->lend_id.'?popup=show', $tb_pinjam_log->tb_pegawai_master_Pegawai, ['class' => 'popup-view']); }?> </td>
          
         <td><span class="list_group-peminjam"><?= _ent($tb_pinjam_log->peminjam); ?></span></td> 
-        <td><span class="list_group-job"><?= _ent($tb_pinjam_log->job); ?></span></td> 
+        <td><?php if  ($tb_pinjam_log->job) {
+
+            echo admin_anchor('/tb_kelompok_kerjaan/view/'.$tb_pinjam_log->job.'?popup=show', $tb_pinjam_log->tb_kelompok_kerjaan_jenis, ['class' => 'popup-view']); }?> </td>
+         
         <td><span class="list_group-alamat"><?= _ent($tb_pinjam_log->alamat); ?></span></td> 
         <td><span class="list_group-telp"><?= _ent($tb_pinjam_log->telp); ?></span></td> 
         <td><?= join_multi_select($tb_pinjam_log->tag_code, 'tb_asset_master', 'tag_code', 'nama_brg'); ?></td> 
         <td><span class="list_group-status"><?= _ent($tb_pinjam_log->status); ?></span></td> 
-        <td><span class="list_group-dokumen"><?= _ent($tb_pinjam_log->dokumen); ?></span></td> 
         <td width="200">
         
                         <?php is_allowed('tb_pinjam_log_view', function() use ($tb_pinjam_log){?>

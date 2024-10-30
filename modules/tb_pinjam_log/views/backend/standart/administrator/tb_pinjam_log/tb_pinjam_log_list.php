@@ -85,8 +85,8 @@ jQuery(document).ready(domo);
                               <option value=""><?= cclang('all'); ?></option>
                                <option <?= $this->input->get('f') == 'pinjam_id' ? 'selected' :''; ?> value="pinjam_id">Pinjam Id</option>
                             <option <?= $this->input->get('f') == 'tanggal_proses' ? 'selected' :''; ?> value="tanggal_proses">Tanggal Proses</option>
-                            <option <?= $this->input->get('f') == 'waktu_pinjam' ? 'selected' :''; ?> value="waktu_pinjam">Waktu Pinjam</option>
                             <option <?= $this->input->get('f') == 'tanggal_pinjam' ? 'selected' :''; ?> value="tanggal_pinjam">Tanggal Pinjam</option>
+                            <option <?= $this->input->get('f') == 'waktu_pinjam' ? 'selected' :''; ?> value="waktu_pinjam">Waktu Pinjam</option>
                             <option <?= $this->input->get('f') == 'tanggal_kembali' ? 'selected' :''; ?> value="tanggal_kembali">Tanggal Kembali</option>
                             <option <?= $this->input->get('f') == 'waktu_kembali' ? 'selected' :''; ?> value="waktu_kembali">Waktu Kembali</option>
                             <option <?= $this->input->get('f') == 'lend_id' ? 'selected' :''; ?> value="lend_id">Lend Id</option>
@@ -96,7 +96,6 @@ jQuery(document).ready(domo);
                             <option <?= $this->input->get('f') == 'telp' ? 'selected' :''; ?> value="telp">Telp</option>
                             <option <?= $this->input->get('f') == 'tag_code' ? 'selected' :''; ?> value="tag_code">Aset</option>
                             <option <?= $this->input->get('f') == 'status' ? 'selected' :''; ?> value="status">Status</option>
-                            <option <?= $this->input->get('f') == 'dokumen' ? 'selected' :''; ?> value="dokumen">Dokumen</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -127,8 +126,8 @@ jQuery(document).ready(domo);
                            </th>
                                                     <th data-field="pinjam_id"data-sort="1" data-primary-key="0"> <?= cclang('pinjam_id') ?></th>
                            <th data-field="tanggal_proses"data-sort="1" data-primary-key="0"> <?= cclang('tanggal_proses') ?></th>
-                           <th data-field="waktu_pinjam"data-sort="1" data-primary-key="0"> <?= cclang('waktu_pinjam') ?></th>
                            <th data-field="tanggal_pinjam"data-sort="1" data-primary-key="0"> <?= cclang('tanggal_pinjam') ?></th>
+                           <th data-field="waktu_pinjam"data-sort="1" data-primary-key="0"> <?= cclang('waktu_pinjam') ?></th>
                            <th data-field="tanggal_kembali"data-sort="1" data-primary-key="0"> <?= cclang('tanggal_kembali') ?></th>
                            <th data-field="waktu_kembali"data-sort="1" data-primary-key="0"> <?= cclang('waktu_kembali') ?></th>
                            <th data-field="lend_id"data-sort="1" data-primary-key="0"> <?= cclang('lend_id') ?></th>
@@ -138,7 +137,6 @@ jQuery(document).ready(domo);
                            <th data-field="telp"data-sort="1" data-primary-key="0"> <?= cclang('telp') ?></th>
                            <th data-field="tag_code"data-sort="1" data-primary-key="0"> <?= cclang('tag_code') ?></th>
                            <th data-field="status"data-sort="1" data-primary-key="0"> <?= cclang('status') ?></th>
-                           <th data-field="dokumen"data-sort="1" data-primary-key="0"> <?= cclang('dokumen') ?></th>
                            <th>Action</th>                        </tr>
                      </thead>
                      <tbody id="tbody_tb_pinjam_log">

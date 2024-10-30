@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_tb_pinjam_log extends MY_Model {
+class Model_tb_kelompok_kerjaan extends MY_Model {
 
-    private $primary_key    = 'id';
-    private $table_name     = 'tb_pinjam_log';
-    public $field_search   = ['pinjam_id', 'tanggal_proses', 'tanggal_pinjam', 'waktu_pinjam', 'tanggal_kembali', 'waktu_kembali', 'lend_id', 'peminjam', 'job', 'alamat', 'telp', 'tag_code', 'status', 'tb_pegawai_master.Pegawai', 'tb_kelompok_kerjaan.jenis', 'tb_asset_master.nama_brg'];
-    public $sort_option = ['id', 'DESC'];
+    private $primary_key    = '';
+    private $table_name     = 'tb_kelompok_kerjaan';
+    public $field_search   = ['id', 'kode', 'jenis', 'kelompok'];
+    public $sort_option = ['', 'DESC'];
     
     public function __construct()
     {
@@ -32,7 +32,7 @@ class Model_tb_pinjam_log extends MY_Model {
 
         if (empty($field)) {
             foreach ($this->field_search as $field) {
-                $f_search = "tb_pinjam_log.".$field;
+                $f_search = "tb_kelompok_kerjaan.".$field;
 
                 if (strpos($field, '.')) {
                     $f_search = $field;
@@ -47,7 +47,7 @@ class Model_tb_pinjam_log extends MY_Model {
 
             $where = '('.$where.')';
         } else {
-            $where .= "(" . "tb_pinjam_log.".$field . " LIKE '%" . $q . "%' )";
+            $where .= "(" . "tb_kelompok_kerjaan.".$field . " LIKE '%" . $q . "%' )";
         }
 
         $this->join_avaiable()->filter_avaiable();
@@ -69,7 +69,7 @@ class Model_tb_pinjam_log extends MY_Model {
 
         if (empty($field)) {
             foreach ($this->field_search as $field) {
-                $f_search = "tb_pinjam_log.".$field;
+                $f_search = "tb_kelompok_kerjaan.".$field;
                 if (strpos($field, '.')) {
                     $f_search = $field;
                 }
@@ -84,7 +84,7 @@ class Model_tb_pinjam_log extends MY_Model {
 
             $where = '('.$where.')';
         } else {
-            $where .= "(" . "tb_pinjam_log.".$field . " LIKE '%" . $q . "%' )";
+            $where .= "(" . "tb_kelompok_kerjaan.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -103,11 +103,8 @@ class Model_tb_pinjam_log extends MY_Model {
     }
 
     public function join_avaiable() {
-        $this->db->join('tb_pegawai_master', 'tb_pegawai_master.NIP = tb_pinjam_log.lend_id', 'LEFT');
-        $this->db->join('tb_kelompok_kerjaan', 'tb_kelompok_kerjaan.kode = tb_pinjam_log.job', 'LEFT');
-        $this->db->join('tb_asset_master', 'tb_asset_master.tag_code = tb_pinjam_log.tag_code', 'LEFT');
         
-        $this->db->select('tb_pegawai_master.Pegawai,tb_kelompok_kerjaan.jenis,tb_asset_master.nama_brg,tb_pinjam_log.*,tb_pegawai_master.Pegawai as tb_pegawai_master_Pegawai,tb_pegawai_master.Pegawai as Pegawai,tb_kelompok_kerjaan.jenis as tb_kelompok_kerjaan_jenis,tb_kelompok_kerjaan.jenis as jenis,tb_asset_master.nama_brg as tb_asset_master_nama_brg,tb_asset_master.nama_brg as nama_brg');
+        $this->db->select('tb_kelompok_kerjaan.*');
 
 
         return $this;
@@ -123,5 +120,5 @@ class Model_tb_pinjam_log extends MY_Model {
 
 }
 
-/* End of file Model_tb_pinjam_log.php */
-/* Location: ./application/models/Model_tb_pinjam_log.php */
+/* End of file Model_tb_kelompok_kerjaan.php */
+/* Location: ./application/models/Model_tb_kelompok_kerjaan.php */

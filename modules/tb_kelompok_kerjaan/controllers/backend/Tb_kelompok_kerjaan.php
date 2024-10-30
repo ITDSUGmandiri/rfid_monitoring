@@ -4,81 +4,81 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
 *| --------------------------------------------------------------------------
-*| Tb Asset Moving Controller
+*| Tb Kelompok Kerjaan Controller
 *| --------------------------------------------------------------------------
-*| Tb Asset Moving site
+*| Tb Kelompok Kerjaan site
 *|
 */
-class Tb_asset_moving extends Admin	
+class Tb_kelompok_kerjaan extends Admin	
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
 
-		$this->load->model('model_tb_asset_moving');
+		$this->load->model('model_tb_kelompok_kerjaan');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);
 	}
 
 	/**
-	* show all Tb Asset Movings
+	* show all Tb Kelompok Kerjaans
 	*
 	* @var $offset String
 	*/
 	public function index($offset = 0)
 	{
-		$this->is_allowed('tb_asset_moving_list');
+		$this->is_allowed('tb_kelompok_kerjaan_list');
 
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
-		$this->data['tb_asset_movings'] = $this->model_tb_asset_moving->get($filter, $field, $this->limit_page, $offset);
-		$this->data['tb_asset_moving_counts'] = $this->model_tb_asset_moving->count_all($filter, $field);
+		$this->data['tb_kelompok_kerjaans'] = $this->model_tb_kelompok_kerjaan->get($filter, $field, $this->limit_page, $offset);
+		$this->data['tb_kelompok_kerjaan_counts'] = $this->model_tb_kelompok_kerjaan->count_all($filter, $field);
 
 		$config = [
-			'base_url'     => ADMIN_NAMESPACE_URL  . '/tb_asset_moving/index/',
-			'total_rows'   => $this->data['tb_asset_moving_counts'],
+			'base_url'     => ADMIN_NAMESPACE_URL  . '/tb_kelompok_kerjaan/index/',
+			'total_rows'   => $this->data['tb_kelompok_kerjaan_counts'],
 			'per_page'     => $this->limit_page,
 			'uri_segment'  => 4,
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
 		
-		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_asset_moving/tb_asset_moving_data_table', $this->data, true);
+		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_kelompok_kerjaan/tb_kelompok_kerjaan_data_table', $this->data, true);
 		
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
 				'pagination' => $this->data['pagination'],
-				'total_row' => $this->data['tb_asset_moving_counts']
+				'total_row' => $this->data['tb_kelompok_kerjaan_counts']
 			]);
 		}
 
-		$this->template->title('Tb Asset Moving List');
-		$this->render('backend/standart/administrator/tb_asset_moving/tb_asset_moving_list', $this->data);
+		$this->template->title('Tb Kelompok Kerjaan List');
+		$this->render('backend/standart/administrator/tb_kelompok_kerjaan/tb_kelompok_kerjaan_list', $this->data);
 	}
 	
 	/**
-	* Add new tb_asset_movings
+	* Add new tb_kelompok_kerjaans
 	*
 	*/
 	public function add()
 	{
-		$this->is_allowed('tb_asset_moving_add');
+		$this->is_allowed('tb_kelompok_kerjaan_add');
 
-		$this->template->title('Tb Asset Moving New');
-		$this->render('backend/standart/administrator/tb_asset_moving/tb_asset_moving_add', $this->data);
+		$this->template->title('Tb Kelompok Kerjaan New');
+		$this->render('backend/standart/administrator/tb_kelompok_kerjaan/tb_kelompok_kerjaan_add', $this->data);
 	}
 
 	/**
-	* Add New Tb Asset Movings
+	* Add New Tb Kelompok Kerjaans
 	*
 	* @return JSON
 	*/
 	public function add_save()
 	{
-		if (!$this->is_allowed('tb_asset_moving_add', false)) {
+		if (!$this->is_allowed('tb_kelompok_kerjaan_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -88,19 +88,16 @@ class Tb_asset_moving extends Admin
 		
 		
 
-		$this->form_validation->set_rules('tanggal', 'Tanggal', 'trim|required');
+		$this->form_validation->set_rules('id', 'Id', 'trim|required');
 		
 
-		$this->form_validation->set_rules('waktu', 'Waktu', 'trim|required');
+		$this->form_validation->set_rules('kode', 'Kode', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_id', 'Reader', 'trim|required');
+		$this->form_validation->set_rules('jenis', 'Jenis', 'trim|required|max_length[255]');
 		
 
-		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
-		
-
-		$this->form_validation->set_rules('tag_code', 'Aset', 'trim|required|max_length[96]');
+		$this->form_validation->set_rules('kelompok', 'Kelompok', 'trim|required|max_length[255]');
 		
 
 		
@@ -108,12 +105,10 @@ class Tb_asset_moving extends Admin
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'tanggal' => $this->input->post('tanggal'),
-				'waktu' => $this->input->post('waktu'),
-				'reader_id' => $this->input->post('reader_id'),
-				'room_id' => $this->input->post('room_id'),
-				'tag_code' => $this->input->post('tag_code'),
-				'status_moving' => $this->input->post('status_moving'),
+				'id' => $this->input->post('id'),
+				'kode' => $this->input->post('kode'),
+				'jenis' => $this->input->post('jenis'),
+				'kelompok' => $this->input->post('kelompok'),
 			];
 
 			
@@ -123,29 +118,30 @@ class Tb_asset_moving extends Admin
 
 			
 			
-			$save_tb_asset_moving = $id = $this->model_tb_asset_moving->store($save_data);
+			$save_tb_kelompok_kerjaan = $id = $this->model_tb_kelompok_kerjaan->store($save_data);
+                        $save_tb_kelompok_kerjaan = true;
             
 
-			if ($save_tb_asset_moving) {
+			if ($save_tb_kelompok_kerjaan) {
 				
 				
 					
 				
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
-					$this->data['id'] 	   = $save_tb_asset_moving;
+					$this->data['id'] 	   = $save_tb_kelompok_kerjaan;
 					$this->data['message'] = cclang('success_save_data_stay', [
-						admin_anchor('/tb_asset_moving/edit/' . $save_tb_asset_moving, 'Edit Tb Asset Moving'),
-						admin_anchor('/tb_asset_moving', ' Go back to list')
+						admin_anchor('/tb_kelompok_kerjaan/edit/' . $save_tb_kelompok_kerjaan, 'Edit Tb Kelompok Kerjaan'),
+						admin_anchor('/tb_kelompok_kerjaan', ' Go back to list')
 					]);
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						admin_anchor('/tb_asset_moving/edit/' . $save_tb_asset_moving, 'Edit Tb Asset Moving')
+						admin_anchor('/tb_kelompok_kerjaan/edit/' . $save_tb_kelompok_kerjaan, 'Edit Tb Kelompok Kerjaan')
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/tb_asset_moving');
+					$this->data['redirect'] = admin_base_url('/tb_kelompok_kerjaan');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -154,7 +150,7 @@ class Tb_asset_moving extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/tb_asset_moving');
+					$this->data['redirect'] = admin_base_url('/tb_kelompok_kerjaan');
 				}
 			}
 
@@ -168,59 +164,54 @@ class Tb_asset_moving extends Admin
 	}
 	
 		/**
-	* Update view Tb Asset Movings
+	* Update view Tb Kelompok Kerjaans
 	*
 	* @var $id String
 	*/
 	public function edit($id)
 	{
-		$this->is_allowed('tb_asset_moving_update');
+		$this->is_allowed('tb_kelompok_kerjaan_update');
 
-		$this->data['tb_asset_moving'] = $this->model_tb_asset_moving->find($id);
+		$this->data['tb_kelompok_kerjaan'] = $this->model_tb_kelompok_kerjaan->find($id);
 
-		$this->template->title('Tb Asset Moving Update');
-		$this->render('backend/standart/administrator/tb_asset_moving/tb_asset_moving_update', $this->data);
+		$this->template->title('Tb Kelompok Kerjaan Update');
+		$this->render('backend/standart/administrator/tb_kelompok_kerjaan/tb_kelompok_kerjaan_update', $this->data);
 	}
 
 	/**
-	* Update Tb Asset Movings
+	* Update Tb Kelompok Kerjaans
 	*
 	* @var $id String
 	*/
 	public function edit_save($id)
 	{
-		if (!$this->is_allowed('tb_asset_moving_update', false)) {
+		if (!$this->is_allowed('tb_kelompok_kerjaan_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
 				]);
 			exit;
 		}
-				$this->form_validation->set_rules('tanggal', 'Tanggal', 'trim|required');
+				$this->form_validation->set_rules('id', 'Id', 'trim|required');
 		
 
-		$this->form_validation->set_rules('waktu', 'Waktu', 'trim|required');
+		$this->form_validation->set_rules('kode', 'Kode', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_id', 'Reader', 'trim|required');
+		$this->form_validation->set_rules('jenis', 'Jenis', 'trim|required|max_length[255]');
 		
 
-		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
-		
-
-		$this->form_validation->set_rules('tag_code', 'Aset', 'trim|required|max_length[96]');
+		$this->form_validation->set_rules('kelompok', 'Kelompok', 'trim|required|max_length[255]');
 		
 
 		
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'tanggal' => $this->input->post('tanggal'),
-				'waktu' => $this->input->post('waktu'),
-				'reader_id' => $this->input->post('reader_id'),
-				'room_id' => $this->input->post('room_id'),
-				'tag_code' => $this->input->post('tag_code'),
-				'status_moving' => $this->input->post('status_moving'),
+				'id' => $this->input->post('id'),
+				'kode' => $this->input->post('kode'),
+				'jenis' => $this->input->post('jenis'),
+				'kelompok' => $this->input->post('kelompok'),
 			];
 
 			
@@ -230,9 +221,9 @@ class Tb_asset_moving extends Admin
 
 			
 			
-			$save_tb_asset_moving = $this->model_tb_asset_moving->change($id, $save_data);
+			$save_tb_kelompok_kerjaan = $this->model_tb_kelompok_kerjaan->change($id, $save_data);
 
-			if ($save_tb_asset_moving) {
+			if ($save_tb_kelompok_kerjaan) {
 
 				
 
@@ -242,7 +233,7 @@ class Tb_asset_moving extends Admin
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
 					$this->data['message'] = cclang('success_update_data_stay', [
-						admin_anchor('/tb_asset_moving', ' Go back to list')
+						admin_anchor('/tb_kelompok_kerjaan', ' Go back to list')
 					]);
 				} else {
 					set_message(
@@ -250,7 +241,7 @@ class Tb_asset_moving extends Admin
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/tb_asset_moving');
+					$this->data['redirect'] = admin_base_url('/tb_kelompok_kerjaan');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -259,7 +250,7 @@ class Tb_asset_moving extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/tb_asset_moving');
+					$this->data['redirect'] = admin_base_url('/tb_kelompok_kerjaan');
 				}
 			}
 		} else {
@@ -272,13 +263,13 @@ class Tb_asset_moving extends Admin
 	}
 	
 	/**
-	* delete Tb Asset Movings
+	* delete Tb Kelompok Kerjaans
 	*
 	* @var $id String
 	*/
 	public function delete($id = null)
 	{
-		$this->is_allowed('tb_asset_moving_delete');
+		$this->is_allowed('tb_kelompok_kerjaan_delete');
 
 		$this->load->helper('file');
 
@@ -297,20 +288,20 @@ class Tb_asset_moving extends Admin
 			if ($remove) {
 				$this->response([
 					"success" => true,
-					"message" => cclang('has_been_deleted', 'tb_asset_moving')
+					"message" => cclang('has_been_deleted', 'tb_kelompok_kerjaan')
 				]);
 			} else {
 				$this->response([
 					"success" => true,
-					"message" => cclang('error_delete', 'tb_asset_moving')
+					"message" => cclang('error_delete', 'tb_kelompok_kerjaan')
 				]);
 			}
 
 		} else {
 			if ($remove) {
-				set_message(cclang('has_been_deleted', 'tb_asset_moving'), 'success');
+				set_message(cclang('has_been_deleted', 'tb_kelompok_kerjaan'), 'success');
 			} else {
-				set_message(cclang('error_delete', 'tb_asset_moving'), 'error');
+				set_message(cclang('error_delete', 'tb_kelompok_kerjaan'), 'error');
 			}
 			redirect_back();
 		}
@@ -318,32 +309,32 @@ class Tb_asset_moving extends Admin
 	}
 
 		/**
-	* View view Tb Asset Movings
+	* View view Tb Kelompok Kerjaans
 	*
 	* @var $id String
 	*/
 	public function view($id)
 	{
-		$this->is_allowed('tb_asset_moving_view');
+		$this->is_allowed('tb_kelompok_kerjaan_view');
 
-		$this->data['tb_asset_moving'] = $this->model_tb_asset_moving->join_avaiable()->filter_avaiable()->find($id);
+		$this->data['tb_kelompok_kerjaan'] = $this->model_tb_kelompok_kerjaan->join_avaiable()->filter_avaiable()->find($id);
 
-		$this->template->title('Tb Asset Moving Detail');
-		$this->render('backend/standart/administrator/tb_asset_moving/tb_asset_moving_view', $this->data);
+		$this->template->title('Tb Kelompok Kerjaan Detail');
+		$this->render('backend/standart/administrator/tb_kelompok_kerjaan/tb_kelompok_kerjaan_view', $this->data);
 	}
 	
 	/**
-	* delete Tb Asset Movings
+	* delete Tb Kelompok Kerjaans
 	*
 	* @var $id String
 	*/
 	private function _remove($id)
 	{
-		$tb_asset_moving = $this->model_tb_asset_moving->find($id);
+		$tb_kelompok_kerjaan = $this->model_tb_kelompok_kerjaan->find($id);
 
 		
 		
-		return $this->model_tb_asset_moving->remove($id);
+		return $this->model_tb_kelompok_kerjaan->remove($id);
 	}
 	
 	
@@ -354,12 +345,12 @@ class Tb_asset_moving extends Admin
 	*/
 	public function export()
 	{
-		$this->is_allowed('tb_asset_moving_export');
+		$this->is_allowed('tb_kelompok_kerjaan_export');
 
-		$this->model_tb_asset_moving->export(
-			'tb_asset_moving', 
-			'tb_asset_moving',
-			$this->model_tb_asset_moving->field_search
+		$this->model_tb_kelompok_kerjaan->export(
+			'tb_kelompok_kerjaan', 
+			'tb_kelompok_kerjaan',
+			$this->model_tb_kelompok_kerjaan->field_search
 		);
 	}
 
@@ -370,17 +361,17 @@ class Tb_asset_moving extends Admin
 	*/
 	public function export_pdf()
 	{
-		$this->is_allowed('tb_asset_moving_export');
+		$this->is_allowed('tb_kelompok_kerjaan_export');
 
-		$this->model_tb_asset_moving->pdf('tb_asset_moving', 'tb_asset_moving');
+		$this->model_tb_kelompok_kerjaan->pdf('tb_kelompok_kerjaan', 'tb_kelompok_kerjaan');
 	}
 
 
 	public function single_pdf($id = null)
 	{
-		$this->is_allowed('tb_asset_moving_export');
+		$this->is_allowed('tb_kelompok_kerjaan_export');
 
-		$table = $title = 'tb_asset_moving';
+		$table = $title = 'tb_kelompok_kerjaan';
 		$this->load->library('HtmlPdf');
       
         $config = array(
@@ -394,7 +385,7 @@ class Tb_asset_moving extends Admin
 
         $result = $this->db->get($table);
        
-        $data = $this->model_tb_asset_moving->find($id);
+        $data = $this->model_tb_kelompok_kerjaan->find($id);
         $fields = $result->list_fields();
 
         $content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
@@ -413,5 +404,5 @@ class Tb_asset_moving extends Admin
 }
 
 
-/* End of file tb_asset_moving.php */
-/* Location: ./application/controllers/administrator/Tb Asset Moving.php */
+/* End of file tb_kelompok_kerjaan.php */
+/* Location: ./application/controllers/administrator/Tb Kelompok Kerjaan.php */
