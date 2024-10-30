@@ -411,7 +411,7 @@ $CI = &get_instance();
           break;
         case 'tape_ontime':
           endpoint = BASE_URL + '/administrator/dashboard/abc/ontime';
-          title = 'TAPE ON TIME';
+          title = 'ASET BERGERAK';
           break;
         case 'tape_overdue':
           endpoint = BASE_URL + '/administrator/dashboard/abc/overdue';
@@ -439,13 +439,14 @@ $CI = &get_instance();
 
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
     function showModalWithPagination(endpoint, title) {
-      console.log("mm", endpoint);
+
       // Lakukan request AJAX ke endpoint yang diberikan
       $.ajax({
         url: endpoint,
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+          console.log("mm", data);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
           var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
@@ -460,7 +461,7 @@ $CI = &get_instance();
             // Misalnya, tambahkan baris baru dengan data item ke dalam tabel
             modalContent += '<tr>';
             modalContent += '<td>' + no + '</td>';
-            modalContent += '<td>' + item.rfid_code_tag + '</td>'; // Misalnya, ambil field1 dari item
+            modalContent += '<td>' + item.tag_code + '</td>'; // Misalnya, ambil field1 dari item
             modalContent += '<td>' + item.kode_brg + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nama_brg + '</td>'; // Misalnya, ambil field2 dari item

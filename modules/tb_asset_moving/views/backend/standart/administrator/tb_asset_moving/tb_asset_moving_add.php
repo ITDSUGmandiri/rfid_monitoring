@@ -85,43 +85,87 @@
                     
 
     <div class="form-group group-reader_id ">
-                            <label for="reader_id" class="col-sm-2 control-label">Reader Id                                <i class="required">*</i>
+                            <label for="reader_id" class="col-sm-2 control-label">Reader                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="reader_id" id="reader_id" placeholder="Reader Id" value="<?= set_value('reader_id'); ?>">
+<<<<<<< HEAD
+                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader Id">
+=======
+                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
+                                    <option value=""></option>
+                                    <?php
+                                    $conditions = [
+                                    ];
+                                    ?>
+
+                                    <?php foreach (db_get_all_data('tag_reader', $conditions) as $row): ?>
+                                    <option value="<?= $row->reader_id ?>"><?= $row->reader_name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <small class="info help-block">
                                     </small>
                             </div>
                         </div>
+
                     
 
     <div class="form-group group-room_id ">
-                            <label for="room_id" class="col-sm-2 control-label">Room Id                                <i class="required">*</i>
+                            <label for="room_id" class="col-sm-2 control-label">Ruangan                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="room_id" id="room_id" placeholder="Room Id" value="<?= set_value('room_id'); ?>">
+<<<<<<< HEAD
+                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Room Id">
+=======
+                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Ruangan">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
+                                    <option value=""></option>
+                                    <?php
+                                    $conditions = [
+                                    ];
+                                    ?>
+
+                                    <?php foreach (db_get_all_data('tb_room_master', $conditions) as $row): ?>
+                                    <option value="<?= $row->id_room ?>"><?= $row->name_room; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <small class="info help-block">
                                     </small>
                             </div>
                         </div>
+
                     
 
     <div class="form-group group-tag_code ">
-                            <label for="tag_code" class="col-sm-2 control-label">Tag Code                                <i class="required">*</i>
+                            <label for="tag_code" class="col-sm-2 control-label">Aset                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="tag_code" id="tag_code" placeholder="Tag Code" value="<?= set_value('tag_code'); ?>">
+<<<<<<< HEAD
+                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Tag Code">
+=======
+                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Aset">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
+                                    <option value=""></option>
+                                    <?php
+                                    $conditions = [
+                                    ];
+                                    ?>
+
+                                    <?php foreach (db_get_all_data('tb_asset_master', $conditions) as $row): ?>
+                                    <option value="<?= $row->tag_code ?>"><?= $row->nama_brg; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <small class="info help-block">
                                     <b>Input Tag Code</b> Max Length : 96.</small>
                             </div>
                         </div>
+
                     
 
-    <div class="form-group group-id_moving ">
-                            <label for="id_moving" class="col-sm-2 control-label">Id Moving                                <i class="required">*</i>
-                                </label>
+    <div class="form-group group-status_moving ">
+                            <label for="status_moving" class="col-sm-2 control-label">Status Moving                                </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="id_moving" id="id_moving" placeholder="Id Moving" value="<?= set_value('id_moving'); ?>">
+                                <input type="text" class="form-control" name="status_moving" id="status_moving" placeholder="Status Moving" value="<?= set_value('status_moving'); ?>">
                                 <small class="info help-block">
                                     </small>
                             </div>

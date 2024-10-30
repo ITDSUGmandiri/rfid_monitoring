@@ -68,18 +68,18 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Waktu Pinjam </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-waktu_pinjam"><?= _ent($tb_pinjam_log->waktu_pinjam); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">Tanggal Pinjam </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-tanggal_pinjam"><?= _ent($tb_pinjam_log->tanggal_pinjam); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Waktu Pinjam </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-waktu_pinjam"><?= _ent($tb_pinjam_log->waktu_pinjam); ?></span>
                         </div>
                     </div>
                                         
@@ -119,7 +119,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Job </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-job"><?= _ent($tb_pinjam_log->job); ?></span>
+                           <?= _ent($tb_pinjam_log->tb_kelompok_kerjaan_jenis); ?>
                         </div>
                     </div>
                                         
@@ -152,14 +152,6 @@ jQuery(document).ready(domo);
 
                         <div class="col-sm-8">
                         <span class="detail_group-status"><?= _ent($tb_pinjam_log->status); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Dokumen </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-dokumen"><?= _ent($tb_pinjam_log->dokumen); ?></span>
                         </div>
                     </div>
                                         

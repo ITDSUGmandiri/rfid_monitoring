@@ -6,10 +6,19 @@
                 
         <td><span class="list_group-tanggal"><?= _ent($tb_asset_moving->tanggal); ?></span></td> 
         <td><span class="list_group-waktu"><?= _ent($tb_asset_moving->waktu); ?></span></td> 
-        <td><span class="list_group-reader_id"><?= _ent($tb_asset_moving->reader_id); ?></span></td> 
-        <td><span class="list_group-room_id"><?= _ent($tb_asset_moving->room_id); ?></span></td> 
-        <td><span class="list_group-tag_code"><?= _ent($tb_asset_moving->tag_code); ?></span></td> 
-        <td><span class="list_group-id_moving"><?= _ent($tb_asset_moving->id_moving); ?></span></td> 
+        <td><?php if  ($tb_asset_moving->reader_id) {
+
+            echo admin_anchor('/tag_reader/view/'.$tb_asset_moving->reader_id.'?popup=show', $tb_asset_moving->tag_reader_reader_name, ['class' => 'popup-view']); }?> </td>
+         
+        <td><?php if  ($tb_asset_moving->room_id) {
+
+            echo admin_anchor('/tb_room_master/view/'.$tb_asset_moving->room_id.'?popup=show', $tb_asset_moving->tb_room_master_name_room, ['class' => 'popup-view']); }?> </td>
+         
+        <td><?php if  ($tb_asset_moving->tag_code) {
+
+            echo admin_anchor('/tb_asset_master/view/'.$tb_asset_moving->tag_code.'?popup=show', $tb_asset_moving->tb_asset_master_nama_brg, ['class' => 'popup-view']); }?> </td>
+         
+        <td><span class="list_group-status_moving"><?= _ent($tb_asset_moving->status_moving); ?></span></td> 
         <td width="200">
         
                         <?php is_allowed('tb_asset_moving_view', function() use ($tb_asset_moving){?>

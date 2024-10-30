@@ -1,0 +1,590 @@
+{
+"type": "post",
+"url": "/tb_room_master/add",
+"title": "Add Tb room master.",
+"version": "0.1.0",
+"name": "Addtb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room master unique access-key.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_tb_room_master_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Gedung_id",
+  "description": "<p>Mandatory gedung_id of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_room",
+  "description": "<p>Mandatory kode_room of Tb room masters Input Kode Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Name_room",
+  "description": "<p>Mandatory name_room of Tb room masters Input Name Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lat",
+  "description": "<p>Mandatory lat of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Long",
+  "description": "<p>Mandatory long of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic",
+  "description": "<p>Mandatory pic of Tb room masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb_room_master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "get",
+"url": "/tb_room_master/all",
+"title": "Get all Tb room masters.",
+"version": "0.1.0",
+"name": "Alltb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tb room master_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tb room masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tb room masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tb room masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "id_room",
+"description": "<p>Sort data by this field. id_room, kode_room, name_room</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>id_room</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb room master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTb room master",
+"description": "<p>Tb room master data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "post",
+"url": "/tb_room_master/delete",
+"title": "Delete Tb room master.",
+"version": "0.1.0",
+"name": "Deletetb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_Tb room master_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb room masters .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "get",
+"url": "/tb_room_master/detail",
+"title": "Detail Tb room master.",
+"version": "0.1.0",
+"name": "Detailtb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_Tb room master_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb room masters.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb room master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tb room masterNotFound",
+"description": "<p>Tb room master data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+},
+{
+"type": "post",
+"url": "/tb_room_master/update",
+"title": "Update Tb room master.",
+"version": "0.1.0",
+"name": "Updatetb_room_master",
+"group": "tb_room_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb room masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb room masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb room master Cant be Accessed permission name : api_Tb room master_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Gedung_id",
+  "description": "<p>Mandatory gedung_id of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_room",
+  "description": "<p>Mandatory kode_room of Tb room masters Input Kode Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Name_room",
+  "description": "<p>Mandatory name_room of Tb room masters Input Name Room Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lat",
+  "description": "<p>Mandatory lat of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Long",
+  "description": "<p>Mandatory long of Tb room masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic",
+  "description": "<p>Mandatory pic of Tb room masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb room master.php",
+"groupTitle": "Tb room master"
+}

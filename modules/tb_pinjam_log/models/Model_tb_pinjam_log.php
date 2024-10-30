@@ -5,7 +5,7 @@ class Model_tb_pinjam_log extends MY_Model {
 
     private $primary_key    = 'id';
     private $table_name     = 'tb_pinjam_log';
-    public $field_search   = ['pinjam_id', 'tanggal_proses', 'waktu_pinjam', 'tanggal_pinjam', 'tanggal_kembali', 'waktu_kembali', 'lend_id', 'peminjam', 'job', 'alamat', 'telp', 'tag_code', 'status', 'dokumen', 'tb_pegawai_master.Pegawai', 'tb_asset_master.nama_brg'];
+    public $field_search   = ['pinjam_id', 'tanggal_proses', 'tanggal_pinjam', 'waktu_pinjam', 'tanggal_kembali', 'waktu_kembali', 'lend_id', 'peminjam', 'job', 'alamat', 'telp', 'tag_code', 'status', 'tb_pegawai_master.Pegawai', 'tb_kelompok_kerjaan.jenis', 'tb_asset_master.nama_brg'];
     public $sort_option = ['id', 'DESC'];
     
     public function __construct()
@@ -104,9 +104,10 @@ class Model_tb_pinjam_log extends MY_Model {
 
     public function join_avaiable() {
         $this->db->join('tb_pegawai_master', 'tb_pegawai_master.NIP = tb_pinjam_log.lend_id', 'LEFT');
+        $this->db->join('tb_kelompok_kerjaan', 'tb_kelompok_kerjaan.kode = tb_pinjam_log.job', 'LEFT');
         $this->db->join('tb_asset_master', 'tb_asset_master.tag_code = tb_pinjam_log.tag_code', 'LEFT');
         
-        $this->db->select('tb_pegawai_master.Pegawai,tb_asset_master.nama_brg,tb_pinjam_log.*,tb_pegawai_master.Pegawai as tb_pegawai_master_Pegawai,tb_pegawai_master.Pegawai as Pegawai,tb_asset_master.nama_brg as tb_asset_master_nama_brg,tb_asset_master.nama_brg as nama_brg');
+        $this->db->select('tb_pegawai_master.Pegawai,tb_kelompok_kerjaan.jenis,tb_asset_master.nama_brg,tb_pinjam_log.*,tb_pegawai_master.Pegawai as tb_pegawai_master_Pegawai,tb_pegawai_master.Pegawai as Pegawai,tb_kelompok_kerjaan.jenis as tb_kelompok_kerjaan_jenis,tb_kelompok_kerjaan.jenis as jenis,tb_asset_master.nama_brg as tb_asset_master_nama_brg,tb_asset_master.nama_brg as nama_brg');
 
 
         return $this;

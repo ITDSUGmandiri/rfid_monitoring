@@ -62,25 +62,12 @@
 
                                                     
 
-<div class="form-group group-pinjam_id  ">
-        <label for="pinjam_id" class="col-sm-2 control-label">Pinjam Id            <i class="required">*</i>
-            </label>
-        <div class="col-sm-8">
-            <input type="number" class="form-control" name="pinjam_id" id="pinjam_id" placeholder="" value="<?= set_value('pinjam_id', $tb_pinjam_log->pinjam_id); ?>">
-            <small class="info help-block">
-                <b>Input Pinjam Id</b> Max Length : 11.</small>
-        </div>
-    </div>
-
-
-                            
-
-<div class="form-group group-tanggal_proses  ">
-        <label for="tanggal_proses" class="col-sm-2 control-label">Tanggal Proses            <i class="required">*</i>
+<div class="form-group group-tanggal_pinjam  ">
+        <label for="tanggal_pinjam" class="col-sm-2 control-label">Tanggal Pinjam            <i class="required">*</i>
             </label>
         <div class="col-sm-6">
             <div class="input-group date col-sm-8">
-                <input type="text" class="form-control pull-right datepicker" name="tanggal_proses" placeholder="" id="tanggal_proses" value="<?= set_value('tb_pinjam_log_tanggal_proses_name', $tb_pinjam_log->tanggal_proses); ?>">
+                <input type="text" class="form-control pull-right datepicker" name="tanggal_pinjam" placeholder="" id="tanggal_pinjam" value="<?= set_value('tb_pinjam_log_tanggal_pinjam_name', $tb_pinjam_log->tanggal_pinjam); ?>">
             </div>
             <small class="info help-block">
                 </small>
@@ -102,22 +89,6 @@
                 </small>
         </div>
     </div>
-
-
-                            
-
-<div class="form-group group-tanggal_pinjam  ">
-        <label for="tanggal_pinjam" class="col-sm-2 control-label">Tanggal Pinjam            <i class="required">*</i>
-            </label>
-        <div class="col-sm-6">
-            <div class="input-group date col-sm-8">
-                <input type="text" class="form-control pull-right datepicker" name="tanggal_pinjam" placeholder="" id="tanggal_pinjam" value="<?= set_value('tb_pinjam_log_tanggal_pinjam_name', $tb_pinjam_log->tanggal_pinjam); ?>">
-            </div>
-            <small class="info help-block">
-                </small>
-        </div>
-    </div>
-
 
 
                             
@@ -190,15 +161,26 @@
 
                             
 
-	<div class="form-group group-job  ">
-		<label for="job" class="col-sm-2 control-label">Job			<i class="required">*</i>
-			</label>
-		<div class="col-sm-8">
-			<input type="text" class="form-control" name="job" id="job" placeholder="" value="<?= set_value('job', $tb_pinjam_log->job); ?>">
-			<small class="info help-block">
-				<b>Input Job</b> Max Length : 255.</small>
-		</div>
-	</div>
+<div class="form-group group-job">
+        <label for="job" class="col-sm-2 control-label">Job            <i class="required">*</i>
+            </label>
+        <div class="col-sm-8">
+            <select class="form-control chosen chosen-select-deselect" name="job" id="job" data-placeholder="Select Job">
+                <option value=""></option>
+                <?php
+                $conditions = [
+                ];
+                ?>
+                <?php foreach (db_get_all_data('tb_kelompok_kerjaan', $conditions) as $row): ?>
+                <option <?= $row->kode == $tb_pinjam_log->job ? 'selected' : ''; ?> value="<?= $row->kode ?>"><?= $row->jenis; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <small class="info help-block">
+                <b>Input Job</b> Max Length : 255.</small>
+        </div>
+    </div>
+
+
 
 
                             
@@ -216,15 +198,15 @@
 
                             
 
-<div class="form-group group-telp  ">
-        <label for="telp" class="col-sm-2 control-label">Telp            <i class="required">*</i>
-            </label>
-        <div class="col-sm-8">
-            <input type="number" class="form-control" name="telp" id="telp" placeholder="" value="<?= set_value('telp', $tb_pinjam_log->telp); ?>">
-            <small class="info help-block">
-                <b>Input Telp</b> Max Length : 11.</small>
-        </div>
-    </div>
+	<div class="form-group group-telp  ">
+		<label for="telp" class="col-sm-2 control-label">Telp			<i class="required">*</i>
+			</label>
+		<div class="col-sm-8">
+			<input type="text" class="form-control" name="telp" id="telp" placeholder="" value="<?= set_value('telp', $tb_pinjam_log->telp); ?>">
+			<small class="info help-block">
+				<b>Input Telp</b> Max Length : 11.</small>
+		</div>
+	</div>
 
 
                             
@@ -269,19 +251,6 @@
             </div>
         </div>
     </div>
-
-
-                            
-
-	<div class="form-group group-dokumen  ">
-		<label for="dokumen" class="col-sm-2 control-label">Dokumen			<i class="required">*</i>
-			</label>
-		<div class="col-sm-8">
-			<input type="text" class="form-control" name="dokumen" id="dokumen" placeholder="" value="<?= set_value('dokumen', $tb_pinjam_log->dokumen); ?>">
-			<small class="info help-block">
-				<b>Input Dokumen</b> Max Length : 255.</small>
-		</div>
-	</div>
 
 
 

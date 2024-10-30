@@ -1,97 +1,97 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_api_tag_reader extends MY_Model
+class Model_api_tag_reader extends MY_Model {
+
+private $primary_key = 'reader_id';
+private $table_name = 'tag_reader';
+private $field_search = ['reader_id', 'room_id', 'reader_name', 'setfor', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_baudrate', 'reader_power', 'reader_interval', 'reader_mode', 'reader_updatedby', 'reader_updated', 'reader_createdby', 'reader_created', 'reader_family', 'connecting', 'reader_model', 'reader_identity', 'reader_antena', 'reader_angle', 'reader_gate'];
+
+public function __construct()
 {
+$config = array(
+'primary_key' => $this->primary_key,
+'table_name' => $this->table_name,
+'field_search' => $this->field_search,
+);
 
-    private $primary_key = 'reader_id';
-    private $table_name = 'tag_reader';
-    private $field_search = ['reader_id', 'librarian_id', 'reader_name', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_baudrate', 'reader_power', 'reader_interval', 'reader_mode', 'reader_updatedby', 'reader_updated', 'reader_createdby', 'reader_created'];
+parent::__construct($config);
+}
 
-    public function __construct()
-    {
-        $config = array(
-            'primary_key' => $this->primary_key,
-            'table_name' => $this->table_name,
-            'field_search' => $this->field_search,
-        );
+public function count_all($q = null, $field = null)
+{
+$iterasi = 1;
+$num = count($this->field_search);
+$where = NULL;
+$q = $this->scurity($q);
+$field = $this->scurity($field);
 
-        parent::__construct($config);
-    }
+if (empty($field)) {
+foreach ($this->field_search as $field) {
+if ($iterasi == 1) {
+$where .= $field . " LIKE '%" . $q . "%' ";
+} else {
+$where .= "OR " . $field . " LIKE '%" . $q . "%' ";
+}
+$iterasi++;
+}
 
-    public function count_all($q = null, $field = null)
-    {
-        $iterasi = 1;
-        $num = count($this->field_search);
-        $where = NULL;
-        $q = $this->scurity($q);
-        $field = $this->scurity($field);
+$where = '('.$where.')';
+} else {
+$where .= "(" . $field . " LIKE '%" . $q . "%' )";
+}
 
-        if (empty($field)) {
-            foreach ($this->field_search as $field) {
-                if ($iterasi == 1) {
-                    $where .= $field . " LIKE '%" . $q . "%' ";
-                } else {
-                    $where .= "OR " . $field . " LIKE '%" . $q . "%' ";
-                }
-                $iterasi++;
-            }
+$this->db->where($where);
+$this->filter_query();
 
-            $where = '(' . $where . ')';
-        } else {
-            $where .= "(" . $field . " LIKE '%" . $q . "%' )";
-        }
+$query = $this->db->get($this->table_name);
 
-        $this->db->where($where);
-        $this->filter_query();
+return $query->num_rows();
+}
 
-        $query = $this->db->get($this->table_name);
+public function get($q = null, $field = null, $limit = 0, $offset = 0, $select_field = [])
+{
+$iterasi = 1;
+$num = count($this->field_search);
+$where = NULL;
+$q = $this->scurity($q);
+$field = $this->scurity($field);
 
-        return $query->num_rows();
-    }
+if (empty($field)) {
+foreach ($this->field_search as $field) {
+if ($iterasi == 1) {
+$where .= $field . " LIKE '%" . $q . "%' ";
+} else {
+$where .= "OR " . $field . " LIKE '%" . $q . "%' ";
+}
+$iterasi++;
+}
 
-    public function get($q = null, $field = null, $limit = 0, $offset = 0, $select_field = [])
-    {
-        $iterasi = 1;
-        $num = count($this->field_search);
-        $where = NULL;
-        $q = $this->scurity($q);
-        $field = $this->scurity($field);
+$where = '('.$where.')';
+} else {
+if (in_array($field, $select_field)) {
+$where .= "(" . $field . " LIKE '%" . $q . "%' )";
+}
+}
 
-        if (empty($field)) {
-            foreach ($this->field_search as $field) {
-                if ($iterasi == 1) {
-                    $where .= $field . " LIKE '%" . $q . "%' ";
-                } else {
-                    $where .= "OR " . $field . " LIKE '%" . $q . "%' ";
-                }
-                $iterasi++;
-            }
+if (is_array($select_field) AND count($select_field)) {
+$this->db->select($select_field);
+}
 
-            $where = '(' . $where . ')';
-        } else {
-            if (in_array($field, $select_field)) {
-                $where .= "(" . $field . " LIKE '%" . $q . "%' )";
-            }
-        }
+if ($where) {
+$this->db->where($where);
+}
+$this->filter_query();
 
-        if (is_array($select_field) and count($select_field)) {
-            $this->db->select($select_field);
-        }
+$this->db->limit($limit, $offset);
+$sort_field = $this->input->get('sort_field') ? $this->input->get('sort_field') : $this->primary_key;
+$sort_order = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'DESC';
+$this->db->order_by($sort_field, $sort_order);
+$query = $this->db->get($this->table_name);
 
-        if ($where) {
-            $this->db->where($where);
-        }
-        $this->filter_query();
+return $query->result();
+}
 
-        $this->db->limit($limit, $offset);
-        $sort_field = $this->input->get('sort_field') ? $this->input->get('sort_field') : $this->primary_key;
-        $sort_order = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'DESC';
-        $this->db->order_by($sort_field, $sort_order);
-        $query = $this->db->get($this->table_name);
-
-        return $query->result();
-    }
 }
 
 /* End of file Model_tag_reader.php */
