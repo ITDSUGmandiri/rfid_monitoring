@@ -557,7 +557,7 @@
                                 </div>
                                 <div class="row clearfix">
                                     <div class="">
-                                        <form>
+                                        <form method="POST" action="simpan_data">
                                             <div class="row clearfix">
                                                 <div class="col_half">
                                                     <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>

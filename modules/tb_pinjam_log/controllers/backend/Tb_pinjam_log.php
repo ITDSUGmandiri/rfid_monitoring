@@ -1,17 +1,17 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 /**
-*| --------------------------------------------------------------------------
-*| Tb Pinjam Log Controller
-*| --------------------------------------------------------------------------
-*| Tb Pinjam Log site
-*|
-*/
-class Tb_pinjam_log extends Admin	
+ *| --------------------------------------------------------------------------
+ *| Tb Pinjam Log Controller
+ *| --------------------------------------------------------------------------
+ *| Tb Pinjam Log site
+ *|
+ */
+class Tb_pinjam_log extends Admin
 {
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,10 +22,10 @@ class Tb_pinjam_log extends Admin
 	}
 
 	/**
-	* show all Tb Pinjam Logs
-	*
-	* @var $offset String
-	*/
+	 * show all Tb Pinjam Logs
+	 *
+	 * @var $offset String
+	 */
 	public function index($offset = 0)
 	{
 		$this->is_allowed('tb_pinjam_log_list');
@@ -44,9 +44,9 @@ class Tb_pinjam_log extends Admin
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
-		
+
 		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_pinjam_log/tb_pinjam_log_data_table', $this->data, true);
-		
+
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
@@ -58,11 +58,11 @@ class Tb_pinjam_log extends Admin
 		$this->template->title('Tb Pinjam Log List');
 		$this->render('backend/standart/administrator/tb_pinjam_log/tb_pinjam_log_list', $this->data);
 	}
-	
+
 	/**
-	* Add new tb_pinjam_logs
-	*
-	*/
+	 * Add new tb_pinjam_logs
+	 *
+	 */
 	public function add()
 	{
 		$this->is_allowed('tb_pinjam_log_add');
@@ -72,60 +72,54 @@ class Tb_pinjam_log extends Admin
 	}
 
 	/**
-	* Add New Tb Pinjam Logs
-	*
-	* @return JSON
-	*/
+	 * Add New Tb Pinjam Logs
+	 *
+	 * @return JSON
+	 */
 	public function add_save()
 	{
 		if (!$this->is_allowed('tb_pinjam_log_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
-				]);
+			]);
 			exit;
 		}
-		
-		
-
-		
-
-		
 
 		$this->form_validation->set_rules('tanggal_pinjam', 'Tanggal Pinjam', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('waktu_pinjam', 'Waktu Pinjam', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('tanggal_kembali', 'Tanggal Kembali', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('waktu_kembali', 'Waktu Kembali', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('lend_id', 'Lend Id', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('peminjam', 'Peminjam', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('job', 'Job', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('telp', 'Telp', 'trim|required|max_length[11]');
-		
+
 
 		$this->form_validation->set_rules('tag_code[]', 'Aset', 'trim|required|max_length[255]');
-		
 
-		
+
+
 
 		if ($this->form_validation->run()) {
-		
+
 			$save_data = [
 				'tanggal_pinjam' => $this->input->post('tanggal_pinjam'),
 				'waktu_pinjam' => $this->input->post('waktu_pinjam'),
@@ -140,21 +134,21 @@ class Tb_pinjam_log extends Admin
 				'status' => $this->input->post('status'),
 			];
 
-			
-			
 
 
 
-			
-			
+
+
+
+
 			$save_tb_pinjam_log = $id = $this->model_tb_pinjam_log->store($save_data);
-            
+
 
 			if ($save_tb_pinjam_log) {
-				
-				
-					
-				
+
+
+
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_tb_pinjam_log;
@@ -165,10 +159,12 @@ class Tb_pinjam_log extends Admin
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						admin_anchor('/tb_pinjam_log/edit/' . $save_tb_pinjam_log, 'Edit Tb Pinjam Log')
-					]), 'success');
+							admin_anchor('/tb_pinjam_log/edit/' . $save_tb_pinjam_log, 'Edit Tb Pinjam Log')
+						]),
+						'success'
+					);
 
-            		$this->data['success'] = true;
+					$this->data['success'] = true;
 					$this->data['redirect'] = admin_base_url('/tb_pinjam_log');
 				}
 			} else {
@@ -176,12 +172,11 @@ class Tb_pinjam_log extends Admin
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
 				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
 					$this->data['redirect'] = admin_base_url('/tb_pinjam_log');
 				}
 			}
-
 		} else {
 			$this->data['success'] = false;
 			$this->data['message'] = 'Opss validation failed';
@@ -190,12 +185,123 @@ class Tb_pinjam_log extends Admin
 
 		$this->response($this->data);
 	}
-	
-		/**
-	* Update view Tb Pinjam Logs
-	*
-	* @var $id String
-	*/
+
+	public function simpan_data()
+	{
+		if (!$this->is_allowed('tb_pinjam_log_add', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+			]);
+			exit;
+		}
+
+		$this->form_validation->set_rules('tanggal_pinjam', 'Tanggal Pinjam', 'trim|required');
+
+
+		$this->form_validation->set_rules('waktu_pinjam', 'Waktu Pinjam', 'trim|required');
+
+
+		$this->form_validation->set_rules('tanggal_kembali', 'Tanggal Kembali', 'trim|required');
+
+
+		$this->form_validation->set_rules('waktu_kembali', 'Waktu Kembali', 'trim|required');
+
+
+		$this->form_validation->set_rules('lend_id', 'Lend Id', 'trim|required|max_length[255]');
+
+
+		$this->form_validation->set_rules('peminjam', 'Peminjam', 'trim|required|max_length[255]');
+
+
+		$this->form_validation->set_rules('job', 'Job', 'trim|required|max_length[255]');
+
+
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[255]');
+
+
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required|max_length[11]');
+
+
+		$this->form_validation->set_rules('tag_code[]', 'Aset', 'trim|required|max_length[255]');
+
+
+
+
+		if ($this->form_validation->run()) {
+
+			$save_data = [
+				'tanggal_pinjam' => $this->input->post('tanggal_pinjam'),
+				'waktu_pinjam' => $this->input->post('waktu_pinjam'),
+				'tanggal_kembali' => $this->input->post('tanggal_kembali'),
+				'waktu_kembali' => $this->input->post('waktu_kembali'),
+				'lend_id' => $this->input->post('lend_id'),
+				'peminjam' => $this->input->post('peminjam'),
+				'job' => $this->input->post('job'),
+				'alamat' => $this->input->post('alamat'),
+				'telp' => $this->input->post('telp'),
+				'tag_code' => implode(',', (array) $this->input->post('tag_code')),
+				'status' => $this->input->post('status'),
+			];
+
+
+
+
+
+
+
+
+			$save_tb_pinjam_log = $id = $this->model_tb_pinjam_log->store($save_data);
+
+
+			if ($save_tb_pinjam_log) {
+
+
+
+
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = true;
+					$this->data['id'] 	   = $save_tb_pinjam_log;
+					$this->data['message'] = cclang('success_save_data_stay', [
+						admin_anchor('/tb_pinjam_log/edit/' . $save_tb_pinjam_log, 'Edit Tb Pinjam Log'),
+						admin_anchor('/tb_pinjam_log', ' Go back to list')
+					]);
+				} else {
+					set_message(
+						cclang('success_save_data_redirect', [
+							admin_anchor('/tb_pinjam_log/edit/' . $save_tb_pinjam_log, 'Edit Tb Pinjam Log')
+						]),
+						'success'
+					);
+
+					$this->data['success'] = true;
+					$this->data['redirect'] = admin_base_url('/tb_pinjam_log');
+				}
+			} else {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
+				} else {
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
+					$this->data['redirect'] = admin_base_url('/tb_pinjam_log');
+				}
+			}
+		} else {
+			$this->data['success'] = false;
+			$this->data['message'] = 'Opss validation failed';
+			$this->data['errors'] = $this->form_validation->error_array();
+		}
+
+		$this->response($this->data);
+	}
+
+
+	/**
+	 * Update view Tb Pinjam Logs
+	 *
+	 * @var $id String
+	 */
 	public function edit($id)
 	{
 		$this->is_allowed('tb_pinjam_log_update');
@@ -207,56 +313,56 @@ class Tb_pinjam_log extends Admin
 	}
 
 	/**
-	* Update Tb Pinjam Logs
-	*
-	* @var $id String
-	*/
+	 * Update Tb Pinjam Logs
+	 *
+	 * @var $id String
+	 */
 	public function edit_save($id)
 	{
 		if (!$this->is_allowed('tb_pinjam_log_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
-				]);
+			]);
 			exit;
 		}
-				
 
-		
+
+
 
 		$this->form_validation->set_rules('tanggal_pinjam', 'Tanggal Pinjam', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('waktu_pinjam', 'Waktu Pinjam', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('tanggal_kembali', 'Tanggal Kembali', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('waktu_kembali', 'Waktu Kembali', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('lend_id', 'Lend Id', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('peminjam', 'Peminjam', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('job', 'Job', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[255]');
-		
+
 
 		$this->form_validation->set_rules('telp', 'Telp', 'trim|required|max_length[11]');
-		
+
 
 		$this->form_validation->set_rules('tag_code[]', 'Aset', 'trim|required|max_length[255]');
-		
 
-		
+
+
 		if ($this->form_validation->run()) {
-		
+
 			$save_data = [
 				'tanggal_pinjam' => $this->input->post('tanggal_pinjam'),
 				'waktu_pinjam' => $this->input->post('waktu_pinjam'),
@@ -271,21 +377,21 @@ class Tb_pinjam_log extends Admin
 				'status' => $this->input->post('status'),
 			];
 
-			
-
-			
 
 
-			
-			
+
+
+
+
+
 			$save_tb_pinjam_log = $this->model_tb_pinjam_log->change($id, $save_data);
 
 			if ($save_tb_pinjam_log) {
 
-				
 
-				
-				
+
+
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
@@ -294,10 +400,11 @@ class Tb_pinjam_log extends Admin
 					]);
 				} else {
 					set_message(
-						cclang('success_update_data_redirect', [
-					]), 'success');
+						cclang('success_update_data_redirect', []),
+						'success'
+					);
 
-            		$this->data['success'] = true;
+					$this->data['success'] = true;
 					$this->data['redirect'] = admin_base_url('/tb_pinjam_log');
 				}
 			} else {
@@ -305,8 +412,8 @@ class Tb_pinjam_log extends Admin
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
 				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
 					$this->data['redirect'] = admin_base_url('/tb_pinjam_log');
 				}
 			}
@@ -318,12 +425,12 @@ class Tb_pinjam_log extends Admin
 
 		$this->response($this->data);
 	}
-	
+
 	/**
-	* delete Tb Pinjam Logs
-	*
-	* @var $id String
-	*/
+	 * delete Tb Pinjam Logs
+	 *
+	 * @var $id String
+	 */
 	public function delete($id = null)
 	{
 		$this->is_allowed('tb_pinjam_log_delete');
@@ -335,7 +442,7 @@ class Tb_pinjam_log extends Admin
 
 		if (!empty($id)) {
 			$remove = $this->_remove($id);
-		} elseif (count($arr_id) >0) {
+		} elseif (count($arr_id) > 0) {
 			foreach ($arr_id as $id) {
 				$remove = $this->_remove($id);
 			}
@@ -353,7 +460,6 @@ class Tb_pinjam_log extends Admin
 					"message" => cclang('error_delete', 'tb_pinjam_log')
 				]);
 			}
-
 		} else {
 			if ($remove) {
 				set_message(cclang('has_been_deleted', 'tb_pinjam_log'), 'success');
@@ -362,14 +468,13 @@ class Tb_pinjam_log extends Admin
 			}
 			redirect_back();
 		}
-
 	}
 
-		/**
-	* View view Tb Pinjam Logs
-	*
-	* @var $id String
-	*/
+	/**
+	 * View view Tb Pinjam Logs
+	 *
+	 * @var $id String
+	 */
 	public function view($id)
 	{
 		$this->is_allowed('tb_pinjam_log_view');
@@ -379,43 +484,43 @@ class Tb_pinjam_log extends Admin
 		$this->template->title('Tb Pinjam Log Detail');
 		$this->render('backend/standart/administrator/tb_pinjam_log/tb_pinjam_log_view', $this->data);
 	}
-	
+
 	/**
-	* delete Tb Pinjam Logs
-	*
-	* @var $id String
-	*/
+	 * delete Tb Pinjam Logs
+	 *
+	 * @var $id String
+	 */
 	private function _remove($id)
 	{
 		$tb_pinjam_log = $this->model_tb_pinjam_log->find($id);
 
-		
-		
+
+
 		return $this->model_tb_pinjam_log->remove($id);
 	}
-	
-	
+
+
 	/**
-	* Export to excel
-	*
-	* @return Files Excel .xls
-	*/
+	 * Export to excel
+	 *
+	 * @return Files Excel .xls
+	 */
 	public function export()
 	{
 		$this->is_allowed('tb_pinjam_log_export');
 
 		$this->model_tb_pinjam_log->export(
-			'tb_pinjam_log', 
+			'tb_pinjam_log',
 			'tb_pinjam_log',
 			$this->model_tb_pinjam_log->field_search
 		);
 	}
 
 	/**
-	* Export to PDF
-	*
-	* @return Files PDF .pdf
-	*/
+	 * Export to PDF
+	 *
+	 * @return Files PDF .pdf
+	 */
 	public function export_pdf()
 	{
 		$this->is_allowed('tb_pinjam_log_export');
@@ -430,34 +535,32 @@ class Tb_pinjam_log extends Admin
 
 		$table = $title = 'tb_pinjam_log';
 		$this->load->library('HtmlPdf');
-      
-        $config = array(
-            'orientation' => 'p',
-            'format' => 'a4',
-            'marges' => array(5, 5, 5, 5)
-        );
 
-        $this->pdf = new HtmlPdf($config);
-        $this->pdf->setDefaultFont('stsongstdlight'); 
+		$config = array(
+			'orientation' => 'p',
+			'format' => 'a4',
+			'marges' => array(5, 5, 5, 5)
+		);
 
-        $result = $this->db->get($table);
-       
-        $data = $this->model_tb_pinjam_log->find($id);
-        $fields = $result->list_fields();
+		$this->pdf = new HtmlPdf($config);
+		$this->pdf->setDefaultFont('stsongstdlight');
 
-        $content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
-            'data' => $data,
-            'fields' => $fields,
-            'title' => $title
-        ], TRUE);
+		$result = $this->db->get($table);
 
-        $this->pdf->initialize($config);
-        $this->pdf->pdf->SetDisplayMode('fullpage');
-        $this->pdf->writeHTML($content);
-        $this->pdf->Output($table.'.pdf', 'H');
+		$data = $this->model_tb_pinjam_log->find($id);
+		$fields = $result->list_fields();
+
+		$content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
+			'data' => $data,
+			'fields' => $fields,
+			'title' => $title
+		], TRUE);
+
+		$this->pdf->initialize($config);
+		$this->pdf->pdf->SetDisplayMode('fullpage');
+		$this->pdf->writeHTML($content);
+		$this->pdf->Output($table . '.pdf', 'H');
 	}
-
-	
 }
 
 
