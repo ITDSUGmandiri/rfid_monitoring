@@ -105,7 +105,7 @@ $CI = &get_instance();
   <div class="row">
 
     <div class="col-md-12">
-      <div class="box box-info">
+      <div id="sectiondashboard" class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">MONITORING ASET</h3>
           <div class="box-tools pull-right">
@@ -431,6 +431,14 @@ $CI = &get_instance();
 
   </div>
 </section>
+<script type="text/javascript">
+  function doRefresh() {
+    $("#sectiondashboard").load(window.location.reload());
+  }
+  $(function() {
+    setInterval(doRefresh, 10000);
+  });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
