@@ -88,7 +88,11 @@
                             <label for="reader_id" class="col-sm-2 control-label">Reader                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
+<<<<<<< HEAD
+                                <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader Id">
+=======
                                 <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
@@ -110,7 +114,11 @@
                             <label for="room_id" class="col-sm-2 control-label">Ruangan                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
+<<<<<<< HEAD
+                                <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Room Id">
+=======
                                 <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Ruangan">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
@@ -132,7 +140,11 @@
                             <label for="tag_code" class="col-sm-2 control-label">Aset                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
+<<<<<<< HEAD
+                                <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Tag Code">
+=======
                                 <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Aset">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
                                     <option value=""></option>
                                     <?php
                                     $conditions = [

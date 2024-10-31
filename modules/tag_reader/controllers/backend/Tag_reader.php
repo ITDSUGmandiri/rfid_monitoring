@@ -55,7 +55,7 @@ class Tag_reader extends Admin
 			]);
 		}
 
-		$this->template->title('Tag Reader List');
+		$this->template->title('Reader List');
 		$this->render('backend/standart/administrator/tag_reader/tag_reader_list', $this->data);
 	}
 	
@@ -67,7 +67,7 @@ class Tag_reader extends Admin
 	{
 		$this->is_allowed('tag_reader_add');
 
-		$this->template->title('Tag Reader New');
+		$this->template->title('Reader New');
 		$this->render('backend/standart/administrator/tag_reader/tag_reader_add', $this->data);
 	}
 
@@ -88,48 +88,34 @@ class Tag_reader extends Admin
 		
 		
 
-		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required|max_length[255]');
+		$this->form_validation->set_rules('librarian_id', 'Librarian', 'trim|required');
 		
 
-		$this->form_validation->set_rules('setfor', 'Posisi (IN/OUT)', 'trim|required');
+		$this->form_validation->set_rules('reader_name', 'Name', 'trim|required|max_length[255]');
 		
 
-		$this->form_validation->set_rules('reader_serialnumber', 'Reader Serialnumber', 'trim|required|max_length[10]');
+		$this->form_validation->set_rules('reader_serialnumber', 'SN', 'trim|required|max_length[10]');
 		
 
-		$this->form_validation->set_rules('reader_type', 'Reader Type', 'trim|required');
+		$this->form_validation->set_rules('reader_type', 'Type', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_ip', 'Reader Ip', 'trim|required|max_length[45]');
+		$this->form_validation->set_rules('reader_ip', 'IP', 'trim|required|max_length[45]|valid_ip');
 		
 
+		$this->form_validation->set_rules('reader_port', 'Port', 'trim|required|max_length[7]');
 		
 
-		$this->form_validation->set_rules('reader_com', 'Reader Com', 'trim|required');
+		$this->form_validation->set_rules('reader_com', 'Com Port', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_baudrate', 'Reader Baudrate', 'trim|required');
+		$this->form_validation->set_rules('reader_baudrate', 'Baud Rate', 'trim|required');
 		
 
+		$this->form_validation->set_rules('reader_power', 'Power', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_interval', 'Reader Interval', 'trim|required');
-		
-
-		$this->form_validation->set_rules('reader_mode', 'Reader Mode', 'trim|required');
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		$this->form_validation->set_rules('connecting', 'Connecting', 'trim|required');
+		$this->form_validation->set_rules('reader_interval', 'Interval', 'trim|required');
 		
 
 		
@@ -137,16 +123,25 @@ class Tag_reader extends Admin
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'room_id' => $this->input->post('room_id'),
-				'setfor' => $this->input->post('setfor'),
+				'librarian_id' => $this->input->post('librarian_id'),
+				'reader_name' => $this->input->post('reader_name'),
 				'reader_serialnumber' => $this->input->post('reader_serialnumber'),
 				'reader_type' => $this->input->post('reader_type'),
 				'reader_ip' => $this->input->post('reader_ip'),
+				'reader_port' => $this->input->post('reader_port'),
 				'reader_com' => $this->input->post('reader_com'),
 				'reader_baudrate' => $this->input->post('reader_baudrate'),
+				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'connecting' => $this->input->post('connecting'),
+				'reader_created' => date('Y-m-d H:i:s'),
+				'reader_createdby' => get_user_data('id'),				'reader_updated' => date('Y-m-d H:i:s'),
+				'reader_updatedby' => get_user_data('id'),				'reader_family' => $this->input->post('reader_family'),
+				'reader_model' => $this->input->post('reader_model'),
+				'reader_identity' => $this->input->post('reader_identity'),
+				'reader_antena' => $this->input->post('reader_antena'),
+				'reader_angle' => $this->input->post('reader_angle'),
+				'reader_gate' => $this->input->post('reader_gate'),
 			];
 
 			
@@ -211,7 +206,7 @@ class Tag_reader extends Admin
 
 		$this->data['tag_reader'] = $this->model_tag_reader->find($id);
 
-		$this->template->title('Tag Reader Update');
+		$this->template->title('Reader Update');
 		$this->render('backend/standart/administrator/tag_reader/tag_reader_update', $this->data);
 	}
 
@@ -229,64 +224,58 @@ class Tag_reader extends Admin
 				]);
 			exit;
 		}
-				$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required|max_length[255]');
+				$this->form_validation->set_rules('librarian_id', 'Librarian', 'trim|required');
 		
 
-		$this->form_validation->set_rules('setfor', 'Posisi (IN/OUT)', 'trim|required');
+		$this->form_validation->set_rules('reader_name', 'Name', 'trim|required|max_length[255]');
 		
 
-		$this->form_validation->set_rules('reader_serialnumber', 'Reader Serialnumber', 'trim|required|max_length[10]');
+		$this->form_validation->set_rules('reader_serialnumber', 'SN', 'trim|required|max_length[10]');
 		
 
-		$this->form_validation->set_rules('reader_type', 'Reader Type', 'trim|required');
+		$this->form_validation->set_rules('reader_type', 'Type', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_ip', 'Reader Ip', 'trim|required|max_length[45]');
+		$this->form_validation->set_rules('reader_ip', 'IP', 'trim|required|max_length[45]|valid_ip');
 		
 
+		$this->form_validation->set_rules('reader_port', 'Port', 'trim|required|max_length[7]');
 		
 
-		$this->form_validation->set_rules('reader_com', 'Reader Com', 'trim|required');
+		$this->form_validation->set_rules('reader_com', 'Com Port', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_baudrate', 'Reader Baudrate', 'trim|required');
+		$this->form_validation->set_rules('reader_baudrate', 'Baud Rate', 'trim|required');
 		
 
+		$this->form_validation->set_rules('reader_power', 'Power', 'trim|required');
 		
 
-		$this->form_validation->set_rules('reader_interval', 'Reader Interval', 'trim|required');
-		
-
-		$this->form_validation->set_rules('reader_mode', 'Reader Mode', 'trim|required');
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		$this->form_validation->set_rules('connecting', 'Connecting', 'trim|required');
+		$this->form_validation->set_rules('reader_interval', 'Interval', 'trim|required');
 		
 
 		
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'room_id' => $this->input->post('room_id'),
-				'setfor' => $this->input->post('setfor'),
+				'librarian_id' => $this->input->post('librarian_id'),
+				'reader_name' => $this->input->post('reader_name'),
 				'reader_serialnumber' => $this->input->post('reader_serialnumber'),
 				'reader_type' => $this->input->post('reader_type'),
 				'reader_ip' => $this->input->post('reader_ip'),
+				'reader_port' => $this->input->post('reader_port'),
 				'reader_com' => $this->input->post('reader_com'),
 				'reader_baudrate' => $this->input->post('reader_baudrate'),
+				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'connecting' => $this->input->post('connecting'),
+				'reader_updated' => date('Y-m-d H:i:s'),
+				'reader_updatedby' => get_user_data('id'),				'reader_family' => $this->input->post('reader_family'),
+				'reader_model' => $this->input->post('reader_model'),
+				'reader_identity' => $this->input->post('reader_identity'),
+				'reader_antena' => $this->input->post('reader_antena'),
+				'reader_angle' => $this->input->post('reader_angle'),
+				'reader_gate' => $this->input->post('reader_gate'),
 			];
 
 			
@@ -394,7 +383,7 @@ class Tag_reader extends Admin
 
 		$this->data['tag_reader'] = $this->model_tag_reader->join_avaiable()->filter_avaiable()->find($id);
 
-		$this->template->title('Tag Reader Detail');
+		$this->template->title('Reader Detail');
 		$this->render('backend/standart/administrator/tag_reader/tag_reader_view', $this->data);
 	}
 	

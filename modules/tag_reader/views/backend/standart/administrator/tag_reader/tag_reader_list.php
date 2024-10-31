@@ -83,12 +83,23 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                               <option <?= $this->input->get('f') == 'room_id' ? 'selected' :''; ?> value="room_id">Room Id</option>
-                            <option <?= $this->input->get('f') == 'setfor' ? 'selected' :''; ?> value="setfor">Posisi (IN/OUT)</option>
-                            <option <?= $this->input->get('f') == 'reader_type' ? 'selected' :''; ?> value="reader_type">Reader Type</option>
-                            <option <?= $this->input->get('f') == 'reader_ip' ? 'selected' :''; ?> value="reader_ip">Reader Ip</option>
-                            <option <?= $this->input->get('f') == 'reader_mode' ? 'selected' :''; ?> value="reader_mode">Reader Mode</option>
-                            <option <?= $this->input->get('f') == 'connecting' ? 'selected' :''; ?> value="connecting">Connecting</option>
+                               <option <?= $this->input->get('f') == 'librarian_id' ? 'selected' :''; ?> value="librarian_id">Librarian</option>
+                            <option <?= $this->input->get('f') == 'reader_name' ? 'selected' :''; ?> value="reader_name">Name</option>
+                            <option <?= $this->input->get('f') == 'reader_serialnumber' ? 'selected' :''; ?> value="reader_serialnumber">SN</option>
+                            <option <?= $this->input->get('f') == 'reader_type' ? 'selected' :''; ?> value="reader_type">Type</option>
+                            <option <?= $this->input->get('f') == 'reader_ip' ? 'selected' :''; ?> value="reader_ip">IP</option>
+                            <option <?= $this->input->get('f') == 'reader_port' ? 'selected' :''; ?> value="reader_port">Port</option>
+                            <option <?= $this->input->get('f') == 'reader_com' ? 'selected' :''; ?> value="reader_com">Com Port</option>
+                            <option <?= $this->input->get('f') == 'reader_baudrate' ? 'selected' :''; ?> value="reader_baudrate">Baud Rate</option>
+                            <option <?= $this->input->get('f') == 'reader_power' ? 'selected' :''; ?> value="reader_power">Power</option>
+                            <option <?= $this->input->get('f') == 'reader_interval' ? 'selected' :''; ?> value="reader_interval">Interval</option>
+                            <option <?= $this->input->get('f') == 'reader_mode' ? 'selected' :''; ?> value="reader_mode">Mode</option>
+                            <option <?= $this->input->get('f') == 'reader_family' ? 'selected' :''; ?> value="reader_family">Reader Family</option>
+                            <option <?= $this->input->get('f') == 'reader_model' ? 'selected' :''; ?> value="reader_model">Reader Model</option>
+                            <option <?= $this->input->get('f') == 'reader_identity' ? 'selected' :''; ?> value="reader_identity">Reader Identity</option>
+                            <option <?= $this->input->get('f') == 'reader_antena' ? 'selected' :''; ?> value="reader_antena">Reader Antena</option>
+                            <option <?= $this->input->get('f') == 'reader_angle' ? 'selected' :''; ?> value="reader_angle">Reader Angle</option>
+                            <option <?= $this->input->get('f') == 'reader_gate' ? 'selected' :''; ?> value="reader_gate">Reader Gate</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -117,12 +128,23 @@ jQuery(document).ready(domo);
                                                      <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                                                    <th data-field="room_id"data-sort="1" data-primary-key="0"> <?= cclang('room_id') ?></th>
-                           <th data-field="setfor"data-sort="1" data-primary-key="0"> <?= cclang('setfor') ?></th>
+                                                    <th data-field="librarian_id"data-sort="1" data-primary-key="0"> <?= cclang('librarian_id') ?></th>
+                           <th data-field="reader_name"data-sort="1" data-primary-key="0"> <?= cclang('reader_name') ?></th>
+                           <th data-field="reader_serialnumber"data-sort="1" data-primary-key="0"> <?= cclang('reader_serialnumber') ?></th>
                            <th data-field="reader_type"data-sort="1" data-primary-key="0"> <?= cclang('reader_type') ?></th>
                            <th data-field="reader_ip"data-sort="1" data-primary-key="0"> <?= cclang('reader_ip') ?></th>
+                           <th data-field="reader_port"data-sort="1" data-primary-key="0"> <?= cclang('reader_port') ?></th>
+                           <th data-field="reader_com"data-sort="1" data-primary-key="0"> <?= cclang('reader_com') ?></th>
+                           <th data-field="reader_baudrate"data-sort="1" data-primary-key="0"> <?= cclang('reader_baudrate') ?></th>
+                           <th data-field="reader_power"data-sort="1" data-primary-key="0"> <?= cclang('reader_power') ?></th>
+                           <th data-field="reader_interval"data-sort="1" data-primary-key="0"> <?= cclang('reader_interval') ?></th>
                            <th data-field="reader_mode"data-sort="1" data-primary-key="0"> <?= cclang('reader_mode') ?></th>
-                           <th data-field="connecting"data-sort="1" data-primary-key="0"> <?= cclang('connecting') ?></th>
+                           <th data-field="reader_family"data-sort="1" data-primary-key="0"> <?= cclang('reader_family') ?></th>
+                           <th data-field="reader_model"data-sort="1" data-primary-key="0"> <?= cclang('reader_model') ?></th>
+                           <th data-field="reader_identity"data-sort="1" data-primary-key="0"> <?= cclang('reader_identity') ?></th>
+                           <th data-field="reader_antena"data-sort="1" data-primary-key="0"> <?= cclang('reader_antena') ?></th>
+                           <th data-field="reader_angle"data-sort="1" data-primary-key="0"> <?= cclang('reader_angle') ?></th>
+                           <th data-field="reader_gate"data-sort="1" data-primary-key="0"> <?= cclang('reader_gate') ?></th>
                            <th>Action</th>                        </tr>
                      </thead>
                      <tbody id="tbody_tag_reader">

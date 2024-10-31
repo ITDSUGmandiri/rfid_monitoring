@@ -94,10 +94,17 @@
                             
 
 <div class="form-group group-reader_id">
+<<<<<<< HEAD
+        <label for="reader_id" class="col-sm-2 control-label">Reader Id            <i class="required">*</i>
+            </label>
+        <div class="col-sm-8">
+            <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader Id">
+=======
         <label for="reader_id" class="col-sm-2 control-label">Reader            <i class="required">*</i>
             </label>
         <div class="col-sm-8">
             <select class="form-control chosen chosen-select-deselect" name="reader_id" id="reader_id" data-placeholder="Select Reader">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
                 <option value=""></option>
                 <?php
                 $conditions = [
@@ -118,10 +125,17 @@
                             
 
 <div class="form-group group-room_id">
+<<<<<<< HEAD
+        <label for="room_id" class="col-sm-2 control-label">Room Id            <i class="required">*</i>
+            </label>
+        <div class="col-sm-8">
+            <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Room Id">
+=======
         <label for="room_id" class="col-sm-2 control-label">Ruangan            <i class="required">*</i>
             </label>
         <div class="col-sm-8">
             <select class="form-control chosen chosen-select-deselect" name="room_id" id="room_id" data-placeholder="Select Ruangan">
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
                 <option value=""></option>
                 <?php
                 $conditions = [
@@ -137,6 +151,46 @@
     </div>
 
 
+<<<<<<< HEAD
+
+
+                            
+
+<div class="form-group group-tag_code">
+        <label for="tag_code" class="col-sm-2 control-label">Tag Code            <i class="required">*</i>
+            </label>
+        <div class="col-sm-8">
+            <select class="form-control chosen chosen-select-deselect" name="tag_code" id="tag_code" data-placeholder="Select Tag Code">
+                <option value=""></option>
+                <?php
+                $conditions = [
+                ];
+                ?>
+                <?php foreach (db_get_all_data('tb_asset_master', $conditions) as $row): ?>
+                <option <?= $row->tag_code == $tb_asset_moving->tag_code ? 'selected' : ''; ?> value="<?= $row->tag_code ?>"><?= $row->nama_brg; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <small class="info help-block">
+                <b>Input Tag Code</b> Max Length : 96.</small>
+        </div>
+    </div>
+
+
+
+
+                            
+
+	<div class="form-group group-status_moving  ">
+		<label for="status_moving" class="col-sm-2 control-label">Status Moving			</label>
+		<div class="col-sm-8">
+			<input type="text" class="form-control" name="status_moving" id="status_moving" placeholder="" value="<?= set_value('status_moving', $tb_asset_moving->status_moving); ?>">
+			<small class="info help-block">
+				</small>
+		</div>
+	</div>
+
+
+=======
 
 
                             
@@ -175,6 +229,7 @@
 	</div>
 
 
+>>>>>>> 8b0d86583f8ade3ce48095c5863c622d05cbbdc5
 
     <div class="message"></div>
 <div class="row-fluid col-md-7 container-button-bottom">
