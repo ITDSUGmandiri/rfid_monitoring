@@ -183,7 +183,7 @@ $CI = &get_instance();
                 </div>
               </div>
             </div>
-            <? if ($this->session->userdata('username') == 'admin'): ?>
+            <?php if ($this->session->userdata('username') == 'admin'): ?>
               <div class="col-md-12">
                 <div class="box box-info">
                   <div class="box-header with-border">
@@ -400,9 +400,9 @@ $CI = &get_instance();
                   </div>
                 </div>
               </div>
-            <? else: ?>
+            <?php else: ?>
 
-            <? endif; ?>
+            <?php endif; ?>
             <!-- <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
