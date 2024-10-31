@@ -221,7 +221,7 @@ class User extends API
 
 		$data['user'] = $this->model_user->find($id);
 
-		if (count($data['user'])) {
+		if (isset($data['user'])) {
 			$this->response([
 				'status' 	=> true,
 				'message' 	=> 'Detail user',

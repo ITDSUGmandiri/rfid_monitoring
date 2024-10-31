@@ -22,6 +22,7 @@ class Dashboard extends Admin
 
 	public function index()
 	{
+
 		if (!$this->aauth->is_allowed('dashboard')) {
 			redirect('/', 'refresh');
 		}
@@ -166,6 +167,10 @@ class Dashboard extends Admin
 		$CI = &get_instance();
 
 		// Ambil data untuk chart
+		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_asset_master WHERE tag_code != '' AND kelompok = 1";
+		$result_total = $CI->db->query($row_totalpantau);
+		$row_totalpantau = $result_total->row();
+		// Ambil data untuk chart
 		$query_total = "SELECT COUNT(*) as total FROM tb_asset_master WHERE kode_brg != '' AND nup != '' AND tag_code != ''";
 		$result_total = $CI->db->query($query_total);
 		$row_total = $result_total->row();
@@ -175,7 +180,7 @@ class Dashboard extends Admin
 		$result_total = $CI->db->query($query_anomali);
 		$row_anomali = $result_total->row();
 
-		$query_on_time = "SELECT o.tag_code, count(distinct c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
+		$query_on_time = "SELECT o.tag_code, count(distinct c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7 AND o.kelompok = 1";
 		$result_on_time = $CI->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
@@ -224,6 +229,7 @@ class Dashboard extends Admin
 		$result = $CI->db->query($querylibrarian);
 
 		$data = array(
+			"totalpantau" 	=> $row_totalpantau->total,
 			"total" 	=> $row_total->total,
 			"anomali"   => $row_anomali->total,
 			"mutation"	=> $mutation->total,

@@ -1,0 +1,716 @@
+{
+"type": "post",
+"url": "/tb_asset_master/add",
+"title": "Add Tb asset master.",
+"version": "0.1.0",
+"name": "Addtb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset master unique access-key.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_tb_asset_master_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_brg",
+  "description": "<p>Mandatory kode_brg of Tb asset masters Input Kode Brg Max Length : 15..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nup",
+  "description": "<p>Mandatory nup of Tb asset masters Input Nup Max Length : 11..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tag_code",
+  "description": "<p>Mandatory tag_code of Tb asset masters Input Tag Code Max Length : 96..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_brg",
+  "description": "<p>Mandatory nama_brg of Tb asset masters Input Nama Brg Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Merk",
+  "description": "<p>Mandatory merk of Tb asset masters Input Merk Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe",
+  "description": "<p>Mandatory tipe of Tb asset masters Input Tipe Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kondisi",
+  "description": "<p>Mandatory kondisi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nilai",
+  "description": "<p>Mandatory nilai of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kelompok",
+  "description": "<p>Mandatory kelompok of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_inventarisasi",
+  "description": "<p>Mandatory tgl_inventarisasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tglperolehan",
+  "description": "<p>Mandatory tglperolehan of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi",
+  "description": "<p>Mandatory lokasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Status_id",
+  "description": "<p>Mandatory status_id of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Keterangan",
+  "description": "<p>Mandatory keterangan of Tb asset masters Input Keterangan Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic_aset",
+  "description": "<p>Mandatory pic_aset of Tb asset masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb_asset_master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "get",
+"url": "/tb_asset_master/all",
+"title": "Get all Tb asset masters.",
+"version": "0.1.0",
+"name": "Alltb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tb asset master_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tb asset masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tb asset masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tb asset masters.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "id",
+"description": "<p>Sort data by this field. id, kode_brg, nup, tag_code, nama_brg, merk, tipe, kondisi, nilai, kelompok, tgl_inventarisasi, tglperolehan, lokasi, status_id, keterangan, pic_aset</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>id</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb asset master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTb asset master",
+"description": "<p>Tb asset master data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "post",
+"url": "/tb_asset_master/delete",
+"title": "Delete Tb asset master.",
+"version": "0.1.0",
+"name": "Deletetb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_Tb asset master_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb asset masters .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "get",
+"url": "/tb_asset_master/detail",
+"title": "Detail Tb asset master.",
+"version": "0.1.0",
+"name": "Detailtb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_Tb asset master_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb asset masters.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb asset master.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tb asset masterNotFound",
+"description": "<p>Tb asset master data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+},
+{
+"type": "post",
+"url": "/tb_asset_master/update",
+"title": "Update Tb asset master.",
+"version": "0.1.0",
+"name": "Updatetb_asset_master",
+"group": "tb_asset_master",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb asset masters unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb asset masters unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb asset master Cant be Accessed permission name : api_Tb asset master_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_brg",
+  "description": "<p>Mandatory kode_brg of Tb asset masters Input Kode Brg Max Length : 15..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nup",
+  "description": "<p>Mandatory nup of Tb asset masters Input Nup Max Length : 11..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tag_code",
+  "description": "<p>Mandatory tag_code of Tb asset masters Input Tag Code Max Length : 96..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_brg",
+  "description": "<p>Mandatory nama_brg of Tb asset masters Input Nama Brg Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Merk",
+  "description": "<p>Mandatory merk of Tb asset masters Input Merk Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe",
+  "description": "<p>Mandatory tipe of Tb asset masters Input Tipe Max Length : 30..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kondisi",
+  "description": "<p>Mandatory kondisi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nilai",
+  "description": "<p>Mandatory nilai of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kelompok",
+  "description": "<p>Mandatory kelompok of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_inventarisasi",
+  "description": "<p>Mandatory tgl_inventarisasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tglperolehan",
+  "description": "<p>Mandatory tglperolehan of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi",
+  "description": "<p>Mandatory lokasi of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Status_id",
+  "description": "<p>Mandatory status_id of Tb asset masters .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Keterangan",
+  "description": "<p>Mandatory keterangan of Tb asset masters Input Keterangan Max Length : 200..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Pic_aset",
+  "description": "<p>Mandatory pic_aset of Tb asset masters .</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb asset master.php",
+"groupTitle": "Tb asset master"
+}
