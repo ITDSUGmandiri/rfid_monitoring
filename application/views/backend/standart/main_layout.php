@@ -118,7 +118,7 @@
 
       <a href="<?= site_url('/'); ?>" class="logo">
         <span class="logo-mini"><b><img src="<?= BASE_ASSET ?>img/icon-small.png" height="40px"></b></span>
-        <span class="logo-lg"><b><img src="<?= base_url('asset/img/iconnavbar.png') ?>" height="50px"></b></span>
+        <span class="logo-lg"><b><img src="<?= base_url('uploads/setting/iconugma1.png') ?>" height="40px"></b></span>
       </a>
       <nav class="navbar navbar-static-top">
 
@@ -202,7 +202,7 @@
       <div class="pull-right hidden-xs">
         <b><?= cclang('version') ?></b> <?= VERSION ?>
       </div>
-      <strong>Copyright &copy; 2016-<?= date('Y'); ?> <a href="#"><?= get_option('site_name'); ?></a>.</strong> All rights
+      <strong>Copyright &copy; <?= date('Y'); ?> <a href="#"><?= get_option('site_name'); ?></a>.</strong> All rights
       reserved.
     </footer>
 

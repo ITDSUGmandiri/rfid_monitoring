@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -9,5 +9,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Your site name,
 |
 */
-$config['site_name'] = 'Asset Management';
-$config['version'] = '1.0.0';
+$config['site_name'] = 'Asset Tracking Monitoring';
+$config['version'] = '2.0.0';

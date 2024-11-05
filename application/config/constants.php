@@ -93,7 +93,7 @@ defined('BASE_URL')             or define('BASE_URL', $base);
 defined('BASE_ASSET')             or define('BASE_ASSET', BASE_URL . 'asset/');
 
 defined('BASE_ASSET')           or define('BASE_ASSET', base_url('asset/'));
-defined('VERSION')              or define('VERSION', '3.4.3');
+defined('VERSION')              or define('VERSION', '1.0.0');
 defined('EXTENSION_PATH')          or define('EXTENSION_PATH', FCPATH . 'cc-content/extensions/');
 defined('ADMIN_NAMESPACE_URL')  or define('ADMIN_NAMESPACE_URL', 'administrator');
 defined('ADMIN_BASE_URL')  or define('ADMIN_BASE_URL', BASE_URL . ADMIN_NAMESPACE_URL);
