@@ -105,7 +105,7 @@ $CI = &get_instance();
   <div class="row">
 
     <div class="col-md-12">
-      <div id="sectiondashboard" class="box box-info">
+      <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">MONITORING ASET</h3>
           <div class="box-tools pull-right">
@@ -149,7 +149,7 @@ $CI = &get_instance();
 
                       // Tampilkan hasil
                       echo "
-                  <div class='info-box bg-olive'>
+                  <div id='sectiondashboard' class='info-box bg-olive'>
                       <span id='aset_total_pantau' class='info-box-icon'></span>
                       <div class='info-box-content'>
                           <span class='info-box-text'>Total Aset</span>
@@ -164,7 +164,7 @@ $CI = &get_instance();
 
                       // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                       echo "
-                  <div class='info-box bg-olive'>
+                  <div id='sectiondashboard' class='info-box bg-olive'>
                       <span id='tape_ontime' class='info-box-icon'></span>
                       <div class='info-box-content'>
                           <span class='info-box-text'>ASET MOVING (On Time)</span>
@@ -183,7 +183,7 @@ $CI = &get_instance();
                 </div>
               </div>
             </div>
-            <? if ($this->session->userdata('username') == 'admin'): ?>
+            <?php if ($this->session->userdata('username') == 'admin'): ?>
               <div class="col-md-12">
                 <div class="box box-info">
                   <div class="box-header with-border">
@@ -400,9 +400,9 @@ $CI = &get_instance();
                   </div>
                 </div>
               </div>
-            <? else: ?>
+            <?php else: ?>
 
-            <? endif; ?>
+            <?php endif; ?>
             <!-- <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -608,7 +608,7 @@ $CI = &get_instance();
         // Tambahkan informasi librarian ke output HTML
         output += "<div class='col-md-6 col-sm-8 col-xs-12'>";
         output += "<div class='bg-grey info-box'>";
-        output += "<span id='" + item.room_id + "' class='info-box-icon'>" + item.total_rfid + "</span>";
+        output += "<span id='sectiondashboard' class='info-box-icon'>" + item.total_rfid + "</span>";
         output += "<div class='info-box-content'>";
         output += "<span class='info-box-text'>" + item.name_room + "</span>";
         output += "<div class='progress'>";
