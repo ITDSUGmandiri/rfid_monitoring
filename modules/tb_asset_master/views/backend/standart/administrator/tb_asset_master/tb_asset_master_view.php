@@ -87,7 +87,7 @@
                                 <label for="content" class="col-sm-2 control-label">Merk </label>
 
                                 <div class="col-sm-8">
-                                    <span class="detail_group-Merk"><?= _ent($tb_asset_master->Merk); ?></span>
+                                    <span class="detail_group-Merk"><?= _ent($tb_asset_master->merk); ?></span>
                                 </div>
                             </div>
 
