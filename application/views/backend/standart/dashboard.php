@@ -431,14 +431,6 @@ $CI = &get_instance();
 
   </div>
 </section>
-<script type="text/javascript">
-  function doRefresh() {
-    $("#sectiondashboard").load(window.location.reload());
-  }
-  $(function() {
-    setInterval(doRefresh, 10000);
-  });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
@@ -475,6 +467,7 @@ $CI = &get_instance();
           // console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/gettotalpantau';
           title = 'TOTAL ASET YANG DIPANTAU';
+          topic = 'pantau';
           break;
         case 'tape_total':
           // console.log('tape total');
@@ -496,6 +489,7 @@ $CI = &get_instance();
         case 'tape_ontime':
           endpoint = BASE_URL + '/administrator/dashboard/abc/ontime';
           title = 'ASET BERGERAK';
+          topic = 'moving';
           break;
         case 'tape_overdue':
           endpoint = BASE_URL + '/administrator/dashboard/abc/overdue';
@@ -518,11 +512,11 @@ $CI = &get_instance();
       }
 
       // Memanggil fungsi untuk menampilkan modal dengan konten dari endpoint yang sesuai
-      showModalWithPagination(endpoint, title);
+      showModalWithPagination(endpoint, title, topic);
     });
 
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
-    function showModalWithPagination(endpoint, title) {
+    function showModalWithPagination(endpoint, title, topic) {
 
       // Lakukan request AJAX ke endpoint yang diberikan
       $.ajax({
@@ -530,13 +524,20 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+          console.log(data);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
           var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
           modalContent += '<table class="table">';
-          modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Ruangan Seharusnya</th><th>Ruangan Saat Ini</th><th></th></tr>';
+
+          if (topic != 'pantau') {
+            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Ruangan Seharusnya</th><th>Ruangan Saat Ini</th><th></th></tr>';
+          } else {
+            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Lokasi</th><th></th></tr>';
+          }
+
           // Proses data dari respons JSON dan tambahkan ke dalam tabel
           // Misalnya, untuk setiap item dalam data, tambahkan baris baru ke tabel
           data.forEach(function(item, index) {
@@ -548,9 +549,14 @@ $CI = &get_instance();
             modalContent += '<td>' + item.kode_brg + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nama_brg + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.room2 + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.room1 + '</td>';
-            modalContent += '<td><button onclick="#">Rekonsiliasi</button></td>'; // Misalnya, ambil field2 dari item
+            if (topic != 'pantau') {
+              modalContent += '<td>' + item.room2 + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.room1 + '</td>';
+              modalContent += '<td><button onclick="#">Rekonsiliasi</button></td>';
+            } else {
+              modalContent += '<td>' + item.name_room + '</td>';
+            }
+            // Misalnya, ambil field2 dari item
             // Lanjutkan untuk setiap field yang diperlukan
             modalContent += '</tr>';
           });
@@ -708,6 +714,29 @@ $CI = &get_instance();
         console.error("Failed to fetch data:", error);
       }
     });
+
+    window.setInterval(function() {
+      console.log('realtimedata');
+      $.ajax({
+        url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          updateDashboard(data);
+          librarian(data);
+          readerradar(data);
+
+          myChart.data.labels = data.label; // Mengganti labels
+          myChart.data.datasets[0].data = data.values; // Mengganti data
+
+          // Memperbarui chart
+          myChart.update();
+        },
+        error: function(xhr, status, error) {
+          console.error("Failed to fetch data:", error);
+        }
+      });
+    }, 10000);
 
     // Inisialisasi chart dengan data dari PHP
     var ctx = document.getElementById('myChart').getContext('2d');

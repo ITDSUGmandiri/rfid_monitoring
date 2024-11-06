@@ -39,6 +39,10 @@ class Dashboard extends Admin
 		$data_json = array(); // Inisialisasi array untuk menyimpan data JSON
 
 		switch ($data) {
+			case "gettotalpantau":
+				$row_totalpantau = "SELECT a.tag_code, a.nama_brg, a.lokasi, a.kode_brg, a.kelompok, a.nup, r.id_room, r.name_room FROM tb_asset_master a INNER JOIN tb_room_master r ON r.id_room = a.lokasi AND a.tag_code != '' AND a.kelompok = 1 ORDER BY a.id";
+				$data_json = $CI->db->query($row_totalpantau)->result();
+				break;
 			case "total":
 				$query_total = "
 						SELECT 
@@ -77,9 +81,8 @@ class Dashboard extends Admin
 				$query_disp = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
 				$data_json = $CI->db->query($query_disp)->result();
 				break;
-
 			case "ontime":
-				$query_ontime = "SELECT o.tag_code, count(c.tag_code) as total from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
+				$query_ontime = "SELECT * from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
 				$data_json = $CI->db->query($query_ontime)->result();
 				break;
 			case "overdue":

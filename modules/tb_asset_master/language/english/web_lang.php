@@ -1,7 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-$lang['tb_asset_master'] = 'Tb Asset Master';
+$lang['tb_asset_master'] = 'Asset Data';
 $lang['id'] = 'Id';
 $lang['kode_brg'] = 'Kode Brg';
 $lang['nup'] = 'Nup';

@@ -67,7 +67,7 @@ class Tb_asset_master extends Admin
 	{
 		$this->is_allowed('tb_asset_master_add');
 
-		$this->template->title('Tb Asset Master New');
+		$this->template->title('Aset Data');
 		$this->render('backend/standart/administrator/tb_asset_master/tb_asset_master_add', $this->data);
 	}
 

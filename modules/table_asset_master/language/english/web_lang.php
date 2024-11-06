@@ -1,7 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-$lang['table_asset_master'] = 'Table Asset Master';
+$lang['table_asset_master'] = 'Data Aset SekNeg';
 $lang['kode_satker'] = 'Kode Satker';
 $lang['nama_satker'] = 'Nama Satker';
 $lang['for_inventaris'] = 'For Inventaris';

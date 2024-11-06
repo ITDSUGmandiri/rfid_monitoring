@@ -1,7 +1,7 @@
 <?php
 #cicool package
 #languange English  code gb
-$lang['add_new_button'] = 'Add $1 New';
+$lang['add_new_button'] = 'Add $1';
 $lang['export_button'] = 'Export';
 $lang['apply_button'] = 'Apply';
 $lang['apply_bulk_action'] = 'Apply bulk action';
@@ -24,6 +24,7 @@ $lang['yes_delete_it'] = 'Yes, delete it!';
 $lang['no_cancel_plx'] = 'No, cancel it!';
 $lang['items'] = 'Item';
 $lang['export'] = 'Export $1';
+$lang['import'] = 'Import $1';
 $lang['please_choose_bulk_action_first'] = 'Please select action first';
 $lang['tool'] = '$1 Tools';
 $lang['api_documentation'] = 'API documentation';
