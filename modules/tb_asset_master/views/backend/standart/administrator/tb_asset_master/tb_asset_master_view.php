@@ -95,7 +95,7 @@
                                 <label for="content" class="col-sm-2 control-label">Tipe </label>
 
                                 <div class="col-sm-8">
-                                    <span class="detail_group-Tipe"><?= _ent($tb_asset_master->Tipe); ?></span>
+                                    <span class="detail_group-Tipe"><?= _ent($tb_asset_master->tipe); ?></span>
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
                                 <label for="content" class="col-sm-2 control-label">Nilai </label>
 
                                 <div class="col-sm-8">
-                                    <span class="detail_group-Nilai"><?= _ent($tb_asset_master->Nilai); ?></span>
+                                    <span class="detail_group-Nilai"><?= _ent($tb_asset_master->nilai); ?></span>
                                 </div>
                             </div>
 
@@ -119,7 +119,7 @@
                                 <label for="content" class="col-sm-2 control-label">Kelompok </label>
 
                                 <div class="col-sm-8">
-                                    <span class="detail_group-Kelompok"><?= _ent($tb_asset_master->Kelompok); ?></span>
+                                    <span class="detail_group-Kelompok"><?= _ent($tb_asset_master->kelompok); ?></span>
                                 </div>
                             </div>
 
@@ -159,7 +159,7 @@
                                 <label for="content" class="col-sm-2 control-label">Keterangan </label>
 
                                 <div class="col-sm-8">
-                                    <span class="detail_group-Keterangan"><?= _ent($tb_asset_master->Keterangan); ?></span>
+                                    <span class="detail_group-Keterangan"><?= _ent($tb_asset_master->keterangan); ?></span>
                                 </div>
                             </div>
 
