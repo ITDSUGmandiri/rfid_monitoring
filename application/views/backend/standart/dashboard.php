@@ -448,7 +448,7 @@ $CI = &get_instance();
             </div>
 
           </div>
-          <!-- <div class="row">
+          <div class="row">
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -460,9 +460,8 @@ $CI = &get_instance();
                 </div>
                 <div class="box-body chart-responsive">
                   <div class="row">
-                    <div class="col-md-3">
-                      <canvas id="dChart1"></canvas>
-                    </div>
+
+                    <canvas id="dChart"></canvas>
                   </div>
 
 
@@ -470,7 +469,7 @@ $CI = &get_instance();
 
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -806,49 +805,39 @@ $CI = &get_instance();
       });
     }, 4000);
 
-    // //dChart1
-    // var ctx1 = document.getElementById('dChart1').getContext('2d');
-    // var dChart1 = new Chart(ctx1, {
-    //   type: 'doughnut',
-    //   data: {
-    //     datasets: [{
-    //       data: [100, 220],
-    //       backgroundColor: [
-    //         'rgb(255, 99, 132)',
-    //         'rgb(255, 159, 64)',
-    //         'rgb(255, 205, 86)',
-    //         'rgb(75, 192, 192)',
-    //         'rgb(54, 162, 235)',
-    //       ],
-    //     }, ],
-    //     labels: ['Seni', 'Elektronik'],
-    //   },
-    //   options: {
-    //     plugins: {
-    //       datalabels: {
-    //         formatter: (value) => {
-    //           return value + '%';
-    //         },
-    //       },
-    //     },
-    //   },
+    var ctx2 = document.getElementById('dChart').getContext('2d');
+    var dChart = new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ["Seni", "Elektronik"],
+        datasets: [{
+          data: [500, 50], // Specify the data values array
 
-    // });
+          borderColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color border 
+          backgroundColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color background (Points and Fill)
+          borderWidth: 1 // Specify bar border width
+        }]
+      },
+      options: {
+        responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+      }
+    });
 
     // Inisialisasi chart dengan data dari PHP
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: [],
         datasets: [{
           label: 'Jumlah',
           data: [],
           backgroundColor: [
+            '#ebb734',
+            '#2ECC40',
             '#0074D9',
             '#FF4136',
-            '#2ECC40',
-            '#ebb734',
             '#FF851B'
           ],
           borderColor: [
@@ -864,37 +853,37 @@ $CI = &get_instance();
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        scales: {
-          y: {
-            grid: {
-              display: false,
-              drawBorder: false,
-            },
-            beginAtZero: false,
-            ticks: {
-              display: false,
-              callback: function(value, index, values) {
-                return Number.isInteger(value) ? value : '';
-              }
-            }
-          },
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                var label = context.dataset.label || '';
-                if (label) {
-                  label += ': ';
-                }
-                if (context.parsed.y !== null) {
-                  label += context.parsed.y.toLocaleString();
-                }
-                return label;
-              }
-            }
-          }
-        }
+        // scales: {
+        //   y: {
+        //     grid: {
+        //       display: false,
+        //       drawBorder: false,
+        //     },
+        //     beginAtZero: false,
+        //     ticks: {
+        //       display: false,
+        //       callback: function(value, index, values) {
+        //         return Number.isInteger(value) ? value : '';
+        //       }
+        //     }
+        //   },
+        // },
+        // plugins: {
+        //   tooltip: {
+        //     callbacks: {
+        //       label: function(context) {
+        //         var label = context.dataset.label || '';
+        //         if (label) {
+        //           label += ': ';
+        //         }
+        //         if (context.parsed.y !== null) {
+        //           label += context.parsed.y.toLocaleString();
+        //         }
+        //         return label;
+        //       }
+        //     }
+        //   }
+        // }
       }
     });
     setInterval(newLibraraian, 5000);
