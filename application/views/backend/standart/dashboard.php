@@ -124,7 +124,7 @@ $CI = &get_instance();
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">ASET YANG PERLU DIPANTAU</h3>
@@ -142,7 +142,7 @@ $CI = &get_instance();
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="">
                     <div class="row">
                       <div class="col-md-11">
                         <?php
@@ -181,7 +181,10 @@ $CI = &get_instance();
                     </div>
                     <div id='librarian'></div>
                   </div>
-                  <!-- <div class="col-md-6"><canvas id="myChart"></canvas></div> -->
+                  <!-- <div class="col-md-6">
+                    <h5>Kondisi Aset</h5>
+                    <canvas id="myChart"></canvas>
+                  </div> -->
                 </div>
 
               </div>
@@ -424,15 +427,38 @@ $CI = &get_instance();
                   </div>
                   <div id='librarian2'></div>
                 </div>
+              </div> -->
+            </div>
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">KONDISI ASET</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <!-- Modal -->
+
+
+
+
+                  <canvas id="myChart"></canvas>
+
+                </div>
+
               </div>
-            </div> -->
 
             </div>
+
+
           </div>
         </div>
       </div>
-
     </div>
+
+  </div>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
