@@ -1839,6 +1839,7 @@ a:focus {
 }
 
 .box.box-info {
+  border-style: inset;
   border-top-color: #00c0ef;
 }
 

@@ -124,24 +124,8 @@ $CI = &get_instance();
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">KONDISI ASET</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body chart-responsive">
-                  <canvas id="myChart"></canvas>
 
-                </div>
-
-              </div>
-
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">ASET YANG PERLU DIPANTAU</h3>
@@ -161,7 +145,7 @@ $CI = &get_instance();
                   </div>
                   <div class="">
                     <div class="row">
-                      <div class="col-md-11">
+                      <div class="col-md-12">
                         <?php
 
                         // Tampilkan hasil
@@ -198,10 +182,10 @@ $CI = &get_instance();
                     </div>
                     <div id='librarian'></div>
                   </div>
-                  <!-- <div class="col-md-6">
-                    <h5>Kondisi Aset</h5>
-                    <canvas id="myChart"></canvas>
-                  </div> -->
+                  <!-- <div class=" col-md-6">
+                        <h5>Kondisi Aset</h5>
+                        <canvas id="myChart"></canvas>
+                      </div> -->
                 </div>
 
               </div>
@@ -452,6 +436,23 @@ $CI = &get_instance();
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
+                  <h3 class="box-title">KONDISI ASET</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <canvas id="myChart"></canvas>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
                   <h3 class="box-title">KATEGORI ASET</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -678,7 +679,7 @@ $CI = &get_instance();
         }
 
         // Tambahkan informasi librarian ke output HTML
-        output += "<div class='col-md-11 col-sm-8 col-xs-12'>";
+        output += "<div class='col-md-12 col-sm-8 col-xs-12'>";
         output += "<div class='bg-grey info-box'>";
         output += "<span id='sectiondashboard' class='xxx info-box-icon' data-el=" + item.id_room + " name-room=" + encodeURIComponent(JSON.stringify(item.building_name)) + ">" + item.total_rfid + "</span>";
         output += "<div class='info-box-content'>";
