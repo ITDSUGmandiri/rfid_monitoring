@@ -749,12 +749,16 @@ $CI = &get_instance();
           librarian(data);
 
           // console.log(data.label);
-          console.log(data.label.map(item => [item.keterangan]));
+
           myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
           myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
+          dChart.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+
           // Memperbarui chart
           myChart.update();
+          dChart.update();
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
@@ -796,8 +800,12 @@ $CI = &get_instance();
           myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
           myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
+          dChart.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+
           // Memperbarui chart
           myChart.update();
+          dChart.update();
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
@@ -809,9 +817,9 @@ $CI = &get_instance();
     var dChart = new Chart(ctx2, {
       type: 'doughnut',
       data: {
-        labels: ["Seni", "Elektronik"],
+        labels: [],
         datasets: [{
-          data: [500, 50], // Specify the data values array
+          data: [], // Specify the data values array
 
           borderColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color border 
           backgroundColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color background (Points and Fill)

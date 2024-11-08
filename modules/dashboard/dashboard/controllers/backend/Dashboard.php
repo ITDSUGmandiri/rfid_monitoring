@@ -229,6 +229,10 @@ class Dashboard extends Admin
 		$querycondt = "SELECT k.keterangan, count(k.keterangan) as total FROM tb_asset_master a INNER JOIN tb_kondisi_master k ON a.kondisi = k.id GROUP BY k.keterangan";
 		$data_chart = $CI->db->query($querycondt)->result();
 
+		//ambil data chart untuk label kategori
+		$querycateg = "SELECT c.nama_kategori, count(a.tag_code) as total FROM tb_asset_master a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
+		$data_categ = $CI->db->query($querycateg)->result();
+
 
 		// $data_chart = array(
 		// 	"TOTAL" => $row_total->total,
@@ -260,6 +264,8 @@ class Dashboard extends Admin
 			"anomaly" 	=> $row_anomaly->total,
 			"label" 	=> $data_chart,
 			"values"	=> array_values($data_chart),
+			"labelcateg" 	=> $data_categ,
+			"valuescateg"	=> array_values($data_categ),
 			"librarian"	=> $result->result_array()
 		);
 
