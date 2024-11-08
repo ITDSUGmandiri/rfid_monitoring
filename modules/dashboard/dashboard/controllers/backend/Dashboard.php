@@ -27,9 +27,12 @@ class Dashboard extends Admin
 			redirect('/', 'refresh');
 		}
 		$dashboards = $this->model_dashboard->get(null, null, $limit = 9999, $offset = 0);
+		$kategori = $this->model_dashboard->getKategori(null, null, $this->limit_page, $offset);
 		$data = [
-			'dashboards' => $dashboards
+			'dashboards' => $dashboards,
+			'kategori' => $kategori
 		];
+
 		// File ini terletak di: modules/dashboard/dashboard/controllers/backend/Dashboard.php
 		$this->render('backend/standart/dashboard', $data);
 	}
@@ -223,20 +226,20 @@ class Dashboard extends Admin
 		$row_anomaly = $result_anomaly->row();
 
 		//ambil data chart untuk label kondisi
-		// $querycondt = "SELECT keterangan FROM tb_kondisi_master";
-		// $data_chart = $CI->db->query($querycondt)->result();
+		$querycondt = "SELECT k.keterangan, count(k.keterangan) as total FROM tb_asset_master a INNER JOIN tb_kondisi_master k ON a.kondisi = k.id GROUP BY k.keterangan";
+		$data_chart = $CI->db->query($querycondt)->result();
 
 
-		$data_chart = array(
-			"TOTAL" => $row_total->total,
-			"ANOMALI" => $row_anomali->total,
-			"MUTASI" => $mutation,
-			"DISPOSAL" => $disposal,
-			"ON TIME" => $row_on_time->total,
-			"OVERDUE" => $row_overdue->total,
-			"PINJAM" => $row_pinjam->total,
-			"RUSAK" => $row_rusak->total
-		);
+		// $data_chart = array(
+		// 	"TOTAL" => $row_total->total,
+		// 	"ANOMALI" => $row_anomali->total,
+		// 	"MUTASI" => $mutation,
+		// 	"DISPOSAL" => $disposal,
+		// 	"ON TIME" => $row_on_time->total,
+		// 	"OVERDUE" => $row_overdue->total,
+		// 	"PINJAM" => $row_pinjam->total,
+		// 	"RUSAK" => $row_rusak->total
+		// );
 
 		$querylibrarian = "
 		SELECT b.name_room as building_name, b.id_room, b.name_room, COUNT(CASE WHEN tl.Lokasi != '' THEN tl.Lokasi ELSE NULL END) as total_rfid FROM tb_room_master b LEFT JOIN tb_asset_master tl ON b.id_room = tl.Lokasi GROUP BY b.id_room, tl.Lokasi ORDER BY b.id_room;
@@ -255,7 +258,7 @@ class Dashboard extends Admin
 			"borrow" 	=> $row_pinjam->total,
 			"broken" 	=> $row_rusak->total,
 			"anomaly" 	=> $row_anomaly->total,
-			"label" 	=> array_keys($data_chart),
+			"label" 	=> $data_chart,
 			"values"	=> array_values($data_chart),
 			"librarian"	=> $result->result_array()
 		);

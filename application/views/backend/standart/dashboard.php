@@ -127,6 +127,23 @@ $CI = &get_instance();
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
+                  <h3 class="box-title">KONDISI ASET</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <canvas id="myChart"></canvas>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
                   <h3 class="box-title">ASET YANG PERLU DIPANTAU</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -429,31 +446,31 @@ $CI = &get_instance();
                 </div>
               </div> -->
             </div>
+
+          </div>
+          <!-- <div class="row">
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">KONDISI ASET</h3>
+                  <h3 class="box-title">KATEGORI ASET</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body chart-responsive">
-                  <!-- Modal -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <canvas id="dChart1"></canvas>
+                    </div>
+                  </div>
 
-
-
-
-                  <canvas id="myChart"></canvas>
 
                 </div>
 
               </div>
-
             </div>
-
-
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -731,9 +748,11 @@ $CI = &get_instance();
         success: function(data) {
           updateDashboard(data);
           librarian(data);
-          // console.log("xx", data.label);
-          myChart.data.labels = data.label; // Mengganti labels
-          myChart.data.datasets[0].data = data.values; // Mengganti data
+
+          // console.log(data.label);
+          console.log(data.label.map(item => [item.keterangan]));
+          myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
+          myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
           // Memperbarui chart
           myChart.update();
@@ -766,7 +785,6 @@ $CI = &get_instance();
     });
 
     window.setInterval(function() {
-      console.log('realtimedata');
       $.ajax({
         url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
         method: 'GET',
@@ -776,8 +794,8 @@ $CI = &get_instance();
           librarian(data);
           readerradar(data);
 
-          myChart.data.labels = data.label; // Mengganti labels
-          myChart.data.datasets[0].data = data.values; // Mengganti data
+          myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
+          myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
           // Memperbarui chart
           myChart.update();
@@ -786,7 +804,36 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 10000);
+    }, 4000);
+
+    // //dChart1
+    // var ctx1 = document.getElementById('dChart1').getContext('2d');
+    // var dChart1 = new Chart(ctx1, {
+    //   type: 'doughnut',
+    //   data: {
+    //     datasets: [{
+    //       data: [100, 220],
+    //       backgroundColor: [
+    //         'rgb(255, 99, 132)',
+    //         'rgb(255, 159, 64)',
+    //         'rgb(255, 205, 86)',
+    //         'rgb(75, 192, 192)',
+    //         'rgb(54, 162, 235)',
+    //       ],
+    //     }, ],
+    //     labels: ['Seni', 'Elektronik'],
+    //   },
+    //   options: {
+    //     plugins: {
+    //       datalabels: {
+    //         formatter: (value) => {
+    //           return value + '%';
+    //         },
+    //       },
+    //     },
+    //   },
+
+    // });
 
     // Inisialisasi chart dengan data dari PHP
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -798,11 +845,11 @@ $CI = &get_instance();
           label: 'Jumlah',
           data: [],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)'
+            '#0074D9',
+            '#FF4136',
+            '#2ECC40',
+            '#ebb734',
+            '#FF851B'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
