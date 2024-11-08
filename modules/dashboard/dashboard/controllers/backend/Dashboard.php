@@ -39,8 +39,16 @@ class Dashboard extends Admin
 		$data_json = array(); // Inisialisasi array untuk menyimpan data JSON
 
 		switch ($data) {
+			case "2":
+				$room2 = "SELECT * FROM tb_asset_master WHERE tag_code != '' AND kelompok = 1 AND lokasi=2 AND status_id = 1 ORDER BY id";
+				$data_json = $CI->db->query($room2)->result();
+				break;
+			case "3":
+				$room2 = "SELECT * FROM tb_asset_master WHERE tag_code != '' AND kelompok = 1 AND lokasi=3 AND status_id = 1 ORDER BY id";
+				$data_json = $CI->db->query($room2)->result();
+				break;
 			case "gettotalpantau":
-				$row_totalpantau = "SELECT a.tag_code, a.nama_brg, a.lokasi, a.kode_brg, a.kelompok, a.nup, r.id_room, r.name_room FROM tb_asset_master a INNER JOIN tb_room_master r ON r.id_room = a.lokasi AND a.tag_code != '' AND a.kelompok = 1 ORDER BY a.id";
+				$row_totalpantau = "SELECT a.tag_code, a.nama_brg, a.lokasi, a.kode_brg, a.kelompok, a.nup, r.id_room, r.name_room, i.id_room, i.rfid_code_tag FROM tb_asset_master a INNER JOIN tb_history_invent i ON i.rfid_code_tag = a.tag_code INNER JOIN tb_room_master r ON r.id_room = i.id_room AND a.tag_code != '' AND a.kelompok = 1";
 				$data_json = $CI->db->query($row_totalpantau)->result();
 				break;
 			case "total":
@@ -82,7 +90,7 @@ class Dashboard extends Admin
 				$data_json = $CI->db->query($query_disp)->result();
 				break;
 			case "ontime":
-				$query_ontime = "SELECT * from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7";
+				$query_ontime = "SELECT distinct c.tag_code,o.kode_brg,o.nup, o.nama_brg, o.tag_code ,i.rfid_code_tag, i.id_room, r.id_room, r.name_room from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code inner join tb_history_invent i on i.rfid_code_tag = o.tag_code inner join tb_room_master r on r.id_room = i.id_room AND c.status_moving = 'Out' AND o.lokasi = 0 AND o.status_id = 7 AND o.kelompok = 1";
 				$data_json = $CI->db->query($query_ontime)->result();
 				break;
 			case "overdue":
@@ -213,6 +221,11 @@ class Dashboard extends Admin
 		$query_anomaly = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_asset_master AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
 		$result_anomaly = $CI->db->query($query_anomaly);
 		$row_anomaly = $result_anomaly->row();
+
+		//ambil data chart untuk label kondisi
+		// $querycondt = "SELECT keterangan FROM tb_kondisi_master";
+		// $data_chart = $CI->db->query($querycondt)->result();
+
 
 		$data_chart = array(
 			"TOTAL" => $row_total->total,
