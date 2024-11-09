@@ -128,6 +128,102 @@ $CI = &get_instance();
             <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
+                  <h3 class="box-title">PERGERAKAN ASET</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <!-- Konten modal akan ditampilkan di sini -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <?php
+
+                    // Tampilkan hasil
+                    echo "
+                      <div id='sectiondashboard' class='info-box bg-olive'>
+                          <span id='aset_total_pantau' class='info-box-icon'></span>
+                          <div class='info-box-content'>
+                              <span class='info-box-text'>Total Aset</span>
+                              <div class='progress'>
+                                  <div class='progress-bar' style='width: 50%'></div>
+                              </div>
+                              <span class='progress-description'>
+                                  Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
+                              </span>
+                          </div>
+                      </div>";
+                    ?>
+                  </div>
+                  <div class="col-md-3">
+                    <?php
+
+                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
+                    echo "
+                      <div id='sectiondashboard' class='info-box bg-olive'>
+                          <span id='tape_ontime' class='info-box-icon'></span>
+                          <div class='info-box-content'>
+                              <span class='info-box-text'>ASET MOVING (On Time)</span>
+                              <div class='progress'>
+                                  <div class='progress-bar' style='width: 50%'></div>
+                              </div>
+                              <span class='progress-description'>
+                                  Total Aset Yang Sedang Keluar Kondisi Normal.
+                              </span>
+                          </div>
+                      </div>";
+                    ?>
+                  </div>
+                  <div class="col-md-3">
+                    <?php
+
+                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
+                    echo "
+                      <div id='sectiondashboard' class='info-box bg-red'>
+                          <span id='tape_anomaly' class='info-box-icon'></span>
+                          <div class='info-box-content'>
+                              <span class='info-box-text'>ANOMALI ASET</span>
+                              <div class='progress'>
+                                  <div class='progress-bar' style='width: 50%'></div>
+                              </div>
+                              <span class='progress-description'>
+                                  Aset Yang Salah Ruangan Atau Pergerakan Tidak Sesuai.
+                              </span>
+                          </div>
+                      </div>";
+                    ?>
+                  </div>
+                  <div class="col-md-3">
+                    <?php
+
+                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
+                    echo "
+                      <div id='sectiondashboard' class='info-box bg-orange'>
+                          <span id='tape_overdue' class='info-box-icon'></span>
+                          <div class='info-box-content'>
+                              <span class='info-box-text'>ASET HILANG </span>
+                              <div class='progress'>
+                                  <div class='progress-bar' style='width: 50%'></div>
+                              </div>
+                              <span class='progress-description'>
+                                  Aset Yang Sudah Keluar Ruangan Namun Tidak Kembali > 6 Hari.
+                              </span>
+                          </div>
+                      </div>";
+                    ?>
+                  </div>
+                </div>
+
+              </div>
+              <div class="box box-info">
+                <div class="box-header with-border">
                   <h3 class="box-title">ASET YANG PERLU DIPANTAU</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -143,272 +239,11 @@ $CI = &get_instance();
                       </div>
                     </div>
                   </div>
-                  <div class="">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <?php
 
-                        // Tampilkan hasil
-                        echo "
-                      <div id='sectiondashboard' class='info-box bg-olive'>
-                          <span id='aset_total_pantau' class='info-box-icon'></span>
-                          <div class='info-box-content'>
-                              <span class='info-box-text'>Total Aset</span>
-                              <div class='progress'>
-                                  <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                  Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
-                              </span>
-                          </div>
-                      </div>";
-
-                        // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                        echo "
-                      <div id='sectiondashboard' class='info-box bg-olive'>
-                          <span id='tape_ontime' class='info-box-icon'></span>
-                          <div class='info-box-content'>
-                              <span class='info-box-text'>ASET MOVING (On Time)</span>
-                              <div class='progress'>
-                                  <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                  Total Aset Yang Sedang Moving Kondisi Normal.
-                              </span>
-                          </div>
-                      </div>";
-                        ?>
-                      </div>
-                    </div>
-                    <div id='librarian'></div>
-                  </div>
-                  <!-- <div class=" col-md-6">
-                        <h5>Kondisi Aset</h5>
-                        <canvas id="myChart"></canvas>
-                      </div> -->
+                  <div id='librarian'></div>
                 </div>
-
               </div>
-              <?php if ($this->session->userdata('username') == 'admin'): ?>
-                <div class="col-md-12">
-                  <div class="box box-info">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">ASET TOTAL</h3>
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                      </div>
-                    </div>
-                    <div class="box-body chart-responsive">
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <!-- Konten modal akan ditampilkan di sini -->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-
-                          <?php
-
-                          // Tampilkan hasil
-                          echo "
-                  <div class='info-box bg-grey'>
-                      <span id='tape_total' class='info-box-icon'></span>
-                      <div class='info-box-content'>
-                          <span class='info-box-text'>Total Aset</span>
-                          <div class='progress'>
-                              <div class='progress-bar' style='width: 50%'></div>
-                          </div>
-                          <span class='progress-description'>
-                              Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
-                          </span>
-                      </div>
-                  </div>";
-
-                          echo "
-                  <div class='info-box bg-grey'>
-                      <span id='tape_total' class='info-box-icon'></span>
-                      <div class='info-box-content'>
-                          <span class='info-box-text'>ASET NORMAL</span>
-                          <div class='progress'>
-                              <div class='progress-bar' style='width: 50%'></div>
-                          </div>
-                          <span class='progress-description'>
-                              Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
-                          </span>
-                      </div>
-                  </div>";
-
-                          // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                          echo "
-                  <div class='info-box bg-olive'>
-                      <span id='undefined' class='info-box-icon'></span>
-                      <div class='info-box-content'>
-                          <span class='info-box-text'>ASET ANOMALI</span>
-                          <div class='progress'>
-                              <div class='progress-bar' style='width: 50%'></div>
-                          </div>
-                          <span class='progress-description'>
-                              Total Aset Yang Sedang Moving Kondisi Normal.
-                          </span>
-                      </div>
-                  </div>";
-
-
-
-                          /// Kueri untuk menghitung jumlah tape yang telah diperbarui lebih dari 2 hari yang lalu
-
-                          //     echo "
-                          // <div class='info-box bg-yellow'>
-                          //     <span id='tape_overdue' class='info-box-icon'></span>
-                          //     <div class='info-box-content'>
-                          //         <span class='info-box-text'>ASET MOVING (Overdue 2 Days)</span>
-                          //         <div class='progress'>
-                          //             <div class='progress-bar' style='width: 50%'></div>
-                          //         </div>
-                          //         <span class='progress-description'>
-                          //             Total Aset Yang Sedang Moving Lewat 2 Hari.
-                          //         </span>
-                          //     </div>
-                          // </div>";
-
-                          // Query count dari tabel pinjam
-                          echo "
-                  <div class='info-box bg-blue'>
-                    <span id='tape_borrow' class='info-box-icon'></span>
-                    <div class='info-box-content'>
-                      <span class='info-box-text'>ASET DI PINJAM</span>
-    
-                      <div class='progress'>
-                        <div class='progress-bar' style='width: 50%'></div>
-                      </div>
-                      <span class='progress-description'>
-                        Total Kondisi Aset Yang Sedang Di Pinjam.
-                      </span>
-                    </div>
-                  </div>";
-
-                          // Query count dari tabel pinjam
-
-
-
-                          ?>
-
-                        </div>
-                        <!--  -->
-
-                        <div class="col-md-6">
-                          <?php
-
-                          // Tampilkan hasil
-                          //     echo "
-                          // <div class='info-box bg-white'>
-                          //     <span id='aset_anomali' class='info-box-icon'></span>
-                          //     <div class='info-box-content'>
-                          //         <span class='info-box-text'>Total Aset Anomali</span>
-                          //         <div class='progress'>
-                          //             <div class='progress-bar' style='width: 50%'></div>
-                          //         </div>
-                          //         <span class='progress-description'>
-                          //             Total Aset Yang datanya tidak sesuai atau tidak lengkap.
-                          //         </span>
-                          //     </div>
-                          // </div>";
-
-                          // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                          echo "
-                  <div class='info-box bg-blue'>
-                      <span id='aset_mutasi' class='info-box-icon'></span>
-                      <div class='info-box-content'>
-                          <span class='info-box-text'>ASET MUTASI</span>
-                          <div class='progress'>
-                              <div class='progress-bar' style='width: 50%'></div>
-                          </div>
-                          <span class='progress-description'>
-                              Total Aset Yang Sudah Pindah Ruangan Atau Penanggung Jawab.
-                          </span>
-                      </div>
-                  </div>";
-
-                          // Query count dari tabel pinjam
-                          echo "
-                          <div class='info-box bg-grey'>
-                            <span id='aset_disposal' class='info-box-icon'></span>
-                            <div class='info-box-content'>
-                              <span class='info-box-text'>DISPOSAL ASET</span>
-
-                              <div class='progress'>
-                                <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                Total Aset Yang akan atau sudah dihapus atau dijual.
-                              </span>
-                            </div>
-                          </div>";
-
-                          echo "
-                  <div class='info-box bg-orange'>
-                    <span id='tape_broken' class='info-box-icon'></span>
-                    <div class='info-box-content'>
-                      <span class='info-box-text'>ASET RUSAK DIPERBAIKI</span>
-    
-                      <div class='progress'>
-                        <div class='progress-bar' style='width: 50%'></div>
-                      </div>
-                      <span class='progress-description'>
-                        Total Kondisi Aset Yang Rusak/Perbaikan.
-                      </span>
-                    </div>
-                  </div>";
-
-                          echo "
-                  <div class='info-box bg-red'>
-                    <span id='tape_broken' class='info-box-icon'></span>
-                    <div class='info-box-content'>
-                      <span class='info-box-text'>ASET RUSAK TIDAK BISA DIPERBAIKI</span>
-    
-                      <div class='progress'>
-                        <div class='progress-bar' style='width: 50%'></div>
-                      </div>
-                      <span class='progress-description'>
-                        Total Kondisi Aset Yang Rusak/Perbaikan.
-                      </span>
-                    </div>
-                  </div>";
-
-                          // Query count dari tabel pinjam
-                          echo "
-              <div class='info-box bg-black'>
-                <span id='tape_anomaly' class='info-box-icon'></span>
-                <div class='info-box-content'>
-                  <span class='info-box-text'>ASET HILANG</span>
-
-                  <div class='progress'>
-                    <div class='progress-bar' style='width: 50%'></div>
-                  </div>
-                  <span class='progress-description'>
-                    Total Kondisi Aset Yang Salah Ruangan atau Pemilik.
-                  </span>
-                </div>
-              </div>";
-                          ?>
-
-                        </div>
-                      </div>
-
-                      <!--  -->
-
-
-                    </div>
-                  </div>
-                </div>
-              <?php else: ?>
-
-              <?php endif; ?>
               <!-- <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -812,7 +647,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 4000);
+    }, 1000);
 
     var ctx2 = document.getElementById('dChart').getContext('2d');
     var dChart = new Chart(ctx2, {

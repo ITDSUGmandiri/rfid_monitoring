@@ -209,7 +209,7 @@ class Dashboard extends Admin
 		// $result_on_time = $CI->db->query($query_on_time);
 		// $row_on_time = $result_on_time->row();
 
-		$query_overdue = "SELECT COUNT(*) as total FROM tag_location WHERE location_status='TERSEDIA' AND librarian_id = '1' AND location_updated <= DATE_SUB(NOW(), INTERVAL 2 DAY)";
+		$query_overdue = "SELECT o.tag_code, count(distinct c.tag_code) as total, c.tanggal, TIME(c.waktu) as Time from tb_asset_master o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7 AND o.kelompok = 1 AND c.status_moving = 'Out' AND c.id=(SELECT max(id) FROM tb_asset_moving) AND datediff(CURRENT_TIMESTAMP, c.tanggal) > 6";
 		$result_overdue = $CI->db->query($query_overdue);
 		$row_overdue = $result_overdue->row();
 
