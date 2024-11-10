@@ -501,7 +501,7 @@ class Tb_asset_master extends API
 								'rfid_code_tag' => $this->input->post('tag_code')
 							);
 
-							$save_tb_history_invent = $this->db->insert('tb_history_invent', $data);
+							$save_tb_history_invent = $this->db->insert('tb_history_invent', $tb_history_invent);
 
 							if ($save_tb_history_invent) {
 							
