@@ -491,10 +491,26 @@ class Tb_asset_master extends API
 
 						if ($save_tag_location) {
 
-							$this->response([
-								'status' => true,
-								'message' => 'RFID berhasil di daftarkan & masuk ruangan !'
-							], API::HTTP_OK);
+							$tb_history_invent = array(
+								'tanggal' => date('Y-m-d'),
+								'waktu' => date('Y-m-d H:i:s'),
+								'id_room' => $this->input->post('lokasi'),
+								'id_reader' => 0,
+								'user' => $this->input->post('user_id'),
+								'labeling' => 1,
+								'rfid_code_tag' => $this->input->post('tag_code')
+							);
+
+							$save_tb_history_invent = $this->db->insert('tb_history_invent', $data);
+
+							if ($save_tb_history_invent) {
+							
+								$this->response([
+									'status' => true,
+									'message' => 'RFID berhasil di daftarkan & masuk ruangan !'
+								], API::HTTP_OK);
+
+							}
 
 						} else {
 
