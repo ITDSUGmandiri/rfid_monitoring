@@ -426,6 +426,8 @@ class Tb_asset_master extends API
 		// $this->form_validation->set_rules('status_id', 'Status Id', 'trim|required');
 		// $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required|max_length[200]');
 		// $this->form_validation->set_rules('pic_aset', 'Pic Aset', 'trim|required');
+
+		$this->form_validation->set_rules('users_id', 'Users Id', 'trim|required');
 		
 		if ($this->form_validation->run()) {
 
@@ -496,7 +498,7 @@ class Tb_asset_master extends API
 								'waktu' => date('Y-m-d H:i:s'),
 								'id_room' => $this->input->post('lokasi'),
 								'id_reader' => 0,
-								'user' => $this->input->post('user_id'),
+								'user' => $this->input->post('users_id'),
 								'labeling' => 1,
 								'rfid_code_tag' => $this->input->post('tag_code')
 							);
