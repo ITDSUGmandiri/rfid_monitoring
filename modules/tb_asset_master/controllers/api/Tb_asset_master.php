@@ -472,7 +472,9 @@ class Tb_asset_master extends API
 						'tag_code' => $this->input->post('tag_code'),
 						'lokasi' => $this->input->post('lokasi'),
 						'status_id' => 1,
-						'kelompok' => $this->input->post('is_perlu_dipantau')
+						'kelompok' => $this->input->post('is_perlu_dipantau'),
+						'lokasi_terakhir_id' => $this->input->post('lokasi'),
+						'lokasi_terakhir' => $this->input->post('lokasi'),
 					];
 					
 					$save_tb_asset_master = $this->model_api_tb_asset_master->change($this->post('id'), $save_data);
