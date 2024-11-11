@@ -117,7 +117,7 @@
       ?>
 
       <a href="<?= site_url('/'); ?>" class="logo">
-        <span class="logo-mini"><b><img src="<?= BASE_ASSET ?>img/icon-small.png" height="40px"></b></span>
+        <span class="logo-mini"><b><img src="<?= base_url('asset/img/sekneg.png') ?>" height="40px"></b></span>
         <span class="logo-lg"><b><img src="<?= base_url('asset/img/sekneg.png') ?>" height="50px"></b></span>
       </a>
       <nav class="navbar navbar-static-top">
