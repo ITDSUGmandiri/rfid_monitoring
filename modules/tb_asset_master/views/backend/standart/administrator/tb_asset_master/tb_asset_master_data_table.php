@@ -10,7 +10,7 @@
         <td><span class="list_group-nama_brg"><?= _ent($tb_asset_master->nama_brg); ?></span></td>
         <td><?php if ($tb_asset_master->kondisi) {
 
-                echo admin_anchor('/tb_kondisi_master/view/' . $tb_asset_master->Kondisi . '?popup=show', $tb_asset_master->tb_kondisi_master_keterangan, ['class' => 'popup-view']);
+                echo admin_anchor('/tb_kondisi_master/view/' . $tb_asset_master->kondisi . '?popup=show', $tb_asset_master->tb_kondisi_master_keterangan, ['class' => 'popup-view']);
             } ?> </td>
 
         <td><?php if ($tb_asset_master->lokasi) {
