@@ -5,7 +5,7 @@ class Model_api_tag_temp_table extends MY_Model {
 
 private $primary_key = 'id_temp_table';
 private $table_name = 'tag_temp_table';
-private $field_search = ['id_temp_table', 'room_id', 'room_name', 'reader_id', 'reader_antena', 'reader_angle', 'reader_gate', 'rfid_tag_number', 'waktu', 'output'];
+private $field_search = ['id_temp_table', 'lokasi_terakhir_id', 'nama_lokasi_terakhir', 'room_id', 'room_name', 'reader_id', 'reader_antena', 'reader_angle', 'reader_gate', 'rfid_tag_number', 'waktu', 'output', 'kategori_pergerakan', 'keterangan_pergerakan'];
 
 public function __construct()
 {

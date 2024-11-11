@@ -426,6 +426,8 @@ class Tb_asset_master extends API
 		// $this->form_validation->set_rules('status_id', 'Status Id', 'trim|required');
 		// $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required|max_length[200]');
 		// $this->form_validation->set_rules('pic_aset', 'Pic Aset', 'trim|required');
+
+		$this->form_validation->set_rules('users_id', 'Users Id', 'trim|required');
 		
 		if ($this->form_validation->run()) {
 
@@ -470,7 +472,9 @@ class Tb_asset_master extends API
 						'tag_code' => $this->input->post('tag_code'),
 						'lokasi' => $this->input->post('lokasi'),
 						'status_id' => 1,
-						'kelompok' => $this->input->post('is_perlu_dipantau')
+						'kelompok' => $this->input->post('is_perlu_dipantau'),
+						'lokasi_terakhir_id' => $this->input->post('lokasi'),
+						'lokasi_terakhir' => $this->input->post('lokasi'),
 					];
 					
 					$save_tb_asset_master = $this->model_api_tb_asset_master->change($this->post('id'), $save_data);
@@ -491,10 +495,26 @@ class Tb_asset_master extends API
 
 						if ($save_tag_location) {
 
-							$this->response([
-								'status' => true,
-								'message' => 'RFID berhasil di daftarkan & masuk ruangan !'
-							], API::HTTP_OK);
+							$tb_history_invent = array(
+								'tanggal' => date('Y-m-d'),
+								'waktu' => date('Y-m-d H:i:s'),
+								'id_room' => $this->input->post('lokasi'),
+								'id_reader' => 0,
+								'user' => $this->input->post('users_id'),
+								'labeling' => 1,
+								'rfid_code_tag' => $this->input->post('tag_code')
+							);
+
+							$save_tb_history_invent = $this->db->insert('tb_history_invent', $tb_history_invent);
+
+							if ($save_tb_history_invent) {
+							
+								$this->response([
+									'status' => true,
+									'message' => 'RFID berhasil di daftarkan & masuk ruangan !'
+								], API::HTTP_OK);
+
+							}
 
 						} else {
 

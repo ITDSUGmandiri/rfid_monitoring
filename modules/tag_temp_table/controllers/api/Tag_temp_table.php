@@ -21,7 +21,7 @@ class Tag_temp_table extends API
 	 * @apiPermission Tag temp table Cant be Accessed permission name : api_tag_temp_table_all
 	 *
 	 * @apiParam {String} [Filter=null] Optional filter of Tag temp tables.
-	 * @apiParam {String} [Field="All Field"] Optional field of Tag temp tables : id_temp_table, room_id, room_name, reader_id, reader_antena, reader_angle, reader_gate, rfid_tag_number, waktu, output.
+	 * @apiParam {String} [Field="All Field"] Optional field of Tag temp tables : id_temp_table, lokasi_terakhir_id, nama_lokasi_terakhir, room_id, room_name, reader_id, reader_antena, reader_angle, reader_gate, rfid_tag_number, waktu, output, kategori_pergerakan, keterangan_pergerakan.
 	 * @apiParam {String} [Start=0] Optional start index of Tag temp tables.
 	 * @apiParam {String} [Limit=10] Optional limit data of Tag temp tables.
 	 *
@@ -48,7 +48,7 @@ class Tag_temp_table extends API
 		$limit = $this->get('limit') ? $this->get('limit') : $this->limit_page;
 		$start = $this->get('start');
 
-		$select_field = ['id_temp_table', 'room_id', 'room_name', 'reader_id', 'reader_antena', 'reader_angle', 'reader_gate', 'rfid_tag_number', 'waktu', 'output'];
+		$select_field = ['id_temp_table', 'lokasi_terakhir_id', 'nama_lokasi_terakhir', 'room_id', 'room_name', 'reader_id', 'reader_antena', 'reader_angle', 'reader_gate', 'rfid_tag_number', 'waktu', 'output', 'kategori_pergerakan', 'keterangan_pergerakan'];
 		$tag_temp_tables = $this->model_api_tag_temp_table->get($filter, $field, $limit, $start, $select_field);
 		$total = $this->model_api_tag_temp_table->count_all($filter, $field);
 		$tag_temp_tables = array_map(function($row){
@@ -97,7 +97,7 @@ class Tag_temp_table extends API
 
 		$id = $this->get('id_temp_table');
 
-		$select_field = ['id_temp_table', 'room_id', 'room_name', 'reader_id', 'reader_antena', 'reader_angle', 'reader_gate', 'rfid_tag_number', 'waktu', 'output'];
+		$select_field = ['id_temp_table', 'lokasi_terakhir_id', 'nama_lokasi_terakhir', 'room_id', 'room_name', 'reader_id', 'reader_antena', 'reader_angle', 'reader_gate', 'rfid_tag_number', 'waktu', 'output', 'kategori_pergerakan', 'keterangan_pergerakan'];
 		$tag_temp_table = $this->model_api_tag_temp_table->find($id, $select_field);
 
 		if (!$tag_temp_table) {
@@ -133,7 +133,9 @@ class Tag_temp_table extends API
 	 * @apiHeader {String} X-Api-Key Tag temp tables unique access-key.
 	 * @apiPermission Tag temp table Cant be Accessed permission name : api_tag_temp_table_add
 	 *
- 	 * @apiParam {String} Room_id Mandatory room_id of Tag temp tables.  
+ 	 * @apiParam {String} Lokasi_terakhir_id Mandatory lokasi_terakhir_id of Tag temp tables.  
+	 * @apiParam {String} Nama_lokasi_terakhir Mandatory nama_lokasi_terakhir of Tag temp tables. Input Nama Lokasi Terakhir Max Length : 50. 
+	 * @apiParam {String} Room_id Mandatory room_id of Tag temp tables.  
 	 * @apiParam {String} Room_name Mandatory room_name of Tag temp tables. Input Room Name Max Length : 50. 
 	 * @apiParam {String} Reader_id Mandatory reader_id of Tag temp tables.  
 	 * @apiParam {String} Reader_antena Mandatory reader_antena of Tag temp tables.  
@@ -157,6 +159,8 @@ class Tag_temp_table extends API
 	{
 		$this->is_allowed('api_tag_temp_table_add', false);
 
+		// $this->form_validation->set_rules('lokasi_terakhir_id', 'Lokasi Terakhir Id', 'trim|required');
+		// $this->form_validation->set_rules('nama_lokasi_terakhir', 'Nama Lokasi Terakhir', 'trim|required|max_length[50]');
 		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required');
 		$this->form_validation->set_rules('room_name', 'Room Name', 'trim|required|max_length[50]');
 		$this->form_validation->set_rules('reader_id', 'Reader Id', 'trim|required');
@@ -168,6 +172,8 @@ class Tag_temp_table extends API
 		if ($this->form_validation->run()) {
 
 			$save_data = [
+				'lokasi_terakhir_id' => $this->input->post('room_id'),
+				'nama_lokasi_terakhir' => $this->input->post('room_name'),
 				'room_id' => $this->input->post('room_id'),
 				'room_name' => $this->input->post('room_name'),
 				'reader_id' => $this->input->post('reader_id'),
@@ -209,6 +215,8 @@ class Tag_temp_table extends API
 	 * @apiHeader {String} X-Api-Key Tag temp tables unique access-key.
 	 * @apiPermission Tag temp table Cant be Accessed permission name : api_tag_temp_table_update
 	 *
+	 * @apiParam {String} Lokasi_terakhir_id Mandatory lokasi_terakhir_id of Tag temp tables.  
+	 * @apiParam {String} Nama_lokasi_terakhir Mandatory nama_lokasi_terakhir of Tag temp tables. Input Nama Lokasi Terakhir Max Length : 50. 
 	 * @apiParam {String} Room_id Mandatory room_id of Tag temp tables.  
 	 * @apiParam {String} Room_name Mandatory room_name of Tag temp tables. Input Room Name Max Length : 50. 
 	 * @apiParam {String} Reader_id Mandatory reader_id of Tag temp tables.  
@@ -235,6 +243,8 @@ class Tag_temp_table extends API
 		$this->is_allowed('api_tag_temp_table_update', false);
 
 		
+		$this->form_validation->set_rules('lokasi_terakhir_id', 'Lokasi Terakhir Id', 'trim|required');
+		$this->form_validation->set_rules('nama_lokasi_terakhir', 'Nama Lokasi Terakhir', 'trim|required|max_length[50]');
 		$this->form_validation->set_rules('room_id', 'Room Id', 'trim|required');
 		$this->form_validation->set_rules('room_name', 'Room Name', 'trim|required|max_length[50]');
 		$this->form_validation->set_rules('reader_id', 'Reader Id', 'trim|required');
@@ -246,6 +256,8 @@ class Tag_temp_table extends API
 		if ($this->form_validation->run()) {
 
 			$save_data = [
+				'lokasi_terakhir_id' => $this->input->post('lokasi_terakhir_id'),
+				'nama_lokasi_terakhir' => $this->input->post('nama_lokasi_terakhir'),
 				'room_id' => $this->input->post('room_id'),
 				'room_name' => $this->input->post('room_name'),
 				'reader_id' => $this->input->post('reader_id'),

@@ -2604,6 +2604,20 @@ define({ "api": [{
   "group": "Parameter",
   "type": "String",
   "optional": false,
+  "field": "Lokasi_terakhir_id",
+  "description": "<p>Mandatory lokasi_terakhir_id of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_lokasi_terakhir",
+  "description": "<p>Mandatory nama_lokasi_terakhir of Tag temp tables Input Nama Lokasi Terakhir Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
   "field": "Room_id",
   "description": "<p>Mandatory room_id of Tag temp tables .</p>"
   },
@@ -2768,7 +2782,7 @@ define({ "api": [{
 "optional": true,
 "field": "Sort_field",
 "defaultValue": "id_temp_table",
-"description": "<p>Sort data by this field. id_temp_table, room_id, room_name, reader_id, reader_antena, reader_angle, reader_gate, rfid_tag_number, waktu, output</p>"
+"description": "<p>Sort data by this field. id_temp_table, lokasi_terakhir_id, nama_lokasi_terakhir, room_id, room_name, reader_id, reader_antena, reader_angle, reader_gate, rfid_tag_number, waktu, output, kategori_pergerakan, keterangan_pergerakan</p>"
 },
 {
 "group": "Parameter",
@@ -3075,6 +3089,20 @@ define({ "api": [{
 "parameter": {
 "fields": {
 "Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi_terakhir_id",
+  "description": "<p>Mandatory lokasi_terakhir_id of Tag temp tables .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_lokasi_terakhir",
+  "description": "<p>Mandatory nama_lokasi_terakhir of Tag temp tables Input Nama Lokasi Terakhir Max Length : 50..</p>"
+  },
   {
   "group": "Parameter",
   "type": "String",
