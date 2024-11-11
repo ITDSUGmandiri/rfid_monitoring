@@ -682,7 +682,8 @@ $CI = &get_instance();
             '#2ECC40',
             '#0074D9',
             '#FF4136',
-            '#FF851B'
+            '#FF851B',
+            '#c1c234',
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
