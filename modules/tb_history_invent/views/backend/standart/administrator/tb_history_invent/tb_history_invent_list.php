@@ -83,13 +83,12 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                               <option <?= $this->input->get('f') == 'invent_id' ? 'selected' :''; ?> value="invent_id">Invent Id</option>
-                            <option <?= $this->input->get('f') == 'tanggal' ? 'selected' :''; ?> value="tanggal">Tanggal</option>
+                               <option <?= $this->input->get('f') == 'tanggal' ? 'selected' :''; ?> value="tanggal">Tanggal</option>
                             <option <?= $this->input->get('f') == 'waktu' ? 'selected' :''; ?> value="waktu">Waktu</option>
-                            <option <?= $this->input->get('f') == 'id_room' ? 'selected' :''; ?> value="id_room">Id Room</option>
-                            <option <?= $this->input->get('f') == 'id_reader' ? 'selected' :''; ?> value="id_reader">Id Reader</option>
+                            <option <?= $this->input->get('f') == 'id_room' ? 'selected' :''; ?> value="id_room">Ruangan</option>
                             <option <?= $this->input->get('f') == 'user' ? 'selected' :''; ?> value="user">User</option>
                             <option <?= $this->input->get('f') == 'labeling' ? 'selected' :''; ?> value="labeling">Labeling</option>
+                            <option <?= $this->input->get('f') == 'rfid_code_tag' ? 'selected' :''; ?> value="rfid_code_tag">Rfid Code Tag</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -118,13 +117,12 @@ jQuery(document).ready(domo);
                                                      <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                                                    <th data-field="invent_id"data-sort="1" data-primary-key="0"> <?= cclang('invent_id') ?></th>
-                           <th data-field="tanggal"data-sort="1" data-primary-key="0"> <?= cclang('tanggal') ?></th>
+                                                    <th data-field="tanggal"data-sort="1" data-primary-key="0"> <?= cclang('tanggal') ?></th>
                            <th data-field="waktu"data-sort="1" data-primary-key="0"> <?= cclang('waktu') ?></th>
                            <th data-field="id_room"data-sort="1" data-primary-key="0"> <?= cclang('id_room') ?></th>
-                           <th data-field="id_reader"data-sort="1" data-primary-key="0"> <?= cclang('id_reader') ?></th>
                            <th data-field="user"data-sort="1" data-primary-key="0"> <?= cclang('user') ?></th>
                            <th data-field="labeling"data-sort="1" data-primary-key="0"> <?= cclang('labeling') ?></th>
+                           <th data-field="rfid_code_tag"data-sort="1" data-primary-key="0"> <?= cclang('rfid_code_tag') ?></th>
                            <th>Action</th>                        </tr>
                      </thead>
                      <tbody id="tbody_tb_history_invent">

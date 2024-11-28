@@ -44,26 +44,18 @@ jQuery(document).ready(domo);
                   <div class="form-horizontal form-step" name="form_tb_gedung_master" id="form_tb_gedung_master" >
                   
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Id </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-id"><?= _ent($tb_gedung_master->id); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Area Id </label>
-
-                        <div class="col-sm-8">
-                           <?= _ent($tb_gedung_master->tb_area_master_kota); ?>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">Id Gedung </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-id_gedung"><?= _ent($tb_gedung_master->id_gedung); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Kode Gedung </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-kode_gedung"><?= _ent($tb_gedung_master->kode_gedung); ?></span>
                         </div>
                     </div>
                                         
@@ -75,6 +67,14 @@ jQuery(document).ready(domo);
                         </div>
                     </div>
                                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Area </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($tb_gedung_master->tb_area_master_area); ?>
+                        </div>
+                    </div>
+                                        
                     <br>
                     <br>
 
@@ -83,7 +83,7 @@ jQuery(document).ready(domo);
                          
                     <div class="view-nav">
                         <?php is_allowed('tb_gedung_master_update', function() use ($tb_gedung_master){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit tb_gedung_master (Ctrl+e)" href="<?= admin_site_url('/tb_gedung_master/edit/'.$tb_gedung_master->id); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Tb Gedung Master']); ?> </a>
+                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit tb_gedung_master (Ctrl+e)" href="<?= admin_site_url('/tb_gedung_master/edit/'.$tb_gedung_master->id_gedung); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Tb Gedung Master']); ?> </a>
                         <?php }) ?>
                         <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/tb_gedung_master/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Tb Gedung Master']); ?></a>
                      </div>

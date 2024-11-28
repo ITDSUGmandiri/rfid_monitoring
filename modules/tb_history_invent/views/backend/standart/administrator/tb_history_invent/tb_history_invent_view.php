@@ -52,14 +52,6 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Invent Id </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-invent_id"><?= _ent($tb_history_invent->invent_id); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">Tanggal </label>
 
                         <div class="col-sm-8">
@@ -76,7 +68,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Id Room </label>
+                        <label for="content" class="col-sm-2 control-label">Ruangan </label>
 
                         <div class="col-sm-8">
                            <?= _ent($tb_history_invent->tb_room_master_name_room); ?>
@@ -84,26 +76,10 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Id Reader </label>
-
-                        <div class="col-sm-8">
-                           <?= _ent($tb_history_invent->tag_reader_reader_serialnumber); ?>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Rfid Code Tag </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-rfid_code_tag"><?= _ent($tb_history_invent->rfid_code_tag); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">User </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($tb_history_invent->tb_pegawai_master_Pegawai); ?>
+                        <span class="detail_group-user"><?= _ent($tb_history_invent->user); ?></span>
                         </div>
                     </div>
                                         
@@ -112,6 +88,14 @@ jQuery(document).ready(domo);
 
                         <div class="col-sm-8">
                         <span class="detail_group-labeling"><?= _ent($tb_history_invent->labeling); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Rfid Code Tag </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-rfid_code_tag"><?= _ent($tb_history_invent->rfid_code_tag); ?></span>
                         </div>
                     </div>
                                         

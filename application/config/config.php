@@ -512,7 +512,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-
 $config['modules_locations'] = array(
     FCPATH.'modules/' => '../../modules/',
     FCPATH.'cc-content/dashboard-widgeds/' => '../../cc-content/dashboard-widgeds/',

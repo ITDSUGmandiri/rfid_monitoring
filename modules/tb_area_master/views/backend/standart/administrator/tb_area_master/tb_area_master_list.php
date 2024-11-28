@@ -83,8 +83,7 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                               <option <?= $this->input->get('f') == 'id_area' ? 'selected' :''; ?> value="id_area">Id Area</option>
-                            <option <?= $this->input->get('f') == 'kota' ? 'selected' :''; ?> value="kota">Kota</option>
+                               <option <?= $this->input->get('f') == 'kota' ? 'selected' :''; ?> value="kota">Kota</option>
                             <option <?= $this->input->get('f') == 'alamat' ? 'selected' :''; ?> value="alamat">Alamat</option>
                             <option <?= $this->input->get('f') == 'area' ? 'selected' :''; ?> value="area">Area</option>
                            </select>
@@ -115,8 +114,7 @@ jQuery(document).ready(domo);
                                                      <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                                                    <th data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('id_area') ?></th>
-                           <th data-field="kota"data-sort="1" data-primary-key="0"> <?= cclang('kota') ?></th>
+                                                    <th data-field="kota"data-sort="1" data-primary-key="0"> <?= cclang('kota') ?></th>
                            <th data-field="alamat"data-sort="1" data-primary-key="0"> <?= cclang('alamat') ?></th>
                            <th data-field="area"data-sort="1" data-primary-key="0"> <?= cclang('area') ?></th>
                            <th>Action</th>                        </tr>

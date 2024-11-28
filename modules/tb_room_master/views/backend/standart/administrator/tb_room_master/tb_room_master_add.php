@@ -59,10 +59,10 @@
                         ?>
 
                         <div class="form-group group-gedung_id ">
-                            <label for="gedung_id" class="col-sm-2 control-label">Gedung Id                                <i class="required">*</i>
+                            <label for="gedung_id" class="col-sm-2 control-label">Gedung                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="gedung_id" id="gedung_id" data-placeholder="Select Gedung Id">
+                                <select class="form-control chosen chosen-select-deselect" name="gedung_id" id="gedung_id" data-placeholder="Select Gedung">
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
@@ -74,63 +74,54 @@
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
-                                    <b>Input Gedung Id</b> Max Length : 50.</small>
+                                    </small>
                             </div>
                         </div>
 
                     
 
-    <div class="form-group group-room_id ">
-                            <label for="room_id" class="col-sm-2 control-label">Room Id                                <i class="required">*</i>
+    <div class="form-group group-kode_room ">
+                            <label for="kode_room" class="col-sm-2 control-label">Kode Ruangan                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="room_id" id="room_id" placeholder="R001K" value="<?= set_value('room_id'); ?>">
+                                <input type="text" class="form-control" name="kode_room" id="kode_room" placeholder="Kode Ruangan" value="<?= set_value('kode_room'); ?>">
                                 <small class="info help-block">
-                                    R=Ruang, 001=No Urut, K=Inisial Nama Ruangan</small>
-                            </div>
-                        </div>
-                    
-
-    <div class="form-group group-reader_id ">
-                            <label for="reader_id" class="col-sm-2 control-label">Reader Id                                </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="reader_id" id="reader_id" placeholder="Reader Id" value="<?= set_value('reader_id'); ?>">
-                                <small class="info help-block">
-                                    <b>Input Reader Id</b> Max Length : 30.</small>
+                                    <b>Input Kode Room</b> Max Length : 30.</small>
                             </div>
                         </div>
                     
 
     <div class="form-group group-name_room ">
-                            <label for="name_room" class="col-sm-2 control-label">Name Room                                <i class="required">*</i>
+                            <label for="name_room" class="col-sm-2 control-label">Nama Ruangan                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="name_room" id="name_room" placeholder="Name Room" value="<?= set_value('name_room'); ?>">
+                                <input type="text" class="form-control" name="name_room" id="name_room" placeholder="Nama Ruangan" value="<?= set_value('name_room'); ?>">
                                 <small class="info help-block">
                                     <b>Input Name Room</b> Max Length : 30.</small>
                             </div>
                         </div>
                     
 
-    <div class="form-group group-PIC ">
-                            <label for="PIC" class="col-sm-2 control-label">PIC                                </label>
+    <div class="form-group group-lat ">
+                            <label for="lat" class="col-sm-2 control-label">Latitude                                <i class="required">*</i>
+                                </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="PIC" id="PIC" data-placeholder="Select PIC">
-                                    <option value=""></option>
-                                    <?php
-                                    $conditions = [
-                                    ];
-                                    ?>
-
-                                    <?php foreach (db_get_all_data('tb_pegawai_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->NIP ?>"><?= $row->Pegawai; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" class="form-control" name="lat" id="lat" placeholder="Latitude" value="<?= set_value('lat'); ?>">
                                 <small class="info help-block">
-                                    <b>Input PIC</b> Max Length : 10.</small>
+                                    </small>
                             </div>
                         </div>
+                    
 
+    <div class="form-group group-long ">
+                            <label for="long" class="col-sm-2 control-label">Longitude                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="long" id="long" placeholder="Longitude" value="<?= set_value('long'); ?>">
+                                <small class="info help-block">
+                                    </small>
+                            </div>
+                        </div>
                     
 
     

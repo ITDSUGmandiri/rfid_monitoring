@@ -88,16 +88,13 @@ class Tb_history_invent extends Admin
 		
 		
 
-		$this->form_validation->set_rules('invent_id', 'Invent Id', 'trim|required|max_length[11]');
-		
-
 		$this->form_validation->set_rules('tanggal', 'Tanggal', 'trim|required');
 		
 
 		$this->form_validation->set_rules('waktu', 'Waktu', 'trim|required');
 		
 
-		$this->form_validation->set_rules('id_room', 'Id Room', 'trim|required|max_length[11]');
+		$this->form_validation->set_rules('id_room', 'Ruangan', 'trim|required|max_length[20]');
 		
 
 		
@@ -105,18 +102,23 @@ class Tb_history_invent extends Admin
 		$this->form_validation->set_rules('user', 'User', 'trim|required');
 		
 
+		$this->form_validation->set_rules('labeling', 'Labeling', 'trim|required');
+		
+
+		$this->form_validation->set_rules('rfid_code_tag', 'Rfid Code Tag', 'trim|required|max_length[96]');
+		
+
 		
 
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'invent_id' => $this->input->post('invent_id'),
 				'tanggal' => $this->input->post('tanggal'),
 				'waktu' => $this->input->post('waktu'),
 				'id_room' => $this->input->post('id_room'),
-				'rfid_code_tag' => $this->input->post('rfid_code_tag'),
 				'user' => $this->input->post('user'),
 				'labeling' => $this->input->post('labeling'),
+				'rfid_code_tag' => $this->input->post('rfid_code_tag'),
 			];
 
 			
@@ -199,16 +201,13 @@ class Tb_history_invent extends Admin
 				]);
 			exit;
 		}
-				$this->form_validation->set_rules('invent_id', 'Invent Id', 'trim|required|max_length[11]');
-		
-
-		$this->form_validation->set_rules('tanggal', 'Tanggal', 'trim|required');
+				$this->form_validation->set_rules('tanggal', 'Tanggal', 'trim|required');
 		
 
 		$this->form_validation->set_rules('waktu', 'Waktu', 'trim|required');
 		
 
-		$this->form_validation->set_rules('id_room', 'Id Room', 'trim|required|max_length[11]');
+		$this->form_validation->set_rules('id_room', 'Ruangan', 'trim|required|max_length[20]');
 		
 
 		
@@ -216,17 +215,22 @@ class Tb_history_invent extends Admin
 		$this->form_validation->set_rules('user', 'User', 'trim|required');
 		
 
+		$this->form_validation->set_rules('labeling', 'Labeling', 'trim|required');
+		
+
+		$this->form_validation->set_rules('rfid_code_tag', 'Rfid Code Tag', 'trim|required|max_length[96]');
+		
+
 		
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'invent_id' => $this->input->post('invent_id'),
 				'tanggal' => $this->input->post('tanggal'),
 				'waktu' => $this->input->post('waktu'),
 				'id_room' => $this->input->post('id_room'),
-				'rfid_code_tag' => $this->input->post('rfid_code_tag'),
 				'user' => $this->input->post('user'),
 				'labeling' => $this->input->post('labeling'),
+				'rfid_code_tag' => $this->input->post('rfid_code_tag'),
 			];
 
 			

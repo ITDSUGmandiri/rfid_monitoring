@@ -88,16 +88,13 @@ class Tb_area_master extends Admin
 		
 		
 
-		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required|max_length[11]');
-		
-
 		$this->form_validation->set_rules('kota', 'Kota', 'trim|required|max_length[50]');
 		
 
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[130]');
 		
 
-		$this->form_validation->set_rules('area', 'Area', 'trim|max_length[200]');
+		$this->form_validation->set_rules('area', 'Area', 'trim|required|max_length[200]');
 		
 
 		
@@ -105,7 +102,6 @@ class Tb_area_master extends Admin
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'id_area' => $this->input->post('id_area'),
 				'kota' => $this->input->post('kota'),
 				'alamat' => $this->input->post('alamat'),
 				'area' => $this->input->post('area'),
@@ -191,23 +187,19 @@ class Tb_area_master extends Admin
 				]);
 			exit;
 		}
-				$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required|max_length[11]');
-		
-
-		$this->form_validation->set_rules('kota', 'Kota', 'trim|required|max_length[50]');
+				$this->form_validation->set_rules('kota', 'Kota', 'trim|required|max_length[50]');
 		
 
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[130]');
 		
 
-		$this->form_validation->set_rules('area', 'Area', 'trim|max_length[200]');
+		$this->form_validation->set_rules('area', 'Area', 'trim|required|max_length[200]');
 		
 
 		
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'id_area' => $this->input->post('id_area'),
 				'kota' => $this->input->post('kota'),
 				'alamat' => $this->input->post('alamat'),
 				'area' => $this->input->post('area'),

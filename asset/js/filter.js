@@ -116,6 +116,7 @@ function reloadDataTable(url) {
 
 
 }
+
 $(function () {
     var crud_key_field = {};
     var crud_fields = []

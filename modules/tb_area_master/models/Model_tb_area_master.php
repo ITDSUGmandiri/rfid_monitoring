@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_tb_area_master extends MY_Model {
 
-    private $primary_key    = 'id';
+    private $primary_key    = 'id_area';
     private $table_name     = 'tb_area_master';
-    public $field_search   = ['id_area', 'kota', 'alamat', 'area'];
-    public $sort_option = ['id', 'DESC'];
+    public $field_search   = ['kota', 'alamat', 'area'];
+    public $sort_option = ['id_area', 'DESC'];
     
     public function __construct()
     {

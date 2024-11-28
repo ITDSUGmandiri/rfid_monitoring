@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_tb_gedung_master extends MY_Model {
 
-    private $primary_key    = 'id';
+    private $primary_key    = 'id_gedung';
     private $table_name     = 'tb_gedung_master';
-    public $field_search   = ['area_id', 'id_gedung', 'gedung', 'tb_area_master.kota'];
-    public $sort_option = ['id', 'DESC'];
+    public $field_search   = ['kode_gedung', 'gedung', 'area_id', 'tb_area_master.area'];
+    public $sort_option = ['id_gedung', 'DESC'];
     
     public function __construct()
     {
@@ -105,7 +105,7 @@ class Model_tb_gedung_master extends MY_Model {
     public function join_avaiable() {
         $this->db->join('tb_area_master', 'tb_area_master.id_area = tb_gedung_master.area_id', 'LEFT');
         
-        $this->db->select('tb_area_master.kota,tb_gedung_master.*,tb_area_master.kota as tb_area_master_kota,tb_area_master.kota as kota');
+        $this->db->select('tb_area_master.area,tb_gedung_master.*,tb_area_master.area as tb_area_master_area,tb_area_master.area as area');
 
 
         return $this;

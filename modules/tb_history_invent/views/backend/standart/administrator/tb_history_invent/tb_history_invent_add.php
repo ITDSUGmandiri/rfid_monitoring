@@ -58,18 +58,7 @@
                         $user_groups = $this->model_group->get_user_group_ids();
                         ?>
 
-                        <div class="form-group group-invent_id ">
-                            <label for="invent_id" class="col-sm-2 control-label">Invent Id                                <i class="required">*</i>
-                                </label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control" name="invent_id" id="invent_id" placeholder="Invent Id" value="<?= set_value('invent_id'); ?>">
-                                <small class="info help-block">
-                                    <b>Input Invent Id</b> Max Length : 11.</small>
-                            </div>
-                        </div>
-                    
-
-    <div class="form-group group-tanggal ">
+                        <div class="form-group group-tanggal ">
                             <label for="tanggal" class="col-sm-2 control-label">Tanggal                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-6">
@@ -96,10 +85,10 @@
                     
 
     <div class="form-group group-id_room ">
-                            <label for="id_room" class="col-sm-2 control-label">Id Room                                <i class="required">*</i>
+                            <label for="id_room" class="col-sm-2 control-label">Ruangan                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_room" id="id_room" data-placeholder="Select Id Room">
+                                <select class="form-control chosen chosen-select-deselect" name="id_room" id="id_room" data-placeholder="Select Ruangan">
                                     <option value=""></option>
                                     <?php
                                     $conditions = [
@@ -107,54 +96,45 @@
                                     ?>
 
                                     <?php foreach (db_get_all_data('tb_room_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->room_id ?>"><?= $row->name_room; ?></option>
+                                    <option value="<?= $row->id_room ?>"><?= $row->name_room; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
-                                    <b>Input Id Room</b> Max Length : 11.</small>
+                                    <b>Input Id Room</b> Max Length : 20.</small>
                             </div>
                         </div>
 
-                    
-
-    <div class="form-group group-rfid_code_tag ">
-                            <label for="rfid_code_tag" class="col-sm-2 control-label">Rfid Code Tag                                </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="rfid_code_tag" id="rfid_code_tag" placeholder="Rfid Code Tag" value="<?= set_value('rfid_code_tag'); ?>">
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
                     
 
     <div class="form-group group-user ">
                             <label for="user" class="col-sm-2 control-label">User                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="user" id="user" data-placeholder="Select User">
-                                    <option value=""></option>
-                                    <?php
-                                    $conditions = [
-                                    ];
-                                    ?>
-
-                                    <?php foreach (db_get_all_data('tb_pegawai_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->id ?>"><?= $row->Pegawai; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="number" class="form-control" name="user" id="user" placeholder="User" value="<?= set_value('user'); ?>">
                                 <small class="info help-block">
                                     </small>
                             </div>
                         </div>
-
                     
 
     <div class="form-group group-labeling ">
-                            <label for="labeling" class="col-sm-2 control-label">Labeling                                </label>
+                            <label for="labeling" class="col-sm-2 control-label">Labeling                                <i class="required">*</i>
+                                </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="labeling" id="labeling" placeholder="Labeling" value="<?= set_value('labeling'); ?>">
+                                <input type="number" class="form-control" name="labeling" id="labeling" placeholder="Labeling" value="<?= set_value('labeling'); ?>">
                                 <small class="info help-block">
                                     </small>
+                            </div>
+                        </div>
+                    
+
+    <div class="form-group group-rfid_code_tag ">
+                            <label for="rfid_code_tag" class="col-sm-2 control-label">Rfid Code Tag                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="rfid_code_tag" id="rfid_code_tag" placeholder="Rfid Code Tag" value="<?= set_value('rfid_code_tag'); ?>">
+                                <small class="info help-block">
+                                    <b>Input Rfid Code Tag</b> Max Length : 96.</small>
                             </div>
                         </div>
                     

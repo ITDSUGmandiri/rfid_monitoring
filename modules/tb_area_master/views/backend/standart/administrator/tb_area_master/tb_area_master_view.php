@@ -44,14 +44,6 @@ jQuery(document).ready(domo);
                   <div class="form-horizontal form-step" name="form_tb_area_master" id="form_tb_area_master" >
                   
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Id </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-id"><?= _ent($tb_area_master->id); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">Id Area </label>
 
                         <div class="col-sm-8">
@@ -91,7 +83,7 @@ jQuery(document).ready(domo);
                          
                     <div class="view-nav">
                         <?php is_allowed('tb_area_master_update', function() use ($tb_area_master){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit tb_area_master (Ctrl+e)" href="<?= admin_site_url('/tb_area_master/edit/'.$tb_area_master->id); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Tb Area Master']); ?> </a>
+                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit tb_area_master (Ctrl+e)" href="<?= admin_site_url('/tb_area_master/edit/'.$tb_area_master->id_area); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Tb Area Master']); ?> </a>
                         <?php }) ?>
                         <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/tb_area_master/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Tb Area Master']); ?></a>
                      </div>

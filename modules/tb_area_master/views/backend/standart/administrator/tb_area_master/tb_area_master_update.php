@@ -62,19 +62,6 @@
 
                                                     
 
-<div class="form-group group-id_area  ">
-        <label for="id_area" class="col-sm-2 control-label">Id Area            <i class="required">*</i>
-            </label>
-        <div class="col-sm-8">
-            <input type="number" class="form-control" name="id_area" id="id_area" placeholder="" value="<?= set_value('id_area', $tb_area_master->id_area); ?>">
-            <small class="info help-block">
-                <b>Input Id Area</b> Max Length : 11.</small>
-        </div>
-    </div>
-
-
-                            
-
 	<div class="form-group group-kota  ">
 		<label for="kota" class="col-sm-2 control-label">Kota			<i class="required">*</i>
 			</label>
@@ -102,7 +89,8 @@
                             
 
 	<div class="form-group group-area  ">
-		<label for="area" class="col-sm-2 control-label">Area			</label>
+		<label for="area" class="col-sm-2 control-label">Area			<i class="required">*</i>
+			</label>
 		<div class="col-sm-8">
 			<input type="text" class="form-control" name="area" id="area" placeholder="" value="<?= set_value('area', $tb_area_master->area); ?>">
 			<small class="info help-block">

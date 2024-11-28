@@ -88,13 +88,13 @@ class Tb_gedung_master extends Admin
 		
 		
 
-		$this->form_validation->set_rules('area_id', 'Area Id', 'trim|required|max_length[11]');
-		
-
-		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required|max_length[255]');
+		$this->form_validation->set_rules('kode_gedung', 'Kode Gedung', 'trim|required|max_length[255]');
 		
 
 		$this->form_validation->set_rules('gedung', 'Gedung', 'trim|required|max_length[255]');
+		
+
+		$this->form_validation->set_rules('area_id', 'Area', 'trim|required');
 		
 
 		
@@ -102,9 +102,9 @@ class Tb_gedung_master extends Admin
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'area_id' => $this->input->post('area_id'),
-				'id_gedung' => $this->input->post('id_gedung'),
+				'kode_gedung' => $this->input->post('kode_gedung'),
 				'gedung' => $this->input->post('gedung'),
+				'area_id' => $this->input->post('area_id'),
 			];
 
 			
@@ -187,22 +187,22 @@ class Tb_gedung_master extends Admin
 				]);
 			exit;
 		}
-				$this->form_validation->set_rules('area_id', 'Area Id', 'trim|required|max_length[11]');
-		
-
-		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required|max_length[255]');
+				$this->form_validation->set_rules('kode_gedung', 'Kode Gedung', 'trim|required|max_length[255]');
 		
 
 		$this->form_validation->set_rules('gedung', 'Gedung', 'trim|required|max_length[255]');
+		
+
+		$this->form_validation->set_rules('area_id', 'Area', 'trim|required');
 		
 
 		
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'area_id' => $this->input->post('area_id'),
-				'id_gedung' => $this->input->post('id_gedung'),
+				'kode_gedung' => $this->input->post('kode_gedung'),
 				'gedung' => $this->input->post('gedung'),
+				'area_id' => $this->input->post('area_id'),
 			];
 
 			

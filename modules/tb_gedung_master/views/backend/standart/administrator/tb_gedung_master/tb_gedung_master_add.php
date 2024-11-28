@@ -58,35 +58,13 @@
                         $user_groups = $this->model_group->get_user_group_ids();
                         ?>
 
-                        <div class="form-group group-area_id ">
-                            <label for="area_id" class="col-sm-2 control-label">Area Id                                <i class="required">*</i>
+                        <div class="form-group group-kode_gedung ">
+                            <label for="kode_gedung" class="col-sm-2 control-label">Kode Gedung                                <i class="required">*</i>
                                 </label>
                             <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="area_id" id="area_id" data-placeholder="Select Area Id">
-                                    <option value=""></option>
-                                    <?php
-                                    $conditions = [
-                                    ];
-                                    ?>
-
-                                    <?php foreach (db_get_all_data('tb_area_master', $conditions) as $row): ?>
-                                    <option value="<?= $row->id_area ?>"><?= $row->kota; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" class="form-control" name="kode_gedung" id="kode_gedung" placeholder="Kode Gedung" value="<?= set_value('kode_gedung'); ?>">
                                 <small class="info help-block">
-                                    <b>Input Area Id</b> Max Length : 11.</small>
-                            </div>
-                        </div>
-
-                    
-
-    <div class="form-group group-id_gedung ">
-                            <label for="id_gedung" class="col-sm-2 control-label">Id Gedung                                <i class="required">*</i>
-                                </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="id_gedung" id="id_gedung" placeholder="G01IM" value="<?= set_value('id_gedung'); ?>">
-                                <small class="info help-block">
-                                    G=Gedung, 01=No Urut, IM=Inisial Nama Gedung</small>
+                                    <b>Input Kode Gedung</b> Max Length : 255.</small>
                             </div>
                         </div>
                     
@@ -97,9 +75,31 @@
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="gedung" id="gedung" placeholder="Gedung" value="<?= set_value('gedung'); ?>">
                                 <small class="info help-block">
-                                    Nama Gedung</small>
+                                    <b>Input Gedung</b> Max Length : 255.</small>
                             </div>
                         </div>
+                    
+
+    <div class="form-group group-area_id ">
+                            <label for="area_id" class="col-sm-2 control-label">Area                                <i class="required">*</i>
+                                </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select-deselect" name="area_id" id="area_id" data-placeholder="Select Area">
+                                    <option value=""></option>
+                                    <?php
+                                    $conditions = [
+                                    ];
+                                    ?>
+
+                                    <?php foreach (db_get_all_data('tb_area_master', $conditions) as $row): ?>
+                                    <option value="<?= $row->id_area ?>"><?= $row->area; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <small class="info help-block">
+                                    </small>
+                            </div>
+                        </div>
+
                     
 
     

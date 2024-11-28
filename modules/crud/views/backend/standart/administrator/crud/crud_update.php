@@ -43,7 +43,7 @@
                   <div class="nav-tabs-custom">
                      <ul class="nav nav-tabs">
                         <li class="active"><a href="#crud" data-toggle="tab">Crud Setting</a></li>
-                        <!--  <li><a href="#master_detail" data-toggle="tab">Master Detail</a></li> -->
+                         <li><a href="#master_detail" data-toggle="tab">Master Detail</a></li>
                      </ul>
                      <div class="tab-content">
                         <div class="tab-pane" id="master_detail">
@@ -170,7 +170,7 @@
                                              <div class="action-item" data-id="<?= $action->id ?>">
                                                 <?= $action->action ?>
                                                 <a href="" class="remove-action-item"><i class="fa fa-trash"></i> </a>
-                                                <!--   <a href="" class="update-action-item"><i class="fa fa-edit"></i> </a> -->
+                                                  <a href="" class="update-action-item"><i class="fa fa-edit"></i> </a>
                                              </div>
                                           <?php endforeach ?>
 

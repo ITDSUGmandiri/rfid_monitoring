@@ -44,15 +44,15 @@ jQuery(document).ready(domo);
                   <div class="form-horizontal form-step" name="form_tb_room_master" id="form_tb_room_master" >
                   
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Id </label>
+                        <label for="content" class="col-sm-2 control-label">Id Room </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-id"><?= _ent($tb_room_master->id); ?></span>
+                        <span class="detail_group-id_room"><?= _ent($tb_room_master->id_room); ?></span>
                         </div>
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Gedung Id </label>
+                        <label for="content" class="col-sm-2 control-label">Gedung </label>
 
                         <div class="col-sm-8">
                            <?= _ent($tb_room_master->tb_gedung_master_gedung); ?>
@@ -60,23 +60,15 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Room Id </label>
+                        <label for="content" class="col-sm-2 control-label">Kode Ruangan </label>
 
                         <div class="col-sm-8">
-                        <span class="detail_group-room_id"><?= _ent($tb_room_master->room_id); ?></span>
+                        <span class="detail_group-kode_room"><?= _ent($tb_room_master->kode_room); ?></span>
                         </div>
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Id </label>
-
-                        <div class="col-sm-8">
-                        <span class="detail_group-reader_id"><?= _ent($tb_room_master->reader_id); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Name Room </label>
+                        <label for="content" class="col-sm-2 control-label">Nama Ruangan </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-name_room"><?= _ent($tb_room_master->name_room); ?></span>
@@ -84,7 +76,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Lat </label>
+                        <label for="content" class="col-sm-2 control-label">Latitude </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-lat"><?= _ent($tb_room_master->lat); ?></span>
@@ -92,18 +84,10 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Long </label>
+                        <label for="content" class="col-sm-2 control-label">Longitude </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-long"><?= _ent($tb_room_master->long); ?></span>
-                        </div>
-                    </div>
-                                        
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">PIC </label>
-
-                        <div class="col-sm-8">
-                           <?= _ent($tb_room_master->tb_pegawai_master_Pegawai); ?>
                         </div>
                     </div>
                                         
@@ -115,7 +99,7 @@ jQuery(document).ready(domo);
                          
                     <div class="view-nav">
                         <?php is_allowed('tb_room_master_update', function() use ($tb_room_master){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit tb_room_master (Ctrl+e)" href="<?= admin_site_url('/tb_room_master/edit/'.$tb_room_master->id); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Tb Room Master']); ?> </a>
+                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit tb_room_master (Ctrl+e)" href="<?= admin_site_url('/tb_room_master/edit/'.$tb_room_master->id_room); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Tb Room Master']); ?> </a>
                         <?php }) ?>
                         <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/tb_room_master/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Tb Room Master']); ?></a>
                      </div>

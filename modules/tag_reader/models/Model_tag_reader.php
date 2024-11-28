@@ -1,14 +1,13 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_tag_reader extends MY_Model
-{
+class Model_tag_reader extends MY_Model {
 
     private $primary_key    = 'reader_id';
     private $table_name     = 'tag_reader';
-    public $field_search   = ['room_id', 'reader_name', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_baudrate', 'reader_power', 'reader_interval', 'reader_mode', 'reader_family', 'reader_model', 'reader_identity', 'reader_antena', 'reader_angle', 'reader_gate', 'tb_room_master.name_room'];
+    public $field_search   = ['room_id', 'reader_name', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_mode', 'reader_family', 'connecting', 'reader_identity', 'alias_antenna', 'tb_room_master.name_room'];
     public $sort_option = ['reader_id', 'DESC'];
-
+    
     public function __construct()
     {
         $config = array(
@@ -16,7 +15,7 @@ class Model_tag_reader extends MY_Model
             'table_name'    => $this->table_name,
             'field_search'  => $this->field_search,
             'sort_option'   => $this->sort_option,
-        );
+         );
 
         parent::__construct($config);
     }
@@ -33,7 +32,7 @@ class Model_tag_reader extends MY_Model
 
         if (empty($field)) {
             foreach ($this->field_search as $field) {
-                $f_search = "tag_reader." . $field;
+                $f_search = "tag_reader.".$field;
 
                 if (strpos($field, '.')) {
                     $f_search = $field;
@@ -46,9 +45,9 @@ class Model_tag_reader extends MY_Model
                 $iterasi++;
             }
 
-            $where = '(' . $where . ')';
+            $where = '('.$where.')';
         } else {
-            $where .= "(" . "tag_reader." . $field . " LIKE '%" . $q . "%' )";
+            $where .= "(" . "tag_reader.".$field . " LIKE '%" . $q . "%' )";
         }
 
         $this->join_avaiable()->filter_avaiable();
@@ -70,7 +69,7 @@ class Model_tag_reader extends MY_Model
 
         if (empty($field)) {
             foreach ($this->field_search as $field) {
-                $f_search = "tag_reader." . $field;
+                $f_search = "tag_reader.".$field;
                 if (strpos($field, '.')) {
                     $f_search = $field;
                 }
@@ -78,51 +77,48 @@ class Model_tag_reader extends MY_Model
                 if ($iterasi == 1) {
                     $where .= $f_search . " LIKE '%" . $q . "%' ";
                 } else {
-                    $where .= "OR " . $f_search . " LIKE '%" . $q . "%' ";
+                    $where .= "OR " .$f_search . " LIKE '%" . $q . "%' ";
                 }
                 $iterasi++;
             }
 
-            $where = '(' . $where . ')';
+            $where = '('.$where.')';
         } else {
-            $where .= "(" . "tag_reader." . $field . " LIKE '%" . $q . "%' )";
+            $where .= "(" . "tag_reader.".$field . " LIKE '%" . $q . "%' )";
         }
 
-        if (is_array($select_field) and count($select_field)) {
+        if (is_array($select_field) AND count($select_field)) {
             $this->db->select($select_field);
         }
-
+        
         $this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-
+        
         $this->sortable();
-
+        
         $query = $this->db->get($this->table_name);
 
         return $query->result();
     }
 
-    public function join_avaiable()
-    {
+    public function join_avaiable() {
         $this->db->join('tb_room_master', 'tb_room_master.id_room = tag_reader.room_id', 'LEFT');
-
+        
         $this->db->select('tb_room_master.name_room,tag_reader.*,tb_room_master.name_room as tb_room_master_name_room,tb_room_master.name_room as name_room');
 
 
         return $this;
     }
 
-    public function filter_avaiable()
-    {
+    public function filter_avaiable() {
 
         if (!$this->aauth->is_admin()) {
-            $this->db->where($this->table_name . '.reader_createdby', get_user_data('id'));
-            $this->db->where($this->table_name . '.reader_updatedby', get_user_data('id'));
-        }
+            }
 
         return $this;
     }
+
 }
 
 /* End of file Model_tag_reader.php */

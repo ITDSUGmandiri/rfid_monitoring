@@ -4,22 +4,15 @@
             <input type="checkbox" class="flat-red check" name="id[]" value="<?= $tb_history_invent->id; ?>">
         </td>
                 
-        <td><span class="list_group-invent_id"><?= _ent($tb_history_invent->invent_id); ?></span></td> 
         <td><span class="list_group-tanggal"><?= _ent($tb_history_invent->tanggal); ?></span></td> 
         <td><span class="list_group-waktu"><?= _ent($tb_history_invent->waktu); ?></span></td> 
         <td><?php if  ($tb_history_invent->id_room) {
 
             echo admin_anchor('/tb_room_master/view/'.$tb_history_invent->id_room.'?popup=show', $tb_history_invent->tb_room_master_name_room, ['class' => 'popup-view']); }?> </td>
          
-        <td><?php if  ($tb_history_invent->id_reader) {
-
-            echo admin_anchor('/tag_reader/view/'.$tb_history_invent->id_reader.'?popup=show', $tb_history_invent->tag_reader_reader_serialnumber, ['class' => 'popup-view']); }?> </td>
-         
-        <td><?php if  ($tb_history_invent->user) {
-
-            echo admin_anchor('/tb_pegawai_master/view/'.$tb_history_invent->user.'?popup=show', $tb_history_invent->tb_pegawai_master_Pegawai, ['class' => 'popup-view']); }?> </td>
-         
+        <td><span class="list_group-user"><?= _ent($tb_history_invent->user); ?></span></td> 
         <td><span class="list_group-labeling"><?= _ent($tb_history_invent->labeling); ?></span></td> 
+        <td><span class="list_group-rfid_code_tag"><?= _ent($tb_history_invent->rfid_code_tag); ?></span></td> 
         <td width="200">
         
                         <?php is_allowed('tb_history_invent_view', function() use ($tb_history_invent){?>

@@ -83,9 +83,9 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                               <option <?= $this->input->get('f') == 'area_id' ? 'selected' :''; ?> value="area_id">Area Id</option>
-                            <option <?= $this->input->get('f') == 'id_gedung' ? 'selected' :''; ?> value="id_gedung">Id Gedung</option>
+                               <option <?= $this->input->get('f') == 'kode_gedung' ? 'selected' :''; ?> value="kode_gedung">Kode Gedung</option>
                             <option <?= $this->input->get('f') == 'gedung' ? 'selected' :''; ?> value="gedung">Gedung</option>
+                            <option <?= $this->input->get('f') == 'area_id' ? 'selected' :''; ?> value="area_id">Area</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -114,9 +114,9 @@ jQuery(document).ready(domo);
                                                      <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                                                    <th data-field="area_id"data-sort="1" data-primary-key="0"> <?= cclang('area_id') ?></th>
-                           <th data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('id_gedung') ?></th>
+                                                    <th data-field="kode_gedung"data-sort="1" data-primary-key="0"> <?= cclang('kode_gedung') ?></th>
                            <th data-field="gedung"data-sort="1" data-primary-key="0"> <?= cclang('gedung') ?></th>
+                           <th data-field="area_id"data-sort="1" data-primary-key="0"> <?= cclang('area_id') ?></th>
                            <th>Action</th>                        </tr>
                      </thead>
                      <tbody id="tbody_tb_gedung_master">

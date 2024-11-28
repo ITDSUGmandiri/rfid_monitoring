@@ -83,11 +83,11 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                               <option <?= $this->input->get('f') == 'gedung_id' ? 'selected' :''; ?> value="gedung_id">Gedung Id</option>
-                            <option <?= $this->input->get('f') == 'room_id' ? 'selected' :''; ?> value="room_id">Room Id</option>
-                            <option <?= $this->input->get('f') == 'reader_id' ? 'selected' :''; ?> value="reader_id">Reader Id</option>
-                            <option <?= $this->input->get('f') == 'name_room' ? 'selected' :''; ?> value="name_room">Name Room</option>
-                            <option <?= $this->input->get('f') == 'PIC' ? 'selected' :''; ?> value="PIC">PIC</option>
+                               <option <?= $this->input->get('f') == 'gedung_id' ? 'selected' :''; ?> value="gedung_id">Gedung</option>
+                            <option <?= $this->input->get('f') == 'kode_room' ? 'selected' :''; ?> value="kode_room">Kode Ruangan</option>
+                            <option <?= $this->input->get('f') == 'name_room' ? 'selected' :''; ?> value="name_room">Nama Ruangan</option>
+                            <option <?= $this->input->get('f') == 'lat' ? 'selected' :''; ?> value="lat">Latitude</option>
+                            <option <?= $this->input->get('f') == 'long' ? 'selected' :''; ?> value="long">Longitude</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -117,10 +117,10 @@ jQuery(document).ready(domo);
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
                                                     <th data-field="gedung_id"data-sort="1" data-primary-key="0"> <?= cclang('gedung_id') ?></th>
-                           <th data-field="room_id"data-sort="1" data-primary-key="0"> <?= cclang('room_id') ?></th>
-                           <th data-field="reader_id"data-sort="1" data-primary-key="0"> <?= cclang('reader_id') ?></th>
+                           <th data-field="kode_room"data-sort="1" data-primary-key="0"> <?= cclang('kode_room') ?></th>
                            <th data-field="name_room"data-sort="1" data-primary-key="0"> <?= cclang('name_room') ?></th>
-                           <th data-field="PIC"data-sort="1" data-primary-key="0"> <?= cclang('PIC') ?></th>
+                           <th data-field="lat"data-sort="1" data-primary-key="0"> <?= cclang('lat') ?></th>
+                           <th data-field="long"data-sort="1" data-primary-key="0"> <?= cclang('long') ?></th>
                            <th>Action</th>                        </tr>
                      </thead>
                      <tbody id="tbody_tb_room_master">

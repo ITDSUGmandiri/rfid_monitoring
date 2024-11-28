@@ -2,11 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['tb_room_master'] = 'Tb Room Master';
-$lang['id'] = 'Id';
-$lang['gedung_id'] = 'Gedung Id';
-$lang['room_id'] = 'Room Id';
-$lang['reader_id'] = 'Reader Id';
-$lang['name_room'] = 'Name Room';
-$lang['lat'] = 'Lat';
-$lang['long'] = 'Long';
-$lang['PIC'] = 'PIC';
+$lang['id_room'] = 'Id Room';
+$lang['gedung_id'] = 'Gedung';
+$lang['kode_room'] = 'Kode Ruangan';
+$lang['name_room'] = 'Nama Ruangan';
+$lang['lat'] = 'Latitude';
+$lang['long'] = 'Longitude';

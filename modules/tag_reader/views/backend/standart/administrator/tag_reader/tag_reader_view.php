@@ -15,11 +15,11 @@ jQuery(document).ready(domo);
 </script>
 <section class="content-header">
    <h1>
-      Reader      <small><?= cclang('detail', ['Reader']); ?> </small>
+      Data Reader RFID      <small><?= cclang('detail', ['Data Reader RFID']); ?> </small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class=""><a  href="<?= admin_site_url('/tag_reader'); ?>">Reader</a></li>
+      <li class=""><a  href="<?= admin_site_url('/tag_reader'); ?>">Data Reader RFID</a></li>
       <li class="active"><?= cclang('detail'); ?></li>
    </ol>
 </section>
@@ -35,8 +35,8 @@ jQuery(document).ready(domo);
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/view.png" alt="User Avatar">
                      </div>
-                     <h3 class="widget-user-username">Reader</h3>
-                     <h5 class="widget-user-desc">Detail Reader</h5>
+                     <h3 class="widget-user-username">Data Reader RFID</h3>
+                     <h5 class="widget-user-desc">Detail Data Reader RFID</h5>
                      <hr>
                   </div>
 
@@ -52,15 +52,15 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Librarian </label>
+                        <label for="content" class="col-sm-2 control-label">Ruangan </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($tag_reader->tag_librarian_librarian_name); ?>
+                           <?= _ent($tag_reader->tb_room_master_name_room); ?>
                         </div>
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Name </label>
+                        <label for="content" class="col-sm-2 control-label">Nama Reader </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_name"><?= _ent($tag_reader->reader_name); ?></span>
@@ -68,7 +68,15 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">SN </label>
+                        <label for="content" class="col-sm-2 control-label">Posisi Untuk IN/OUT? </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-setfor"><?= _ent($tag_reader->setfor); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Serial Number </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_serialnumber"><?= _ent($tag_reader->reader_serialnumber); ?></span>
@@ -76,7 +84,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Type </label>
+                        <label for="content" class="col-sm-2 control-label">Tipe </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_type"><?= _ent($tag_reader->reader_type); ?></span>
@@ -84,7 +92,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">IP </label>
+                        <label for="content" class="col-sm-2 control-label">IP Address </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_ip"><?= _ent($tag_reader->reader_ip); ?></span>
@@ -100,7 +108,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Com Port </label>
+                        <label for="content" class="col-sm-2 control-label">COM </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_com"><?= _ent($tag_reader->reader_com); ?></span>
@@ -108,7 +116,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Baud Rate </label>
+                        <label for="content" class="col-sm-2 control-label">Baudrate </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_baudrate"><?= _ent($tag_reader->reader_baudrate); ?></span>
@@ -140,7 +148,39 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Family </label>
+                        <label for="content" class="col-sm-2 control-label">Update By </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-reader_updatedby"><?= _ent($tag_reader->reader_updatedby); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Updated </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-reader_updated"><?= _ent($tag_reader->reader_updated); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Created By </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-reader_createdby"><?= _ent($tag_reader->reader_createdby); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Created </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-reader_created"><?= _ent($tag_reader->reader_created); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Reader Series </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_family"><?= _ent($tag_reader->reader_family); ?></span>
@@ -148,7 +188,15 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Model </label>
+                        <label for="content" class="col-sm-2 control-label">Status Reader </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-connecting"><?= _ent($tag_reader->connecting); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Model </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_model"><?= _ent($tag_reader->reader_model); ?></span>
@@ -164,7 +212,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Antena </label>
+                        <label for="content" class="col-sm-2 control-label">Antena </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_antena"><?= _ent($tag_reader->reader_antena); ?></span>
@@ -172,7 +220,7 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Angle </label>
+                        <label for="content" class="col-sm-2 control-label">Angle </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_angle"><?= _ent($tag_reader->reader_angle); ?></span>
@@ -180,10 +228,18 @@ jQuery(document).ready(domo);
                     </div>
                                         
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Reader Gate </label>
+                        <label for="content" class="col-sm-2 control-label">Gate </label>
 
                         <div class="col-sm-8">
                         <span class="detail_group-reader_gate"><?= _ent($tag_reader->reader_gate); ?></span>
+                        </div>
+                    </div>
+                                        
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Alias Antena </label>
+
+                        <div class="col-sm-8">
+                        <span class="detail_group-alias_antenna"><?= _ent($tag_reader->alias_antenna); ?></span>
                         </div>
                     </div>
                                         
