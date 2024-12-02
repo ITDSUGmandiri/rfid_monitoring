@@ -209,8 +209,17 @@
       <div class="pull-right hidden-xs">
         <b><?= cclang('version') ?></b> <?= VERSION ?>
       </div>
-      <strong>Copyright &copy; <?= date('Y'); ?> <a href="#"><?= get_option('site_name'); ?></a>.</strong> All rights
-      reserved.
+      <strong>Powered by
+        <a href="index3.html">
+          <img src="<?= BASE_ASSET ?>img/icon/vektorUg.png" alt="AdminLTE Logo" width="100" style="opacity: .8">
+        </a>
+      </strong>
+      &copy; 2024 All rights reserved.
+
+
+      <!-- <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.0.0
+      </div> -->
     </footer>
 
     <div class="control-sidebar-bg"></div>
