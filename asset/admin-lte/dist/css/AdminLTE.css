@@ -2451,12 +2451,12 @@ a:focus {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 2px;
-  display: block;
+  display: inline-table;
   float: left;
   height: 90px;
   width: 90px;
   text-align: center;
-  font-size: 45px;
+  font-size: 40px;
   line-height: 90px;
   background: rgba(0, 0, 0, 0.2);
 }
@@ -2466,8 +2466,10 @@ a:focus {
 }
 
 .info-box-content {
-  padding: 5px 10px;
+  padding: 8px 13px;
   margin-left: 90px;
+  display: flow-root;
+  white-space: nowrap;
 }
 
 .info-box-number {

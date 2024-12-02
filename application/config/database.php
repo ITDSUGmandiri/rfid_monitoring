@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '38.47.91.245',
+	'hostname' => '38.47.91.245', #38.47.91.245
 	'username' => 'root',
-	'password' => 'Developer2023!@#',
-	'database' => 'ug_inventory_asset_tracking',
+	'password' => 'Developer2023!@#', #Developer2023!@#
+	'database' => 'sekneg_aset_system',
 	'port' 	   => '3306',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

@@ -8,7 +8,13 @@
   <meta name="keywords" content="<?= get_option('keywords'); ?>">
   <meta name="author" content="<?= get_option('author'); ?>">
 
-  <title><?= get_user_first_group()->name ?> | <?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
+  <title><?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
+  <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/2.1.0/css/select.dataTables.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.4/css/fixedColumns.dataTables.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
@@ -37,6 +43,7 @@
   <?= $this->cc_html->getCssFileTop(); ?>
 
   <script src="<?= BASE_ASSET ?>admin-lte/plugins/jQuery/jquery-3.6.0.min.js"></script>
+
 
   <script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
   <script src="<?= BASE_ASSET ?>sweet-alert/sweetalert-dev.js"></script>
@@ -117,8 +124,8 @@
       ?>
 
       <a href="<?= site_url('/'); ?>" class="logo">
-        <span class="logo-mini"><b><img src="<?= base_url('asset/img/sekneg.png') ?>" height="40px"></b></span>
-        <span class="logo-lg"><b><img src="<?= base_url('asset/img/sekneg.png') ?>" height="50px"></b></span>
+        <span class="logo-mini"><b><img src="<?= base_url('asset/img/icon/logosekneg.png') ?>" height="40px"></b></span>
+        <span class="logo-lg"><b><img src="<?= base_url('asset/img/sekneglogodb.png') ?>" height="45px"></b></span>
       </a>
       <nav class="navbar navbar-static-top">
 
@@ -225,6 +232,43 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <script>
+    $(document).ready(function() {
+
+      // Setup - add a text input to each footer cell
+      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
+      $('#exampleas thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#exampleas').DataTable({
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: true,
+      });
+    });
+  </script>
+
+
+
 </body>
 
 </html>

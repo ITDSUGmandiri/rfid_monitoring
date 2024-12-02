@@ -20,19 +20,20 @@ class Auth extends Admin
 	 * Login user
 	 *
 	 */
+
+
 	public function login()
 	{
 
 		if ($this->aauth->is_loggedin()) {
 			redirect(ADMIN_NAMESPACE_URL . '/user/profile', 'refresh');
 		}
+
 		$data = [];
 		$this->config->load('site');
 
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
-
-
 		if ($this->form_validation->run()) {
 			if ($this->aauth->login($this->input->post('username'), $this->input->post('password'), $this->input->post('remember'))) {
 				$ref = $this->session->userdata('redirect');
@@ -43,9 +44,11 @@ class Auth extends Admin
 					redirect(ADMIN_NAMESPACE_URL . '/dashboard', 'refresh');
 				}
 			} else {
+				$this->session->set_flashdata('error', 'Login Gagal, Username dan Password salah!');
 				$data['error'] = $this->aauth->print_errors(TRUE);
 			}
 		} else {
+
 			$data['error'] = validation_errors();
 		}
 		$this->template->build('backend/standart/administrator/login', $data);

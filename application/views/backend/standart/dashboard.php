@@ -107,7 +107,7 @@ $CI = &get_instance();
     <div class="col-md-12">
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">MONITORING ASET</h3>
+          <h3 class="box-title">DASHBOARD</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -128,7 +128,7 @@ $CI = &get_instance();
             <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">PERGERAKAN ASET</h3>
+                  <!-- <h3 class="box-title">PERGERAKAN ASET</h3> -->
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -148,34 +148,34 @@ $CI = &get_instance();
 
                     // Tampilkan hasil
                     echo "
-                      <div id='sectiondashboard' class='info-box bg-olive'>
-                          <span id='aset_total_pantau' class='info-box-icon'></span>
+                      <div id='sectiondashboard' class='info-box bg-green'>
+                          <span id='aset_total_pantau' class='info-box-icon'>0</span>
                           <div class='info-box-content'>
-                              <span class='info-box-text'>Total Aset</span>
+                              <h5>Data SIMAN</h5>
                               <div class='progress'>
                                   <div class='progress-bar' style='width: 50%'></div>
                               </div>
                               <span class='progress-description'>
-                                  Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
+                                Diperbarui 11/11/2024
                               </span>
                           </div>
                       </div>";
                     ?>
                   </div>
-                  <div class="col-md-3">
+                  <div class=" col-md-3">
                     <?php
 
                     // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                     echo "
                       <div id='sectiondashboard' class='info-box bg-olive'>
-                          <span id='tape_ontime' class='info-box-icon'></span>
+                          <span id='tape_total' class='info-box-icon'></span>
                           <div class='info-box-content'>
-                              <span class='info-box-text'>ASET MOVING (On Time)</span>
+                              <h5>Terdaftar</h5>
                               <div class='progress'>
                                   <div class='progress-bar' style='width: 50%'></div>
                               </div>
                               <span class='progress-description'>
-                                  Total Aset Yang Sedang Keluar Kondisi Normal.
+                                  Diperbarui 11/11/2024
                               </span>
                           </div>
                       </div>";
@@ -187,33 +187,34 @@ $CI = &get_instance();
                     // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                     echo "
                       <div id='sectiondashboard' class='info-box bg-red'>
-                          <span id='tape_anomaly' class='info-box-icon'></span>
+                          <span id='aset_anomali' class='info-box-icon'></span>
                           <div class='info-box-content'>
-                              <span class='info-box-text'>ANOMALI ASET</span>
+                              <h5>Sensus</h5>
                               <div class='progress'>
                                   <div class='progress-bar' style='width: 50%'></div>
                               </div>
                               <span class='progress-description'>
-                                  Aset Yang Salah Ruangan Atau Pergerakan Tidak Sesuai.
+                                  Diperbarui 11/11/2024
                               </span>
                           </div>
                       </div>";
                     ?>
                   </div>
+
                   <div class="col-md-3">
                     <?php
 
                     // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                     echo "
                       <div id='sectiondashboard' class='info-box bg-orange'>
-                          <span id='tape_overdue' class='info-box-icon'></span>
+                          <span id='tape_ontime' class='info-box-icon'></span>
                           <div class='info-box-content'>
-                              <span class='info-box-text'>ASET HILANG </span>
+                              <h5>Transaksi</h5>
                               <div class='progress'>
                                   <div class='progress-bar' style='width: 50%'></div>
                               </div>
-                              <span class='progress-description'>
-                                  Aset Yang Sudah Keluar Ruangan Namun Tidak Kembali > 6 Hari.
+                             <span class='progress-description'>
+                                  Diperbarui 11/11/2024
                               </span>
                           </div>
                       </div>";
@@ -221,27 +222,6 @@ $CI = &get_instance();
                   </div>
                 </div>
 
-              </div>
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">ASET YANG PERLU DIPANTAU</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body chart-responsive">
-                  <!-- Modal -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <!-- Konten modal akan ditampilkan di sini -->
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id='librarian'></div>
-                </div>
               </div>
 
               <!-- <div class="col-md-12">
@@ -271,14 +251,14 @@ $CI = &get_instance();
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">KONDISI ASET</h3>
+                  <h3 class="box-title">Grafik Berdasarkan Kondisi</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body chart-responsive">
-                  <canvas id="myChart"></canvas>
+                  <canvas id="myChartSIMAN"></canvas>
 
                 </div>
 
@@ -288,23 +268,23 @@ $CI = &get_instance();
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">KATEGORI ASET</h3>
+                  <h3 class="box-title">Grafik Berdasarkan Status</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body chart-responsive">
-                  <div class="row">
-
-                    <canvas id="dChart"></canvas>
-                  </div>
-
+                  <canvas id="myChartREGIS"></canvas>
 
                 </div>
 
               </div>
+
             </div>
+
+
+
           </div>
         </div>
       </div>
@@ -338,7 +318,7 @@ $CI = &get_instance();
     };
 
     // Fungsi untuk menampilkan modal saat div dengan ID tertentu diklik
-    $('#sectiondashboard, #aset_total_pantau, #tape_total, #aset_anomali,#aset_mutasi,#aset_disposal, #tape_ontime, #tape_overdue, #tape_borrow, #tape_broken, #tape_anomaly').click(function() {
+    $('#datasiman, #sectiondashboard, #aset_total_pantau, #tape_total, #aset_anomali,#aset_mutasi,#aset_disposal, #tape_ontime, #tape_overdue, #tape_borrow, #tape_broken, #tape_anomaly').click(function() {
       var divId = $(this).attr('id'); // Mendapatkan ID div yang diklik
       var title = '';
       // Menggunakan ID div untuk memilih endpoint yang sesuai
@@ -346,7 +326,7 @@ $CI = &get_instance();
 
       switch (divId) {
         case 'aset_total_pantau':
-          // console.log('tape total');
+          console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/gettotalpantau';
           title = 'TOTAL ASET YANG DIPANTAU';
           topic = 'pantau';
@@ -464,10 +444,10 @@ $CI = &get_instance();
     }
 
     function updateDashboard(data) {
-      // console.log(data);
+      console.log(data);
       $('#aset_total_pantau').text(data.totalpantau);
       $('#tape_total').text(data.total);
-      $('#aset_anomali').text(data.anomali);
+      $('#aset_anomali').text(data.sensus);
       $('#aset_mutasi').text(data.mutation);
       $('#aset_disposal').text(data.disposal);
       $('#tape_ontime').text(data.ontime);
@@ -586,15 +566,15 @@ $CI = &get_instance();
 
           // console.log(data.label);
 
-          myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
-          myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
+          myChart1.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
+          myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
-          dChart.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
-          dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+          myChart2.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          myChart2.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
           // Memperbarui chart
-          myChart.update();
-          dChart.update();
+          myChart1.update();
+          myChart2.update();
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
@@ -616,7 +596,8 @@ $CI = &get_instance();
         // myChart.data.datasets[0].data = data.values; // Mengganti data
 
         // Memperbarui chart
-        myChart.update();
+        myChart1.update();
+        myChart2.update();
       },
       error: function(xhr, status, error) {
         console.error("Failed to fetch data:", error);
@@ -633,104 +614,150 @@ $CI = &get_instance();
           librarian(data);
           readerradar(data);
 
-          myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
-          myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
+          myChart1.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
+          myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
-          dChart.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
-          dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+          myChart2.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          myChart2.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
           // Memperbarui chart
-          myChart.update();
-          dChart.update();
+          myChart1.update();
+          myChart2.update();
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 1000);
+    }, 15000);
 
-    var ctx2 = document.getElementById('dChart').getContext('2d');
-    var dChart = new Chart(ctx2, {
-      type: 'doughnut',
-      data: {
-        labels: [],
-        datasets: [{
-          data: [], // Specify the data values array
-
-          borderColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color border 
-          backgroundColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color background (Points and Fill)
-          borderWidth: 1 // Specify bar border width
-        }]
-      },
-      options: {
-        responsive: true, // Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-      }
-    });
-
-    // Inisialisasi chart dengan data dari PHP
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-      type: 'doughnut',
+    var ctx2 = document.getElementById('myChartREGIS').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+      type: 'horizontalBar',
       data: {
         labels: [],
         datasets: [{
           label: 'Jumlah',
-          data: [],
+          data: [100, 90, 20],
           backgroundColor: [
-            '#ebb734',
-            '#2ECC40',
-            '#0074D9',
-            '#FF4136',
-            '#FF851B',
-            '#c1c234',
+            "#fcba03",
+            "#fc3d03",
+            "#d8db1d",
+            "#1140bf",
+            "#575c52",
+            "#74bf11"
           ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
+          hoverBackgroundColor: [
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
           ],
           borderWidth: 0
         }]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        // scales: {
-        //   y: {
-        //     grid: {
-        //       display: false,
-        //       drawBorder: false,
-        //     },
-        //     beginAtZero: false,
-        //     ticks: {
-        //       display: false,
-        //       callback: function(value, index, values) {
-        //         return Number.isInteger(value) ? value : '';
-        //       }
-        //     }
-        //   },
-        // },
-        // plugins: {
-        //   tooltip: {
-        //     callbacks: {
-        //       label: function(context) {
-        //         var label = context.dataset.label || '';
-        //         if (label) {
-        //           label += ': ';
-        //         }
-        //         if (context.parsed.y !== null) {
-        //           label += context.parsed.y.toLocaleString();
-        //         }
-        //         return label;
-        //       }
-        //     }
-        //   }
-        // }
+        legend: {
+          display: false,
+        },
+        tooltips: {
+          enabled: false,
+        },
+        animation: {
+          animateScale: true
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
       }
     });
+
+    // Inisialisasi chart dengan data dari PHP
+    var ctx1 = document.getElementById('myChartSIMAN');
+    var myChart1 = new Chart(ctx1, {
+      type: 'horizontalBar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Jumlah',
+          data: [100, 90, 20],
+          backgroundColor: [
+            "#fcba03",
+            "#fc3d03",
+            "#d8db1d",
+            "#1140bf",
+            "#575c52",
+            "#74bf11"
+          ],
+          hoverBackgroundColor: [
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        legend: {
+          display: false,
+        },
+        tooltips: {
+          enabled: false,
+        },
+        animation: {
+          animateScale: true
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    Chart.plugins.register({
+      afterDatasetsDraw: function(chart, easing) {
+        // To only draw at the end of animation, check for easing === 1
+        var ctx = chart.ctx;
+
+        chart.data.datasets.forEach(function(dataset, i) {
+          var meta = chart.getDatasetMeta(i);
+          if (!meta.hidden) {
+            meta.data.forEach(function(element, index) {
+              // Draw the text in black, with the specified font
+              ctx.fillStyle = '#000000';
+
+              var fontSize = 14;
+              var fontStyle = 'bold';
+              ctx.font = Chart.helpers.fontString(fontSize, fontStyle);
+
+              // Just naively convert to string for now
+              var dataString = dataset.data[index].toString();
+
+              // Make sure alignment settings are correct
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+
+              var padding = -10;
+              var position = element.tooltipPosition();
+              ctx.fillText(dataString, position.x - (fontSize / 2) + 10, position.y - (fontSize / 2) - padding);
+            });
+          }
+        });
+      }
+    });
+
     setInterval(newLibraraian, 5000);
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
