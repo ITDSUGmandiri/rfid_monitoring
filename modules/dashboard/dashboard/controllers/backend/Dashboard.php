@@ -44,15 +44,15 @@ class Dashboard extends Admin
 		switch ($data) {
 			case "2":
 				$room2 = "SELECT * FROM tb_master_aset WHERE tag_code != '' AND kelompok = 1 AND lokasi=2 AND status_id = 1 ORDER BY id";
-				$data_json = $CI->db->query($room2)->result();
+				$data_json = $this->db->query($room2)->result();
 				break;
 			case "3":
 				$room2 = "SELECT * FROM tb_master_aset WHERE tag_code != '' AND kelompok = 1 AND lokasi=3 AND status_id = 1 ORDER BY id";
-				$data_json = $CI->db->query($room2)->result();
+				$data_json = $this->db->query($room2)->result();
 				break;
 			case "gettotalpantau":
 				$row_totalpantau = "SELECT a.tag_code, a.nama_brg, a.lokasi, a.kode_brg, a.kelompok, a.nup, r.id_room, r.name_room, i.id_room, i.rfid_code_tag FROM tb_master_aset a INNER JOIN tb_history_invent i ON i.rfid_code_tag = a.tag_code INNER JOIN tb_room_master r ON r.id_room = i.id_room AND a.tag_code != '' AND a.kelompok = 1";
-				$data_json = $CI->db->query($row_totalpantau)->result();
+				$data_json = $this->db->query($row_totalpantau)->result();
 				break;
 			case "total":
 				$query_total = "
@@ -74,27 +74,27 @@ class Dashboard extends Admin
 							tl.location_updated DESC
 						LIMIT 20;
 					";
-				$data_json = $CI->db->query($query_total)->result();
+				$data_json = $this->db->query($query_total)->result();
 				break;
 			case "anomali":
 				$query_anomali = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_brg = '' AND nup = ''";
-				$data_json = $CI->db->query($query_anomali)->result();
+				$data_json = $this->db->query($query_anomali)->result();
 				break;
 			case "mutation":
 				$query_mut = "SELECT COUNT(*) as total FROM tb_master_aset WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
-				$data_json = $CI->db->query($query_mut)->result();
+				$data_json = $this->db->query($query_mut)->result();
 				break;
 			case "disposal":
 				$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status_id = 8";
-				$data_json = $CI->db->query($query_disp)->result();
+				$data_json = $this->db->query($query_disp)->result();
 				break;
 			case "koreksi":
 				$query_disp = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_master_aset AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
-				$data_json = $CI->db->query($query_disp)->result();
+				$data_json = $this->db->query($query_disp)->result();
 				break;
 			case "ontime":
 				$query_ontime = "SELECT distinct c.tag_code,o.kode_brg,o.nup, o.nama_brg, o.tag_code ,i.rfid_code_tag, i.id_room, r.id_room, r.name_room from tb_master_aset o inner join tb_asset_moving c on c.tag_code = o.tag_code inner join tb_history_invent i on i.rfid_code_tag = o.tag_code inner join tb_room_master r on r.id_room = i.id_room AND c.status_moving = 'Out' AND o.lokasi = 0 AND o.status_id = 7 AND o.kelompok = 1";
-				$data_json = $CI->db->query($query_ontime)->result();
+				$data_json = $this->db->query($query_ontime)->result();
 				break;
 			case "overdue":
 				$query_overdue = "
@@ -120,7 +120,7 @@ class Dashboard extends Admin
 							tl.location_updated DESC
 						LIMIT 20;
 					";
-				$data_json = $CI->db->query($query_overdue)->result();
+				$data_json = $this->db->query($query_overdue)->result();
 				break;
 			case "borrow":
 				$query_borrow = "
@@ -144,7 +144,7 @@ class Dashboard extends Admin
 							tl.location_updated DESC
 						LIMIT 20;
 					";
-				$data_json = $CI->db->query($query_borrow)->result();
+				$data_json = $this->db->query($query_borrow)->result();
 				break;
 			case "broken":
 				$query_broken = "
@@ -168,7 +168,7 @@ class Dashboard extends Admin
 							tl.location_updated DESC
 						LIMIT 20;
 					";
-				$data_json = $CI->db->query($query_broken)->result();
+				$data_json = $this->db->query($query_broken)->result();
 				break;
 		}
 
@@ -182,58 +182,62 @@ class Dashboard extends Admin
 
 		// Ambil data untuk chart
 		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_aset != ''";
-		$result_total = $CI->db->query($row_totalpantau);
+		$result_total = $this->db->query($row_totalpantau);
 		$row_totalpantau = $result_total->row();
 
 		// // Ambil data untuk chart
 		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != '' AND kode_aset != ''";
-		$result_total = $CI->db->query($query_total);
+		$result_total = $this->db->query($query_total);
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
 		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE flag_inventarisasi != 0";
-		$result_total = $CI->db->query($query_inv);
+		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
 		$query_on_time = "SELECT o.kode_tid, count(distinct c.kode_tid) as total from tb_master_aset o inner join tb_detail_transaksi c on c.kode_tid = o.kode_tid";
-		$result_on_time = $CI->db->query($query_on_time);
+		$result_on_time = $this->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
 		// $query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
-		// $result_mutation = $CI->db->query($query_mutation);
+		// $result_mutation = $this->db->query($query_mutation);
 		// $mutation = $result_mutation->row();
 
 		// $query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kondisi = 08";
-		// $result_dispo = $CI->db->query($query_disp);
+		// $result_dispo = $this->db->query($query_disp);
 		// $disposal = $result_dispo->row();
 		// // $query_on_time = "SELECT COUNT(*) as total FROM tb_master_aset WHERE lokasi = 0 AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";
-		// // $result_on_time = $CI->db->query($query_on_time);
+		// // $result_on_time = $this->db->query($query_on_time);
 		// // $row_on_time = $result_on_time->row();
 
 		// $query_overdue = "SELECT o.tag_code, count(distinct c.tag_code) as total, c.tanggal, TIME(c.waktu) as Time from tb_master_aset o inner join tb_asset_moving c on c.tag_code = o.tag_code AND o.lokasi = 0 AND o.status_id = 7 AND o.kelompok = 1 AND c.status_moving = 'Out' AND c.id=(SELECT max(id) FROM tb_asset_moving) AND datediff(CURRENT_TIMESTAMP, c.tanggal) > 6";
-		// $result_overdue = $CI->db->query($query_overdue);
+		// $result_overdue = $this->db->query($query_overdue);
 		// $row_overdue = $result_overdue->row();
 
 		// $query_pinjam = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kondisi = 07";
-		// $result_pinjam = $CI->db->query($query_pinjam);
+		// $result_pinjam = $this->db->query($query_pinjam);
 		// $row_pinjam = $result_pinjam->row();
 
 		// $query_rusak = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kondisi = 03 AND kondisi = 04";
-		// $result_rusak = $CI->db->query($query_rusak);
+		// $result_rusak = $this->db->query($query_rusak);
 		// $row_rusak = $result_rusak->row();
 
 		// $query_anomaly = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_master_aset AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
-		// $result_anomaly = $CI->db->query($query_anomaly);
+		// $result_anomaly = $this->db->query($query_anomaly);
 		// $row_anomaly = $result_anomaly->row();
 
 		// //ambil data chart untuk label kondisi
 		// $querycondt = "SELECT k.keterangan, count(k.keterangan) as total FROM tb_master_aset a INNER JOIN tb_kondisi_master k ON a.kondisi = k.id GROUP BY k.keterangan";
-		// $data_chart = $CI->db->query($querycondt)->result();
+		// $data_chart = $this->db->query($querycondt)->result();
 
 		// //ambil data chart untuk label kategori
-		// $querycateg = "SELECT c.nama_kategori, count(a.tag_code) as total FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
-		// // $querycateg = "SELECT c.nama_kategori FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
-		// $data_categ = $CI->db->query($querycateg)->result();
+		$querycateg = "SELECT count(a.id) as total FROM tb_master_aset a JOIN tb_master_kondisi c ON a.id_kondisi = c.id GROUP BY c.kondisi";
+		// $querycateg = "SELECT c.nama_kategori FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
+		$data_categ = $this->db->query($querycateg)->result();
+
+		$querykon = "SELECT kondisi FROM tb_master_kondisi";
+		// $querycateg = "SELECT c.nama_kategori FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
+		$data_kon = $this->db->query($querykon)->result();
 
 
 		// $data_chart = array(
@@ -251,7 +255,7 @@ class Dashboard extends Admin
 		// SELECT b.name_room as building_name, b.id_room, b.name_room, COUNT(CASE WHEN tl.Lokasi != '' THEN tl.Lokasi ELSE NULL END) as total_rfid FROM tb_room_master b LEFT JOIN tb_master_aset tl ON b.id_room = tl.Lokasi GROUP BY b.id_room, tl.Lokasi ORDER BY b.id_room;
 		// ";
 
-		// $result = $CI->db->query($querylibrarian);
+		// $result = $this->db->query($querylibrarian);
 
 		$data = array(
 			"totalpantau" => $row_totalpantau->total,
@@ -259,15 +263,15 @@ class Dashboard extends Admin
 			"sensus"   => $row_sensus->total,
 			// "mutation"	=> $mutation->total,
 			// "disposal"	=> $disposal->total,
-			"ontime" 	=> $row_on_time->total,
+			// "ontime" 	=> $row_on_time->total,
 			// "overdue"	=> $row_overdue->total,
 			// "borrow" 	=> $row_pinjam->total,
 			// "broken" 	=> $row_rusak->total,
 			// "anomaly" 	=> $row_anomaly->total,
 			// "label" 	=> $data_chart,
 			// "values"	=> array_values($data_chart),
-			// "labelcateg" 	=> $data_categ,
-			// "valuescateg"	=> array_values($data_categ),
+			"labelcateg" 	=> $data_kon,
+			"valuescateg"	=> array_values($data_categ),
 			// "librarian"	=> $result->result_array()
 		);
 
@@ -282,27 +286,27 @@ class Dashboard extends Admin
 
 		// Ambil data untuk chart
 		$query_total = "SELECT COUNT(*) as total FROM tag_location";
-		$result_total = $CI->db->query($query_total);
+		$result_total = $this->db->query($query_total);
 		$row_total = $result_total->row();
 
 		$query_on_time = "SELECT COUNT(*) as total FROM tag_location WHERE location_status='TERSEDIA' AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";
-		$result_on_time = $CI->db->query($query_on_time);
+		$result_on_time = $this->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
 		$query_overdue = "SELECT COUNT(*) as total FROM tag_location WHERE location_status='TERSEDIA' AND librarian_id = '1' AND location_updated <= DATE_SUB(NOW(), INTERVAL 2 DAY)";
-		$result_overdue = $CI->db->query($query_overdue);
+		$result_overdue = $this->db->query($query_overdue);
 		$row_overdue = $result_overdue->row();
 
 		$query_pinjam = "SELECT COUNT(*) as total FROM tag_borrow WHERE borrow_status = 'PENDING'";
-		$result_pinjam = $CI->db->query($query_pinjam);
+		$result_pinjam = $this->db->query($query_pinjam);
 		$row_pinjam = $result_pinjam->row();
 
 		$query_rusak = "SELECT COUNT(*) as total FROM tag_broken";
-		$result_rusak = $CI->db->query($query_rusak);
+		$result_rusak = $this->db->query($query_rusak);
 		$row_rusak = $result_rusak->row();
 
 		$query_anomaly = "SELECT COUNT(*) as total FROM tag_anomaly";
-		$result_anomaly = $CI->db->query($query_anomaly);
+		$result_anomaly = $this->db->query($query_anomaly);
 		$row_anomaly = $result_anomaly->row();
 
 		$data_chart = array(
@@ -333,7 +337,7 @@ class Dashboard extends Admin
 			b.id;
         ";
 
-		$result = $CI->db->query($querylibrarian);
+		$result = $this->db->query($querylibrarian);
 
 		$data = array(
 			"total" 	=> $row_total->total,

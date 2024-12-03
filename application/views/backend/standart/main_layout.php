@@ -210,7 +210,7 @@
         <b><?= cclang('version') ?></b> <?= VERSION ?>
       </div>
       <strong>Powered by
-        <a href="index3.html">
+        <a href="#">
           <img src="<?= BASE_ASSET ?>img/icon/vektorUg.png" alt="AdminLTE Logo" width="100" style="opacity: .8">
         </a>
       </strong>

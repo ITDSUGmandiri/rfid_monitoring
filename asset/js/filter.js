@@ -1,94 +1,94 @@
-// function initSortableAjax(module_name, table) {
-//     module_name = module_name
-//     var url = new URL(window.location);
-//     var qst = '';
-//     var qsb = '';
-//     var q = '';
-//     var f = $('#filter').val();
-//     var filter = '[]';
-//     table.find('thead th').each(function (index, el) {
-//         var sb = $(this).data('field')
-//         var icon = '<i class=" fa fa-sort"></i>';
-//         if (qsb == $(this).data('field')) {
-//             var sort = 'desc';
-//             if (qst == 'ASC') {
-//                 sort = 'asc';
-//             }
-//             icon = '<i class=" fa fa-sort-' + sort + '"></i>';
-//             qsb = $(this).data('field');
-//             qst = qst
-//         }
-//         if (qst == null && qsb == null && $(this).data('primary-key')) {
-//             qsb = $(this).data('field');
-//             qst = 'ASC';
-//             icon = '<i class=" fa fa-sort-desc"></i>';
-//         }
-//         var object = $(this);
-//         if ($(this).data('sort')) {
-//             $(this).append(` ` + icon)
-//             $(this).css('cursor', 'pointer')
-//             $(this).click(function (event) {
-//                 event.preventDefault();
-//                 var sb = object.data('field')
-//                 var icon = '<i class=" fa fa-sort"></i>';
-//                 var sorttype = object.attr('sort-type');
-//                 var q = $('#filter').val();
-//                 var url = new URL(window.location);
-//                 var filter = url.searchParams.get("filter");
+function initSortableAjax(module_name, table) {
+    module_name = module_name
+    var url = new URL(window.location);
+    var qst = '';
+    var qsb = '';
+    var q = '';
+    var f = $('#filter').val();
+    var filter = '[]';
+    table.find('thead th').each(function (index, el) {
+        var sb = $(this).data('field')
+        var icon = '<i class=" fa fa-sort"></i>';
+        if (qsb == $(this).data('field')) {
+            var sort = 'desc';
+            if (qst == 'ASC') {
+                sort = 'asc';
+            }
+            icon = '<i class=" fa fa-sort-' + sort + '"></i>';
+            qsb = $(this).data('field');
+            qst = qst
+        }
+        if (qst == null && qsb == null && $(this).data('primary-key')) {
+            qsb = $(this).data('field');
+            qst = 'ASC';
+            icon = '<i class=" fa fa-sort-desc"></i>';
+        }
+        var object = $(this);
+        if ($(this).data('sort')) {
+            $(this).append(` ` + icon)
+            $(this).css('cursor', 'pointer')
+            $(this).click(function (event) {
+                event.preventDefault();
+                var sb = object.data('field')
+                var icon = '<i class=" fa fa-sort"></i>';
+                var sorttype = object.attr('sort-type');
+                var q = $('#filter').val();
+                var url = new URL(window.location);
+                var filter = url.searchParams.get("filter");
 
-//                 table.find('thead th').removeAttr('sort-type')
-//                 table.find('thead th .fa').replaceWith(icon)
-//                 if (sorttype) {
-//                     if (sorttype == 'ASC') {
-//                         sorttype = 'DESC';
-//                         sort = 'desc';
-//                         icon = '<i class=" fa fa-sort-desc"></i>';
-//                     } else {
-//                         sorttype = 'ASC';
-//                         sort = 'asc';
-//                         icon = '<i class=" fa fa-sort-asc"></i>';
-//                     }
-//                     object.attr('sort-type', sorttype);
-//                 } else {
-//                     sorttype = 'ASC';
-//                     sort = 'asc';
-//                     icon = '<i class=" fa fa-sort-asc"></i>';
-//                     object.attr('sort-type', sorttype);
-//                 }
-//                 st = sorttype;
-//                 object.find('.fa').replaceWith(icon);
-//                 var url = BASE_URL + ADMIN_NAMESPACE_URL + '/' + module_name + '?ajax=1&st=' + st + '&sb=' + sb + '&q=' + (q ? q : '') + '&f=' + (f ? f : '') + '&filter=' + (filter ? filter : '')
-//                 reloadDataTable(url);
-//             });
-//         }
-//     });
-//     $(document).on('click', '.pagination li a', function (event) {
-//         event.preventDefault();
-//         var page = 0;
-//         if (page !== false) {
+                table.find('thead th').removeAttr('sort-type')
+                table.find('thead th .fa').replaceWith(icon)
+                if (sorttype) {
+                    if (sorttype == 'ASC') {
+                        sorttype = 'DESC';
+                        sort = 'desc';
+                        icon = '<i class=" fa fa-sort-desc"></i>';
+                    } else {
+                        sorttype = 'ASC';
+                        sort = 'asc';
+                        icon = '<i class=" fa fa-sort-asc"></i>';
+                    }
+                    object.attr('sort-type', sorttype);
+                } else {
+                    sorttype = 'ASC';
+                    sort = 'asc';
+                    icon = '<i class=" fa fa-sort-asc"></i>';
+                    object.attr('sort-type', sorttype);
+                }
+                st = sorttype;
+                object.find('.fa').replaceWith(icon);
+                var url = BASE_URL + ADMIN_NAMESPACE_URL + '/' + module_name + '?ajax=1&st=' + st + '&sb=' + sb + '&q=' + (q ? q : '') + '&f=' + (f ? f : '') + '&filter=' + (filter ? filter : '')
+                reloadDataTable(url);
+            });
+        }
+    });
+    $(document).on('click', '.pagination li a', function (event) {
+        event.preventDefault();
+        var page = 0;
+        if (page !== false) {
 
-//             var st = '';
-//             var sb = '';
-//             var f = '';
-//             var filter = '[]';
+            var st = '';
+            var sb = '';
+            var f = '';
+            var filter = '[]';
 
-//             var url = $(this).attr('href');
-//             var location = new URL(url);
-//             var filter = location.searchParams.get("filter");
-//             var q = location.searchParams.get("q");
+            var url = $(this).attr('href');
+            var location = new URL(url);
+            var filter = location.searchParams.get("filter");
+            var q = location.searchParams.get("q");
 
-//             var regex = /index\/(\d+)/;
-//             var matches = regex.exec(url);
-//             if (matches == null) {
-//                 page = '';
-//             } else {
-//                 page = matches[1];
-//             }
-//             var url = BASE_URL + ADMIN_NAMESPACE_URL + '/' + module_name + '/index/' + page + '?ajax=1&q=' + (q ? q : '') + '&filter=' + (filter ? filter : '')
-//             reloadDataTable(url);
-//         }
-//     });
-// }
+            var regex = /index\/(\d+)/;
+            var matches = regex.exec(url);
+            if (matches == null) {
+                page = '';
+            } else {
+                page = matches[1];
+            }
+            var url = BASE_URL + ADMIN_NAMESPACE_URL + '/' + module_name + '/index/' + page + '?ajax=1&q=' + (q ? q : '') + '&filter=' + (filter ? filter : '')
+            reloadDataTable(url);
+        }
+    });
+}
 
 function RemoveParameterFromUrl(url, parameter) {
     return url
@@ -344,25 +344,25 @@ $(function () {
         }
         initSelect2();
     }
-    // $(document).on('change', '.condition-item [name="field"]', function (event) {
-    //     event.preventDefault();
-    //     var type = $(this).find(':selected').data('type');
-    //     var container = $(this).parents('.condition-item');
-    //     container.find('[name="operator"] option').each(function (el) {
-    //         if (!$(this).hasClass(type)) {
-    //             $(this).hide();
-    //         } else {
-    //             $(this).show();
-    //         }
-    //     })
-    //     defineInputFilter(container);
-    // });
-    // $(document).on('change', '.condition-item [name="operator"]', function (event) {
-    //     event.preventDefault();
-    //     var type = $(this).val();
-    //     var container = $(this).parents('.condition-item');
-    //     defineInputFilter(container);
-    // });
+    $(document).on('change', '.condition-item [name="field"]', function (event) {
+        event.preventDefault();
+        var type = $(this).find(':selected').data('type');
+        var container = $(this).parents('.condition-item');
+        container.find('[name="operator"] option').each(function (el) {
+            if (!$(this).hasClass(type)) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        })
+        defineInputFilter(container);
+    });
+    $(document).on('change', '.condition-item [name="operator"]', function (event) {
+        event.preventDefault();
+        var type = $(this).val();
+        var container = $(this).parents('.condition-item');
+        defineInputFilter(container);
+    });
 
     function getFilterJson() {
         var filter = [];

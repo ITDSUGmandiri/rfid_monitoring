@@ -148,7 +148,7 @@ $CI = &get_instance();
 
                     // Tampilkan hasil
                     echo "
-                      <div id='sectiondashboard' class='info-box bg-green'>
+                      <div id='sectiondashboard' class='info-box bg-grey'>
                           <span id='aset_total_pantau' class='info-box-icon'>0</span>
                           <div class='info-box-content'>
                               <h5>Data SIMAN</h5>
@@ -167,7 +167,7 @@ $CI = &get_instance();
 
                     // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                     echo "
-                      <div id='sectiondashboard' class='info-box bg-olive'>
+                      <div id='sectiondashboard' class='info-box bg-grey'>
                           <span id='tape_total' class='info-box-icon'></span>
                           <div class='info-box-content'>
                               <h5>Terdaftar</h5>
@@ -186,7 +186,7 @@ $CI = &get_instance();
 
                     // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                     echo "
-                      <div id='sectiondashboard' class='info-box bg-red'>
+                      <div id='sectiondashboard' class='info-box bg-grey'>
                           <span id='aset_anomali' class='info-box-icon'></span>
                           <div class='info-box-content'>
                               <h5>Sensus</h5>
@@ -206,7 +206,7 @@ $CI = &get_instance();
 
                     // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
                     echo "
-                      <div id='sectiondashboard' class='info-box bg-orange'>
+                      <div id='sectiondashboard' class='info-box bg-grey'>
                           <span id='tape_ontime' class='info-box-icon'></span>
                           <div class='info-box-content'>
                               <h5>Transaksi</h5>
@@ -275,7 +275,7 @@ $CI = &get_instance();
                   </div>
                 </div>
                 <div class="box-body chart-responsive">
-                  <canvas id="myChartREGIS"></canvas>
+                  <canvas id="chartStatus"></canvas>
 
                 </div>
 
@@ -566,14 +566,14 @@ $CI = &get_instance();
 
           // console.log(data.label);
 
-          myChart1.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
-          myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
+          // myChart1.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
+          // myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
 
-          myChart2.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          myChart2.data.labels = data.labelcateg.map(item => [item.kondisi]); // Mengganti labels
           myChart2.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
           // Memperbarui chart
-          myChart1.update();
+          // myChart1.update();
           myChart2.update();
         },
         error: function(xhr, status, error) {
@@ -592,11 +592,11 @@ $CI = &get_instance();
         librarian(data);
         readerradar(data);
 
-        // myChart.data.labels = data.label; // Mengganti labels
-        // myChart.data.datasets[0].data = data.values; // Mengganti data
+        myChart2.data.labels = data.labelcateg.map(item => [item.kondisi]); // Mengganti labels
+        myChart2.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
         // Memperbarui chart
-        myChart1.update();
+        // myChart1.update();
         myChart2.update();
       },
       error: function(xhr, status, error) {
@@ -614,14 +614,11 @@ $CI = &get_instance();
           librarian(data);
           readerradar(data);
 
-          myChart1.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
-          myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
-
-          myChart2.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          myChart2.data.labels = data.labelcateg.map(item => [item.kondisi]); // Mengganti labels
           myChart2.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
           // Memperbarui chart
-          myChart1.update();
+          // myChart1.update();
           myChart2.update();
         },
         error: function(xhr, status, error) {
@@ -630,14 +627,14 @@ $CI = &get_instance();
       });
     }, 15000);
 
-    var ctx2 = document.getElementById('myChartREGIS').getContext('2d');
+    var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
     var myChart2 = new Chart(ctx2, {
-      type: 'horizontalBar',
+      type: 'bar',
       data: {
-        labels: [],
+        labels: ['A', 'B', 'C'],
         datasets: [{
           label: 'Jumlah',
-          data: [100, 90, 20],
+          data: [100, 65, 92],
           backgroundColor: [
             "#fcba03",
             "#fc3d03",
@@ -668,62 +665,60 @@ $CI = &get_instance();
           animateScale: true
         },
         scales: {
-          xAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    var ctx = document.getElementById('chartStatus').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['A', 'B', 'C'],
+        datasets: [{
+          label: 'Jumlah',
+          data: [100, 65, 92],
+          backgroundColor: [
+            "#fcba03",
+            "#fc3d03",
+            "#d8db1d",
+            "#1140bf",
+            "#575c52",
+            "#74bf11"
+          ],
+          hoverBackgroundColor: [
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+            "#babab5",
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        legend: {
+          display: false,
+        },
+        tooltips: {
+          enabled: false,
+        },
+        animation: {
+          animateScale: true
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
       }
     });
 
     // Inisialisasi chart dengan data dari PHP
-    var ctx1 = document.getElementById('myChartSIMAN');
-    var myChart1 = new Chart(ctx1, {
-      type: 'horizontalBar',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Jumlah',
-          data: [100, 90, 20],
-          backgroundColor: [
-            "#fcba03",
-            "#fc3d03",
-            "#d8db1d",
-            "#1140bf",
-            "#575c52",
-            "#74bf11"
-          ],
-          hoverBackgroundColor: [
-            "#babab5",
-            "#babab5",
-            "#babab5",
-            "#babab5",
-            "#babab5",
-            "#babab5",
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        legend: {
-          display: false,
-        },
-        tooltips: {
-          enabled: false,
-        },
-        animation: {
-          animateScale: true
-        },
-        scales: {
-          xAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+
 
     Chart.plugins.register({
       afterDatasetsDraw: function(chart, easing) {
