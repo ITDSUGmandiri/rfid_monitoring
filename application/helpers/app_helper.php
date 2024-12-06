@@ -266,6 +266,7 @@ if (!function_exists('display_menu_admin')) {
 
 		$ret = '';
 		if ($result) {
+
 			if (($level > 1) and ($parent > 0)) {
 				$ret .= '<ul class="treeview-menu">';
 			} else {

@@ -36,6 +36,7 @@ class Auth extends Admin
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		if ($this->form_validation->run()) {
 			if ($this->aauth->login($this->input->post('username'), $this->input->post('password'), $this->input->post('remember'))) {
+
 				$ref = $this->session->userdata('redirect');
 
 				if ($ref) {
@@ -44,13 +45,15 @@ class Auth extends Admin
 					redirect(ADMIN_NAMESPACE_URL . '/dashboard', 'refresh');
 				}
 			} else {
+				echo "xxx3";
 				$this->session->set_flashdata('error', 'Login Gagal, Username dan Password salah!');
 				$data['error'] = $this->aauth->print_errors(TRUE);
 			}
 		} else {
-
+			echo "xxx4";
 			$data['error'] = validation_errors();
 		}
+		echo "xxx5";
 		$this->template->build('backend/standart/administrator/login', $data);
 	}
 

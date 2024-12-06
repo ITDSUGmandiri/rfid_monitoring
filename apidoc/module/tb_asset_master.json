@@ -1,6 +1,6 @@
 {
 "type": "post",
-"url": "/tb_asset_master/add",
+"url": "/tb_master_aset/add",
 "title": "Add Tb asset master.",
 "version": "0.1.0",
 "name": "Addtb_asset_master",

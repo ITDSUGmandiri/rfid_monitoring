@@ -181,12 +181,12 @@ class Dashboard extends Admin
 		$CI = &get_instance();
 
 		// Ambil data untuk chart
-		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_aset != ''";
+		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365";
 		$result_total = $this->db->query($row_totalpantau);
 		$row_totalpantau = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != '' AND kode_aset != ''";
+		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != ''";
 		$result_total = $this->db->query($query_total);
 		$row_total = $result_total->row();
 
@@ -230,14 +230,23 @@ class Dashboard extends Admin
 		// $querycondt = "SELECT k.keterangan, count(k.keterangan) as total FROM tb_master_aset a INNER JOIN tb_kondisi_master k ON a.kondisi = k.id GROUP BY k.keterangan";
 		// $data_chart = $this->db->query($querycondt)->result();
 
-		// //ambil data chart untuk label kategori
-		$querycateg = "SELECT count(a.id) as total FROM tb_master_aset a JOIN tb_master_kondisi c ON a.id_kondisi = c.id GROUP BY c.kondisi";
-		// $querycateg = "SELECT c.nama_kategori FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
-		$data_categ = $this->db->query($querycateg)->result();
+		//status chart
+		$querycateg = "SELECT case when a.status = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.status != 0 GROUP BY key_status";
+		$data_status = $CI->db->query($querycateg)->result();
 
-		$querykon = "SELECT kondisi FROM tb_master_kondisi";
-		// $querycateg = "SELECT c.nama_kategori FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
-		$data_kon = $this->db->query($querykon)->result();
+		//status room
+		$querycateg = "SELECT c.ruangan, count(a.id_ruangan) as total FROM tb_master_aset a INNER JOIN tb_master_ruangan c ON a.id_ruangan = c.id AND a.status != 0 GROUP BY c.ruangan";
+		$data_ruangan = $CI->db->query($querycateg)->result();
+
+		//status kategory
+		$querycateg = "SELECT c.kategori, count(a.kategori) as total FROM tb_master_aset a INNER JOIN tb_master_kategori c ON a.kategori = c.id AND a.status != 0 GROUP BY c.kategori";
+		$data_kate = $CI->db->query($querycateg)->result();
+
+		// $querykon = "SELECT status FROM tb_master_status";
+		// // $querycateg = "SELECT c.nama_kategori FROM tb_master_aset a INNER JOIN tb_category_aset c ON a.kategori_id = c.id_kategori GROUP BY c.nama_kategori";
+		// $data_kon = $this->db->query($querykon)->result();
+
+
 
 
 		// $data_chart = array(
@@ -256,7 +265,6 @@ class Dashboard extends Admin
 		// ";
 
 		// $result = $this->db->query($querylibrarian);
-
 		$data = array(
 			"totalpantau" => $row_totalpantau->total,
 			"total" 	=> $row_total->total,
@@ -268,13 +276,14 @@ class Dashboard extends Admin
 			// "borrow" 	=> $row_pinjam->total,
 			// "broken" 	=> $row_rusak->total,
 			// "anomaly" 	=> $row_anomaly->total,
-			// "label" 	=> $data_chart,
-			// "values"	=> array_values($data_chart),
-			"labelcateg" 	=> $data_kon,
-			"valuescateg"	=> array_values($data_categ),
+			"labelkat" 	=> $data_kate,
+			"valueskat"	=> array_values($data_kate),
+			"label" 	=> $data_ruangan,
+			"values"	=> array_values($data_ruangan),
+			"labelcateg" 	=> $data_status,
+			"valuescateg"	=> array_values($data_status),
 			// "librarian"	=> $result->result_array()
 		);
-
 		// Encode data untuk chart menjadi format JSON
 		$data_json = json_encode($data);
 		echo $data_json;

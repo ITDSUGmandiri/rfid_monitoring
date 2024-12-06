@@ -143,15 +143,15 @@
 
 
                   <div class="col-md-12">
-                      <?php foreach ($this->cc_widged->_load_widgeds() as $widged) : 
-                        $installed = $this->db->table_exists($widged->instance->table_name);
+                      <?php foreach ($this->cc_widged->_load_widgeds() as $widged) :
+                            $installed = $this->db->table_exists($widged->instance->table_name);
                         ?>
                           <div class="widged-option <?= $installed ? '' : 'not-installed' ?>" data-type="<?= $widged->get('name') ?>">
                               <div class="widged-icon">
                                   <?= $widged->get('icon') ?>
                               </div>
                               <div class="widged-title"><?= $widged->get('name') ?></div>
-                               
+
                           </div>
                       <?php endforeach ?>
 

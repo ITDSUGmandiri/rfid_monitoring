@@ -1,12 +1,12 @@
 <?php foreach ($tb_room_masters as $tb_room_master): ?>
     <tr>
+        <td style="text-align: unset;"><span class="list_group-id_room"><?= _ent($tb_room_master->id); ?></span></td>
 
         <td><span class="list_group-name_room"><?= _ent($tb_room_master->gedung); ?></span></td>
 
 
 
         <td><span class="list_group-name_room"><?= _ent($tb_room_master->ruangan); ?></span></td>
-        <td style="text-align: unset;"><span class="list_group-id_room"><?= _ent($tb_room_master->id); ?></span></td>
 
         <td width="200">
 

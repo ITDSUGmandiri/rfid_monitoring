@@ -114,9 +114,9 @@
                            <thead>
                               <tr class="">
 
+                                 <th style="text-align: unset;" data-field="id_room" data-sort="1" data-primary-key="0"> <?= cclang('id_room') ?></th>
                                  <th data-field="gedung_id" data-sort="1" data-primary-key="0"> <?= cclang('gedung_id') ?></th>
                                  <th data-field="name_room" data-sort="1" data-primary-key="0"> <?= cclang('name_room') ?></th>
-                                 <th style="text-align: unset;" data-field="id_room" data-sort="1" data-primary-key="0"> <?= cclang('id_room') ?></th>
                                  <th>Action</th>
                               </tr>
                            </thead>
