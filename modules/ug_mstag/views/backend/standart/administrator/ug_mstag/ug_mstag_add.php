@@ -124,7 +124,7 @@
                     
     <div class="message"></div>
 
-    <div class="row-fluid col-md-7 container-button-bottom">
+    <div class="row-fluid col-md-7 container-button-bottom" style="margin-top: 15px;">
     
         <button class="btn btn-flat btn-primary btn_save btn_action" id="btn_save" data-stype='stay' title="<?= cclang('save_button'); ?> (Ctrl+s)">
             <i class="fa fa-save"></i> <?= cclang('save_button'); ?>
