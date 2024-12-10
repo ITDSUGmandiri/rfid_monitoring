@@ -23,7 +23,8 @@
 		<link rel="stylesheet" href="<?= BASE_ASSET ?>chosen/chosen.css">
 		<link rel="stylesheet" href="<?= BASE_ASSET ?>css/custom.css">
 		<link rel="stylesheet" href="<?= BASE_ASSET ?>datetimepicker/jquery.datetimepicker.css" />
-  		<link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
+
 
 		<script src="<?= BASE_ASSET ?>admin-lte/plugins/jQuery/jquery-3.6.0.min.js"></script>
 		<script src="<?= BASE_ASSET ?>fancy-box/source/jquery.fancybox.js?v=2.1.5"></script>
@@ -33,12 +34,11 @@
 		<script src="<?= BASE_ASSET ?>admin-lte/plugins/input-mask/jquery.inputmask.js"></script>
 		<script src="<?= BASE_ASSET ?>admin-lte/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 		<script src="<?= BASE_ASSET ?>admin-lte/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-  		<script src="<?= BASE_ASSET ?>js/chosen.jquery.min.js" type="text/javascript"></script>
+		<script src="<?= BASE_ASSET ?>js/chosen.jquery.min.js" type="text/javascript"></script>
 
 		<script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
 
 		<script>
-
 			"use strict";
 
 			var BASE_URL = "<?= base_url(); ?>";
@@ -122,7 +122,7 @@
 	<script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
 	<script>
 		"use strict";
-		
+
 		var BASE_URL = "<?= base_url(); ?>";
 		var HTTP_REFERER = "<?= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/'; ?>";
 		var csrf = '<?= $this->security->get_csrf_token_name(); ?>';
