@@ -9,7 +9,7 @@
         <td width="200">
 
             <?php is_allowed('tb_master_aset_view', function () use ($tb_master_aset) { ?>
-                <a href="<?= admin_site_url('/tb_master_aset/view/' . $tb_master_aset->kode_tid); ?>" data-id="<?= $tb_master_aset->kode_tid ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                <a href="<?= admin_site_url('/tb_master_aset/view/' . $tb_master_aset->id_aset); ?>" data-id="<?= $tb_master_aset->id_aset ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
                 <?php }) ?>
                 <?php is_allowed('tb_master_aset_update', function () use ($tb_master_aset) { ?>
                     <a href="<?= admin_site_url('/tb_master_aset/edit/' . $tb_master_aset->id_aset); ?>" data-id="<?= $tb_master_aset->id_aset ?>" class="label-default btn-act-edit"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>

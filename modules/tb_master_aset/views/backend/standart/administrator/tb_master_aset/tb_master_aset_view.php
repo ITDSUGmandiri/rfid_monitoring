@@ -214,13 +214,27 @@
         opacity: 0.5;
     }
 </style>
+<?php if ($this->session->flashdata('nulldata')) { ?>
+    <script>
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Kode TID Aset tidak ditemukan, silahkan perbarui data Aset!",
+        }).then(okay => {
+            if (okay) {
+                window.history.go(-1);
+            }
+        });
+        // window.history.go(-1);
+    </script>
+<?php } ?>
 <section class="content-header">
     <h1>
         <small><?= cclang('detail', ['Tb Master Aset']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a href="<?= admin_site_url('/tb_master_aset'); ?>">Tb Master Aset</a></li>
+        <li class=""><a href="<?= admin_site_url('/tb_master_aset'); ?>">Master Aset</a></li>
         <li class="active"><?= cclang('detail'); ?></li>
     </ol>
 </section>

@@ -419,8 +419,14 @@ class Tb_master_aset extends Admin
 
 		$this->data['tb_master_aset'] = $this->model_tb_master_aset->get_detail_aset($id);
 
-		$this->data['history'] = $this->model_tb_master_aset->get_history();
-		$this->data['transaksi'] = [];
+		$length = sizeof($this->data['tb_master_aset']);
+		if ($length == 0) {
+			$this->session->set_flashdata('nulldata', 'data kosong');
+		} else {
+			$kode = json_encode($this->data['tb_master_aset'][0]->kode_tid);
+			$this->data['history'] = $this->model_tb_master_aset->get_history(str_replace('"', '', $kode));
+			$this->data['transaksi'] = [];
+		}
 
 		$this->template->title('Tb Master Aset Detail');
 		$this->render('backend/standart/administrator/tb_master_aset/tb_master_aset_view', $this->data);

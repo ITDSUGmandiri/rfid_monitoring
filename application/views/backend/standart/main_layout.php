@@ -273,6 +273,7 @@
   </script>
   <script>
     $(document).ready(function() {
+      DataTable.ext.errMode = 'none';
 
       // Setup - add a text input to each footer cell
       $('#tabledetail thead tr').clone(true).appendTo('#tabledetail thead');
