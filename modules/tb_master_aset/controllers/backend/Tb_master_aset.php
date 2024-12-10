@@ -205,7 +205,8 @@ class Tb_master_aset extends Admin
 	{
 		$this->is_allowed('tb_master_aset_update');
 
-		$this->data['tb_master_aset'] = $this->model_tb_master_aset->find($id);
+		$this->data['tb_master_aset'] = $this->model_tb_master_aset->get_detail_edit($id);
+
 
 		$this->template->title('Tb Master Aset Update');
 		$this->render('backend/standart/administrator/tb_master_aset/tb_master_aset_update', $this->data);
@@ -225,143 +226,107 @@ class Tb_master_aset extends Admin
 			]);
 			exit;
 		}
-		$this->form_validation->set_rules('kode_tid', 'Kode Tid', 'trim|required');
-
-
 		$this->form_validation->set_rules('kode_aset', 'Kode Aset', 'trim|required|max_length[50]');
 
 
 		$this->form_validation->set_rules('nup', 'Nup', 'trim|required|max_length[50]');
 
+		$this->form_validation->set_rules('nama_aset', 'Nama Aset', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('merk', 'Merk', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('tipe', 'Tipe', 'trim|required');
 
 		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required');
 
-
-		$this->form_validation->set_rules('merk', 'Merk', 'trim|required|max_length[50]');
-
-
-		$this->form_validation->set_rules('tipe', 'Tipe', 'trim|required|max_length[50]');
-
-
-		$this->form_validation->set_rules('id_kondisi', 'Id Kondisi', 'trim|required');
+		$this->form_validation->set_rules('area', 'Area', 'trim|required');
+		$this->form_validation->set_rules('gedung', 'Gedung', 'trim|required');
+		$this->form_validation->set_rules('room', 'Room', 'trim|required');
+		$this->form_validation->set_rules('pic', 'Pic', 'trim|required');
 
 
-		$this->form_validation->set_rules('status', 'Status', 'trim|required');
-
-
-		$this->form_validation->set_rules('tipe_moving', 'Tipe Moving', 'trim|required');
-
-
-		$this->form_validation->set_rules('nama_aset', 'Nama Aset', 'trim|required|max_length[100]');
-
-
-		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
-
-
-		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
-
-
-		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
-
-
-		$this->form_validation->set_rules('tgl_perolehan', 'Tgl Perolehan', 'trim|required');
-
-
-		$this->form_validation->set_rules('tgl_inventarisasi', 'Tgl Inventarisasi', 'trim|required');
-
-
-		$this->form_validation->set_rules('flag_inventarisasi', 'Flag Inventarisasi', 'trim|required');
-
-
-		$this->form_validation->set_rules('tgl_peminjaman', 'Tgl Peminjaman', 'trim|required');
-
-
-		$this->form_validation->set_rules('tgl_pengembalian', 'Tgl Pengembalian', 'trim|required');
-
-
-		$this->form_validation->set_rules('tgl_mutasi', 'Tgl Mutasi', 'trim|required');
-
-
-		$this->form_validation->set_rules('id_lokasi_moving', 'Id Lokasi Moving', 'trim|required');
-
-
-		$this->form_validation->set_rules('id_pegawai', 'Id Pegawai', 'trim|required');
-
+		$rand = rand();
+		$ekstensi =  array('png', 'jpg', 'jpeg');
+		$filename = $_FILES['fotoaset']['name'];
+		$ukuran = $_FILES['fotoaset']['size'];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		$folderfoto = $this->input->post('kategori') === 1 ? 'Seni' : 'Elektronik';
 
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
-				'kode_tid' => $this->input->post('kode_tid'),
 				'kode_aset' => $this->input->post('kode_aset'),
 				'nup' => $this->input->post('nup'),
-				'kategori' => $this->input->post('kategori'),
+				'nama_aset' => $this->input->post('nama_aset'),
 				'merk' => $this->input->post('merk'),
 				'tipe' => $this->input->post('tipe'),
-				'id_kondisi' => $this->input->post('id_kondisi'),
-				'status' => $this->input->post('status'),
-				'tipe_moving' => $this->input->post('tipe_moving'),
-				'nama_aset' => $this->input->post('nama_aset'),
-				'id_area' => $this->input->post('id_area'),
-				'id_gedung' => $this->input->post('id_gedung'),
-				'id_ruangan' => $this->input->post('id_ruangan'),
+				'kategori' => $this->input->post('kategori'),
+				'id_area' => $this->input->post('area'),
+				'id_gedung' => $this->input->post('gedung'),
+				'id_lokasi' => $this->input->post('room'),
+				'id_pegawai' => $this->input->post('pic'),
 				'tgl_perolehan' => $this->input->post('tgl_perolehan'),
-				'tgl_inventarisasi' => $this->input->post('tgl_inventarisasi'),
-				'flag_inventarisasi' => $this->input->post('flag_inventarisasi'),
-				'tgl_peminjaman' => $this->input->post('tgl_peminjaman'),
-				'tgl_pengembalian' => $this->input->post('tgl_pengembalian'),
-				'tgl_mutasi' => $this->input->post('tgl_mutasi'),
-				'id_lokasi_moving' => $this->input->post('id_lokasi_moving'),
-				'id_pegawai' => $this->input->post('id_pegawai'),
+				'image_uri' => $rand . '_' . $_FILES['fotoaset']['name'],
 			];
 
+			$save_tb_master_aset = $id = $this->model_tb_master_aset->update_aset($id, $save_data);
 
-
-
-
-
-
-
-			$save_tb_master_aset = $this->model_tb_master_aset->change($id, $save_data);
 
 			if ($save_tb_master_aset) {
 
-
-
-
-
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = true;
-					$this->data['id'] 	   = $id;
-					$this->data['message'] = cclang('success_update_data_stay', [
-						admin_anchor('/tb_master_aset', ' Go back to list')
-					]);
+				if (!in_array($ext, $ekstensi)) {
+					header("location:index.php?alert=gagal_ekstensi");
 				} else {
-					set_message(
-						cclang('success_update_data_redirect', []),
-						'success'
-					);
-
-					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/tb_master_aset');
+					if (!file_exists('uploads/' . $folderfoto)) {
+						mkdir('uploads/' . $folderfoto, 0777, true);
+					}
+					if ($ukuran < 500000) {
+						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotoaset"]["name"]))) {
+							echo "Sorry, file already exists.";
+						} else {
+							move_uploaded_file($_FILES["fotoaset"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotoaset']['name']);
+						}
+					} else {
+						header("location:index.php?alert=Ukuran File Maks .500 Kb");
+					}
 				}
+				$this->session->set_flashdata('success', 'succes_save');
+
+
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = true;
+				// 	$this->data['id'] 	   = $save_tb_master_aset;
+				// 	$this->data['message'] = cclang('success_save_data_stay', [
+				// 		admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset'),
+				// 		admin_anchor('/tb_master_aset', ' Go back to list')
+				// 	]);
+				// } else {
+				// 	set_message(
+				// 		cclang('success_save_data_redirect', [
+				// 			admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset')
+				// 		]),
+				// 		'success'
+				// 	);
+
+				// 	$this->data['success'] = true;
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				redirect_back();
 			} else {
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-				} else {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/tb_master_aset');
-				}
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// } else {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				$this->session->set_flashdata('failsave', 'cannot save data');
 			}
 		} else {
-			$this->data['success'] = false;
-			$this->data['message'] = 'Opss validation failed';
-			$this->data['errors'] = $this->form_validation->error_array();
+			$this->session->set_flashdata('err_val', 'error_validasi');
 		}
 
-		$this->response($this->data);
+		// $this->response($this->data);
 	}
 
 	/**

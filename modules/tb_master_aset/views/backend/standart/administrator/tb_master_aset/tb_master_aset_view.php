@@ -218,7 +218,7 @@
     <script>
         Swal.fire({
             icon: "warning",
-            title: "Oops...",
+            title: "Oops, Detail Aset tidak ada",
             text: "Kode TID Aset tidak ditemukan, silahkan perbarui data Aset!",
         }).then(okay => {
             if (okay) {

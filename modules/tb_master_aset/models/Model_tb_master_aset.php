@@ -103,6 +103,15 @@ class Model_tb_master_aset extends MY_Model
         return $query->result();
     }
 
+    public function get_detail_edit($id)
+    {
+        $query = $this->db->query(
+            "SELECT * FROM tb_master_aset WHERE id_aset = $id"
+        );
+
+        return $query->result();
+    }
+
     public function get_detail_aset($id)
     {
         $query = $this->db->query(
@@ -142,6 +151,11 @@ class Model_tb_master_aset extends MY_Model
         }
 
         return $this;
+    }
+    public function update_aset($id, $data)
+    {
+        $this->db->where('id_aset', $id);
+        return $this->db->update('tb_master_aset', $data);
     }
 
     public function reset_data_master($data)
