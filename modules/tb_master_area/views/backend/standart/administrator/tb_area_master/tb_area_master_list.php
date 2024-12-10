@@ -2,7 +2,7 @@
    function domo() {
 
       $('*').bind('keydown', 'Ctrl+a', function() {
-         window.location.href = ADMIN_BASE_URL + '/Tb_master_aset/add';
+         window.location.href = ADMIN_BASE_URL + '/tb_master_area/add';
          return false;
       });
 
@@ -27,11 +27,11 @@
 </script>
 <!-- <section class="content-header">
    <h1>
-      <?= cclang('tb_master_aset') ?><small><?= cclang('list_all'); ?></small>
+      <?= cclang('tb_master_area') ?><small><?= cclang('list_all'); ?></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><?= cclang('tb_master_aset') ?></li>
+      <li class="active"><?= cclang('tb_master_area') ?></li>
    </ol>
 </section> -->
 <!-- Main content -->
@@ -44,25 +44,25 @@
                <div class="box box-widget widget-user-2">
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('tb_master_aset_add', function () { ?>
-                           <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', [cclang('tb_master_aset')]); ?>  (Ctrl+a)" href="<?= admin_site_url('/tb_master_aset/add'); ?>"><i class="fa fa-plus-square-o"></i> Tambah Aset Baru</a>
+                        <?php is_allowed('tb_master_area_add', function () { ?>
+                           <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', [cclang('tb_master_area')]); ?>  (Ctrl+a)" href="<?= admin_site_url('/tb_master_area/add'); ?>"><i class="fa fa-plus-square-o"></i> Tambah Area Baru</a>
                         <?php }) ?>
-                        <?php is_allowed('tb_master_aset_export', function () { ?>
-                           <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> <?= cclang('tb_master_aset') ?> " href="<?= admin_site_url('/tb_master_aset/export?q=' . $this->input->get('q') . '&f=' . $this->input->get('f')); ?>"><i class="fa fa-file-excel-o"></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('tb_master_area_export', function () { ?>
+                           <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> <?= cclang('tb_master_area') ?> " href="<?= admin_site_url('/tb_master_area/export?q=' . $this->input->get('q') . '&f=' . $this->input->get('f')); ?>"><i class="fa fa-file-excel-o"></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
-                        <?php is_allowed('tb_master_aset_export', function () { ?>
-                           <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf <?= cclang('tb_master_aset') ?> " href="<?= admin_site_url('/tb_master_aset/export_pdf?q=' . $this->input->get('q') . '&f=' . $this->input->get('f')); ?>"><i class="fa fa-file-pdf-o"></i> <?= cclang('export'); ?> PDF</a>
+                        <?php is_allowed('tb_master_area_export', function () { ?>
+                           <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf <?= cclang('tb_master_area') ?> " href="<?= admin_site_url('/tb_master_area/export_pdf?q=' . $this->input->get('q') . '&f=' . $this->input->get('f')); ?>"><i class="fa fa-file-pdf-o"></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Data Aset</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_master_aset')]); ?> <i class="label bg-yellow"><span class="total-rows"><?= $tb_master_aset_counts; ?></span> <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Data Area</h3>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_area_master')]); ?> <i class="label bg-yellow"><span class="total-rows"><?= $tb_area_master_counts; ?></span> <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_tb_master_aset" id="form_tb_master_aset" action="<?= admin_base_url('/tb_master_aset/index'); ?>">
+                  <form name="form_tb_master_area" id="form_tb_master_area" action="<?= admin_base_url('/tb_master_area/index'); ?>">
 
 
 
@@ -112,7 +112,7 @@
                               </button>
                            </div>
                            <div class="col-sm-1 padd-left-0 ">
-                              <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_aset'); ?>" title="<?= cclang('reset_filter'); ?>">
+                              <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_area'); ?>" title="<?= cclang('reset_filter'); ?>">
                                  <i class="fa fa-undo"></i>
                               </a>
                            </div> -->
@@ -130,14 +130,13 @@
                            <thead>
                               <tr class="">
 
-                                 <th data-field="kode_tid" data-primary-key="0"> <?= cclang('kode_tid') ?></th>
-                                 <th data-field="kode_aset" data-primary-key="0"> <?= cclang('kode_aset') ?></th>
-                                 <th data-field="nama_aset" data-primary-key="0"> <?= cclang('nama_aset') ?></th>
-                                 <th data-field="id_area" data-primary-key="0"> Status</th>
+                                 <th data-field="kode_tid" data-primary-key="0"> Kode Area</th>
+                                 <th data-field="kode_aset" data-primary-key="0"> Nama Area</th>
+                                 <th data-field="nama_aset" data-primary-key="0"> Keterangan Area</th>
                                  <th>Action</th>
                               </tr>
                            </thead>
-                           <tbody id="tbody_tb_master_aset">
+                           <tbody id="tbody_tb_master_area">
                               <?= $tables ?>
                            </tbody>
                         </table>
@@ -152,8 +151,8 @@
    </div>
 </section>
 <script>
-   var module_name = "tb_master_aset"
-   var use_ajax_crud = false
+   var module_name = "tb_master_area";
+   var use_ajax_crud = false;
 </script>
 <script src="<?= BASE_ASSET ?>js/filter.js"></script>
 
@@ -197,7 +196,7 @@
       $(document).on('click', '#apply', function() {
 
          var bulk = $('#bulk');
-         var serialize_bulk = $('#form_tb_master_aset').serialize();
+         var serialize_bulk = $('#form_tb_master_area').serialize();
 
          if (bulk.val() == 'delete') {
             swal({
@@ -213,7 +212,7 @@
                },
                function(isConfirm) {
                   if (isConfirm) {
-                     document.location.href = ADMIN_BASE_URL + '/tb_master_aset/delete?' + serialize_bulk;
+                     document.location.href = ADMIN_BASE_URL + '/tb_master_area/delete?' + serialize_bulk;
                   }
                });
 
@@ -259,6 +258,6 @@
          }
          checkAll.iCheck('update');
       });
-      initSortableAjax('tb_master_aset', $('table.dataTable'));
+      initSortableAjax('tb_master_area', $('table.dataTable'));
    }); /*end doc ready*/
 </script>

@@ -28,7 +28,7 @@
 </style>
 <section class="content-header">
     <h1>
-        Tb Master Aset <small><?= cclang('new', ['Tb Master Aset']); ?> </small>
+        Halaman Tambah Data Aset </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -72,7 +72,7 @@
 
                         <div class="widget-user-header ">
                             <div class="widget-user-image">
-                                <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
+                                <img class="img-circle" src="<?= BASE_ASSET; ?>/img/icon_barang.png" alt="User Avatar">
                             </div>
                             <h3 class="widget-user-username">Tb Master Aset</h3>
                             <h5 class="widget-user-desc"><?= cclang('new', ['Tb Master Aset']); ?></h5>
