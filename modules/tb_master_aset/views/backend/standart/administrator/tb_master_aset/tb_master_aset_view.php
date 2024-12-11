@@ -218,8 +218,8 @@
     <script>
         Swal.fire({
             icon: "warning",
-            title: "Oops, Detail Aset tidak ada",
-            text: "Kode TID Aset tidak ditemukan, silahkan perbarui data Aset!",
+            title: "Oops, Data Aset tidak lengkap",
+            text: "Silahkan perbarui atau lengkapi Data Aset!",
         }).then(okay => {
             if (okay) {
                 window.history.go(-1);

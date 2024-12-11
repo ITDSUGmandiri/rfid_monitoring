@@ -87,88 +87,92 @@ class tb_master_pegawai extends Admin
 		}
 
 
-
-		$this->form_validation->set_rules('NIP', 'NIP', 'trim|required|max_length[11]');
-
-
-		$this->form_validation->set_rules('Pegawai', 'Pegawai', 'trim|required|max_length[30]');
-
-
-		$this->form_validation->set_rules('Jabatan', 'Jabatan', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('nip', 'NIP', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('pegawai', 'Pegawai', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|max_length[130]');
 
 
-		$this->form_validation->set_rules('Telp', 'Telp', 'trim|required|max_length[11]');
-
-
-		$this->form_validation->set_rules('Alamat', 'Alamat', 'trim|required|max_length[30]');
-
-
-		$this->form_validation->set_rules('Email', 'Email', 'trim|required|max_length[30]');
-
+		$rand = rand();
+		$ekstensi =  array('png', 'jpg', 'jpeg');
+		$filename = $_FILES['fotopegawai']['name'];
+		$ukuran = $_FILES['fotopegawai']['size'];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		$folderfoto = 'Pegawai';
 
 
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
-				'NIP' => $this->input->post('NIP'),
-				'Pegawai' => $this->input->post('Pegawai'),
-				'Jabatan' => $this->input->post('Jabatan'),
-				'Telp' => $this->input->post('Telp'),
-				'Alamat' => $this->input->post('Alamat'),
-				'Email' => $this->input->post('Email'),
+				'nip' => $this->input->post('nip'),
+				'nama' => $this->input->post('pegawai'),
+				'jabatan' => $this->input->post('jabatan'),
+				'email' => $this->input->post('email'),
+				'telp' => $this->input->post('telp'),
+				'alamat' => $this->input->post('alamat'),
+				'image_uri' => $rand . '_' . $_FILES['fotopegawai']['name'],
 			];
 
 
 
-
-
-
-
-
-			$save_tb_pegawai_master = $id = $this->model_tb_pegawai_master->store($save_data);
-
+			$save_tb_pegawai_master = $this->model_tb_pegawai_master->store($save_data);
 
 			if ($save_tb_pegawai_master) {
-
-
-
-
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = true;
-					$this->data['id'] 	   = $save_tb_pegawai_master;
-					$this->data['message'] = cclang('success_save_data_stay', [
-						admin_anchor('/tb_pegawai_master/edit/' . $save_tb_pegawai_master, 'Edit Tb Pegawai Master'),
-						admin_anchor('/tb_pegawai_master', ' Go back to list')
-					]);
+				if (!in_array($ext, $ekstensi)) {
+					header("location:index.php?alert=gagal_ekstensi");
 				} else {
-					set_message(
-						cclang('success_save_data_redirect', [
-							admin_anchor('/tb_pegawai_master/edit/' . $save_tb_pegawai_master, 'Edit Tb Pegawai Master')
-						]),
-						'success'
-					);
-
-					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/tb_pegawai_master');
+					if (!file_exists('uploads/' . $folderfoto)) {
+						mkdir('uploads/' . $folderfoto, 0777, true);
+					}
+					if ($ukuran < 500000) {
+						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotopegawai"]["name"]))) {
+							echo "Sorry, file already exists.";
+						} else {
+							move_uploaded_file($_FILES["fotopegawai"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotopegawai']['name']);
+						}
+					} else {
+						header("location:index.php?alert=Ukuran File Maks .500 Kb");
+					}
 				}
+				$this->session->set_flashdata('success', 'succes_save');
+
+
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = true;
+				// 	$this->data['id'] 	   = $save_tb_master_aset;
+				// 	$this->data['message'] = cclang('success_save_data_stay', [
+				// 		admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset'),
+				// 		admin_anchor('/tb_master_aset', ' Go back to list')
+				// 	]);
+				// } else {
+				// 	set_message(
+				// 		cclang('success_save_data_redirect', [
+				// 			admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset')
+				// 		]),
+				// 		'success'
+				// 	);
+
+				// 	$this->data['success'] = true;
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				redirect_back();
 			} else {
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-				} else {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/tb_pegawai_master');
-				}
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// } else {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				$this->session->set_flashdata('failsave', 'cannot save data');
 			}
 		} else {
-			$this->data['success'] = false;
-			$this->data['message'] = 'Opss validation failed';
-			$this->data['errors'] = $this->form_validation->error_array();
+			$this->session->set_flashdata('err_val', 'error_validasi');
 		}
-
-		$this->response($this->data);
 	}
 
 	/**

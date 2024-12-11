@@ -74,8 +74,8 @@
                             <div class="widget-user-image">
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/icon_barang.png" alt="User Avatar">
                             </div>
-                            <h3 class="widget-user-username">Tb Master Aset</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Master Aset']); ?></h5>
+                            <h3 class="widget-user-username">Aset</h3>
+                            <h5 class="widget-user-desc">Silahkan Lengkapi Data Aset baru</h5>
                             <hr>
                         </div>
 

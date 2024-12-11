@@ -51,7 +51,7 @@
 <?php } ?>
 <section class="content-header">
     <h1>
-        Tb Gedung Master <small><?= cclang('new', ['Tb Gedung Master']); ?> </small>
+        Halaman Tambah Data Gedung</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -67,10 +67,10 @@
                     <div class="box box-widget widget-user-2">
                         <div class="widget-user-header ">
                             <div class="widget-user-image">
-                                <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
+                                <img class="img-circle" src="<?= BASE_ASSET; ?>/img/icongedung.png" alt="User Avatar">
                             </div>
-                            <h3 class="widget-user-username">Tb Gedung Master</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Gedung Master']); ?></h5>
+                            <h3 class="widget-user-username">Gedung</h3>
+                            <h5 class="widget-user-desc">Silahkan Lengkapi Data Gedung baru</h5>
                             <hr>
                         </div>
                         <?= form_open('administrator/tb_master_gedung/add_save', [
