@@ -10,71 +10,121 @@ $CI = &get_instance();
 ?>
 
 <style type="text/css">
-  .widget-user-header {
-    padding-left: 20px !important;
+  .c-dashboardInfo {
+    margin-bottom: 15px;
   }
 
-  .bgcard {
-    background-color: burlywood;
+  .c-dashboardInfo .wrap {
+    background: #ffffff;
+    box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 25px 20px;
+    height: 100%;
   }
 
-  .readerOn {
-    background-color: #008d4c;
+  .c-dashboardInfo__title,
+  .c-dashboardInfo__subInfo {
+    color: #6c6c6c;
+    font-size: 1.18em;
+  }
+
+  .c-dashboardInfo span {
+    display: block;
+  }
+
+  .c-dashboardInfo__count {
+    font-weight: 600;
+    font-size: 2.5em;
+    line-height: 64px;
+    color: #323c43;
+  }
+
+  .c-dashboardInfo .wrap:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    content: "";
+  }
+
+  .c-dashboardInfo:nth-child(1) .wrap:after {
+    background: linear-gradient(82.59deg, #00c48c 0%, #00a173 100%);
+  }
+
+  .c-dashboardInfo:nth-child(2) .wrap:after {
+    background: linear-gradient(81.67deg, #0084f4 0%, #1a4da2 100%);
+  }
+
+  .c-dashboardInfo:nth-child(3) .wrap:after {
+    background: linear-gradient(69.83deg, #0084f4 0%, #00c48c 100%);
+  }
+
+  .c-dashboardInfo:nth-child(4) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
+  }
+
+  .c-dashboardInfo:nth-child(5) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
+  }
+
+  .c-dashboardInfo:nth-child(6) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
   }
 
 
-  .warning {
-    color: #fff;
-    animation: blink 1s infinite;
-    /* Animasi dengan nama 'blink', durasi 1 detik, dan diulang secara tak terbatas (infinite) */
+  .c-dashboardInfo:nth-child(7) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
   }
 
-  @keyframes blink {
-    0% {
-      background-color: #76C594;
-    }
 
-    /* Warna latar belakang pada awal animasi */
-    50% {
-      background-color: #008d4c;
-    }
-
-    /* Warna latar belakang di tengah animasi */
-    100% {
-      background-color: #76C594;
-    }
-
-    /* Warna latar belakang pada akhir animasi, sama seperti awal */
+  .c-dashboardInfo__title svg {
+    color: #d7d7d7;
+    margin-left: 5px;
   }
 
-  .warning2 {
-    color: #fff;
-    animation: blink2 1s infinite;
-    /* Animasi dengan nama 'blink', durasi 1 detik, dan diulang secara tak terbatas (infinite) */
+  .MuiSvgIcon-root-19 {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 24px;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    user-select: none;
+    flex-shrink: 0;
   }
 
-  @keyframes blink2 {
-    0% {
-      background-color: #FFB075;
-    }
-
-    /* Warna latar belakang pada awal animasi */
-    50% {
-      background-color: #ff851b;
-    }
-
-    /* Warna latar belakang di tengah animasi */
-    100% {
-      background-color: #FFB075;
-    }
-
-    /* Warna latar belakang pada akhir animasi, sama seperti awal */
+  .bg-totalaset {
+    background-color: #f0f8ff !important;
   }
 
-  .info-box-text {
-    margin-top: 0px !important;
-    font-size: 22px !important;
+  .bg-tersedia {
+    background-color: #7fffd4 !important;
   }
+
+  .bg-peminjaman {
+    background-color: #ffa500 !important;
+  }
+
+  .bg-legal {
+    background-color: #ffff00 !important;
+  }
+
+  .bg-ilegal {
+    background-color: #ff4500 !important;
+  }
+
+  .bg-perbaikan {
+    background-color: #faebd7 !important;
+  }
+
+
+
+  /* batas */
 </style>
 
 <link rel="stylesheet" href="<?= BASE_ASSET; ?>admin-lte/plugins/morris/morris.css">
@@ -143,97 +193,81 @@ $CI = &get_instance();
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2">
-                    <?php
+                  <div class="row align-items-stretch">
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ta12" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='aset_teregister' class="hind-font caption-12 c-dashboardInfo__count">€10,500</span>
+                      </div>
+                    </div>
 
-                    // Tampilkan hasil
-                    echo "
-                       <div class='info-box text-center bg-light-blue-active'>
-        <h4 class='h1 font-weight-normal mb-3'>
-          <i class='fas fa-file-alt indigo-text'></i>
-          <span id='aset_teregister'>0</span>
-        </h4>
-        <p class='font-weight-normal text-muted text-white'>Total Aset </br>(Last 12 Month)</p>
-
-      </div>";
-                    ?>
-                  </div>
-                  <div class="col-md-2">
-                    <?php
-
-                    // Tampilkan hasil
-                    echo "
-                       <div class='info-box text-center bg-light-blue-active'>
-        <h4 class='h1 font-weight-normal mb-3'>
-          <i class='fas fa-file-alt indigo-text'></i>
-          <span id='aset_total_pantau'>0</span>
-        </h4>
-        <p class='font-weight-normal text-muted text-white'>Total Aset</p>
-
-      </div>";
-                    ?>
-                  </div>
-                  <div class="col-md-2">
-                    <?php
-
-                    // Tampilkan hasil
-                    echo "
-                       <div class='info-box text-center bg-green-active'>
-        <h4 class='h1 font-weight-normal mb-3'>
-          <i class='fas fa-file-alt indigo-text'></i>
-          <span id='aset_total_pantau'>0</span>
-        </h4>
-        <p class='font-weight-normal text-muted text-white'>Tersedia</p>
-
-      </div>";
-                    ?>
-                  </div>
-                  <div class=" col-md-2">
-                    <?php
-
-                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                    echo "
-                       <div class='info-box text-center bg-light-blue-active'>
-        <h4 class='h1 font-weight-normal mb-3'>
-          <i class='fas fa-file-alt indigo-text'></i>
-          <span id='aset_total_pantau'>0</span>
-        </h4>
-        <p class='font-weight-normal text-muted text-white'>Peminjaman</p>
-
-      </div>";
-                    ?>
-                  </div>
-                  <div class="col-md-2">
-                    <?php
-
-                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                    echo "
-                       <div class='info-box text-center bg-light-blue-active'>
-        <h4 class='h1 font-weight-normal mb-3'>
-          <i class='fas fa-file-alt indigo-text'></i>
-          <span id='aset_total_pantau'>0</span>
-        </h4>
-        <p class='font-weight-normal text-muted text-white'>Perpindahan</p>
-
-      </div>";
-                    ?>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ta" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='aset_total_pantau' class="hind-font caption-12 c-dashboardInfo__count">€10,500</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ava" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Aset Tersedia
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='avalaible' class="hind-font caption-12 c-dashboardInfo__count"></span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="pem" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Peminjaman
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='peminjaman' class="hind-font caption-12 c-dashboardInfo__count">10,500</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="perp" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perpindahan
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">10,500</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="perb" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perbaikan
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='perbaikan' class="hind-font caption-12 c-dashboardInfo__count">10,500</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="col-md-2">
-                    <?php
 
-                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                    echo "
-                       <div class='info-box text-center bg-teal'>
-        <h4 class='h1 font-weight-normal mb-3'>
-          <i class='fas fa-file-alt indigo-text'></i>
-          <span id='aset_total_pantau'>0</span>
-        </h4>
-        <p class='font-weight-normal text-muted text-white'>Perbaikan</p>
 
-      </div>";
-                    ?>
-                  </div>
+
+
+
                 </div>
 
               </div>
@@ -328,6 +362,9 @@ $CI = &get_instance();
 
 <!-- Skrip JavaScript -->
 <script>
+  // $('#ta12').addClass('bg-totalaset');
+  // $('#ta').addClass('bg-totalaset');
+
   $(document).ready(function() {
 
     const ws = new WebSocket("ws://localhost:3000");
@@ -348,7 +385,7 @@ $CI = &get_instance();
     };
 
     // Fungsi untuk menampilkan modal saat div dengan ID tertentu diklik
-    $('#aset_teregister, #sectiondashboard, #aset_total_pantau, #tape_total, #aset_anomali,#aset_mutasi,#aset_disposal, #tape_ontime, #tape_overdue, #tape_borrow, #tape_broken, #tape_anomaly').click(function() {
+    $('#aset_teregister, #sectiondashboard, #aset_total_pantau, #tape_total, #avalaible').click(function() {
       var divId = $(this).attr('id'); // Mendapatkan ID div yang diklik
       var title = '';
       // Menggunakan ID div untuk memilih endpoint yang sesuai
@@ -365,7 +402,7 @@ $CI = &get_instance();
           endpoint = BASE_URL + '/administrator/dashboard/abc/total';
           title = 'TOTAL TAPE';
           break;
-        case 'aset_anomali':
+        case 'avalaible':
           endpoint = BASE_URL + '/administrator/dashboard/abc/anomali';
           title = 'TOTAL ANOMALI';
           break;
@@ -474,10 +511,24 @@ $CI = &get_instance();
     function updateDashboard(data) {
       $('#aset_teregister').text(data.totalpantau);
       $('#aset_total_pantau').text(data.total);
-      $('#aset_anomali').text(data.sensus);
-      $('#aset_mutasi').text(data.mutation);
-      $('#aset_disposal').text(data.disposal);
-      $('#tape_ontime').text(data.ontime);
+      $('#avalaible').text(data.avalaible);
+      if (data.avalaible > 0) {
+        $('#ava').addClass('bg-avalaible');
+      }
+      $('#peminjaman').text(data.peminjaman);
+      if (data.peminjaman > 0) {
+        $('#pem').addClass('bg-peminjaman');
+      }
+      $('#perpindahan').text(parseInt(data.ilegal) + parseInt(data.legal));
+      if (data.ilegal > 0) {
+        $('#perp').addClass('bg-ilegal');
+      } else {
+        $('#perp').addClass('bg-legal');
+      }
+      $('#perbaikan').text(data.perbaikan);
+      if (data.perbaikan > 0) {
+        $('#perb').addClass('bg-perbaikan');
+      }
       $('#tape_overdue').text(data.overdue);
       $('#tape_borrow').text(data.borrow);
       $('#tape_broken').text(data.broken);
@@ -615,7 +666,6 @@ $CI = &get_instance();
       method: 'GET',
       dataType: 'json',
       success: function(data) {
-        console.log("xxx", data);
         // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
         // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
         // dChart.update();

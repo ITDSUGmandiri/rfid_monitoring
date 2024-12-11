@@ -191,21 +191,25 @@ class Dashboard extends Admin
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE flag_inventarisasi != 0";
+		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 1 AND kode_tid != 0";
 		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
-		$query_on_time = "SELECT o.kode_tid, count(distinct c.kode_tid) as total from tb_master_aset o inner join tb_detail_transaksi c on c.kode_tid = o.kode_tid";
+		$query_on_time = "SELECT COUNT(*) as total from tb_master_aset WHERE status = 3 AND kode_tid != 0";
 		$result_on_time = $this->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
-		// $query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
-		// $result_mutation = $this->db->query($query_mutation);
-		// $mutation = $result_mutation->row();
+		$query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 2 AND kode_tid != 0";
+		$result_mutation = $this->db->query($query_mutation);
+		$mutation = $result_mutation->row();
 
-		// $query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kondisi = 08";
-		// $result_dispo = $this->db->query($query_disp);
-		// $disposal = $result_dispo->row();
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 0";
+		$result_dispo = $this->db->query($query_disp);
+		$ilegal = $result_dispo->row();
+
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 1";
+		$result_legal = $this->db->query($query_disp);
+		$legal = $result_legal->row();
 		// // $query_on_time = "SELECT COUNT(*) as total FROM tb_master_aset WHERE lokasi = 0 AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";
 		// // $result_on_time = $this->db->query($query_on_time);
 		// // $row_on_time = $result_on_time->row();
@@ -268,10 +272,11 @@ class Dashboard extends Admin
 		$data = array(
 			"totalpantau" => $row_totalpantau->total,
 			"total" 	=> $row_total->total,
-			"sensus"   => $row_sensus->total,
-			// "mutation"	=> $mutation->total,
-			// "disposal"	=> $disposal->total,
-			// "ontime" 	=> $row_on_time->total,
+			"avalaible"   => $row_sensus->total,
+			"peminjaman"	=> $mutation->total,
+			"ilegal"	=> $ilegal->total,
+			"legal"	=> $legal->total,
+			"perbaikan" 	=> $row_on_time->total,
 			// "overdue"	=> $row_overdue->total,
 			// "borrow" 	=> $row_pinjam->total,
 			// "broken" 	=> $row_rusak->total,
