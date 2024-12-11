@@ -64,7 +64,7 @@ class Tb_master_transaksi extends Admin
         
         $columns = array(
             0 => 'checkbox_id_master_aset',
-            1 => 'id',
+            1 => 'id_aset',
             2 => 'nama_aset',
             3 => 'kode_aset',
             4 => 'nup'
@@ -81,19 +81,25 @@ class Tb_master_transaksi extends Admin
         $totalFiltered = $totalData;
 
         if(empty($this->input->post('search')['value'])) {
-            $contents = $this->model_tb_master_transaksi->get_content($limit, $start, $order, $dir, $filter_id_parameter);
+            $contents = $this->model_tb_master_transaksi->get_content($limit, $start, $order, $dir);
         } else {
             $search = $this->input->post('search')['value'];
             $contents =  $this->model_tb_master_transaksi->content_search($limit, $start, $search, $order, $dir);
             $totalFiltered = $this->model_tb_master_transaksi->content_search_count($search);
         }
 
+		// echo '<pre>';
+		// print_r($contents);
+		// echo '</pre>';
+		// exit();
+
         $data = array();
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id.'" class="cekbok" data-id = "'.$aRow->id.'">';
-				$nestedData['id'] = $autoNumber;
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'">';
+				$nestedData['auto_number'] = $autoNumber;
+				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
                 $nestedData['nama_aset'] = $row->nama_aset;
                 $nestedData['kode_aset'] = $row->kode_aset;
@@ -131,6 +137,7 @@ class Tb_master_transaksi extends Admin
 	*/
 	public function add_save()
 	{
+
 		if (!$this->is_allowed('tb_master_transaksi_add', false)) {
 			echo json_encode([
 				'success' => false,
@@ -139,82 +146,86 @@ class Tb_master_transaksi extends Admin
 			exit;
 		}
 		
-		
-
-		
-
 		$this->form_validation->set_rules('tipe_transaksi', 'Tipe Transaksi', 'trim|required');
-		
-
 		$this->form_validation->set_rules('status_transaksi', 'Status Transaksi', 'trim|required');
-		
-
-		
-
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
-		
-
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
-		
-
-		
-
-		$this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
-		
-
-		
-
+		// $this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
 		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
-		
-
 		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
-		
-
 		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
 		
-
-		
-
 		if ($this->form_validation->run()) {
 		
-			$save_data = [
+			$save_data_master_transaksi = [
+				'kode_transaksi' => $this->input->post('kode_transaksi'),
 				'tipe_transaksi' => $this->input->post('tipe_transaksi'),
 				'status_transaksi' => $this->input->post('status_transaksi'),
+				'tgl_input' => date('Y-m-d H:i:s'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
-				'ket_transaksi' => $this->input->post('ket_transaksi'),
+				// 'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
 				'id_pegawai_input' => $this->input->post('id_pegawai_input'),
 				'nama_pegawai_input' => $this->input->post('nama_pegawai_input'),
+				'id_pegawai' => $this->input->post('id_pegawai'),
+				'nama_pegawai' => $this->input->post('nama_pegawai'),
+				'ket_transaksi' => $this->input->post('ket_transaksi'),
 				'id_area' => $this->input->post('id_area'),
 				'id_gedung' => $this->input->post('id_gedung'),
 				'id_ruangan' => $this->input->post('id_ruangan'),
 			];
 
-			
-			
+			$save_data_detail_transaksi = [
+				// 'id_transaksi' => $id_transaksi,
+				// 'kode_transaksi' => $save_data_master_transaksi['kode_transaksi'],
+				// 'id_aset' => $id_aset,
+				// 'id_area' => $save_data_master_transaksi['id_area'],
+				// 'id_gedung' => $save_data_master_transaksi['id_gedung'], 
+				// 'id_ruangan' => $save_data_master_transaksi['id_ruangan'],
+				'status' => 1,
+				'id_kondisi' => 1	
+			];
 
+			$string_id = $this->input->post('string_id');
 
+			// Ambil data array aset dan tag dari ajax post
+			$array_data_aset = json_decode($this->input->post('data_array_aset'), true);
+			$uniqueDataArray = json_decode($this->input->post('uniqueDataArray'), true);
 
-			
-			
-			$save_tb_master_transaksi = $id = $this->model_tb_master_transaksi->store($save_data);
-            
+			// Link array aset dengan array tag berdasarkan index
+			$linked_data = array();
+			for($i = 0; $i < count($array_data_aset); $i++) {
+				$linked_data[] = array(
+					'aset' => $array_data_aset[$i],
+					'tag' => $uniqueDataArray[$i]
+				);
+			}
 
-			if ($save_tb_master_transaksi) {
-				
-				
-					
+			// echo '<pre>';
+			// print_r($linked_data);
+			// echo '</pre>';
+			// exit();
+
+			$save_register_aset = $id = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
+			// $save_register_aset = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
+
+			// echo '<pre>';	
+			// print_r($save_register_aset);
+			// echo '</pre>';
+			// exit();
+
+			if ($save_register_aset) {
 				
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
-					$this->data['id'] 	   = $save_tb_master_transaksi;
+					$this->data['id'] 	   = $save_register_aset;
 					$this->data['message'] = cclang('success_save_data_stay', [
-						admin_anchor('/tb_master_transaksi/edit/' . $save_tb_master_transaksi, 'Edit Tb Master Transaksi'),
+						admin_anchor('/tb_master_transaksi/edit/' . $save_register_aset, 'Edit Tb Master Transaksi'),
 						admin_anchor('/tb_master_transaksi', ' Go back to list')
 					]);
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						admin_anchor('/tb_master_transaksi/edit/' . $save_tb_master_transaksi, 'Edit Tb Master Transaksi')
+						admin_anchor('/tb_master_transaksi/edit/' . $save_register_aset, 'Edit Tb Master Transaksi')
 					]), 'success');
 
             		$this->data['success'] = true;
@@ -410,7 +421,7 @@ class Tb_master_transaksi extends Admin
 
 	}
 
-		/**
+	/**
 	* View view Tb Master Transaksis
 	*
 	* @var $id String
@@ -419,9 +430,9 @@ class Tb_master_transaksi extends Admin
 	{
 		$this->is_allowed('tb_master_transaksi_view');
 
-		$this->data['tb_master_transaksi'] = $this->model_tb_master_transaksi->join_avaiable()->filter_avaiable()->find($id);
-
-		$this->template->title('Register Aset Detail');
+		$this->data['tb_master_transaksi'] = $this->model_tb_master_transaksi->getTransaksiById($id);
+		$this->data['tb_detail_transaksi'] = $this->model_tb_master_transaksi->getDetailTransaksiById($id);
+		$this->template->title('Detail Register Aset');
 		$this->render('backend/standart/administrator/tb_master_transaksi/tb_master_transaksi_view', $this->data);
 	}
 	
@@ -433,9 +444,6 @@ class Tb_master_transaksi extends Admin
 	private function _remove($id)
 	{
 		$tb_master_transaksi = $this->model_tb_master_transaksi->find($id);
-
-		
-		
 		return $this->model_tb_master_transaksi->remove($id);
 	}
 	
@@ -528,9 +536,52 @@ class Tb_master_transaksi extends Admin
 		$this->response($results);	
 	}
 
-	
-}
+	public function check_unique_data()
+	{
+		$uniqueData = $this->input->get('uniqueData');
+		$uniqueDataArray = json_decode($uniqueData, true);
 
+		// Cek apakah data sudah ada di database
+		$exists = false;
+		foreach ($uniqueDataArray as $data) {
+			$tid = $data['tid'];
+			$epc = $data['epc'];
+			
+			$check = $this->db->get_where('tb_master_tag_rfid', [
+				'kode_tid' => $tid,
+				'status_tag' => 'N'
+				// 'kode_epc' => $epc
+			])->num_rows();
+			
+			if ($check > 0) {
+				$exists = true;
+				break;
+			}
+		}
+
+		$response = [
+			'exists' => $exists
+		];
+
+		$this->response($response);
+	}
+
+	public function check_unique_single_tag()
+	{
+		$tid = $this->input->get('tid');
+		$check = $this->db->get_where('tb_master_tag_rfid', 
+		[
+			'kode_tid' => $tid,
+			'status_tag' => 'Y'
+		])->num_rows();
+
+		$response = [	
+			'check' => $check
+		];
+		$this->response($response);
+	}
+
+}
 
 /* End of file tb_master_transaksi.php */
 /* Location: ./application/controllers/administrator/Tb Master Transaksi.php */
