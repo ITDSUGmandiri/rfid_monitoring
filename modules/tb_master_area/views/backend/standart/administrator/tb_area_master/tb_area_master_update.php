@@ -114,23 +114,20 @@
                         <div class="form-group ">
                             <label for="username" class="col-sm-2 control-label">Foto Area Saat ini</label>
 
-                            <div class="col-sm-8">
-                                <?php if ($tb_area_master->image_uri != '') { ?>
-                                    <img src="<?= base_url('uploads/Area/' .  $tb_area_master->image_uri) ?>" alt="tidak ada foto" width="50" />
+                            <div class="col-sm-1">
+                                <?php if ($value->image_uri != '') { ?>
+                                    <img src="<?= base_url('uploads/Area/' .  $value->image_uri) ?>" alt="tidak ada foto" width="50" />
 
                                 <? } else { ?>
                                     tidak ada foto
                                 <? } ?>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="username" class="col-sm-2 control-label">Foto Area Baru</label>
-
-                            <div class="col-sm-8">
-                                <input type="file" name="fotoarea" required="required">
-                                <small class="info help-block">
-                                    Ekstensi yang diperbolehkan .png | .jpg | .jpeg
-                                </small>
+                            <div>
+                                <label for="choose-file" class="custom-file-upload" id="choose-file-label">
+                                    Ganti Foto
+                                </label>
+                                <input name="fotoarea" type="file" id="choose-file"
+                                    accept=".jpg,.jpeg,.png" style="display: none;" />
                             </div>
                         </div>
 

@@ -87,87 +87,89 @@ class tb_master_ruangan extends Admin
 		}
 
 
-
-		$this->form_validation->set_rules('gedung_id', 'Gedung', 'trim|required');
-
-
-		$this->form_validation->set_rules('kode_room', 'Kode Ruangan', 'trim|required|max_length[30]');
-
-
-		$this->form_validation->set_rules('name_room', 'Nama Ruangan', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('area_id', 'Area', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('gedung_id', 'Gedung', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('name_room', 'Ruangan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('ket_room', 'Ket Ruangan', 'trim|required|max_length[130]');
 
 
-		$this->form_validation->set_rules('lat', 'Latitude', 'trim|required');
-
-
-		$this->form_validation->set_rules('long', 'Longitude', 'trim|required');
-
-
-
-
+		$rand = rand();
+		$ekstensi =  array('png', 'jpg', 'jpeg');
+		$filename = $_FILES['fotoruangan']['name'];
+		$ukuran = $_FILES['fotoruangan']['size'];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		$folderfoto = 'Ruangan';
 
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
-				'gedung_id' => $this->input->post('gedung_id'),
-				'kode_room' => $this->input->post('kode_room'),
-				'name_room' => $this->input->post('name_room'),
-				'lat' => $this->input->post('lat'),
-				'long' => $this->input->post('long'),
+				'id_area' => $this->input->post('area_id'),
+				'id_gedung' => $this->input->post('gedung_id'),
+				'ruangan' => $this->input->post('name_room'),
+				'ket_ruangan' => $this->input->post('ket_room'),
+				'image_uri' => $rand . '_' . $_FILES['fotoruangan']['name'],
 			];
 
 
+			$save_tb_area_master = $this->model_tb_room_master->store($save_data);
 
-
-
-
-
-
-			$save_tb_room_master = $id = $this->model_tb_room_master->store($save_data);
-
-
-			if ($save_tb_room_master) {
-
-
-
-
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = true;
-					$this->data['id'] 	   = $save_tb_room_master;
-					$this->data['message'] = cclang('success_save_data_stay', [
-						admin_anchor('/tb_room_master/edit/' . $save_tb_room_master, 'Edit Tb Room Master'),
-						admin_anchor('/tb_room_master', ' Go back to list')
-					]);
+			if ($save_tb_area_master) {
+				if (!in_array($ext, $ekstensi)) {
+					header("location:index.php?alert=gagal_ekstensi");
 				} else {
-					set_message(
-						cclang('success_save_data_redirect', [
-							admin_anchor('/tb_room_master/edit/' . $save_tb_room_master, 'Edit Tb Room Master')
-						]),
-						'success'
-					);
-
-					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/tb_room_master');
+					if (!file_exists('uploads/' . $folderfoto)) {
+						mkdir('uploads/' . $folderfoto, 0777, true);
+					}
+					if ($ukuran < 500000) {
+						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotoruangan"]["name"]))) {
+							echo "Sorry, file already exists.";
+						} else {
+							move_uploaded_file($_FILES["fotoruangan"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotoruangan']['name']);
+						}
+					} else {
+						header("location:index.php?alert=Ukuran File Maks .500 Kb");
+					}
 				}
+				$this->session->set_flashdata('success', 'succes_save');
+
+
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = true;
+				// 	$this->data['id'] 	   = $save_tb_master_aset;
+				// 	$this->data['message'] = cclang('success_save_data_stay', [
+				// 		admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset'),
+				// 		admin_anchor('/tb_master_aset', ' Go back to list')
+				// 	]);
+				// } else {
+				// 	set_message(
+				// 		cclang('success_save_data_redirect', [
+				// 			admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset')
+				// 		]),
+				// 		'success'
+				// 	);
+
+				// 	$this->data['success'] = true;
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				redirect_back();
 			} else {
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-				} else {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/tb_room_master');
-				}
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// } else {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				$this->session->set_flashdata('failsave', 'cannot save data');
 			}
 		} else {
-			$this->data['success'] = false;
-			$this->data['message'] = 'Opss validation failed';
-			$this->data['errors'] = $this->form_validation->error_array();
+			$this->session->set_flashdata('err_val', 'error_validasi');
 		}
-
-		$this->response($this->data);
 	}
+
+
 
 	/**
 	 * Update view Tb Room Masters
@@ -178,7 +180,7 @@ class tb_master_ruangan extends Admin
 	{
 		$this->is_allowed('tb_room_master_update');
 
-		$this->data['tb_room_master'] = $this->model_tb_room_master->find($id);
+		$this->data['tb_room_master'] = $this->model_tb_room_master->get_detail_ruang($id);
 
 		$this->template->title('Tb Room Master Update');
 		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_update', $this->data);
@@ -198,81 +200,89 @@ class tb_master_ruangan extends Admin
 			]);
 			exit;
 		}
-		$this->form_validation->set_rules('gedung_id', 'Gedung', 'trim|required');
+
+		$this->form_validation->set_rules('area_id', 'Area', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('gedung_id', 'Gedung', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('name_room', 'Ruangan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('ket_ruang', 'Ket Ruangan', 'trim|required|max_length[130]');
 
 
-		$this->form_validation->set_rules('kode_room', 'Kode Ruangan', 'trim|required|max_length[30]');
-
-
-		$this->form_validation->set_rules('name_room', 'Nama Ruangan', 'trim|required|max_length[30]');
-
-
-		$this->form_validation->set_rules('lat', 'Latitude', 'trim|required');
-
-
-		$this->form_validation->set_rules('long', 'Longitude', 'trim|required');
-
-
+		$rand = rand();
+		$ekstensi =  array('png', 'jpg', 'jpeg');
+		$filename = $_FILES['fotoruangan']['name'];
+		$ukuran = $_FILES['fotoruangan']['size'];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		$folderfoto = 'Ruangan';
 
 
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
-				'gedung_id' => $this->input->post('gedung_id'),
-				'kode_room' => $this->input->post('kode_room'),
-				'name_room' => $this->input->post('name_room'),
-				'lat' => $this->input->post('lat'),
-				'long' => $this->input->post('long'),
+				'id_area' => $this->input->post('area_id'),
+				'id_gedung' => $this->input->post('gedung_id'),
+				'ruangan' => $this->input->post('name_room'),
+				'ket_ruangan' => $this->input->post('ket_ruang'),
+				'image_uri' => $rand . '_' . $_FILES['fotoruangan']['name'],
 			];
 
 
 
+			$save_tb_area_master = $this->model_tb_room_master->update_ruang($id, $save_data);
 
-
-
-
-
-			$save_tb_room_master = $this->model_tb_room_master->change($id, $save_data);
-
-			if ($save_tb_room_master) {
-
-
-
-
-
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = true;
-					$this->data['id'] 	   = $id;
-					$this->data['message'] = cclang('success_update_data_stay', [
-						admin_anchor('/tb_room_master', ' Go back to list')
-					]);
+			if ($save_tb_area_master) {
+				if (!in_array($ext, $ekstensi)) {
+					header("location:index.php?alert=gagal_ekstensi");
 				} else {
-					set_message(
-						cclang('success_update_data_redirect', []),
-						'success'
-					);
-
-					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/tb_room_master');
+					if (!file_exists('uploads/' . $folderfoto)) {
+						mkdir('uploads/' . $folderfoto, 0777, true);
+					}
+					if ($ukuran < 500000) {
+						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotoruangan"]["name"]))) {
+							echo "Sorry, file already exists.";
+						} else {
+							move_uploaded_file($_FILES["fotoruangan"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotoruangan']['name']);
+						}
+					} else {
+						header("location:index.php?alert=Ukuran File Maks .500 Kb");
+					}
 				}
+				$this->session->set_flashdata('success', 'succes_save');
+
+
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = true;
+				// 	$this->data['id'] 	   = $save_tb_master_aset;
+				// 	$this->data['message'] = cclang('success_save_data_stay', [
+				// 		admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset'),
+				// 		admin_anchor('/tb_master_aset', ' Go back to list')
+				// 	]);
+				// } else {
+				// 	set_message(
+				// 		cclang('success_save_data_redirect', [
+				// 			admin_anchor('/tb_master_aset/edit/' . $save_tb_master_aset, 'Edit Tb Master Aset')
+				// 		]),
+				// 		'success'
+				// 	);
+
+				// 	$this->data['success'] = true;
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				redirect_back();
 			} else {
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-				} else {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/tb_room_master');
-				}
+				// if ($this->input->post('save_type') == 'stay') {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// } else {
+				// 	$this->data['success'] = false;
+				// 	$this->data['message'] = cclang('data_not_change');
+				// 	$this->data['redirect'] = admin_base_url('/tb_master_aset');
+				// }
+				$this->session->set_flashdata('failsave', 'cannot save data');
 			}
 		} else {
-			$this->data['success'] = false;
-			$this->data['message'] = 'Opss validation failed';
-			$this->data['errors'] = $this->form_validation->error_array();
+			$this->session->set_flashdata('err_val', 'error_validasi');
 		}
-
-		$this->response($this->data);
 	}
 
 	/**
@@ -328,8 +338,12 @@ class tb_master_ruangan extends Admin
 	{
 		$this->is_allowed('tb_room_master_view');
 
-		$this->data['tb_room_master'] = $this->model_tb_room_master->join_avaiable()->filter_avaiable()->find($id);
+		$this->data['tb_room_master'] = $this->model_tb_room_master->get_detail_ruang($id);
 
+		$length = sizeof($this->data['tb_room_master']);
+		if ($length == 0) {
+			$this->session->set_flashdata('nulldata', 'data kosong');
+		}
 		$this->template->title('Tb Room Master Detail');
 		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_view', $this->data);
 	}

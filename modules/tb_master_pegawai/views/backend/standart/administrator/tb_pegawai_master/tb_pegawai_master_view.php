@@ -218,8 +218,8 @@
    <script>
       Swal.fire({
          icon: "warning",
-         title: "Oops, Detail Ruangan tidak ada",
-         text: "Kode Ruangan tidak ditemukan, silahkan perbarui data Aset!",
+         title: "Oops, Detail Pegawai tidak ada",
+         text: "NIP Pegawai tidak ditemukan, silahkan perbarui data Pegawai!",
       }).then(okay => {
          if (okay) {
             window.history.go(-1);
@@ -230,11 +230,11 @@
 <?php } ?>
 <section class="content-header">
    <h1>
-      <small>Detail Ruangan</small>
+      <small>Detail Pegawai</small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class=""><a href="<?= admin_site_url('/tb_master_gedung'); ?>">Master Ruangan</a></li>
+      <li class=""><a href="<?= admin_site_url('/tb_master_pegawai'); ?>">Master Pegawai</a></li>
       <li class="active"><?= cclang('detail'); ?></li>
    </ol>
 </section>
@@ -250,12 +250,12 @@
    <!-- Default box -->
    <div class="card card-solid">
       <div class="card-body">
-         <?php foreach ($tb_room_master as $value): ?>
+         <?php foreach ($tb_master_pegawai as $value): ?>
             <div class="row">
                <div class="col-12 col-sm-5">
-                  <h5 class="d-inline-block d-sm-none">Foto : <?= $value->ruangan; ?> <?= $value->area; ?></h5>
+                  <h5 class="d-inline-block d-sm-none">Foto : <?= $value->nama; ?></h5>
                   <div class="col-12">
-                     <img id="myImg" src="<?= base_url('uploads'); ?>/Ruangan/<?= $value->image_uri ?>" class="product-image" alt="Area Image">
+                     <img id="myImg" src="<?= base_url('uploads'); ?>/Pegawai/<?= $value->image_uri ?>" class="product-image" alt="Pegawai Image">
                   </div>
                   <!-- <div class="col-12 product-image-thumbs">
                         <div class="product-image-thumb active"><img src="<?= base_url('asset'); ?>/image/lukisan01.jpeg" alt="Product Image"></div>
@@ -268,26 +268,34 @@
                <div class="col-12 col-sm-6">
                   <p class="rotingtxt"><img src="<?= base_url('asset'); ?>/img/icon/sekneglogodb.png" alt="AdminLTE Logo" class="w-100" style="opacity: .5"></p>
                   <hr>
-                  <h4>Informasi Detail Ruangan</h4>
+                  <h4>Informasi Detail Pegawai</h4>
                   <div class="col-6">
 
                      <div class="table-responsive">
                         <table class="table">
                            <tr>
-                              <th style="width:50%">Nama Area:</th>
-                              <td><?= $value->area; ?></td>
+                              <th style="width:50%">Nama Pegawai:</th>
+                              <td><?= $value->nama; ?></td>
                            </tr>
                            <tr>
-                              <th>Nama Gedung:</th>
-                              <td><?= $value->gedung; ?></td>
+                              <th>NIP:</th>
+                              <td><?= $value->nip; ?></td>
                            </tr>
                            <tr>
-                              <th>Nama Ruangan:</th>
-                              <td><?= $value->ruangan; ?></td>
+                              <th>Jabatan:</th>
+                              <td><?= $value->jabatan; ?></td>
                            </tr>
                            <tr>
-                              <th>Keterangan Ruangan:</th>
-                              <td><?= $value->ket_ruangan; ?></td>
+                              <th>Email:</th>
+                              <td><?= $value->email; ?></td>
+                           </tr>
+                           <tr>
+                              <th>Alamat:</th>
+                              <td><?= $value->alamat; ?></td>
+                           </tr>
+                           <tr>
+                              <th>No. Handphone:</th>
+                              <td><?= $value->telp; ?></td>
                            </tr>
 
                         </table>

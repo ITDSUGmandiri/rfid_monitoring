@@ -103,6 +103,18 @@
 
   <?= $this->cc_html->getScriptFileTop(); ?>
 </head>
+<style>
+  .custom-file-upload {
+    background: #f7f7f7;
+    padding: 8px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+</style>
 
 <body class="sidebar-mini skin-black fixed web-body">
   <div class="wrapper" id="app">
@@ -242,6 +254,14 @@
 
   <script>
     $(document).ready(function() {
+      $('#choose-file').change(function() {
+        var i = $(this).prev('label').clone();
+        var file = $('#choose-file')[0].files[0].name;
+        $(this).prev('label').text(file);
+      });
+    });
+
+    $(document).ready(function() {
 
       // Setup - add a text input to each footer cell
       $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
@@ -271,6 +291,8 @@
       });
     });
   </script>
+
+
   <script>
     $(document).ready(function() {
       DataTable.ext.errMode = 'none';

@@ -136,7 +136,7 @@
                             <div class="form-group ">
                                 <label for="username" class="col-sm-2 control-label">Foto Gedung Saat ini</label>
 
-                                <div class="col-sm-8">
+                                <div class="col-sm-1">
                                     <?php if ($value->image_uri != '') { ?>
                                         <img src="<?= base_url('uploads/Gedung/' .  $value->image_uri) ?>" alt="tidak ada foto" width="50" />
 
@@ -144,15 +144,12 @@
                                         tidak ada foto
                                     <? } ?>
                                 </div>
-                            </div>
-                            <div class="form-group ">
-                                <label for="username" class="col-sm-2 control-label">Foto Gedung Baru</label>
-
-                                <div class="col-sm-8">
-                                    <input type="file" name="fotogedung" required="required">
-                                    <small class="info help-block">
-                                        Ekstensi yang diperbolehkan .png | .jpg | .jpeg
-                                    </small>
+                                <div>
+                                    <label for="choose-file" class="custom-file-upload" id="choose-file-label">
+                                        Ganti Foto
+                                    </label>
+                                    <input name="fotogedung" type="file" id="choose-file"
+                                        accept=".jpg,.jpeg,.png" style="display: none;" />
                                 </div>
                             </div>
 

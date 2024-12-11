@@ -253,7 +253,7 @@
          <?php foreach ($tb_master_area as $value): ?>
             <div class="row">
                <div class="col-12 col-sm-5">
-                  <h3 class="d-inline-block d-sm-none"><?= $value->area; ?></h3>
+                  <h5 class="d-inline-block d-sm-none">Foto : <?= $value->area; ?></h5>
                   <div class="col-12">
                      <img id="myImg" src="<?= base_url('uploads'); ?>/Area/<?= $value->image_uri ?>" class="product-image" alt="Area Image">
                   </div>
