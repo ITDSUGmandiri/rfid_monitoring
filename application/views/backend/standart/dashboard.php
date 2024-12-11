@@ -195,14 +195,14 @@ $CI = &get_instance();
                   </div>
                   <div class="row align-items-stretch">
                     <div class="c-dashboardInfo col-lg-2">
-                      <div id="ta12" class="wrap">
+                      <div id="ta12" class="wrap" style="padding-top: 20px;">
                         <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
                           <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
                           <path fill="none" d="M0 0h24v24H0z"></path>
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='aset_teregister' class="hind-font caption-12 c-dashboardInfo__count">€10,500</span>
+                        </h4><span id='aset_teregister' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
 
@@ -214,7 +214,7 @@ $CI = &get_instance();
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='aset_total_pantau' class="hind-font caption-12 c-dashboardInfo__count">€10,500</span>
+                        </h4><span id='aset_total_pantau' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
                     <div class="c-dashboardInfo col-lg-2">
@@ -225,7 +225,7 @@ $CI = &get_instance();
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='avalaible' class="hind-font caption-12 c-dashboardInfo__count"></span>
+                        </h4><span id='avalaible' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
                     <div class="c-dashboardInfo col-lg-2">
@@ -236,18 +236,18 @@ $CI = &get_instance();
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='peminjaman' class="hind-font caption-12 c-dashboardInfo__count">10,500</span>
+                        </h4><span id='peminjaman' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
                     <div class="c-dashboardInfo col-lg-2">
                       <div id="perp" class="wrap">
-                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perpindahan
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Pemindahan
                           <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
                           <path fill="none" d="M0 0h24v24H0z"></path>
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">10,500</span>
+                        </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
                     <div class="c-dashboardInfo col-lg-2">
@@ -258,7 +258,7 @@ $CI = &get_instance();
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='perbaikan' class="hind-font caption-12 c-dashboardInfo__count">10,500</span>
+                        </h4><span id='perbaikan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
                   </div>
@@ -513,11 +513,15 @@ $CI = &get_instance();
       $('#aset_total_pantau').text(data.total);
       $('#avalaible').text(data.avalaible);
       if (data.avalaible > 0) {
-        $('#ava').addClass('bg-avalaible');
+        $('#ava').addClass('bg-tersedia');
+      } else {
+        $('#ava').removeClass('bg-tersedia');
       }
       $('#peminjaman').text(data.peminjaman);
       if (data.peminjaman > 0) {
         $('#pem').addClass('bg-peminjaman');
+      } else {
+        $('#pem').removeClass('bg-peminjaman');
       }
       $('#perpindahan').text(parseInt(data.ilegal) + parseInt(data.legal));
       if (data.ilegal > 0) {
@@ -525,9 +529,16 @@ $CI = &get_instance();
       } else {
         $('#perp').addClass('bg-legal');
       }
+      console.log(data.legal, data.ilegal);
+      if (data.ilegal == 0 && data.legal == 0) {
+        $('#perp').removeClass('bg-ilegal');
+        $('#perp').removeClass('bg-legal');
+      }
       $('#perbaikan').text(data.perbaikan);
       if (data.perbaikan > 0) {
         $('#perb').addClass('bg-perbaikan');
+      } else {
+        $('#perb').removeClass('bg-perbaikan');
       }
       $('#tape_overdue').text(data.overdue);
       $('#tape_borrow').text(data.borrow);
@@ -685,6 +696,8 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+          updateDashboard(data);
+
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
@@ -697,9 +710,6 @@ $CI = &get_instance();
           dChart.update();
           myChart1.update();
           myChart3.update();
-          updateDashboard(data);
-          // librarian(data);
-          // readerradar(data);
 
 
         },
@@ -707,7 +717,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 5000);
+    }, 2000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
@@ -717,11 +727,11 @@ $CI = &get_instance();
         datasets: [{
           data: [],
           backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
+            '#7fffd4',
+            '#ff4500',
+            '#ffa500',
+            '#ffff00',
+            '#faebd7',
           ],
         }, ],
         labels: [],
@@ -753,7 +763,7 @@ $CI = &get_instance();
           data: [],
           backgroundColor: [
 
-            'rgb(75, 192, 192)',
+            '#7fffd4',
             'rgb(54, 162, 235)',
           ],
         }, ],
@@ -786,7 +796,7 @@ $CI = &get_instance();
           data: [],
           backgroundColor: [
 
-            'rgb(75, 192, 192)',
+            '#7fffd4',
             'rgb(54, 162, 235)',
           ],
         }, ],
@@ -835,7 +845,7 @@ $CI = &get_instance();
           if (!meta.hidden) {
             meta.data.forEach(function(element, index) {
               // Draw the text in black, with the specified font
-              ctx.fillStyle = '#FFF';
+              ctx.fillStyle = '#000';
 
               var fontSize = 14;
               var fontStyle = 'bold';
@@ -857,7 +867,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 5000);
+    setInterval(newLibraraian, 2000);
   });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>

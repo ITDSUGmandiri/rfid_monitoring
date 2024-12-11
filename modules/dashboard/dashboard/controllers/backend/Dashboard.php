@@ -181,7 +181,7 @@ class Dashboard extends Admin
 
 
 		// Ambil data untuk chart
-		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365";
+		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365 AND kode_tid !=''";
 		$result_total = $this->db->query($row_totalpantau);
 		$row_totalpantau = $result_total->row();
 
@@ -191,11 +191,11 @@ class Dashboard extends Admin
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 1 AND kode_tid != 0";
+		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 1 AND kode_tid != ''";
 		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
-		$query_on_time = "SELECT COUNT(*) as total from tb_master_aset WHERE status = 3 AND kode_tid != 0";
+		$query_on_time = "SELECT COUNT(*) as total from tb_master_aset WHERE status = 3 AND kode_tid != ''";
 		$result_on_time = $this->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
@@ -235,15 +235,15 @@ class Dashboard extends Admin
 		// $data_chart = $this->db->query($querycondt)->result();
 
 		//status chart
-		$querycateg = "SELECT case when a.status = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.status != 0 GROUP BY key_status";
+		$querycateg = "SELECT case when a.status = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room
-		$querycateg = "SELECT c.ruangan, count(a.id_lokasi) as total FROM tb_master_aset a INNER JOIN tb_master_ruangan c ON a.id_lokasi = c.id AND a.status != 0 GROUP BY c.ruangan";
+		$querycateg = "SELECT c.ruangan, count(a.id_lokasi) as total FROM tb_master_aset a INNER JOIN tb_master_ruangan c ON a.id_lokasi = c.id AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
 		$data_ruangan = $this->db->query($querycateg)->result();
 
 		//status kategory
-		$querycateg = "SELECT c.kategori, count(a.kategori) as total FROM tb_master_aset a INNER JOIN tb_master_kategori c ON a.kategori = c.id AND a.status != 0 GROUP BY c.kategori";
+		$querycateg = "SELECT c.kategori, count(a.kategori) as total FROM tb_master_aset a INNER JOIN tb_master_kategori c ON a.kategori = c.id AND a.status != 0 AND a.kode_tid !='' GROUP BY c.kategori";
 		$data_kate = $this->db->query($querycateg)->result();
 
 		// $querykon = "SELECT status FROM tb_master_status";
