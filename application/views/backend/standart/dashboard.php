@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 <?php
 // Di awal skrip PHP Anda
 ini_set('display_errors', 0); // Menyembunyikan pesan error dari tampilan publik
@@ -195,14 +197,14 @@ $CI = &get_instance();
                   </div>
                   <div class="row align-items-stretch">
                     <div class="c-dashboardInfo col-lg-2">
-                      <div id="ta12" class="wrap" style="padding-top: 20px;">
+                      <div class="wrap" style="padding-top: 20px;">
                         <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
                           <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
                           <path fill="none" d="M0 0h24v24H0z"></path>
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
                           </path>
                         </svg> -->
-                        </h4><span id='aset_teregister' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                        </h4><span id='aset_teregister' class="info-box-icon hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
 
@@ -390,12 +392,10 @@ $CI = &get_instance();
       var title = '';
       // Menggunakan ID div untuk memilih endpoint yang sesuai
       var endpoint = '';
-
       switch (divId) {
         case 'aset_teregister':
           endpoint = BASE_URL + '/administrator/dashboard/abc/gettotalpantau';
-          title = 'TOTAL ASET YANG DIPANTAU';
-          topic = 'pantau';
+          title = 'TOTAL ASET';
           break;
         case 'tape_total':
           // console.log('tape total');
@@ -440,11 +440,11 @@ $CI = &get_instance();
       }
 
       // Memanggil fungsi untuk menampilkan modal dengan konten dari endpoint yang sesuai
-      showModalWithPagination(endpoint, title, topic);
+      showModalWithPagination(endpoint, title);
     });
 
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
-    function showModalWithPagination(endpoint, title, topic) {
+    function showModalWithPagination(endpoint, title) {
 
       // Lakukan request AJAX ke endpoint yang diberikan
       $.ajax({
@@ -452,20 +452,17 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+          console.log("bbb", data);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
           var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
-          modalContent += '<table class="table">';
+          modalContent += '<table id="exampleas" class="table table-bordered table-striped dataTable">';
 
-          if (topic == 'moving') {
-            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Asal Ruangan</th><th></th></tr>';
-          } else if (topic == 'ruangan') {
-            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th></th></tr>';
-          } else {
-            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Lokasi</th><th></th></tr>';
-          }
+
+          modalContent += '<tr><th>No</th><th>Kode TID</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Tanggal Inventarisasi</th></tr>';
+
 
           // Proses data dari respons JSON dan tambahkan ke dalam tabel
           // Misalnya, untuk setiap item dalam data, tambahkan baris baru ke tabel
@@ -474,15 +471,16 @@ $CI = &get_instance();
             // Misalnya, tambahkan baris baru dengan data item ke dalam tabel
             modalContent += '<tr>';
             modalContent += '<td>' + no + '</td>';
-            modalContent += '<td>' + item.tag_code + '</td>'; // Misalnya, ambil field1 dari item
-            modalContent += '<td>' + item.kode_brg + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.kode_tid + '</td>'; // Misalnya, ambil field1 dari item
+            modalContent += '<td>' + item.kode_aset + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.nama_brg + '</td>'; // Misalnya, ambil field2 dari item
-            if (topic == 'ruangan') {
-              modalContent += '';
-            } else {
-              modalContent += '<td>' + item.name_room + '</td>';
-            }
+            modalContent += '<td>' + item.nama_aset + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.tgl_inventarisasi + '</td>'; // Misalnya, ambil field2 dari item
+            // if (topic == 'ruangan') {
+            //   modalContent += '';
+            // } else {
+            //   modalContent += '<td>' + item.name_room + '</td>';
+            // }
 
 
             // Misalnya, ambil field2 dari item
@@ -560,7 +558,7 @@ $CI = &get_instance();
       title = 'ASET DI ' + roomName;
       topic = 'ruangan';
 
-      showModalWithPagination(endpoint, title, topic);
+      // showModalWithPagination(endpoint, title, topic);
     });
 
     function librarian(data) {
@@ -868,6 +866,37 @@ $CI = &get_instance();
     });
 
     setInterval(newLibraraian, 2000);
+
+    $(document).ready(function() {
+
+      // Setup - add a text input to each footer cell
+      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
+      $('#exampleas thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#exampleas').DataTable({
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: true,
+      });
+    });
   });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>

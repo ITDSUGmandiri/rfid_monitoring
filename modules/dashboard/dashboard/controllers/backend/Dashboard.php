@@ -51,7 +51,7 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($room2)->result();
 				break;
 			case "gettotalpantau":
-				$row_totalpantau = "SELECT a.tag_code, a.nama_brg, a.lokasi, a.kode_brg, a.kelompok, a.nup, r.id_room, r.name_room, i.id_room, i.rfid_code_tag FROM tb_master_aset a INNER JOIN tb_history_invent i ON i.rfid_code_tag = a.tag_code INNER JOIN tb_room_master r ON r.id_room = i.id_room AND a.tag_code != '' AND a.kelompok = 1";
+				$row_totalpantau = "SELECT kode_tid, nama_aset, kode_aset, nup, tgl_inventarisasi FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365 AND kode_tid !=''";
 				$data_json = $this->db->query($row_totalpantau)->result();
 				break;
 			case "total":
@@ -186,7 +186,7 @@ class Dashboard extends Admin
 		$row_totalpantau = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != 0";
+		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != ''";
 		$result_total = $this->db->query($query_total);
 		$row_total = $result_total->row();
 
