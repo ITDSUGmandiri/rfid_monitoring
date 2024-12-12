@@ -92,10 +92,11 @@ $base = $base = "$http" . $_SERVER['HTTP_HOST']  . "" . $fo;
 defined('BASE_URL')             or define('BASE_URL', $base);
 defined('BASE_ASSET')             or define('BASE_ASSET', BASE_URL . 'asset/');
 
-defined('BASE_ASSET')           or define('BASE_ASSET', base_url('asset/'));
+// defined('BASE_ASSET')           or define('BASE_ASSET', base_url('asset/'));
 defined('VERSION')              or define('VERSION', '1.0.0');
 defined('EXTENSION_PATH')          or define('EXTENSION_PATH', FCPATH . 'cc-content/extensions/');
 defined('ADMIN_NAMESPACE_URL')  or define('ADMIN_NAMESPACE_URL', 'administrator');
+defined('USER_NAMESPACE_URL')  or define('USER_NAMESPACE_URL', 'user');
 defined('ADMIN_BASE_URL')  or define('ADMIN_BASE_URL', BASE_URL . ADMIN_NAMESPACE_URL);
 
 

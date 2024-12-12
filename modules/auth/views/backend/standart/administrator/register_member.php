@@ -4,102 +4,120 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= get_option('site_name') ?> | Log in</title>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>ionicons/css/ionicons.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/square/blue.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>css/auth.css">
+  <title>SiRiRi | Registration Page</title>
+  <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= BASE_URL ?>/asset/vendor/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="<?= BASE_URL ?>/asset/vendor/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?= BASE_URL ?>/asset/vendor/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition login-page">
-  <div class="login-box">
-    <div class="login-logo">
-      <img src = "<?= BASE_URL() ?>asset/img/icon/titleIcon.png" width="60">
-      <a href="#"><?= cclang('register'); ?></a>
+<body class="hold-transition register-page">
+  <div class="register-box">
+    <div class="register-logo">
+      <img src="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" width="250" />
     </div>
-    <div class="login-box-body">
-      <p class="login-box-msg"><?= cclang('register_form'); ?></p>
-      <?php if (isset($error) and !empty($error)) : ?>
-        <div class="callout callout-error">
-          <h4><?= cclang('error'); ?>!</h4>
-          <p><?= $error; ?></p>
-        </div>
-      <?php endif; ?>
-      <?= form_open('', [
-        'name'    => 'form_login',
-        'id'      => 'form_login',
-        'method'  => 'POST'
-      ]); ?>
-      <div class="form-group has-feedback <?= form_error('full_name') ? 'has-error' : ''; ?>">
-        <label>Full Name </label>
-        <input class="form-control" placeholder="Full Name" name="full_name" value="<?= set_value('full_name'); ?>">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback <?= form_error('username') ? 'has-error' : ''; ?>">
-        <label>Username <span class="required">*</span> </label>
-        <input class="form-control" placeholder="Username" name="username" value="<?= set_value('username'); ?>">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback <?= form_error('email') ? 'has-error' : ''; ?>">
-        <label>Email <span class="required">*</span> </label>
-        <input type="email" class="form-control" placeholder="Email" name="email" value="<?= set_value('email'); ?>">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback <?= form_error('password') ? 'has-error' : ''; ?>">
-        <label>Password <span class="required">*</span> </label>
-        <input type="password" class="form-control" placeholder="Password" name="password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <!-- <?php $cap = get_captcha(); ?>
-      <div class="form-group <?= form_error('email') ? 'has-error' : ''; ?>">
-        <label><?= cclang('human_challenge'); ?> <span class="required">*</span> </label>
-        <div class="captcha-box" data-captcha-time="<?= $cap['time']; ?>">
-          <input type="text" name="captcha" placeholder="">
-          <a class="btn btn-flat  refresh-captcha  "><i class="fa fa-refresh text-danger"></i></a>
-          <span class="box-image"><?= $cap['image']; ?></span>
-        </div>
-      </div> -->
-      <small class="info help-block">
-      </small>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox" name="agree" value="1"> <?= cclang('i_agree_to_the_terms'); ?>
-            </label>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+        <p class="login-box-msg">Register a new account</p>
+
+        <form action="" method="post">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" name="full_name" placeholder="Full name">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
-        </div>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" name="username" placeholder="Username" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" name="password" placeholder="Retype password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="agreeTerms" name="agree" value="agree">
+                <label for="agreeTerms">
+                  I agree to the <a href="#">terms</a>
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+
+            <!-- /.col -->
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </div>
+        </form>
+
+        <!-- <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i>
+                        Sign up using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i>
+                        Sign up using Google+
+                    </a>
+                </div> -->
+        <p class="mb-2 mt-2" style="text-align: center;">
+          <a href="<?= admin_site_url('/login'); ?>" class="mt-2 text-center">I already have a Account?</a>
+        </p>
       </div>
-      <?= form_close(); ?>
-      <br>
-      <a href="<?= admin_site_url('/login'); ?>" class="text-center"><?= cclang('i_already_a_new_membership'); ?></a>
-
-    </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
   </div>
+  <b>v1.0.0</b>
+  <!-- /.register-box -->
 
-  <script>
-    var BASE_URL = "<?= base_url(); ?>";
-  </script>
-
-  <script src="<?= BASE_ASSET ?>admin-lte/plugins/jQuery/jquery-3.6.0.min.js"></script>
-  <script src="<?= BASE_ASSET ?>admin-lte/bootstrap/js/bootstrap.min.js"></script>
-  <script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
-  <script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
-  <script src="<?= BASE_ASSET ?>js/page/auth/register-member.js"></script>
-
+  <!-- jQuery -->
+  <script src="<?= BASE_URL ?>/asset/vendor/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="<?= BASE_URL ?>/asset/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?= BASE_URL ?>/asset/vendor/dist/js/adminlte.min.js"></script>
 </body>
 
 </html>

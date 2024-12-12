@@ -2,102 +2,117 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= get_option('site_name') ?></title>
-  <link rel="shortcut icon" href="<?= BASE_URL() ?>asset/img/icon/titleIcon.png">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>ionicons/css/ionicons.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/square/blue.css">
-  <link rel="stylesheet" href="<?= BASE_ASSET ?>css/auth.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SiRiri | Login</title>
+    <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/asset/vendor/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/asset/vendor/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/asset/vendor/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
 <body class="hold-transition login-page">
-  <div class="login-box">
-    <div class="login-logo">
-      <img src="<?= BASE_URL() ?>asset/img/icon/titleIcon.png" width="60">
-      <a href=""><?= get_option('site_name'); ?></a>
+    <div class="login-box">
+
+        <div class="login-logo">
+            <img src="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" width="250" />
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">RFID Inventory System</p>
+                <p style="text-align: center;">
+                    <a style="color: red;">
+
+                        <?php if (isset($error) and !empty($error)) : ?>
+                            <?php if ($this->session->flashdata('success')) { ?>
+                                <script>
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Data tidak ditemukan...",
+                                        text: "Silahkan masukan akun yang benar!",
+                                    });
+                                </script>
+                            <?php } ?>
+                        <?php endif; ?>
+                    </a>
+                </p>
+
+                <form action="" method="post" name='form_login' id='form_login'>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" name="username" placeholder="Email" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+
+                        <!-- /.col -->
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </div>
+
+                </form>
+                <p class="mb-0 mt-1">
+                    <a href="<?= admin_site_url('/register'); ?>" class="text-center">Don't have an account yet?</a>
+                </p>
+
+                <!-- <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
+                </div> -->
+                <!-- /.social-auth-links -->
+
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
     </div>
-    <div class="login-box-body">
-      <p class="login-box-msg"><?= cclang('sign_to_start_your_session'); ?></p>
-      <?php if (isset($error) and !empty($error)) : ?>
-        <div class="callout callout-error">
-          <h4><?= cclang('error'); ?>!</h4>
-          <p><?= $error; ?></p>
-        </div>
-      <?php endif; ?>
-      <?php
-      $message = $this->session->flashdata('f_message');
-      $type = $this->session->flashdata('f_type');
-      if ($message) :
-      ?>
-        <div class="callout callout-<?= $type; ?>">
-          <p><?= $message; ?></p>
-        </div>
-      <?php endif; ?>
-      <?= form_open('', [
-        'name'    => 'form_login',
-        'id'      => 'form_login',
-        'method'  => 'POST'
-      ]); ?>
-      <div class="form-group has-feedback <?= form_error('username') ? 'has-error' : ''; ?>">
-        <input type="email" class="form-control" placeholder="Email" name="username" value="">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback <?= form_error('password') ? 'has-error' : ''; ?>">
-        <input type="password" class="form-control" placeholder="Password" name="password" value="">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox" name="remember" value="1"> <?= cclang('remember_me'); ?>
-            </label>
-          </div>
-        </div>
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat"><?= cclang('sign_in'); ?></button>
-        </div>
-      </div>
-      <?= form_close(); ?>
-      <br>
-      <a href="<?= admin_site_url('/forgot-password'); ?>"><?= cclang('i_forgot_my_password'); ?></a><br>
-      <a href="<?= admin_site_url('/register'); ?>" class="text-center"><?= cclang('register_a_new_membership'); ?></a>
+    <b>v1.0.0</b>
+    <!-- /.login-box -->
 
-      <br>
-      <br>
-      <!-- <p align="center"><b>-<?= cclang('or') ?>-</b></p>
-      <a href="<?= site_url('oauth/v/google'); ?>" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google"></i> <?= cclang('sign_in_using') ?> Google+</a> -->
-
-    </div>
-  </div>
-
-  <script src="<?= BASE_ASSET ?>admin-lte/plugins/jQuery/jquery-3.6.0.min.js"></script>
-  <script src="<?= BASE_ASSET ?>admin-lte/bootstrap/js/bootstrap.min.js"></script>
-  <script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
-  <script>
-    $(function() {
-
-      "use strict";
-
-      $('input').iCheck({
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%'
-      });
-    });
-  </script>
+    <!-- jQuery -->
+    <script src="<?= BASE_URL ?>/asset/vendor/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="<?= BASE_URL ?>/asset/vendor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="<?= BASE_URL ?>/asset/vendor/dist/js/adminlte.min.js"></script>
 
 </body>
 

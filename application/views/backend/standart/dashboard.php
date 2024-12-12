@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 <?php
 // Di awal skrip PHP Anda
 ini_set('display_errors', 0); // Menyembunyikan pesan error dari tampilan publik
@@ -10,71 +12,121 @@ $CI = &get_instance();
 ?>
 
 <style type="text/css">
-  .widget-user-header {
-    padding-left: 20px !important;
+  .c-dashboardInfo {
+    margin-bottom: 15px;
   }
 
-  .bgcard {
-    background-color: burlywood;
+  .c-dashboardInfo .wrap {
+    background: #ffffff;
+    box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 25px 20px;
+    height: 100%;
   }
 
-  .readerOn {
-    background-color: #008d4c;
+  .c-dashboardInfo__title,
+  .c-dashboardInfo__subInfo {
+    color: #6c6c6c;
+    font-size: 1.18em;
+  }
+
+  .c-dashboardInfo span {
+    display: block;
+  }
+
+  .c-dashboardInfo__count {
+    font-weight: 600;
+    font-size: 2.5em;
+    line-height: 64px;
+    color: #323c43;
+  }
+
+  .c-dashboardInfo .wrap:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    content: "";
+  }
+
+  .c-dashboardInfo:nth-child(1) .wrap:after {
+    background: linear-gradient(82.59deg, #00c48c 0%, #00a173 100%);
+  }
+
+  .c-dashboardInfo:nth-child(2) .wrap:after {
+    background: linear-gradient(81.67deg, #0084f4 0%, #1a4da2 100%);
+  }
+
+  .c-dashboardInfo:nth-child(3) .wrap:after {
+    background: linear-gradient(69.83deg, #0084f4 0%, #00c48c 100%);
+  }
+
+  .c-dashboardInfo:nth-child(4) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
+  }
+
+  .c-dashboardInfo:nth-child(5) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
+  }
+
+  .c-dashboardInfo:nth-child(6) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
   }
 
 
-  .warning {
-    color: #fff;
-    animation: blink 1s infinite;
-    /* Animasi dengan nama 'blink', durasi 1 detik, dan diulang secara tak terbatas (infinite) */
+  .c-dashboardInfo:nth-child(7) .wrap:after {
+    background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
   }
 
-  @keyframes blink {
-    0% {
-      background-color: #76C594;
-    }
 
-    /* Warna latar belakang pada awal animasi */
-    50% {
-      background-color: #008d4c;
-    }
-
-    /* Warna latar belakang di tengah animasi */
-    100% {
-      background-color: #76C594;
-    }
-
-    /* Warna latar belakang pada akhir animasi, sama seperti awal */
+  .c-dashboardInfo__title svg {
+    color: #d7d7d7;
+    margin-left: 5px;
   }
 
-  .warning2 {
-    color: #fff;
-    animation: blink2 1s infinite;
-    /* Animasi dengan nama 'blink', durasi 1 detik, dan diulang secara tak terbatas (infinite) */
+  .MuiSvgIcon-root-19 {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 24px;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    user-select: none;
+    flex-shrink: 0;
   }
 
-  @keyframes blink2 {
-    0% {
-      background-color: #FFB075;
-    }
-
-    /* Warna latar belakang pada awal animasi */
-    50% {
-      background-color: #ff851b;
-    }
-
-    /* Warna latar belakang di tengah animasi */
-    100% {
-      background-color: #FFB075;
-    }
-
-    /* Warna latar belakang pada akhir animasi, sama seperti awal */
+  .bg-totalaset {
+    background-color: #f0f8ff !important;
   }
 
-  .info-box-text {
-    margin-top: 0px !important;
-    font-size: 22px !important;
+  .bg-tersedia {
+    background-color: #7fffd4 !important;
   }
+
+  .bg-peminjaman {
+    background-color: #ffa500 !important;
+  }
+
+  .bg-legal {
+    background-color: #ffff00 !important;
+  }
+
+  .bg-ilegal {
+    background-color: #ff4500 !important;
+  }
+
+  .bg-perbaikan {
+    background-color: #faebd7 !important;
+  }
+
+
+
+  /* batas */
 </style>
 
 <link rel="stylesheet" href="<?= BASE_ASSET; ?>admin-lte/plugins/morris/morris.css">
@@ -107,7 +159,7 @@ $CI = &get_instance();
     <div class="col-md-12">
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">MONITORING ASET</h3>
+          <h3 class="box-title">DASHBOARD</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -128,7 +180,7 @@ $CI = &get_instance();
             <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">PERGERAKAN ASET</h3>
+                  <!-- <h3 class="box-title">PERGERAKAN ASET</h3> -->
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -143,105 +195,83 @@ $CI = &get_instance();
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <?php
+                  <div class="row align-items-stretch">
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div class="wrap" style="padding-top: 20px;">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='aset_teregister' class="info-box-icon hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
 
-                    // Tampilkan hasil
-                    echo "
-                      <div id='sectiondashboard' class='info-box bg-olive'>
-                          <span id='aset_total_pantau' class='info-box-icon'></span>
-                          <div class='info-box-content'>
-                              <span class='info-box-text'>Total Aset</span>
-                              <div class='progress'>
-                                  <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                  Total Aset Yang Sudah Di Inventarisasi & Untuk Di Pantau.
-                              </span>
-                          </div>
-                      </div>";
-                    ?>
-                  </div>
-                  <div class="col-md-3">
-                    <?php
-
-                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                    echo "
-                      <div id='sectiondashboard' class='info-box bg-olive'>
-                          <span id='tape_ontime' class='info-box-icon'></span>
-                          <div class='info-box-content'>
-                              <span class='info-box-text'>ASET MOVING (On Time)</span>
-                              <div class='progress'>
-                                  <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                  Total Aset Yang Sedang Keluar Kondisi Normal.
-                              </span>
-                          </div>
-                      </div>";
-                    ?>
-                  </div>
-                  <div class="col-md-3">
-                    <?php
-
-                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                    echo "
-                      <div id='sectiondashboard' class='info-box bg-red'>
-                          <span id='tape_anomaly' class='info-box-icon'></span>
-                          <div class='info-box-content'>
-                              <span class='info-box-text'>ANOMALI ASET</span>
-                              <div class='progress'>
-                                  <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                  Aset Yang Salah Ruangan Atau Pergerakan Tidak Sesuai.
-                              </span>
-                          </div>
-                      </div>";
-                    ?>
-                  </div>
-                  <div class="col-md-3">
-                    <?php
-
-                    // Kueri untuk menghitung jumlah tape yang telah diperbarui kurang dari 2 hari yang lalu
-                    echo "
-                      <div id='sectiondashboard' class='info-box bg-orange'>
-                          <span id='tape_overdue' class='info-box-icon'></span>
-                          <div class='info-box-content'>
-                              <span class='info-box-text'>ASET HILANG </span>
-                              <div class='progress'>
-                                  <div class='progress-bar' style='width: 50%'></div>
-                              </div>
-                              <span class='progress-description'>
-                                  Aset Yang Sudah Keluar Ruangan Namun Tidak Kembali > 6 Hari.
-                              </span>
-                          </div>
-                      </div>";
-                    ?>
-                  </div>
-                </div>
-
-              </div>
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">ASET YANG PERLU DIPANTAU</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body chart-responsive">
-                  <!-- Modal -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <!-- Konten modal akan ditampilkan di sini -->
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ta" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='aset_total_pantau' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ava" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Aset Tersedia
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='avalaible' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="pem" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Peminjaman
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='peminjaman' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="perp" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Pemindahan
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="perb" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perbaikan
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='perbaikan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
                       </div>
                     </div>
                   </div>
 
-                  <div id='librarian'></div>
+
+
+
+
+
                 </div>
+
               </div>
 
               <!-- <div class="col-md-12">
@@ -268,43 +298,59 @@ $CI = &get_instance();
 
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">KONDISI ASET</h3>
+                  <h3 class="box-title">Status Aset</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body chart-responsive">
-                  <canvas id="myChart"></canvas>
+                  <canvas id="myChartSIMAN"></canvas>
 
                 </div>
 
               </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">KATEGORI ASET</h3>
+                  <h3 class="box-title">Aset Berdasarkan Ruangan</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body chart-responsive">
-                  <div class="row">
-
-                    <canvas id="dChart"></canvas>
-                  </div>
-
+                  <canvas id="myRoom"></canvas>
 
                 </div>
 
               </div>
+
             </div>
+            <div class="col-md-4">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Kategori Aset</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <canvas id="myCategory" width="150px" height="150px"></canvas>
+                </div>
+
+              </div>
+
+            </div>
+
+
+
           </div>
         </div>
       </div>
@@ -318,6 +364,9 @@ $CI = &get_instance();
 
 <!-- Skrip JavaScript -->
 <script>
+  // $('#ta12').addClass('bg-totalaset');
+  // $('#ta').addClass('bg-totalaset');
+
   $(document).ready(function() {
 
     const ws = new WebSocket("ws://localhost:3000");
@@ -338,25 +387,22 @@ $CI = &get_instance();
     };
 
     // Fungsi untuk menampilkan modal saat div dengan ID tertentu diklik
-    $('#sectiondashboard, #aset_total_pantau, #tape_total, #aset_anomali,#aset_mutasi,#aset_disposal, #tape_ontime, #tape_overdue, #tape_borrow, #tape_broken, #tape_anomaly').click(function() {
+    $('#aset_teregister, #sectiondashboard, #aset_total_pantau, #tape_total, #avalaible').click(function() {
       var divId = $(this).attr('id'); // Mendapatkan ID div yang diklik
       var title = '';
       // Menggunakan ID div untuk memilih endpoint yang sesuai
       var endpoint = '';
-
       switch (divId) {
-        case 'aset_total_pantau':
-          // console.log('tape total');
+        case 'aset_teregister':
           endpoint = BASE_URL + '/administrator/dashboard/abc/gettotalpantau';
-          title = 'TOTAL ASET YANG DIPANTAU';
-          topic = 'pantau';
+          title = 'TOTAL ASET';
           break;
         case 'tape_total':
           // console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/total';
           title = 'TOTAL TAPE';
           break;
-        case 'aset_anomali':
+        case 'avalaible':
           endpoint = BASE_URL + '/administrator/dashboard/abc/anomali';
           title = 'TOTAL ANOMALI';
           break;
@@ -394,11 +440,11 @@ $CI = &get_instance();
       }
 
       // Memanggil fungsi untuk menampilkan modal dengan konten dari endpoint yang sesuai
-      showModalWithPagination(endpoint, title, topic);
+      showModalWithPagination(endpoint, title);
     });
 
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
-    function showModalWithPagination(endpoint, title, topic) {
+    function showModalWithPagination(endpoint, title) {
 
       // Lakukan request AJAX ke endpoint yang diberikan
       $.ajax({
@@ -406,21 +452,17 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
-          console.log("lo", topic, data);
+          console.log("bbb", data);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
           var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
-          modalContent += '<table class="table">';
+          modalContent += '<table id="exampleas" class="table table-bordered table-striped dataTable">';
 
-          if (topic == 'moving') {
-            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Asal Ruangan</th><th></th></tr>';
-          } else if (topic == 'ruangan') {
-            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th></th></tr>';
-          } else {
-            modalContent += '<tr><th>No</th><th>Tag Code</th><th>Kode Barang</th><th>NUP</th><th>Aset</th><th>Lokasi</th><th></th></tr>';
-          }
+
+          modalContent += '<tr><th>No</th><th>Kode TID</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Tanggal Inventarisasi</th></tr>';
+
 
           // Proses data dari respons JSON dan tambahkan ke dalam tabel
           // Misalnya, untuk setiap item dalam data, tambahkan baris baru ke tabel
@@ -429,15 +471,16 @@ $CI = &get_instance();
             // Misalnya, tambahkan baris baru dengan data item ke dalam tabel
             modalContent += '<tr>';
             modalContent += '<td>' + no + '</td>';
-            modalContent += '<td>' + item.tag_code + '</td>'; // Misalnya, ambil field1 dari item
-            modalContent += '<td>' + item.kode_brg + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.kode_tid + '</td>'; // Misalnya, ambil field1 dari item
+            modalContent += '<td>' + item.kode_aset + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.nama_brg + '</td>'; // Misalnya, ambil field2 dari item
-            if (topic == 'ruangan') {
-              modalContent += '';
-            } else {
-              modalContent += '<td>' + item.name_room + '</td>';
-            }
+            modalContent += '<td>' + item.nama_aset + '</td>'; // Misalnya, ambil field2 dari item
+            modalContent += '<td>' + item.tgl_inventarisasi + '</td>'; // Misalnya, ambil field2 dari item
+            // if (topic == 'ruangan') {
+            //   modalContent += '';
+            // } else {
+            //   modalContent += '<td>' + item.name_room + '</td>';
+            // }
 
 
             // Misalnya, ambil field2 dari item
@@ -464,13 +507,37 @@ $CI = &get_instance();
     }
 
     function updateDashboard(data) {
-      // console.log(data);
-      $('#aset_total_pantau').text(data.totalpantau);
-      $('#tape_total').text(data.total);
-      $('#aset_anomali').text(data.anomali);
-      $('#aset_mutasi').text(data.mutation);
-      $('#aset_disposal').text(data.disposal);
-      $('#tape_ontime').text(data.ontime);
+      $('#aset_teregister').text(data.totalpantau);
+      $('#aset_total_pantau').text(data.total);
+      $('#avalaible').text(data.avalaible);
+      if (data.avalaible > 0) {
+        $('#ava').addClass('bg-tersedia');
+      } else {
+        $('#ava').removeClass('bg-tersedia');
+      }
+      $('#peminjaman').text(data.peminjaman);
+      if (data.peminjaman > 0) {
+        $('#pem').addClass('bg-peminjaman');
+      } else {
+        $('#pem').removeClass('bg-peminjaman');
+      }
+      $('#perpindahan').text(parseInt(data.ilegal) + parseInt(data.legal));
+      if (data.ilegal > 0) {
+        $('#perp').addClass('bg-ilegal');
+      } else {
+        $('#perp').addClass('bg-legal');
+      }
+      console.log(data.legal, data.ilegal);
+      if (data.ilegal == 0 && data.legal == 0) {
+        $('#perp').removeClass('bg-ilegal');
+        $('#perp').removeClass('bg-legal');
+      }
+      $('#perbaikan').text(data.perbaikan);
+      if (data.perbaikan > 0) {
+        $('#perb').addClass('bg-perbaikan');
+      } else {
+        $('#perb').removeClass('bg-perbaikan');
+      }
       $('#tape_overdue').text(data.overdue);
       $('#tape_borrow').text(data.borrow);
       $('#tape_broken').text(data.broken);
@@ -491,7 +558,7 @@ $CI = &get_instance();
       title = 'ASET DI ' + roomName;
       topic = 'ruangan';
 
-      showModalWithPagination(endpoint, title, topic);
+      // showModalWithPagination(endpoint, title, topic);
     });
 
     function librarian(data) {
@@ -582,19 +649,19 @@ $CI = &get_instance();
         dataType: 'json',
         success: function(data) {
           updateDashboard(data);
-          librarian(data);
-
-          // console.log(data.label);
-
-          myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
-          myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
-
-          dChart.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          // librarian(data);
+          dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
-          // Memperbarui chart
-          myChart.update();
+          myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
+          myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
+
+          myChart3.data.labels = data.labelkat.map(item => [item.kategori]); // Mengganti labels
+          myChart3.data.datasets[0].data = data.labelkat.map(item => item.total); // Mengganti data
+
           dChart.update();
+          myChart1.update();
+          myChart3.update();
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
@@ -608,20 +675,18 @@ $CI = &get_instance();
       method: 'GET',
       dataType: 'json',
       success: function(data) {
+        // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
+        // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+        // dChart.update();
         updateDashboard(data);
-        librarian(data);
-        readerradar(data);
-
-        // myChart.data.labels = data.label; // Mengganti labels
-        // myChart.data.datasets[0].data = data.values; // Mengganti data
-
-        // Memperbarui chart
-        myChart.update();
+        // librarian(data);
+        // readerradar(data);
       },
       error: function(xhr, status, error) {
         console.error("Failed to fetch data:", error);
       }
     });
+
 
     window.setInterval(function() {
       $.ajax({
@@ -630,107 +695,208 @@ $CI = &get_instance();
         dataType: 'json',
         success: function(data) {
           updateDashboard(data);
-          librarian(data);
-          readerradar(data);
 
-          myChart.data.labels = data.label.map(item => [item.keterangan]); // Mengganti labels
-          myChart.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
-
-          dChart.data.labels = data.labelcateg.map(item => [item.nama_kategori]); // Mengganti labels
+          dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
 
-          // Memperbarui chart
-          myChart.update();
+          myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
+          myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
+
+          myChart3.data.labels = data.labelkat.map(item => [item.kategori]); // Mengganti labels
+          myChart3.data.datasets[0].data = data.labelkat.map(item => item.total); // Mengganti data
+
           dChart.update();
+          myChart1.update();
+          myChart3.update();
+
+
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 1000);
+    }, 10000);
 
-    var ctx2 = document.getElementById('dChart').getContext('2d');
+
+    var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
     var dChart = new Chart(ctx2, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
-        labels: [],
         datasets: [{
-          data: [], // Specify the data values array
-
-          borderColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color border 
-          backgroundColor: ['#2196f38c', '#f443368c', '#3f51b570', '#00968896'], // Add custom color background (Points and Fill)
-          borderWidth: 1 // Specify bar border width
-        }]
+          data: [],
+          backgroundColor: [
+            '#7fffd4',
+            '#ff4500',
+            '#ffa500',
+            '#ffff00',
+            '#faebd7',
+          ],
+        }, ],
+        labels: [],
       },
       options: {
-        responsive: true, // Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-      }
+        legend: {
+          position: 'bottom',
+          labels: {
+            fontColor: "black",
+            boxWidth: 20,
+            padding: 20
+          }
+        },
+        plugins: {
+          datalabels: {
+            formatter: (value) => {
+              return value + '%';
+            },
+          },
+        },
+      },
+    });
+
+    var ctx1 = document.getElementById('myRoom').getContext('2d');
+    var myChart1 = new Chart(ctx1, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [],
+          backgroundColor: [
+
+            '#7fffd4',
+            'rgb(54, 162, 235)',
+          ],
+        }, ],
+        labels: [],
+      },
+      options: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            fontColor: "black",
+            boxWidth: 20,
+            padding: 20
+          }
+        },
+        plugins: {
+          datalabels: {
+            formatter: (value) => {
+              return value + '%';
+            },
+          },
+        },
+      },
+    });
+
+    var ctx3 = document.getElementById('myCategory').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [],
+          backgroundColor: [
+
+            '#7fffd4',
+            'rgb(54, 162, 235)',
+          ],
+        }, ],
+        labels: [],
+      },
+      options: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            fontColor: "black",
+            boxWidth: 20,
+            padding: 20
+          }
+        },
+        plugins: {
+          datalabels: {
+            formatter: (value) => {
+              return value + '%';
+            },
+          },
+        },
+      },
     });
 
     // Inisialisasi chart dengan data dari PHP
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Jumlah',
-          data: [],
-          backgroundColor: [
-            '#ebb734',
-            '#2ECC40',
-            '#0074D9',
-            '#FF4136',
-            '#FF851B',
-            '#c1c234',
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        // scales: {
-        //   y: {
-        //     grid: {
-        //       display: false,
-        //       drawBorder: false,
-        //     },
-        //     beginAtZero: false,
-        //     ticks: {
-        //       display: false,
-        //       callback: function(value, index, values) {
-        //         return Number.isInteger(value) ? value : '';
-        //       }
-        //     }
-        //   },
-        // },
-        // plugins: {
-        //   tooltip: {
-        //     callbacks: {
-        //       label: function(context) {
-        //         var label = context.dataset.label || '';
-        //         if (label) {
-        //           label += ': ';
-        //         }
-        //         if (context.parsed.y !== null) {
-        //           label += context.parsed.y.toLocaleString();
-        //         }
-        //         return label;
-        //       }
-        //     }
-        //   }
-        // }
+
+
+    Chart.plugins.register({
+      afterDatasetsDraw: function(chart, easing) {
+        // To only draw at the end of animation, check for easing === 1
+        var ctx = chart.ctx;
+        if (chart.data.datasets[0].data.length < 1) {
+          let ctx = chart.ctx;
+          let width = chart.width;
+          let height = chart.height;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.font = "26px Arial";
+          ctx.fillText("No data to display", width / 2, height / 2);
+          ctx.restore();
+        }
+
+        chart.data.datasets.forEach(function(dataset, i) {
+          var meta = chart.getDatasetMeta(i);
+
+          if (!meta.hidden) {
+            meta.data.forEach(function(element, index) {
+              // Draw the text in black, with the specified font
+              ctx.fillStyle = '#000';
+
+              var fontSize = 14;
+              var fontStyle = 'bold';
+              ctx.font = Chart.helpers.fontString(fontSize, fontStyle);
+
+              // Just naively convert to string for now
+              var dataString = dataset.data[index].toString();
+
+              // Make sure alignment settings are correct
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+
+              var padding = -10;
+              var position = element.tooltipPosition();
+              ctx.fillText(dataString, position.x - (fontSize / 2) + 10, position.y - (fontSize / 2) - padding);
+            });
+          }
+        });
       }
     });
-    setInterval(newLibraraian, 5000);
+
+    setInterval(newLibraraian, 10000);
+
+    $(document).ready(function() {
+
+      // Setup - add a text input to each footer cell
+      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
+      $('#exampleas thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#exampleas').DataTable({
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: true,
+      });
+    });
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>

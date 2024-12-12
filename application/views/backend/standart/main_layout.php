@@ -7,9 +7,14 @@
   <meta name="description" content="<?= get_option('site_description'); ?>">
   <meta name="keywords" content="<?= get_option('keywords'); ?>">
   <meta name="author" content="<?= get_option('author'); ?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="600;url=<?= admin_site_url('/auth/logout/' . get_user_data('id')); ?>" />
 
-  <title><?= get_user_first_group()->name ?> | <?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
+  <title><?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
+  <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -37,7 +42,7 @@
   <?= $this->cc_html->getCssFileTop(); ?>
 
   <script src="<?= BASE_ASSET ?>admin-lte/plugins/jQuery/jquery-3.6.0.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="<?= BASE_ASSET ?>admin-lte/plugins/iCheck/icheck.min.js"></script>
   <script src="<?= BASE_ASSET ?>sweet-alert/sweetalert-dev.js"></script>
   <script src="<?= BASE_ASSET ?>admin-lte/plugins/input-mask/jquery.inputmask.js"></script>
@@ -99,6 +104,18 @@
 
   <?= $this->cc_html->getScriptFileTop(); ?>
 </head>
+<style>
+  .custom-file-upload {
+    background: #f7f7f7;
+    padding: 8px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+</style>
 
 <body class="sidebar-mini skin-black fixed web-body">
   <div class="wrapper" id="app">
@@ -117,8 +134,8 @@
       ?>
 
       <a href="<?= site_url('/'); ?>" class="logo">
-        <span class="logo-mini"><b><img src="<?= base_url('asset/img/sekneg.png') ?>" height="40px"></b></span>
-        <span class="logo-lg"><b><img src="<?= base_url('asset/img/sekneg.png') ?>" height="50px"></b></span>
+        <span class="logo-mini"><b><img src="<?= base_url('asset/img/icon/logosekneg.png') ?>" height="40px"></b></span>
+        <span class="logo-lg"><b><img src="<?= base_url('asset/img/icon/sekneglogodb.png') ?>" height="45px"></b></span>
       </a>
       <nav class="navbar navbar-static-top">
 
@@ -174,7 +191,7 @@
     <aside class="main-sidebar">
       <section class="sidebar sidebar-admin">
         <ul class="sidebar-menu  sidebar-admin tree" data-widget="tree">
-          <?= display_menu_admin(0, 1); ?>
+          <?= display_menu_admin(_ent(ucwords(clean_snake_case(get_user_data('oauth_uid')))), 0, 1); ?>
         </ul>
       </section>
     </aside>
@@ -202,8 +219,17 @@
       <div class="pull-right hidden-xs">
         <b><?= cclang('version') ?></b> <?= VERSION ?>
       </div>
-      <strong>Copyright &copy; <?= date('Y'); ?> <a href="#"><?= get_option('site_name'); ?></a>.</strong> All rights
-      reserved.
+      <strong>Powered by
+        <a href="#">
+          <img src="<?= BASE_ASSET ?>img/icon/vektorUg.png" alt="AdminLTE Logo" width="100" style="opacity: .8">
+        </a>
+      </strong>
+      &copy; 2024 All rights reserved.
+
+
+      <!-- <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.0.0
+      </div> -->
     </footer>
 
     <div class="control-sidebar-bg"></div>
@@ -225,6 +251,84 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#choose-file').change(function() {
+        var i = $(this).prev('label').clone();
+        var file = $('#choose-file')[0].files[0].name;
+        $(this).prev('label').text(file);
+      });
+    });
+
+    $(document).ready(function() {
+
+      // Setup - add a text input to each footer cell
+      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
+      $('#exampleas thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#exampleas').DataTable({
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: true,
+      });
+    });
+  </script>
+
+
+  <script>
+    $(document).ready(function() {
+      DataTable.ext.errMode = 'none';
+
+      // Setup - add a text input to each footer cell
+      $('#tabledetail thead tr').clone(true).appendTo('#tabledetail thead');
+      $('#tabledetail thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#tabledetail').DataTable({
+        paging: false,
+        scrollCollapse: true,
+        scrollY: '200px',
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: false,
+      });
+    });
+  </script>
 </body>
 
 </html>
