@@ -162,14 +162,14 @@ if (!function_exists('is_allowed')) {
 		$arguments  = $reflection->getParameters();
 
 
-		// if ($ci->aauth->is_allowed($permission)) {
-		call_user_func($func, $arguments);
-		// } else {
-		// 	ob_start();
-		// 	call_user_func($func, $arguments);
-		// 	$buffer = ob_get_contents();
-		// 	ob_end_clean();
-		// }
+		if ($ci->aauth->is_allowed($permission)) {
+			call_user_func($func, $arguments);
+		} else {
+			ob_start();
+			call_user_func($func, $arguments);
+			$buffer = ob_get_contents();
+			ob_end_clean();
+		}
 	}
 }
 
