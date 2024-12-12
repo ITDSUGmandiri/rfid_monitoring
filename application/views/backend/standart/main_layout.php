@@ -8,6 +8,7 @@
   <meta name="keywords" content="<?= get_option('keywords'); ?>">
   <meta name="author" content="<?= get_option('author'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="600;url=<?= admin_site_url('/auth/logout/' . get_user_data('id')); ?>" />
 
   <title><?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
   <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
@@ -103,6 +104,18 @@
 
   <?= $this->cc_html->getScriptFileTop(); ?>
 </head>
+<style>
+  .custom-file-upload {
+    background: #f7f7f7;
+    padding: 8px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+</style>
 
 <body class="sidebar-mini skin-black fixed web-body">
   <div class="wrapper" id="app">
@@ -242,6 +255,14 @@
 
   <script>
     $(document).ready(function() {
+      $('#choose-file').change(function() {
+        var i = $(this).prev('label').clone();
+        var file = $('#choose-file')[0].files[0].name;
+        $(this).prev('label').text(file);
+      });
+    });
+
+    $(document).ready(function() {
 
       // Setup - add a text input to each footer cell
       $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
@@ -271,6 +292,8 @@
       });
     });
   </script>
+
+
   <script>
     $(document).ready(function() {
       DataTable.ext.errMode = 'none';

@@ -4,81 +4,81 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  *| --------------------------------------------------------------------------
- *| Tb Room Master Controller
+ *| Tb Pegawai Master Controller
  *| --------------------------------------------------------------------------
- *| Tb Room Master site
+ *| Tb Pegawai Master site
  *|
  */
-class tb_master_ruangan extends Admin
+class tb_master_pegawai extends Admin
 {
 
 	public function __construct()
 	{
 		parent::__construct();
 
-		$this->load->model('model_tb_room_master');
+		$this->load->model('model_tb_pegawai_master');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);
 	}
 
 	/**
-	 * show all Tb Room Masters
+	 * show all Tb Pegawai Masters
 	 *
 	 * @var $offset String
 	 */
 	public function index($offset = 0)
 	{
-		$this->is_allowed('tb_room_master_list');
+		$this->is_allowed('tb_pegawai_master_list');
 
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
-		$this->data['tb_room_masters'] = $this->model_tb_room_master->get($filter, $field, $this->limit_page, $offset);
-		$this->data['tb_room_master_counts'] = $this->model_tb_room_master->count_all($filter, $field);
+		$this->data['tb_pegawai_masters'] = $this->model_tb_pegawai_master->get($filter, $field, $this->limit_page, $offset);
+		$this->data['tb_pegawai_master_counts'] = $this->model_tb_pegawai_master->count_all($filter, $field);
 
 		$config = [
-			'base_url'     => ADMIN_NAMESPACE_URL  . '/tb_room_master/index/',
-			'total_rows'   => $this->data['tb_room_master_counts'],
+			'base_url'     => ADMIN_NAMESPACE_URL  . '/tb_pegawai_master/index/',
+			'total_rows'   => $this->data['tb_pegawai_master_counts'],
 			'per_page'     => $this->limit_page,
 			'uri_segment'  => 4,
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
 
-		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_room_master/tb_room_master_data_table', $this->data, true);
+		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_pegawai_master/tb_pegawai_master_data_table', $this->data, true);
 
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
 				'pagination' => $this->data['pagination'],
-				'total_row' => $this->data['tb_room_master_counts']
+				'total_row' => $this->data['tb_pegawai_master_counts']
 			]);
 		}
 
-		$this->template->title('Tb Room Master List');
-		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_list', $this->data);
+		$this->template->title('Tb Pegawai Master List');
+		$this->render('backend/standart/administrator/tb_pegawai_master/tb_pegawai_master_list', $this->data);
 	}
 
 	/**
-	 * Add new tb_room_masters
+	 * Add new tb_pegawai_masters
 	 *
 	 */
 	public function add()
 	{
-		$this->is_allowed('tb_room_master_add');
+		$this->is_allowed('tb_pegawai_master_add');
 
-		$this->template->title('Tb Room Master New');
-		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_add', $this->data);
+		$this->template->title('Tb Pegawai Master New');
+		$this->render('backend/standart/administrator/tb_pegawai_master/tb_pegawai_master_add', $this->data);
 	}
 
 	/**
-	 * Add New Tb Room Masters
+	 * Add New Tb Pegawai Masters
 	 *
 	 * @return JSON
 	 */
 	public function add_save()
 	{
-		if (!$this->is_allowed('tb_room_master_add', false)) {
+		if (!$this->is_allowed('tb_pegawai_master_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -87,34 +87,40 @@ class tb_master_ruangan extends Admin
 		}
 
 
-		$this->form_validation->set_rules('area_id', 'Area', 'trim|required|max_length[50]');
-		$this->form_validation->set_rules('gedung_id', 'Gedung', 'trim|required|max_length[130]');
-		$this->form_validation->set_rules('name_room', 'Ruangan', 'trim|required|max_length[130]');
-		$this->form_validation->set_rules('ket_room', 'Ket Ruangan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('nip', 'NIP', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('pegawai', 'Pegawai', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|max_length[130]');
 
 
 		$rand = rand();
 		$ekstensi =  array('png', 'jpg', 'jpeg');
-		$filename = $_FILES['fotoruangan']['name'];
-		$ukuran = $_FILES['fotoruangan']['size'];
+		$filename = $_FILES['fotopegawai']['name'];
+		$ukuran = $_FILES['fotopegawai']['size'];
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
-		$folderfoto = 'Ruangan';
+		$folderfoto = 'Pegawai';
+
 
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
-				'id_area' => $this->input->post('area_id'),
-				'id_gedung' => $this->input->post('gedung_id'),
-				'ruangan' => $this->input->post('name_room'),
-				'ket_ruangan' => $this->input->post('ket_room'),
-				'image_uri' => $rand . '_' . $_FILES['fotoruangan']['name'],
+				'nip' => $this->input->post('nip'),
+				'nama' => $this->input->post('pegawai'),
+				'jabatan' => $this->input->post('jabatan'),
+				'email' => $this->input->post('email'),
+				'telp' => $this->input->post('telp'),
+				'alamat' => $this->input->post('alamat'),
+				'image_uri' => $rand . '_' . $_FILES['fotopegawai']['name'],
 			];
 
 
-			$save_tb_area_master = $this->model_tb_room_master->store($save_data);
 
-			if ($save_tb_area_master) {
+			$save_tb_pegawai_master = $this->model_tb_pegawai_master->store($save_data);
+
+			if ($save_tb_pegawai_master) {
 				if (!in_array($ext, $ekstensi)) {
 					header("location:index.php?alert=gagal_ekstensi");
 				} else {
@@ -122,10 +128,10 @@ class tb_master_ruangan extends Admin
 						mkdir('uploads/' . $folderfoto, 0777, true);
 					}
 					if ($ukuran < 500000) {
-						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotoruangan"]["name"]))) {
+						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotopegawai"]["name"]))) {
 							echo "Sorry, file already exists.";
 						} else {
-							move_uploaded_file($_FILES["fotoruangan"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotoruangan']['name']);
+							move_uploaded_file($_FILES["fotopegawai"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotopegawai']['name']);
 						}
 					} else {
 						header("location:index.php?alert=Ukuran File Maks .500 Kb");
@@ -169,31 +175,30 @@ class tb_master_ruangan extends Admin
 		}
 	}
 
-
-
 	/**
-	 * Update view Tb Room Masters
+	 * Update view Tb Pegawai Masters
 	 *
 	 * @var $id String
 	 */
 	public function edit($id)
 	{
-		$this->is_allowed('tb_room_master_update');
+		$this->is_allowed('tb_pegawai_master_update');
 
-		$this->data['tb_room_master'] = $this->model_tb_room_master->get_detail_ruang($id);
+		$this->data['tb_pegawai_master'] = $this->model_tb_pegawai_master->get_detail_pegawai($id);
 
-		$this->template->title('Tb Room Master Update');
-		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_update', $this->data);
+		$this->template->title('Tb Pegawai Master Update');
+		$this->render('backend/standart/administrator/tb_pegawai_master/tb_pegawai_master_update', $this->data);
 	}
 
 	/**
-	 * Update Tb Room Masters
+	 * Update Tb Pegawai Masters
 	 *
 	 * @var $id String
 	 */
-	public function edit_save($id)
+
+	public function edit_pegawai($id)
 	{
-		if (!$this->is_allowed('tb_room_master_update', false)) {
+		if (!$this->is_allowed('tb_pegawai_master_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -201,36 +206,40 @@ class tb_master_ruangan extends Admin
 			exit;
 		}
 
-		$this->form_validation->set_rules('area_id', 'Area', 'trim|required|max_length[50]');
-		$this->form_validation->set_rules('gedung_id', 'Gedung', 'trim|required|max_length[130]');
-		$this->form_validation->set_rules('name_room', 'Ruangan', 'trim|required|max_length[130]');
-		$this->form_validation->set_rules('ket_ruang', 'Ket Ruangan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('nip', 'NIP', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('pegawai', 'Pegawai', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required|max_length[130]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|max_length[130]');
 
 
 		$rand = rand();
 		$ekstensi =  array('png', 'jpg', 'jpeg');
-		$filename = $_FILES['fotoruangan']['name'];
-		$ukuran = $_FILES['fotoruangan']['size'];
+		$filename = $_FILES['fotopegawai']['name'];
+		$ukuran = $_FILES['fotopegawai']['size'];
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
-		$folderfoto = 'Ruangan';
+		$folderfoto = 'Pegawai';
 
 
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
-				'id_area' => $this->input->post('area_id'),
-				'id_gedung' => $this->input->post('gedung_id'),
-				'ruangan' => $this->input->post('name_room'),
-				'ket_ruangan' => $this->input->post('ket_ruang'),
-				'image_uri' => $rand . '_' . $_FILES['fotoruangan']['name'],
+				'nip' => $this->input->post('nip'),
+				'nama' => $this->input->post('pegawai'),
+				'jabatan' => $this->input->post('jabatan'),
+				'email' => $this->input->post('email'),
+				'telp' => $this->input->post('telp'),
+				'alamat' => $this->input->post('alamat'),
+				'image_uri' => $rand . '_' . $_FILES['fotopegawai']['name'],
 			];
 
 
 
-			$save_tb_area_master = $this->model_tb_room_master->update_ruang($id, $save_data);
+			$save_tb_pegawai_master = $this->model_tb_pegawai_master->update_pegawai($id, $save_data);
 
-			if ($save_tb_area_master) {
+			if ($save_tb_pegawai_master) {
 				if (!in_array($ext, $ekstensi)) {
 					header("location:index.php?alert=gagal_ekstensi");
 				} else {
@@ -238,10 +247,10 @@ class tb_master_ruangan extends Admin
 						mkdir('uploads/' . $folderfoto, 0777, true);
 					}
 					if ($ukuran < 500000) {
-						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotoruangan"]["name"]))) {
+						if (file_exists('uploads/' . $folderfoto . basename($_FILES["fotopegawai"]["name"]))) {
 							echo "Sorry, file already exists.";
 						} else {
-							move_uploaded_file($_FILES["fotoruangan"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotoruangan']['name']);
+							move_uploaded_file($_FILES["fotopegawai"]["tmp_name"], "uploads/" . $folderfoto . "/" . $rand . '_' . $_FILES['fotopegawai']['name']);
 						}
 					} else {
 						header("location:index.php?alert=Ukuran File Maks .500 Kb");
@@ -285,14 +294,16 @@ class tb_master_ruangan extends Admin
 		}
 	}
 
+
+
 	/**
-	 * delete Tb Room Masters
+	 * delete Tb Pegawai Masters
 	 *
 	 * @var $id String
 	 */
 	public function delete($id = null)
 	{
-		$this->is_allowed('tb_room_master_delete');
+		$this->is_allowed('tb_pegawai_master_delete');
 
 		$this->load->helper('file');
 
@@ -311,55 +322,54 @@ class tb_master_ruangan extends Admin
 			if ($remove) {
 				$this->response([
 					"success" => true,
-					"message" => cclang('has_been_deleted', 'tb_room_master')
+					"message" => cclang('has_been_deleted', 'tb_pegawai_master')
 				]);
 			} else {
 				$this->response([
 					"success" => true,
-					"message" => cclang('error_delete', 'tb_room_master')
+					"message" => cclang('error_delete', 'tb_pegawai_master')
 				]);
 			}
 		} else {
 			if ($remove) {
-				set_message(cclang('has_been_deleted', 'tb_room_master'), 'success');
+				set_message(cclang('has_been_deleted', 'tb_pegawai_master'), 'success');
 			} else {
-				set_message(cclang('error_delete', 'tb_room_master'), 'error');
+				set_message(cclang('error_delete', 'tb_pegawai_master'), 'error');
 			}
 			redirect_back();
 		}
 	}
 
 	/**
-	 * View view Tb Room Masters
+	 * View view Tb Pegawai Masters
 	 *
 	 * @var $id String
 	 */
 	public function view($id)
 	{
-		$this->is_allowed('tb_room_master_view');
+		$this->is_allowed('tb_pegawai_master_view');
 
-		$this->data['tb_room_master'] = $this->model_tb_room_master->get_detail_ruang($id);
-
-		$length = sizeof($this->data['tb_room_master']);
+		$this->data['tb_master_pegawai'] = $this->model_tb_pegawai_master->get_detail_pegawai($id);
+		$length = sizeof($this->data['tb_master_pegawai']);
 		if ($length == 0) {
 			$this->session->set_flashdata('nulldata', 'data kosong');
 		}
-		$this->template->title('Tb Room Master Detail');
-		$this->render('backend/standart/administrator/tb_room_master/tb_room_master_view', $this->data);
+		$this->template->title('Tb Pegawai Master Detail');
+		$this->render('backend/standart/administrator/tb_pegawai_master/tb_pegawai_master_view', $this->data);
 	}
 
 	/**
-	 * delete Tb Room Masters
+	 * delete Tb Pegawai Masters
 	 *
 	 * @var $id String
 	 */
 	private function _remove($id)
 	{
-		$tb_room_master = $this->model_tb_room_master->find($id);
+		$tb_pegawai_master = $this->model_tb_pegawai_master->find($id);
 
 
 
-		return $this->model_tb_room_master->remove($id);
+		return $this->model_tb_pegawai_master->remove($id);
 	}
 
 
@@ -370,12 +380,12 @@ class tb_master_ruangan extends Admin
 	 */
 	public function export()
 	{
-		$this->is_allowed('tb_room_master_export');
+		$this->is_allowed('tb_pegawai_master_export');
 
-		$this->model_tb_room_master->export(
-			'tb_room_master',
-			'tb_room_master',
-			$this->model_tb_room_master->field_search
+		$this->model_tb_pegawai_master->export(
+			'tb_pegawai_master',
+			'tb_pegawai_master',
+			$this->model_tb_pegawai_master->field_search
 		);
 	}
 
@@ -386,17 +396,17 @@ class tb_master_ruangan extends Admin
 	 */
 	public function export_pdf()
 	{
-		$this->is_allowed('tb_room_master_export');
+		$this->is_allowed('tb_pegawai_master_export');
 
-		$this->model_tb_room_master->pdf('tb_room_master', 'tb_room_master');
+		$this->model_tb_pegawai_master->pdf('tb_pegawai_master', 'tb_pegawai_master');
 	}
 
 
 	public function single_pdf($id = null)
 	{
-		$this->is_allowed('tb_room_master_export');
+		$this->is_allowed('tb_pegawai_master_export');
 
-		$table = $title = 'tb_room_master';
+		$table = $title = 'tb_pegawai_master';
 		$this->load->library('HtmlPdf');
 
 		$config = array(
@@ -410,7 +420,7 @@ class tb_master_ruangan extends Admin
 
 		$result = $this->db->get($table);
 
-		$data = $this->model_tb_room_master->find($id);
+		$data = $this->model_tb_pegawai_master->find($id);
 		$fields = $result->list_fields();
 
 		$content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
@@ -427,5 +437,5 @@ class tb_master_ruangan extends Admin
 }
 
 
-/* End of file tb_room_master.php */
-/* Location: ./application/controllers/administrator/Tb Room Master.php */
+/* End of file tb_pegawai_master.php */
+/* Location: ./application/controllers/administrator/Tb Pegawai Master.php */

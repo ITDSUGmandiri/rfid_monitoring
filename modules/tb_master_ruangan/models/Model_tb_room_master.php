@@ -107,7 +107,6 @@ class Model_tb_room_master extends MY_Model
     {
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_ruangan.id_gedung', 'LEFT');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_ruangan.id_area', 'LEFT');
-
         $this->db->select('tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.*,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung');
 
 
@@ -121,6 +120,21 @@ class Model_tb_room_master extends MY_Model
         }
 
         return $this;
+    }
+
+    public function get_detail_ruang($id)
+    {
+        $query = $this->db->query(
+            "SELECT r.*, s.area, s.ket_area, g.gedung, g.ket_gedung FROM tb_master_ruangan r JOIN tb_master_area s ON s.id = r.id_area JOIN tb_master_gedung g ON g.id = r.id_gedung WHERE r.id = $id"
+        );
+
+        return $query->result();
+    }
+
+    public function update_ruang($id, $data)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('tb_master_ruangan', $data);
     }
 }
 

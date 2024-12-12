@@ -51,7 +51,7 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($room2)->result();
 				break;
 			case "gettotalpantau":
-				$row_totalpantau = "SELECT a.tag_code, a.nama_brg, a.lokasi, a.kode_brg, a.kelompok, a.nup, r.id_room, r.name_room, i.id_room, i.rfid_code_tag FROM tb_master_aset a INNER JOIN tb_history_invent i ON i.rfid_code_tag = a.tag_code INNER JOIN tb_room_master r ON r.id_room = i.id_room AND a.tag_code != '' AND a.kelompok = 1";
+				$row_totalpantau = "SELECT kode_tid, nama_aset, kode_aset, nup, tgl_inventarisasi FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365 AND kode_tid !=''";
 				$data_json = $this->db->query($row_totalpantau)->result();
 				break;
 			case "total":
@@ -181,31 +181,35 @@ class Dashboard extends Admin
 
 
 		// Ambil data untuk chart
-		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365";
+		$row_totalpantau = "SELECT COUNT(*) as total FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365 AND kode_tid !=''";
 		$result_total = $this->db->query($row_totalpantau);
 		$row_totalpantau = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != 0";
+		$query_total = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_tid != ''";
 		$result_total = $this->db->query($query_total);
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE flag_inventarisasi != 0";
+		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 1 AND kode_tid != ''";
 		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
-		$query_on_time = "SELECT o.kode_tid, count(distinct c.kode_tid) as total from tb_master_aset o inner join tb_detail_transaksi c on c.kode_tid = o.kode_tid";
+		$query_on_time = "SELECT COUNT(*) as total from tb_master_aset WHERE status = 3 AND kode_tid != ''";
 		$result_on_time = $this->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
-		// $query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
-		// $result_mutation = $this->db->query($query_mutation);
-		// $mutation = $result_mutation->row();
+		$query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 2 AND kode_tid != 0";
+		$result_mutation = $this->db->query($query_mutation);
+		$mutation = $result_mutation->row();
 
-		// $query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kondisi = 08";
-		// $result_dispo = $this->db->query($query_disp);
-		// $disposal = $result_dispo->row();
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 0";
+		$result_dispo = $this->db->query($query_disp);
+		$ilegal = $result_dispo->row();
+
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 1";
+		$result_legal = $this->db->query($query_disp);
+		$legal = $result_legal->row();
 		// // $query_on_time = "SELECT COUNT(*) as total FROM tb_master_aset WHERE lokasi = 0 AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";
 		// // $result_on_time = $this->db->query($query_on_time);
 		// // $row_on_time = $result_on_time->row();
@@ -231,15 +235,15 @@ class Dashboard extends Admin
 		// $data_chart = $this->db->query($querycondt)->result();
 
 		//status chart
-		$querycateg = "SELECT case when a.status = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.status != 0 GROUP BY key_status";
+		$querycateg = "SELECT case when a.status = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room
-		$querycateg = "SELECT c.ruangan, count(a.id_lokasi) as total FROM tb_master_aset a INNER JOIN tb_master_ruangan c ON a.id_lokasi = c.id AND a.status != 0 GROUP BY c.ruangan";
+		$querycateg = "SELECT c.ruangan, count(a.id_lokasi) as total FROM tb_master_aset a INNER JOIN tb_master_ruangan c ON a.id_lokasi = c.id AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
 		$data_ruangan = $this->db->query($querycateg)->result();
 
 		//status kategory
-		$querycateg = "SELECT c.kategori, count(a.kategori) as total FROM tb_master_aset a INNER JOIN tb_master_kategori c ON a.kategori = c.id AND a.status != 0 GROUP BY c.kategori";
+		$querycateg = "SELECT c.kategori, count(a.kategori) as total FROM tb_master_aset a INNER JOIN tb_master_kategori c ON a.kategori = c.id AND a.status != 0 AND a.kode_tid !='' GROUP BY c.kategori";
 		$data_kate = $this->db->query($querycateg)->result();
 
 		// $querykon = "SELECT status FROM tb_master_status";
@@ -268,10 +272,11 @@ class Dashboard extends Admin
 		$data = array(
 			"totalpantau" => $row_totalpantau->total,
 			"total" 	=> $row_total->total,
-			"sensus"   => $row_sensus->total,
-			// "mutation"	=> $mutation->total,
-			// "disposal"	=> $disposal->total,
-			// "ontime" 	=> $row_on_time->total,
+			"avalaible"   => $row_sensus->total,
+			"peminjaman"	=> $mutation->total,
+			"ilegal"	=> $ilegal->total,
+			"legal"	=> $legal->total,
+			"perbaikan" 	=> $row_on_time->total,
 			// "overdue"	=> $row_overdue->total,
 			// "borrow" 	=> $row_pinjam->total,
 			// "broken" 	=> $row_rusak->total,

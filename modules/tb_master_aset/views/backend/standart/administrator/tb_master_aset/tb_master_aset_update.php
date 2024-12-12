@@ -244,10 +244,12 @@
                                     </small>
                                 </div>
                             </div>
+
+
                             <div class="form-group ">
                                 <label for="username" class="col-sm-2 control-label">Foto Aset Saat ini</label>
 
-                                <div class="col-sm-8">
+                                <div class="col-sm-1">
                                     <?php if ($value->image_uri != '') { ?>
                                         <img src="<?= base_url($value->kategori === 1 ? 'uploads/Seni/' . $value->image_uri  : 'uploads/Elektronik/' . $value->image_uri) ?>" alt="tidak ada foto" width="50" />
 
@@ -255,15 +257,12 @@
                                         tidak ada foto
                                     <? } ?>
                                 </div>
-                            </div>
-                            <div class="form-group ">
-                                <label for="username" class="col-sm-2 control-label">Foto Aset Baru</label>
-
-                                <div class="col-sm-8">
-                                    <input type="file" name="fotoaset" required="required">
-                                    <small class="info help-block">
-                                        Ekstensi yang diperbolehkan .png | .jpg | .jpeg
-                                    </small>
+                                <div>
+                                    <label for="choose-file" class="custom-file-upload" id="choose-file-label">
+                                        Ganti Foto
+                                    </label>
+                                    <input name="fotoaset" type="file" id="choose-file"
+                                        accept=".jpg,.jpeg,.png" style="display: none;" />
                                 </div>
                             </div>
 

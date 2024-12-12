@@ -69,8 +69,8 @@
                             <div class="widget-user-image">
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/icon_area.png" alt="User Avatar">
                             </div>
-                            <h3 class="widget-user-username">Tambah Area</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Tb Area Master']); ?></h5>
+                            <h3 class="widget-user-username">Area</h3>
+                            <h5 class="widget-user-desc">Silahkan Lengkapi Data Area baru</h5>
                             <hr>
                         </div>
                         <?= form_open('administrator/tb_master_area/add_save', [
