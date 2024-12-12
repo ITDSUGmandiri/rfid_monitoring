@@ -34,16 +34,17 @@
                 <p class="login-box-msg">RFID Inventory System</p>
                 <p style="text-align: center;">
                     <a style="color: red;">
-                        <?php if ($this->session->flashdata('error')) { ?>
-                            <?php echo $this->session->flashdata('error'); ?>
-                        <?php $this->session->unset_userdata('error');
-                        } ?>
 
                         <?php if (isset($error) and !empty($error)) : ?>
-                            <div class="callout callout-error">
-                                <h4><?= cclang('error'); ?>!</h4>
-                                <p><?= $error; ?></p>
-                            </div>
+                            <?php if ($this->session->flashdata('success')) { ?>
+                                <script>
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Data tidak ditemukan...",
+                                        text: "Silahkan masukan akun yang benar!",
+                                    });
+                                </script>
+                            <?php } ?>
                         <?php endif; ?>
                     </a>
                 </p>
