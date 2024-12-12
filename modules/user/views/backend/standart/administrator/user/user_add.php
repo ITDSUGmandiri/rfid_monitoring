@@ -96,6 +96,25 @@
                             </div>
                         </div>
 
+                        <div class="form-group group-gedung_id ">
+                            <label for="Role" class="col-sm-2 control-label">Level User <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select-deselect" name="oauth_uid" id="role" data-placeholder="Pilih Level">
+                                    <option value=""></option>
+                                    <?php
+                                    $conditions = [];
+                                    ?>
+
+                                    <?php foreach (db_get_all_data('aauth_groups', $conditions) as $row): ?>
+                                        <option value="<?= $row->id ?>"><?= $row->name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+
                         <div class="form-group ">
                             <label for="username" class="col-sm-2 control-label"><?= cclang('avatar') ?> </label>
 

@@ -191,7 +191,7 @@
     <aside class="main-sidebar">
       <section class="sidebar sidebar-admin">
         <ul class="sidebar-menu  sidebar-admin tree" data-widget="tree">
-          <?= display_menu_admin(0, 1); ?>
+          <?= display_menu_admin(_ent(ucwords(clean_snake_case(get_user_data('oauth_uid')))), 0, 1); ?>
         </ul>
       </section>
     </aside>

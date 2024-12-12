@@ -701,7 +701,7 @@ class Aauth
 	 * @param string $username User's username
 	 * @return int|bool False if create fails or returns user id if successful
 	 */
-	public function create_user($email, $pass, $username = FALSE, $optional_data = [])
+	public function create_user($role, $email, $pass, $username = FALSE, $optional_data = [])
 	{
 
 		$valid = TRUE;
@@ -741,6 +741,7 @@ class Aauth
 		}
 
 		$data = array(
+			'oauth_uid' => $role,
 			'email' => $email,
 			'pass' => $this->hash_password($pass, 0), // Password cannot be blank but user_id required for salt, setting bad password for now
 			'username' => (!$username) ? '' : $username,
