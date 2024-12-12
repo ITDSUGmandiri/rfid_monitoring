@@ -70,7 +70,7 @@ class Ug_mstag extends Admin
 	public function add()
 	{
 		$this->is_allowed('ug_mstag_add');
-
+		$this->data['pengaturan_sistem'] = $this->model_ug_mstag->getPengaturanSistem();
 		$this->template->title('Master Tag RFID New');
 		$this->render('backend/standart/administrator/ug_mstag/ug_mstag_add', $this->data);
 	}
