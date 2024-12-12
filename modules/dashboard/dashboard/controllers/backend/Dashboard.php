@@ -22,10 +22,11 @@ class Dashboard extends Admin
 
 	public function index()
 	{
-
-		if (!$this->aauth->is_allowed('dashboard')) {
-			redirect('/', 'refresh');
-		}
+		// echo !$this->aauth->is_allowed('dashboard');
+		// exit();
+		// if (!$this->aauth->is_allowed('dashboard')) {
+		// 	redirect('/', 'refresh');
+		// }
 		$dashboards = $this->model_dashboard->get(null, null, $limit = 9999, $offset = 0);
 		$kategori = $this->model_dashboard->getKategori(null, null, $this->limit_page, $offset);
 		$data = [

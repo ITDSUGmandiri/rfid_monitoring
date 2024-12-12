@@ -77,6 +77,8 @@ class User extends Admin
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[aauth_users.email]|valid_email');
 		$this->form_validation->set_rules('full_name', 'Full Name', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
+		$this->form_validation->set_rules('oauth_uid', 'Role', 'trim|required');
+
 
 		if ($this->form_validation->run()) {
 			$user_avatar_uuid = $this->input->post('user_avatar_uuid');
@@ -104,7 +106,7 @@ class User extends Admin
 				$save_data['avatar'] = $user_avatar_name_copy;
 			}
 
-			$save_user = $this->aauth->create_user($this->input->post('email'), $this->input->post('password'), $this->input->post('username'), $save_data);
+			$save_user = $this->aauth->create_user($this->input->post('oauth_uid'), $this->input->post('email'), $this->input->post('password'), $this->input->post('username'), $save_data);
 
 			if ($save_user) {
 				//add user to group
