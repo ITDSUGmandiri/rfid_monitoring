@@ -92,7 +92,7 @@
                             <label for="kota" class="col-sm-2 control-label">Area <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="area" id="area" placeholder="" value="<?= set_value('ket_area', $tb_master_gedung->ket_area); ?>">
+                                <input type="text" class="form-control" name="area" id="area" placeholder="" value="<?= set_value('ket_area', $tb_area_master->ket_area); ?>">
                                 <small class="info help-block">
                                     <b>Input Area</b> Max Length : 50.</small>
                             </div>
@@ -115,12 +115,12 @@
                             <label for="username" class="col-sm-2 control-label">Foto Area Saat ini</label>
 
                             <div class="col-sm-1">
-                                <?php if ($value->image_uri != '') { ?>
-                                    <img src="<?= base_url('uploads/Area/' .  $value->image_uri) ?>" alt="tidak ada foto" width="50" />
+                                <?php if ($tb_area_master->image_uri != '') { ?>
+                                    <img src="<?= base_url('uploads/Area/' .  $tb_area_master->image_uri) ?>" alt="tidak ada foto" width="50" />
 
-                                <? } else { ?>
+                                <?php } else { ?>
                                     tidak ada foto
-                                <? } ?>
+                                <?php } ?>
                             </div>
                             <div>
                                 <label for="choose-file" class="custom-file-upload" id="choose-file-label">

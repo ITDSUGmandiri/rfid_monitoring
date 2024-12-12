@@ -163,9 +163,9 @@
                                     <?php if ($value->image_uri != '') { ?>
                                         <img src="<?= base_url('uploads/Ruangan/' .  $value->image_uri) ?>" alt="tidak ada foto" width="50" />
 
-                                    <? } else { ?>
+                                    <?php } else { ?>
                                         tidak ada foto
-                                    <? } ?>
+                                    <?php } ?>
                                 </div>
                                 <div>
                                     <label for="choose-file" class="custom-file-upload" id="choose-file-label">
