@@ -197,7 +197,7 @@ $CI = &get_instance();
                   </div>
                   <div class="row align-items-stretch">
                     <div class="c-dashboardInfo col-lg-2">
-                      <div class="wrap" style="padding-top: 20px;">
+                      <div id="ta12" class="wrap" style="padding-top: 20px;">
                         <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
                           <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
                           <path fill="none" d="M0 0h24v24H0z"></path>
@@ -508,7 +508,17 @@ $CI = &get_instance();
 
     function updateDashboard(data) {
       $('#aset_teregister').text(data.totalpantau);
+      if (data.totalpantau > 0) {
+        $('#ta12').addClass('bg-totalaset');
+      } else {
+        $('#ta12').removeClass('bg-totalaset');
+      }
       $('#aset_total_pantau').text(data.total);
+      if (data.total > 0) {
+        $('#ta').addClass('bg-totalaset');
+      } else {
+        $('#ta').removeClass('bg-tersedia');
+      }
       $('#avalaible').text(data.avalaible);
       if (data.avalaible > 0) {
         $('#ava').addClass('bg-tersedia');
