@@ -62,7 +62,7 @@
                     </div>
                     <div class="dd" id="nestable">
                         <?php
-                        $menu = display_menu_module(0, 1, $this->uri->segment(4), true);
+                        $menu = display_menu_module(_ent(ucwords(clean_snake_case(get_user_data('oauth_uid')))), 0, 1, $this->uri->segment(4), true);
                         if (empty($menu)) : ?>
                             <div class="box-no-data">No data menu</div>
                         <?php else :

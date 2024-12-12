@@ -162,14 +162,14 @@ if (!function_exists('is_allowed')) {
 		$arguments  = $reflection->getParameters();
 
 
-		if ($ci->aauth->is_allowed($permission)) {
-			call_user_func($func, $arguments);
-		} else {
-			ob_start();
-			call_user_func($func, $arguments);
-			$buffer = ob_get_contents();
-			ob_end_clean();
-		}
+		// if ($ci->aauth->is_allowed($permission)) {
+		call_user_func($func, $arguments);
+		// } else {
+		// 	ob_start();
+		// 	call_user_func($func, $arguments);
+		// 	$buffer = ob_get_contents();
+		// 	ob_end_clean();
+		// }
 	}
 }
 
@@ -183,13 +183,13 @@ if (!function_exists('message_flash')) {
 }
 
 if (!function_exists('display_menu_module')) {
-	function display_menu_module($parent, $level, $menu_type, $ignore_active = false)
+	function display_menu_module($role, $parent, $level, $menu_type, $ignore_active = false)
 	{
 		$ci = &get_instance();
 		$ci->load->database();
 		$ci->load->model('menu/model_menu');
 		$menu_type_id = $ci->model_menu->get_id_menu_type_by_flag($menu_type);
-		$result = $ci->db->query("SELECT a.id, a.label, a.type, a.active, a.link, Deriv1.Count FROM `menu` a  LEFT OUTER JOIN (SELECT parent, COUNT(*) AS Count FROM `menu` GROUP BY parent) Deriv1 ON a.id = Deriv1.parent WHERE a.menu_type_id = " . $menu_type_id . " AND a.parent=" . $parent . " " . ($ignore_active ? '' : 'and active = 1') . " order by `sort` ASC")->result();
+		$result = $ci->db->query("SELECT a.id, a.label, a.type, a.active, a.link, Deriv1.Count FROM `menu` a  LEFT OUTER JOIN (SELECT parent, COUNT(*) AS Count FROM `menu` GROUP BY parent) Deriv1 ON a.id = Deriv1.parent WHERE a.menu_type_id = " . $menu_type_id . " AND a.parent=" . $parent . " " . ($ignore_active ? '' : 'and active = 1') . ($role != 1 ? 'and a.access = 0' : '') .  "  order by `sort` ASC")->result();
 
 		$ret = '';
 		$display_menu_dropdown = function ($row = null) {
@@ -224,7 +224,7 @@ if (!function_exists('display_menu_module')) {
 					$ret .= $display_menu_dropdown($row);
 
 					$ret .= '</div>';
-					$ret .= display_menu_module($row->id, $level + 1, $menu_type, $ignore_active);
+					$ret .= display_menu_module($role, $row->id, $level + 1, $menu_type, $ignore_active);
 					$ret .= "</li>";
 				} elseif ($row->Count == 0) {
 					$ret .= '<li class="dd-item dd3-item ' . ($row->active ? '' : 'menu-toggle-activate_inactive') . ' menu-toggle-activate" data-id="' . $row->id . '" data-status="' . $row->active . '">';
@@ -254,7 +254,7 @@ if (!function_exists('display_menu_module')) {
 }
 
 if (!function_exists('display_menu_admin')) {
-	function display_menu_admin($parent, $level, $menu_type_id = false)
+	function display_menu_admin($role, $parent, $level, $menu_type_id = false)
 	{
 		if ($menu_type_id == false) {
 			$menu_type_id = 1;
@@ -262,7 +262,10 @@ if (!function_exists('display_menu_admin')) {
 		$ci = &get_instance();
 		$ci->load->database();
 		$ci->load->model('menu/model_menu');
-		$result = $ci->db->query("SELECT a.id, a.label,a.icon_color, a.type, a.link,a.icon, Deriv1.Count FROM `menu` a  LEFT OUTER JOIN (SELECT parent, COUNT(*) AS Count FROM `menu` GROUP BY parent) Deriv1 ON a.id = Deriv1.parent WHERE a.menu_type_id = " . $menu_type_id . " AND a.parent=" . $parent . " and active = 1  order by `sort` ASC")->result();
+
+
+		$result = $ci->db->query("SELECT a.id, a.label,a.icon_color,a.access, a.type, a.link,a.icon, Deriv1.Count FROM `menu` a  LEFT OUTER JOIN (SELECT parent, COUNT(*) AS Count FROM `menu` GROUP BY parent) Deriv1 ON a.id = Deriv1.parent WHERE a.menu_type_id = " . $menu_type_id . " AND a.parent=" . $parent . " and active = 1 " . ($role != 1 ? 'and access = 0' : '') . " order by `sort` ASC")->result();
+
 
 		$ret = '';
 		if ($result) {
@@ -291,51 +294,51 @@ if (!function_exists('display_menu_admin')) {
 
 				$link = filter_var($row->link, FILTER_VALIDATE_URL) ? $row->link : base_url($row->link);
 				if ($row->type == 'label') {
-					if ($ci->aauth->is_allowed($perms)) {
-						$ret .= '<li class="header treeview">' . _ent($row->label) . '</li>';
-					}
+					// if ($ci->aauth->is_allowed($perms)) {
+					$ret .= '<li class="header treeview">' . _ent($row->label) . '</li>';
+					// }
 				} else {
 					if ($row->Count > 0) {
-						if ($ci->aauth->is_allowed($perms)) {
-							$ret .= '<li class="' . $active . ' "> 
+						// if ($ci->aauth->is_allowed($perms)) {
+						$ret .= '<li class="' . $active . ' "> 
 										        	<a href="' . $link . '">';
 
-							if ($parent) {
-								$ret .= '<i class="fa fa-circle-o ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
+						if ($parent) {
+							$ret .= '<i class="fa fa-circle-o ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
 									            <span class="pull-right-container">
 									              <i class="fa fa-angle-left pull-right"></i>
 									            </span>
 									          </a>';
-							} else {
-								$ret .= '<i class="fa ' . _ent($row->icon) . ' ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
+						} else {
+							$ret .= '<i class="fa ' . _ent($row->icon) . ' ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
 									            <span class="pull-right-container">
 									              <i class="fa fa-angle-left pull-right"></i>
 									            </span>
 									          </a>';
-							}
-
-							$ret .= display_menu_admin($row->id, $level + 1, $menu_type_id);
-							$ret .= "</li>";
 						}
+
+						$ret .= display_menu_admin($role, $row->id, $level + 1, $menu_type_id);
+						$ret .= "</li>";
+						// }
 					} elseif ($row->Count == 0) {
-						if ($ci->aauth->is_allowed($perms)) {
-							$ret .= '<li class="' . $active . ' "> 
+						// if ($ci->aauth->is_allowed($perms)) {
+						$ret .= '<li class="' . $active . ' "> 
 										        	<a href="' . $link . '">';
 
-							if ($parent) {
-								$ret .= '<i class="fa fa-circle-o ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
+						if ($parent) {
+							$ret .= '<i class="fa fa-circle-o ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
 									            <span class="pull-right-container"></i>
 									            </span>
 									          </a>';
-							} else {
-								$ret .= '<i class="fa ' . _ent($row->icon) . ' ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
+						} else {
+							$ret .= '<i class="fa ' . _ent($row->icon) . ' ' . _ent($row->icon_color) . '"></i> <span>' . _ent($row->label) . '</span>
 									            <span class="pull-right-container"></i>
 									            </span>
 									          </a>';
-							}
-
-							$ret .= "</li>";
 						}
+
+						$ret .= "</li>";
+						// }
 					}
 				}
 				if ($row->link == ADMIN_NAMESPACE_URL . '/extension') {

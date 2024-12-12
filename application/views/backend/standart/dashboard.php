@@ -715,7 +715,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 2000);
+    }, 10000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
@@ -865,7 +865,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 2000);
+    setInterval(newLibraraian, 10000);
 
     $(document).ready(function() {
 

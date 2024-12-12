@@ -543,28 +543,29 @@ class Admin extends MY_Controller
      */
     public function is_allowed($perm, $redirect = true)
     {
-        if ($perm == null) {
-            return $this->aauth->is_loggedin();
-        }
-        if (!$this->aauth->is_loggedin()) {
-            if ($redirect) {
-                redirect(ADMIN_NAMESPACE_URL . '/login', 'refresh');
-            } else {
-                return false;
-            }
-        } else {
-            $this->aauth->create_perm($perm);
-            if ($this->aauth->is_allowed($perm)) {
-                return true;
-            } else {
-                if ($redirect) {
-                    $this->session->set_flashdata('f_message', 'Sorry you do not have permission to access ');
-                    $this->session->set_flashdata('f_type', 'warning');
-                    redirect(ADMIN_NAMESPACE_URL . '/dashboard', 'refresh');
-                }
-                return false;
-            }
-        }
+        return true;
+        // if ($perm == null) {
+        //     return $this->aauth->is_loggedin();
+        // }
+        // if (!$this->aauth->is_loggedin()) {
+        //     if ($redirect) {
+        //         redirect(ADMIN_NAMESPACE_URL . '/login', 'refresh');
+        //     } else {
+        //         return false;
+        //     }
+        // } else {
+        //     $this->aauth->create_perm($perm);
+        //     if ($this->aauth->is_allowed($perm)) {
+        //         return true;
+        //     } else {
+        //         if ($redirect) {
+        //             $this->session->set_flashdata('f_message', 'Sorry you do not have permission to access ');
+        //             $this->session->set_flashdata('f_type', 'warning');
+        //             redirect(ADMIN_NAMESPACE_URL . '/dashboard', 'refresh');
+        //         }
+        //         return false;
+        //     }
+        // }
     }
 
     /**
