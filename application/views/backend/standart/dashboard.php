@@ -490,10 +490,21 @@ $CI = &get_instance();
             modalContent += '<td>' + item.kode_aset + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nama_aset + '</td>'; // Misalnya, ambil field2 dari item
+
             if (topic == 'avalaible') {
+
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+
+            } else if (topic == 'borrow' || topic == 'mainten') {
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+            } else if (topic == 'moving') {
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.nama_lokasi_terakhir + '</td>'; // Misalnya, ambil field2 dari item
+
+
             } else {
               modalContent += '<td>' + item.tgl_inventarisasi + '</td>'; // Misalnya, ambil field2 dari item
+
             }
 
 
