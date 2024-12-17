@@ -8,13 +8,13 @@
   <meta name="keywords" content="<?= get_option('keywords'); ?>">
   <meta name="author" content="<?= get_option('author'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="600;url=<?= admin_site_url('/auth/logout/' . get_user_data('id')); ?>" />
+  <meta http-equiv="refresh" content="300;url=<?= admin_site_url('/auth/logout/1' . get_user_data('id')); ?>" />
 
   <title><?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
   <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css"> -->
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -251,7 +251,7 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <!-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> -->
 
   <script>
     $(document).ready(function() {

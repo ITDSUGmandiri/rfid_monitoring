@@ -103,6 +103,15 @@ class Model_tb_master_aset extends MY_Model
         return $query->result();
     }
 
+    public function get_aset()
+    {
+        $query = $this->db->query(
+            "SELECT id_aset, kode_tid, kode_aset, nup, nama_aset FROM tb_master_aset ORDER BY id_aset ASC"
+        );
+
+        return $query->result();
+    }
+
     public function get_detail_edit($id)
     {
         $query = $this->db->query(
