@@ -381,7 +381,7 @@ $CI = &get_instance();
       console.log(message);
       // updateDashboard(message);
     };
-
+    console.log("ugmandiri");
     ws.onclose = function() {
       console.log("Connection closed");
     };
@@ -752,7 +752,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 10000);
+    }, 5000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
@@ -902,7 +902,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 10000);
+    setInterval(newLibraraian, 5000);
 
     $(document).ready(function() {
 

@@ -16,6 +16,8 @@
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registered_aset') { ?>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
+
   <? } ?>
 
 
@@ -255,7 +257,7 @@
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registered_aset') { ?>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <!-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> -->
   <? } ?>
 
   <script>
