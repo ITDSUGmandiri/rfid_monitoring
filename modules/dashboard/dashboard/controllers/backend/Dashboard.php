@@ -222,7 +222,9 @@ class Dashboard extends Admin
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room
-		$querycateg = "SELECT c.ruangan, count(a.id_lokasi) as total FROM tb_master_aset a INNER JOIN tb_master_ruangan c ON a.id_lokasi = c.id AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
+		$querycateg = "SELECT c.ruangan,count(a.id_lokasi) as total FROM tb_master_aset a 
+JOIN tb_master_ruangan c ON a.lokasi_moving = c.id
+AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
 		$data_ruangan = $this->db->query($querycateg)->result();
 
 		//status kategory
