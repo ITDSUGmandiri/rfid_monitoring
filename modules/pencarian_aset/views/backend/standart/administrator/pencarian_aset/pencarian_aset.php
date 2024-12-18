@@ -50,7 +50,7 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
 
 <script type="text/javascript">
-
+console.log("xxx");
     var dataArrayAset = []; // Array untuk menyimpan data
 
     function removeAllRow() {
