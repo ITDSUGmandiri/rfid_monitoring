@@ -605,8 +605,44 @@ class registrasi_aset extends Admin
 		// Kirim response dalam format JSON 
 		$this->response($response);
 	}
+
+	public function get_all_aset()
+	{
+		$id_area = $this->input->get('id_area');	
+		$id_gedung = $this->input->get('id_gedung');
+		$id_ruangan = $this->input->get('id_ruangan');
+
+		$filter_data = array();
+
+		$filter_data = array(
+			'id_area' => $id_area,
+			'id_gedung' => $id_gedung,
+			'id_ruangan' => $id_ruangan
+		);
+
+		$results = $this->model_pencarian_aset->get_all_aset($filter_data);
+		
+		$response = [
+			'success' => true,
+			'data' => $results
+		];
+
+		$this->response($response);
+	}
+
+	public function ajax_pie_chart()
+	{
+		$results = $this->model_pencarian_aset->get_data_pie_chart();
+
+		$response = [
+			'success' => true,
+			'data' => $results
+		];
+
+		$this->response($response);
+	}
+
 }
 
 /* End of file tb_master_transaksi.php */
-// >>>>>>> modul_masterdata:modules/tb_master_transaksi/controllers/backend/Tb_master_transaksi.php
 /* Location: ./application/controllers/administrator/Tb Master Transaksi.php */

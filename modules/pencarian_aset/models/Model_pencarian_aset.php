@@ -303,8 +303,16 @@ class Model_pencarian_aset extends MY_Model {
         $this->db->from('pengaturan_sistem');
         return $this->db->get()->row();
     }
+    
+    function get_data_pie_chart(){
+        $this->db->select('tb_master_area.area, count(tb_master_transaksi.id_area) as total');
+        $this->db->from('tb_master_transaksi');
+        $this->db->join('tb_master_area', 'tb_master_transaksi.id_area = tb_master_area.id', 'left');
+        $this->db->group_by('tb_master_transaksi.id_area');
+        return $this->db->get()->result();
+    }
 
 }
 
-/* End of file Model_tb_master_transaksi.php */
-/* Location: ./application/models/Model_tb_master_transaksi.php */
+/* End of file Model_pencarian_aset.php */
+/* Location: ./application/models/Model_pencarian_aset.php */
