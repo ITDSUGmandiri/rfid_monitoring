@@ -640,8 +640,9 @@ class registrasi_aset extends Admin
 		];
 
 		$this->response($response);
-	}
+		echo "Coba";
 
+	}
 }
 
 /* End of file tb_master_transaksi.php */
