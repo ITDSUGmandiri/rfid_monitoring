@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pencarian_aset extends MY_Model {
+class Model_peminjaman extends MY_Model {
 
     private $primary_key    = 'id';
     private $table_name     = 'tb_master_transaksi';
-    public $field_search   = ['kode_transaksi', 'tipe_transaksi', 'status_transaksi', 'tgl_awal_transaksi', 'ket_transaksi', 'id_pegawai_input', 'nama_pegawai_input', 'id_area', 'id_gedung', 'id_ruangan', 'tb_master_type_transaksi.tipe_transaksi', 'tb_master_area.area', 'tb_master_gedung.gedung', 'tb_master_ruangan.ruangan'];
+    public $field_search   = ['kode_transaksi', 'tipe_transaksi', 'status_transaksi', 'tgl_awal_transaksi', 'tgl_akhir_transaksi', 'ket_transaksi', 'id_pegawai_input', 'nama_pegawai_input', 'id_area', 'id_gedung', 'id_ruangan', 'tb_master_type_transaksi.tipe_transaksi', 'tb_master_area.area', 'tb_master_gedung.gedung', 'tb_master_ruangan.ruangan'];
     public $sort_option = ['id', 'DESC'];
     
     public function __construct()
@@ -120,78 +120,43 @@ class Model_pencarian_aset extends MY_Model {
 
     public function count_all_content(){
 
+        // if ($filter_id_parameter != '0') {
+        //     $this->db->where('parameter_id', $filter_id_parameter);
+        // }
+
         $this->db->from('tb_master_aset');
-        $this->db->where('kode_tid IS NOT NULL');
+        $this->db->where('kode_tid IS NULL');
         return $this->db->count_all_results();
         
     }
 
-    public function get_all_aset($filter_data) {
-
-        if ($filter_data['id_area'] != '') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-        }
-        if ($filter_data['id_gedung'] != '') {
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-        }
-        if ($filter_data['id_ruangan'] != '') {
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
-        }
-
+    public function get_content($limit, $start, $order, $dir){
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL');
-        return $this->db->get()->result();
-    }
-
-    public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
-
-        if ($select_all == '1') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
-        } else {
-            
-            if ($filter_data['id_area'] != '') {
-                $this->db->where('a.id_area', $filter_data['id_area']);
-            }
-            if ($filter_data['id_gedung'] != '') {
-                $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            }
-            if ($filter_data['id_ruangan'] != '') {
-                $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
-            }
-
-        }
-
-        $this->db->select('a.*');
-        $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL');
-        $this->db->order_by($order, $dir);
-        $this->db->limit($limit, $start);
-        $query = $this->db->get();
-        // echo $this->db->last_query();
-        return $query->result();
-        
-    }
-
-    public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
-        $this->db->select('a.*');
-        $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL');
-        $this->db->like('a.nama_aset', $search);
-        $this->db->or_like('a.kode_aset', $search);
+        $this->db->where('a.kode_tid IS NULL');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function content_search_count($search, $select_all, $filter_data){
+    public function content_search($limit, $start, $search, $order, $dir){
+        $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
+        $this->db->order_by($order, $dir);
+        $this->db->limit($limit, $start);
+        $this->db->where('a.kode_tid IS NULL');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function content_search_count($search){
+        $this->db->from('tb_master_aset a');
+        $this->db->like('a.nama_aset', $search);
+        $this->db->or_like('a.kode_aset', $search);
+        $this->db->where('a.kode_tid IS NULL');
         return $this->db->count_all_results();
     }
 
@@ -303,16 +268,8 @@ class Model_pencarian_aset extends MY_Model {
         $this->db->from('pengaturan_sistem');
         return $this->db->get()->row();
     }
-    
-    function get_data_pie_chart(){
-        $this->db->select('tb_master_area.area, count(tb_master_transaksi.id_area) as total');
-        $this->db->from('tb_master_transaksi');
-        $this->db->join('tb_master_area', 'tb_master_transaksi.id_area = tb_master_area.id', 'left');
-        $this->db->group_by('tb_master_transaksi.id_area');
-        return $this->db->get()->result();
-    }
 
 }
 
-/* End of file Model_pencarian_aset.php */
-/* Location: ./application/models/Model_pencarian_aset.php */
+/* End of file Model_tb_master_transaksi.php */
+/* Location: ./application/models/Model_tb_master_transaksi.php */
