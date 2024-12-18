@@ -92,12 +92,12 @@ jQuery(document).ready(domo);
                               <option <?= $this->input->get('f') == 'nama_pegawai_input' ? 'selected' :''; ?> value="nama_pegawai_input">Nama Pegawai Input</option> -->
                            </select>
                         </div>
-                        <div class="col-sm-1 padd-left-0 ">
+                        <div class="col-sm-1">
                            <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
                            Filter
                            </button>
                         </div>
-                        <div class="col-sm-1 padd-left-0 ">
+                        <div class="col-sm-1">
                            <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/registrasi_aset');?>" title="<?= cclang('reset_filter'); ?>">
                            <i class="fa fa-undo"></i>
                            </a>
