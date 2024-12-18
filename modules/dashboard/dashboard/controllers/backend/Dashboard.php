@@ -52,45 +52,27 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($room2)->result();
 				break;
 			case "gettotalpantau":
-				$row_totalpantau = "SELECT kode_tid, nama_aset, kode_aset, nup, tgl_inventarisasi FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365 AND kode_tid !=''";
+				$row_totalpantau = "SELECT kode_tid, nama_aset, kode_aset, nup, tgl_inventarisasi FROM tb_master_aset WHERE DATEDIFF(CURDATE(), tgl_inventarisasi) <= 365 AND kode_tid !='' ORDER BY nama_aset ASC";
 				$data_json = $this->db->query($row_totalpantau)->result();
 				break;
 			case "total":
-				$query_total = "
-						SELECT 
-							tl.rfid_id AS rfid,
-							tl.location_status AS status,
-							CASE
-								WHEN tl.location_aging IS NOT NULL THEN DATEDIFF(NOW(), tl.location_aging)
-								ELSE '~'
-							END AS aging,
-							tl.location_created AS created,
-							tl.location_updated AS updated,
-							l.librarian_name AS ruangan
-						FROM 
-							tag_location tl
-						JOIN 
-							tag_librarian l ON tl.librarian_id = l.librarian_id
-						ORDER BY
-							tl.location_updated DESC
-						LIMIT 20;
-					";
-				$data_json = $this->db->query($query_total)->result();
+				$row_total = "SELECT kode_tid, nama_aset, kode_aset, nup, tgl_inventarisasi FROM tb_master_aset WHERE kode_tid !='' ORDER BY nama_aset ASC";
+				$data_json = $this->db->query($row_total)->result();
 				break;
 			case "anomali":
-				$query_anomali = "SELECT COUNT(*) as total FROM tb_master_aset WHERE kode_brg = '' AND nup = ''";
+				$query_anomali = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 1 AND x.kode_tid !=''";
 				$data_json = $this->db->query($query_anomali)->result();
 				break;
 			case "mutation":
-				$query_mut = "SELECT COUNT(*) as total FROM tb_master_aset WHERE tag_code IN (SELECT tag_code FROM tb_mutasi_asset)";
+				$query_mut = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 2 AND x.kode_tid !=''";
 				$data_json = $this->db->query($query_mut)->result();
 				break;
-			case "disposal":
-				$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status_id = 8";
-				$data_json = $this->db->query($query_disp)->result();
+			case "moving":
+				$query_mov = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup,x.nama_lokasi_terakhir, x.status, x.id_lokasi AS asal, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 4 AND x.kode_tid !=''";
+				$data_json = $this->db->query($query_mov)->result();
 				break;
-			case "koreksi":
-				$query_disp = "SELECT COUNT(*) as total, c.id_room,c.rfid_code_tag, o.nama_brg, o.kode_brg, o.nup, o.status_id, o.tag_code, o.lokasi FROM tb_master_aset AS o INNER JOIN tb_history_invent AS c ON c.rfid_code_tag = o.tag_code AND o.lokasi != c.id_room AND NOT EXISTS (SELECT tag_code FROM tb_asset_moving AS p WHERE p.tag_code = o.tag_code) ORDER BY o.tag_code";
+			case "maintenance":
+				$query_disp = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 3 AND x.kode_tid !=''";
 				$data_json = $this->db->query($query_disp)->result();
 				break;
 			case "ontime":

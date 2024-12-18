@@ -381,13 +381,13 @@ $CI = &get_instance();
       console.log(message);
       // updateDashboard(message);
     };
-
+    console.log("ugmandiri");
     ws.onclose = function() {
       console.log("Connection closed");
     };
 
     // Fungsi untuk menampilkan modal saat div dengan ID tertentu diklik
-    $('#aset_teregister, #sectiondashboard, #aset_total_pantau, #tape_total, #avalaible').click(function() {
+    $('#aset_teregister, #sectiondashboard, #aset_total_pantau, #tape_total,#perbaikan,#perpindahan,#peminjaman,#avalaible').click(function() {
       var divId = $(this).attr('id'); // Mendapatkan ID div yang diklik
       var title = '';
       // Menggunakan ID div untuk memilih endpoint yang sesuai
@@ -395,29 +395,34 @@ $CI = &get_instance();
       switch (divId) {
         case 'aset_teregister':
           endpoint = BASE_URL + '/administrator/dashboard/abc/gettotalpantau';
-          title = 'TOTAL ASET';
+          title = 'TOTAL ASET (12 Bulan Terakhir)';
+          topic = '';
           break;
-        case 'tape_total':
+        case 'aset_total_pantau':
           // console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/total';
-          title = 'TOTAL TAPE';
+          title = 'TOTAL ASET';
+          topic = '';
           break;
         case 'avalaible':
           endpoint = BASE_URL + '/administrator/dashboard/abc/anomali';
-          title = 'TOTAL ANOMALI';
+          title = 'ASET TERSEDIA';
+          topic = 'avalaible';
           break;
-        case 'aset_mutasi':
+        case 'peminjaman':
           endpoint = BASE_URL + '/administrator/dashboard/abc/mutation';
-          title = 'TOTAL MUTASI';
+          title = 'ASET DIPINJAM';
+          topic = 'borrow';
           break;
-        case 'aset_disposal':
-          endpoint = BASE_URL + '/administrator/dashboard/abc/disposal';
-          title = 'TOTAL HAPUS';
-          break;
-        case 'tape_ontime':
-          endpoint = BASE_URL + '/administrator/dashboard/abc/ontime';
+        case 'perpindahan':
+          endpoint = BASE_URL + '/administrator/dashboard/abc/moving';
           title = 'ASET BERGERAK';
           topic = 'moving';
+          break;
+        case 'perbaikan':
+          endpoint = BASE_URL + '/administrator/dashboard/abc/maintenance';
+          title = 'ASET PERBAIKAN';
+          topic = 'mainten';
           break;
         case 'tape_overdue':
           endpoint = BASE_URL + '/administrator/dashboard/abc/overdue';
@@ -440,11 +445,11 @@ $CI = &get_instance();
       }
 
       // Memanggil fungsi untuk menampilkan modal dengan konten dari endpoint yang sesuai
-      showModalWithPagination(endpoint, title);
+      showModalWithPagination(endpoint, title, topic);
     });
 
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
-    function showModalWithPagination(endpoint, title) {
+    function showModalWithPagination(endpoint, title, topic) {
 
       // Lakukan request AJAX ke endpoint yang diberikan
       $.ajax({
@@ -452,18 +457,28 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
-          console.log("bbb", data);
+          console.log("bbb", topic);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
           var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
-          modalContent += '<table id="exampleas" class="table table-bordered table-striped dataTable">';
+          modalContent += '<table class="table table-bordered table-striped dataTable responsive">';
+
+          if (topic == 'avalaible') {
+
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Ruangan</th></tr>';
+
+          } else if (topic == 'borrow' || topic == 'mainten') {
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th></tr>';
+          } else if (topic == 'moving') {
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Ruangan Eksisting</th></tr>';
 
 
-          modalContent += '<tr><th>No</th><th>Kode TID</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Tanggal Inventarisasi</th></tr>';
+          } else {
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Tgl Inventarisasi</th></tr>';
 
-
+          }
           // Proses data dari respons JSON dan tambahkan ke dalam tabel
           // Misalnya, untuk setiap item dalam data, tambahkan baris baru ke tabel
           data.forEach(function(item, index) {
@@ -475,12 +490,22 @@ $CI = &get_instance();
             modalContent += '<td>' + item.kode_aset + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nup + '</td>'; // Misalnya, ambil field2 dari item
             modalContent += '<td>' + item.nama_aset + '</td>'; // Misalnya, ambil field2 dari item
-            modalContent += '<td>' + item.tgl_inventarisasi + '</td>'; // Misalnya, ambil field2 dari item
-            // if (topic == 'ruangan') {
-            //   modalContent += '';
-            // } else {
-            //   modalContent += '<td>' + item.name_room + '</td>';
-            // }
+
+            if (topic == 'avalaible') {
+
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+
+            } else if (topic == 'borrow' || topic == 'mainten') {
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+            } else if (topic == 'moving') {
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.nama_lokasi_terakhir + '</td>'; // Misalnya, ambil field2 dari item
+
+
+            } else {
+              modalContent += '<td>' + item.tgl_inventarisasi + '</td>'; // Misalnya, ambil field2 dari item
+
+            }
 
 
             // Misalnya, ambil field2 dari item
@@ -499,6 +524,8 @@ $CI = &get_instance();
           // Tampilkan modal dengan konten yang telah dibuat
           $('#myModal').modal('show');
           $('.modal-content').html(modalContent);
+
+
         },
         error: function(xhr, status, error) {
           console.error("Failed to fetch data:", error);
@@ -725,7 +752,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 10000);
+    }, 5000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
@@ -875,7 +902,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 10000);
+    setInterval(newLibraraian, 5000);
 
     $(document).ready(function() {
 
