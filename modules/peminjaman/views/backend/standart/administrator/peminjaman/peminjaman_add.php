@@ -77,6 +77,7 @@
                 return item.kode_tid === kode_tid;
             });
 
+
             // Hanya tambahkan jika kode_tid belum ada
             if (!tidExists) {
                 dataArrayAset.push({
@@ -118,7 +119,7 @@
                             <td id="asset_code" style="text-align: left">${kode_aset}</td>
                             <td id="asset_nup" style="text-align: center">${nup}</td>
                             <td id="asset_tid_${kode_tid}" style="text-align: center">${kode_tid}</td>
-                            <td id="${kode_tid}" style="text-align: center; background-color: #FF0000">Not Available</td>
+                            <td id="${kode_tid}" style="text-align: center">Available</td>
                             <td style="text-align: center">
                                 <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                             </td>
@@ -221,7 +222,7 @@
                                     <td id="asset_code" style="text-align: left">${item.kode_aset}</td>
                                     <td id="asset_nup" style="text-align: center">${item.nup}</td>
                                     <td id="asset_tid_${item.kode_tid}" style="text-align: center">${item.kode_tid}</td>
-                                    <td id="${item.kode_tid}" style="text-align: center; background-color: #FF0000">Not Available</td>
+                                    <td id="${item.kode_tid}" style="text-align: center">Available</td>
                                     <td style="text-align: center">
                                         <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                                     </td>
@@ -251,7 +252,7 @@
     function get_check_unique_data(uniqueDataArray) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: ADMIN_BASE_URL + '/tb_master_transaksi/check_unique_data',
+                url: ADMIN_BASE_URL + '/peminjaman/check_unique_data',
                 type: 'GET',
                 dataType: 'json', 
                 data: {
@@ -270,7 +271,7 @@
     function get_check_unique_single_tag(tid) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: ADMIN_BASE_URL + '/tb_master_transaksi/check_unique_single_tag',
+                url: ADMIN_BASE_URL + '/peminjaman_add/check_unique_single_tag',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -1404,7 +1405,7 @@
             $('.loading').show();
 
             $.ajax({
-                    url: ADMIN_BASE_URL + '/tb_master_transaksi/add_save',
+                    url: ADMIN_BASE_URL + '/peminjaman/add_save',
                     type: 'POST',
                     dataType: 'json',
                     data: data_post,
@@ -1481,7 +1482,7 @@
                     }
 
                     if (use_ajax_crud == true) {
-                        var url = BASE_URL + ADMIN_NAMESPACE_URL + '/tb_master_transaksi/index/?ajax=1'
+                        var url = BASE_URL + ADMIN_NAMESPACE_URL + '/peminjaman/index/?ajax=1'
                         reloadDataTable(url);
                     }
 
@@ -1506,7 +1507,7 @@
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/tb_master_transaksi/ajax_id_gedung/' + val,
+                url: ADMIN_BASE_URL + '/peminjaman/ajax_id_gedung/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
@@ -1531,7 +1532,7 @@
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/tb_master_transaksi/ajax_id_ruangan/' + val,
+                url: ADMIN_BASE_URL + '/peminjaman/ajax_id_ruangan/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
