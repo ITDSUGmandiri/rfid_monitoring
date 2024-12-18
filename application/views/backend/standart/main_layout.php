@@ -8,13 +8,26 @@
   <meta name="keywords" content="<?= get_option('keywords'); ?>">
   <meta name="author" content="<?= get_option('author'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+  <meta http-equiv="refresh" content="1800;url=<?= admin_site_url('/auth/logout/1' . get_user_data('id')); ?>" />
+=======
+<<<<<<< HEAD
+  <meta http-equiv="refresh" content="1800;url=<?= admin_site_url('/auth/logout/1' . get_user_data('id')); ?>" />
+=======
   <!-- <meta http-equiv="refresh" content="600;url=<?= admin_site_url('/auth/logout/' . get_user_data('id')); ?>" /> -->
+>>>>>>> ridwan
+>>>>>>> 48ab21770dabec5d060075e6e72f7e67728d1425
 
   <title><?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
   <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+  <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registered_aset') { ?>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
+
+  <?php } ?>
+
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -251,7 +264,9 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registered_aset') { ?>
+    <!-- <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script> -->
+  <?php } ?>
 
   <script>
     $(document).ready(function() {
