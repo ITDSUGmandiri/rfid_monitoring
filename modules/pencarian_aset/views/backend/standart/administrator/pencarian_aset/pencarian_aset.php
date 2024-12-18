@@ -1023,6 +1023,53 @@
                 return false;
             }
 
+            if (metode_pencarian == 'bulk') {
+
+                let id_area = $('#id_area').val();
+                let id_gedung = $('#id_gedung').val();
+                let id_ruangan = $('#id_ruangan').val();
+
+                if (id_area == '') {
+                    swal({
+                        title: "Error",
+                        text: "Area tidak boleh kosong!",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay!",
+                        closeOnConfirm: true
+                    });
+                    return false;
+                }
+
+                if (id_gedung == '') {
+                    swal({
+                        title: "Error",
+                        text: "Gedung tidak boleh kosong!",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay!",
+                        closeOnConfirm: true
+                    });
+                    return false;
+                }
+
+                if (id_ruangan == '') {
+                    swal({
+                        title: "Error",
+                        text: "Ruangan tidak boleh kosong!",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay!",
+                        closeOnConfirm: true
+                    });
+                    return false;
+                }    
+
+            } // end validation bulk
+
             localStorage.setItem('ip_address', ip_address);
             
             const socket = new WebSocket('ws://' + ip_address + ':3030');
@@ -1056,6 +1103,7 @@
             var tidCount = {}; // Objek untuk menghitung frekuensi pembacaan TID
             var selisih = 0;
 
+            getAllAsetForBulk();
             // console.log('dataArrayAset: ', dataArrayAset);
 
             socket.onmessage = function (event) {
@@ -1108,18 +1156,18 @@
                                             
                                 // console.log(`TID: ${tid} telah terbaca ${tidCount[tid].count} kali`);
 
-                                // if (navigator.userAgent.match(/Android/i)) {
+                                if (navigator.userAgent.match(/Android/i)) {
                                         
-                                //     var bell = document.getElementById('buzzer');
+                                    var bell = document.getElementById('buzzer');
 
-                                //     // mainkan suara bell antrian
-                                //     // bell.src = bell.src + "?v=" + Math.random(); // Add a random query parameter to the URL to ensure the browser treats it as a new resource
-                                //     bell.type = "audio/mp3"; // Set the correct "Content-Type" response header for the audio file
-                                //     bell.pause();
-                                //     bell.currentTime = 0;
-                                //     bell.play();
+                                    // mainkan suara bell antrian
+                                    // bell.src = bell.src + "?v=" + Math.random(); // Add a random query parameter to the URL to ensure the browser treats it as a new resource
+                                    bell.type = "audio/mp3"; // Set the correct "Content-Type" response header for the audio file
+                                    bell.pause();
+                                    bell.currentTime = 0;
+                                    bell.play();
                                             
-                                // }
+                                }
 
                             } else {
                                 // console.log('Data dengan TID ' + tid + ' tidak ada');
