@@ -1,4 +1,8 @@
 <script type="text/javascript">
+
+var dataArrayAset = [];
+var dataArrayAset2 = [];
+
 function domo(){
    $('*').bind('keydown', 'Ctrl+e', function() {
       $('#btn_edit').trigger('click');
@@ -254,6 +258,8 @@ jQuery(document).ready(domo);
                $status_transaksi = $tb_master_transaksi->status_transaksi;  // Ambil status transaksi
 
                // Cek apakah status transaksi = 3, jika ya, sembunyikan tombol selesai
+               $show_search_button = ($status_transaksi <> 0); // Tombol selesai hanya muncul jika status bukan 3
+               $show_clear_search_button = ($status_transaksi <> 0); // Tombol selesai hanya muncul jika status bukan 3
                $show_selesai_button = ($status_transaksi == 1); // Tombol selesai hanya muncul jika status bukan 3
                $show_batal_button = ($status_transaksi == 1); // Tombol selesai hanya muncul jika status bukan 3
                ?>
@@ -262,6 +268,20 @@ jQuery(document).ready(domo);
                   <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/pemindahan/'); ?>">
                      <i class="fa fa-undo"></i> <?= cclang('go_list_button', ['Pemindahan']); ?>
                   </a>
+
+               <!-- Tombol search hanya ditampilkan jika status_transaksi == 1 -->
+               <?php if ($show_search_button): ?>
+                  <a class="btn btn-flat btn-default btn-action" id="btn_search_aset" href="javascript:void(0);" data-id="<?= $id; ?>">
+                     <i class="fa fa"></i> <?= cclang('Search'); ?>
+                  </a>
+               <?php endif; ?>
+
+               <!-- Tombol search hanya ditampilkan jika status_transaksi == 1 -->
+               <?php if ($show_clear_search_button): ?>
+                  <a class="btn btn-flat btn-default btn-action" id="btn_clear_search" href="javascript:void(0);" data-id="<?= $id; ?>">
+                     <i class="fa fa"></i> <?= cclang('Clear Search'); ?>
+                  </a>
+               <?php endif; ?>
 
                <!-- Tombol selesai hanya ditampilkan jika status_transaksi == 1 -->
                <?php if ($show_selesai_button): ?>
@@ -502,4 +522,187 @@ $(document).on('click', '#submit_batal', function(e) {
         }
     });
 });
+
+$('#btn_search_aset').click(async function (e) {
+    e.preventDefault();
+
+    // Ambil ID dari data-id di tombol
+    const id = $('#btn_search_aset').data('id');
+    
+    // Cek apakah ID ditemukan
+    if (!id) {
+        alert('ID transaksi tidak ditemukan!');
+        return;
+    }
+
+    try {
+        console.log("ID yang dimasukkan:", id); // Log ID untuk debugging
+        await getSearchAset(id); // Kirim ID ke fungsi getSearchAset
+    } catch (error) {
+        console.error("Error saat pencarian aset:", error);
+    }
+});
+
+async function getSearchAset(id) {
+
+var rowCount = $('#your_table_id tbody tr').length;
+var no = rowCount + 1;
+var string_id = "";
+
+console.log("ID yang diterima di getSearchAset:", id);  // Log ID untuk debugging
+
+try {
+    const response = await $.ajax({
+        url: `${ADMIN_BASE_URL}/pemindahan/get_search_aset?id=${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Response from server:', data); // Debug respons
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error); // Debug error AJAX
+        }
+    });
+
+    if (response.success) {
+
+        if (response.data.length == 0) {
+
+            await new Promise(resolve => {
+                Swal.fire({
+                    title: "Perhatian !",
+                    text: "Data aset kosong !!",
+                    icon: 'warning',
+                    allowOutsideClick: false
+                });
+                resolve();
+            });
+            
+            return false;
+
+        }
+
+        for (const item of response.data) {
+
+            // Cek apakah kode_tid sudah ada dalam array
+            let tidExists = dataArrayAset2.some(data => data.kode_tid === item.kode_tid);
+
+            if (!tidExists) {
+
+                // Menambahkan data ke array jika kode_tid belum ada
+                dataArrayAset2.push({
+                    id: item.id_aset,
+                    kode_aset: item.kode_aset,
+                    nup: item.nup,
+                    nama_aset: item.nama_aset,
+                    kode_tid: item.kode_tid
+                });
+
+                let rows = $("#your_table_id tbody tr");
+                let found = false;
+
+                for (let j = 0; j < rows.length; j++) {
+                    // Cari kolom dengan id yang sama dengan tid
+                    var hasilPencarianCell = $(rows[j]).find("td[id='" + item.kode_tid + "']");
+                    
+                    // Jika ditemukan kolom dengan id yang sesuai
+                    if (hasilPencarianCell.length > 0) {
+                        console.log('Data dengan TID ' + item.kode_tid + ' sudah ada');
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    // tampilkan data di table hasil pencarian
+                    await new Promise(resolve => {
+                        $('#your_table_id tbody').append(`
+                            <tr>    
+                                <td id="numbering" style="text-align: center">${no}</td>
+                                <td id="asset_id" style="text-align: center">${item.id_aset}</td>
+                                <td id="asset_name" style="text-align: left">${item.nama_aset}</td>
+                                <td id="asset_code" style="text-align: center">${item.kode_aset}</td>
+                                <td id="asset_nup" style="text-align: center">${item.nup}</td>
+                                <td id="asset_tid_${item.kode_tid}" style="text-align: center">${item.kode_tid}</td>
+                                <td id="${item.kode_tid}" style="text-align: center; background-color: #FF0000">Not Available</td>
+                                <td style="text-align: center">
+                                </td>
+                            </tr>
+                        `);
+                        resolve();
+                    });
+
+                    no = no + 1;
+                }
+
+            }
+
+            string_id = string_id + "~" + item.id_aset;
+            console.log(string_id);
+            
+        }
+
+        // let jumlah_aset_with_tag = $('#your_table_id tbody tr').length;
+        let jumlah_aset_with_tag = dataArrayAset2.length;
+
+        $('#total_rfid_tag').html(jumlah_aset_with_tag);
+        $('#total_aset_checklist').html(jumlah_aset_with_tag);
+        $('#string_id').val(string_id);
+        $('#data_array_aset').val(JSON.stringify(dataArrayAset2));
+
+        fixingNumbering('partial');
+
+        $('#chart_aset_real').html(jumlah_aset_with_tag);
+
+        chart_aset_real = jumlah_aset_with_tag;
+
+        return true;
+    }
+
+} catch (error) {
+    console.error(error);
+}
+}
+
+$('#btn_clear_search').click(function (e) {
+    e.preventDefault();
+
+    // Konfirmasi sebelum menghapus data
+    Swal.fire({
+        title: 'Konfirmasi',
+        text: 'Apakah Anda yakin ingin menghapus semua data hasil pencarian?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal',
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Kosongkan dataArrayAset2
+            dataArrayAset2 = [];
+            console.log('Data array aset telah dihapus:', dataArrayAset2);
+
+            // Kosongkan tabel hasil pencarian
+            $('#your_table_id tbody').empty();
+
+            // Reset nilai indikator dan elemen terkait
+            $('#total_rfid_tag').html(0);
+            $('#total_aset_checklist').html(0);
+            $('#string_id').val('');
+            $('#data_array_aset').val('');
+            $('#chart_aset_real').html(0);
+            chart_aset_real = 0;
+
+            // Tampilkan pesan sukses
+            Swal.fire({
+                title: 'Berhasil',
+                text: 'Data pencarian berhasil dihapus.',
+                icon: 'success',
+                allowOutsideClick: false
+            });
+        }
+    });
+});
+
+
 </script>

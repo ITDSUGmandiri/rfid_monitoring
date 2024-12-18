@@ -810,6 +810,49 @@ class pemindahan extends Admin
 
 		$this->response($response);
 	}
+
+	public function get_search_aset()
+	{
+		try {
+			// Ambil parameter id dari query string
+			$id = $this->input->get('id');
+
+			// Validasi parameter id
+			if (empty($id)) {
+				throw new Exception('Parameter "id" is required. Received ID: ' . var_export($id, true)); // Menampilkan nilai id jika kosong
+			}
+
+			$filter_data = [
+				'id_transaksi' => $id
+			];
+
+			// Panggil model untuk mendapatkan data
+			$results = $this->model_pemindahan->get_all_search_aset($filter_data);
+
+			// Periksa apakah data ditemukan
+			if (empty($results)) {
+				throw new Exception('No data found for the given ID: '. json_encode($filter_data));
+			}
+
+			// Berikan respons sukses
+			$response = [
+				'success' => true,
+				'data' => $results
+			];
+			$this->response($response);
+
+		} catch (Exception $e) {
+			// Laporkan error melalui log dan kirim respons error
+			log_message('error', 'Error dalam proses: ' . $e->getMessage());
+			$response = [
+				'success' => false,
+				'message' => $e->getMessage()
+			];
+			$this->response($response, 500); // Kirim status code 500
+		}
+	}
+
+
 }
 
 /* End of file tb_master_transaksi.php */
