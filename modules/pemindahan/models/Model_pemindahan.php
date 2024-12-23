@@ -304,6 +304,13 @@ class Model_pemindahan extends MY_Model {
         return $this->db->get()->row();
     }
     
+    function get_data_pie_chart(){
+        $this->db->select('tb_master_area.area, count(tb_master_transaksi.id_area) as total');
+        $this->db->from('tb_master_transaksi');
+        $this->db->join('tb_master_area', 'tb_master_transaksi.id_area = tb_master_area.id', 'left');
+        $this->db->group_by('tb_master_transaksi.id_area');
+        return $this->db->get()->result();
+    }
 
 }
 

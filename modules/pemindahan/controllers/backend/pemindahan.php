@@ -60,6 +60,21 @@ class pemindahan extends Admin
 		$this->render('backend/standart/administrator/pemindahan/pemindahan_list', $this->data);
 	}
 
+	/**
+	 * Add new tb_master_transaksis
+	 *
+	 */
+	public function add()
+	{
+		$this->is_allowed('pemindahan_add');
+
+		$this->data['pengaturan_sistem'] = $this->model_pemindahan->getPengaturanSistem();
+		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+
+		$this->template->title('Pemindahan Aset');
+		$this->render('backend/standart/administrator/pemindahan/pemindahan_add', $this->data);
+	}
+
 	public function serverSideData()
     {
         
@@ -125,20 +140,6 @@ class pemindahan extends Admin
         echo json_encode($json_data);
     }
 
-	/**
-	 * Add new tb_master_transaksis
-	 *
-	 */
-	public function add()
-	{
-		$this->is_allowed('pemindahan_add');
-
-		$this->data['pengaturan_sistem'] = $this->model_pemindahan->getPengaturanSistem();
-		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
-
-		$this->template->title('Pemindahan Aset');
-		$this->render('backend/standart/administrator/pemindahan/pemindahan_add', $this->data);
-	}
 
 	/**
 	 * Add New Tb Master Transaksis
