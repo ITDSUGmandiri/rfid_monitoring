@@ -6,44 +6,100 @@
 
 <script type="text/javascript">
     //get value from checkbox table
-    function get_datatables_checked() {
+    async function get_datatables_checked() 
+    {
         var table = $('#asetTable').DataTable();
-        var rowcollection = table.$(".cekbok:checked", {
-            "page": "all"
-        });
+        var rowcollection =  table.$(".cekbok:checked", {"page": "all"});
         var string_id = "";
         var count = 0;
-        var dataArrayAset = []; // Array untuk menyimpan data
+        var no = 1;
+        var rowCount = $('#your_table_id tbody tr').length;
 
-        rowcollection.each(function(index, elem) {
+        // $('#your_table_id tbody').empty();
+
+        for (let i = 0; i < rowcollection.length; i++) {
+            let elem = rowcollection[i];
+
             var id = $(elem).val();
             var nama_aset = $(elem).data("nama-aset");
             var kode_aset = $(elem).data("kode-aset");
             var nup = $(elem).data("nup");
-            count++;
+            var kode_tid = $(elem).data("kode-tid");
 
-            // Menambahkan data ke array
-            dataArrayAset.push({
-                id: id,
-                kode_aset: kode_aset,
-                nup: nup,
-                nama_aset: nama_aset
+            // Cek apakah kode_tid sudah ada di dataArrayAset
+            var tidExists = dataArrayAset.some(function(item) {
+                return item.kode_tid === kode_tid;
             });
 
+            // Hanya tambahkan jika kode_tid belum ada
+            if (!tidExists) {
+                dataArrayAset.push({
+                    id: id,
+                    kode_aset: kode_aset,
+                    nup: nup, 
+                    nama_aset: nama_aset,
+                    kode_tid: kode_tid
+                });
+            }
+
             string_id = string_id + "~" + id;
-        });
+
+            let rows = $("#your_table_id tbody tr");
+            let found = false;
+
+            for (let j = 0; j < rows.length; j++) {
+                // Cari kolom dengan id yang sama dengan tid
+                var hasilPencarianCell = $(rows[j]).find("td[id='" + kode_tid + "']");
+                
+                // Jika ditemukan kolom dengan id yang sesuai
+                if (hasilPencarianCell.length > 0) {
+                    console.log('Data dengan TID ' + kode_tid + ' sudah ada');
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                count++;
+                
+                // tampilkan data di table hasil pencarian
+                await new Promise(resolve => {        
+                    $('#your_table_id tbody').append(`
+                        <tr>    
+                            <td id="numbering" style="text-align: center">${no}</td>
+                            <td id="asset_id" style="text-align: center">${id}</td>
+                            <td id="asset_name" style="text-align: left">${nama_aset}</td>
+                            <td id="asset_code" style="text-align: left">${kode_aset}</td>
+                            <td id="asset_nup" style="text-align: center">${nup}</td>
+                            <td id="asset_tid_${kode_tid}" style="text-align: center">${kode_tid}</td>
+                        </tr>
+                    `);
+                    resolve();
+                });
+
+                no = no + 1;
+            }
+            
+        }
 
         if (string_id == "") {
-            swal({
-                title: "Perhatian !",
-                text: "Pilih / Ceklis dulu data yang ingin di proses !!",
-                type: "warning"
+            await new Promise(resolve => {
+                swal({
+                    title: "Perhatian !",
+                    text: "Pilih / Ceklis dulu data yang ingin di pindahkan !!",
+                    type: "warning"
+                });
+                resolve();
             });
             return false;
         } else {
-            $('#total_aset_checklist').html(count);
+            $('#total_rfid_tag').html(count+rowCount);
+            $('#total_aset_checklist').html(count+rowCount);
             $('#string_id').val(string_id);
             $('#data_array_aset').val(JSON.stringify(dataArrayAset)); // Menyimpan array data ke hidden input
+
+            fixingNumbering();
+
             return true;
         }
     }
@@ -183,7 +239,7 @@
                     <input type="hidden" name="ip_address_server" id="ip_address_server" value="<?= $pengaturan_sistem->ip_address_server; ?>">
                     <input type="hidden" name="port_ws_server" id="port_ws_server" value="<?= $pengaturan_sistem->port_ws_server; ?>">
 
-                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="2">
+                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="5">
                     <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
                     <input type="hidden" name="id_pegawai_input" id="id_pegawai_input" value="0">
                     <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
@@ -301,7 +357,7 @@
                 <fieldset>
 
                     <div class="form-group group-id_area ">
-                        <label for="id_area" class="col-sm-2 control-label">Area Tujuan<i class="required">*</i>
+                        <label for="id_area2" class="col-sm-2 control-label">Area Tujuan<i class="required">*</i>
                         </label>
                         <div class="col-sm-8">
                             <select class="form-control chosen chosen-select-deselect" name="id_area2" id="id_area2" data-placeholder="Pilih Area">
@@ -316,7 +372,7 @@
                     </div>
 
                     <div class="form-group group-id_gedung ">
-                        <label for="id_gedung" class="col-sm-2 control-label">Gedung Tujuan<i class="required">*</i>
+                        <label for="id_gedung2" class="col-sm-2 control-label">Gedung Tujuan<i class="required">*</i>
                         </label>
                         <div class="col-sm-8">
                             <select class="form-control chosen chosen-select-deselect" name="id_gedung2" id="id_gedung2" data-placeholder="Pilih Gedung">
@@ -328,7 +384,7 @@
                     </div>
 
                     <div class="form-group group-id_ruangan ">
-                        <label for="id_ruangan" class="col-sm-2 control-label">Ruangan Tujuan<i class="required">*</i>
+                        <label for="id_ruangan2" class="col-sm-2 control-label">Ruangan Tujuan<i class="required">*</i>
                         </label>
                         <div class="col-sm-8">
                             <select class="form-control chosen chosen-select-deselect" name="id_ruangan2" id="id_ruangan2" data-placeholder="Pilih Ruangan">
@@ -535,26 +591,23 @@
         var url = BASE_URL + ADMIN_NAMESPACE_URL + '/' + module_name + '/serverSideData';
 
         table = $('#asetTable').DataTable({
-            // "paging": true,
-            // "searching": true,
-            // "ordering": true,
-            // "info": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
                 url: url,
                 type: "POST",
-                // type: "GET",
-                // data: function (d) {
-                //     d.filter_id_parameter = $('#filter_id_parameter').val();
-                // }
+                data: function(d) {
+                    d.id_area = $('#id_area').val();
+                    d.id_gedung = $('#id_gedung').val(); 
+                    d.id_ruangan = $('#id_ruangan').val();
+                    d.select_all = $('#select_all').val();
+                }
             },
-            "order": [
-                [3, 'asc']
-            ],
-            columns: [{
+            "order": [[3, 'asc']],
+            columns: [
+                {
                     "data": "checkbox_id_master_aset",
-                    "className": "dt-center",
+                    "className": "dt-center", 
                     "orderable": false,
                     "searchable": false
                 },
@@ -564,33 +617,13 @@
                     "orderable": false,
                     "searchable": false
                 },
-                {
-                    data: "id",
-                    className: "dt-center",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "nama_aset",
-                    className: "dt-left",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "kode_aset",
-                    className: "dt-left",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "nup",
-                    className: "dt-center",
-                    orderable: true,
-                    searchable: true
-                },
-                // { data: "Action", className: "dt-center", orderable: false, searchable: false },
+                { data: "id", className: "dt-center", orderable: true, searchable: true },
+                { data: "nama_aset", className: "dt-left", orderable: true, searchable: true },
+                { data: "kode_aset", className: "dt-left", orderable: true, searchable: true },
+                { data: "nup", className: "dt-center", orderable: true, searchable: true },
+                { data: "kode_tid", className: "dt-center", orderable: true, searchable: true },
             ],
-            "createdRow": function(row, data, dataIndex) {
+            "createdRow": function (row, data, dataIndex) {
                 // Paksa semua kolom angka menjadi rata tengah
                 $('td', row).eq(1).css('text-align', 'center');
                 $('td', row).eq(2).css('text-align', 'center');
@@ -602,6 +635,55 @@
             table.ajax.reload();
             // table.ajax.reload(null,false); //reload datatable ajax 
         }
+
+        $('#select_all').change(function() {
+
+            var id_area = $('#id_area').val();
+            var id_gedung = $('#id_gedung').val();
+            var id_ruangan = $('#id_ruangan').val();    
+
+            if ($(this).is(':checked')) {
+
+                if (id_area == '') {
+                    swal({
+                        title: "Error",
+                        text: "Area tidak boleh kosong!",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay!",
+                        closeOnConfirm: true
+                    });
+                    $(this).prop('checked', false);
+                    $(this).val('0');
+                    return false;
+                }
+
+                if (id_gedung == '') {
+                    swal({
+                        title: "Error",
+                        text: "Gedung tidak boleh kosong!",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay!",
+                        closeOnConfirm: true
+                    });
+                    $(this).prop('checked', false);
+                    $(this).val('0');
+                    return false;
+                }
+
+                $('#asetTable').find('input[type="checkbox"]').prop('checked', false);
+                $('#asetTable').find('input[type="checkbox"]').prop('disabled', true);
+                $(this).val('1');
+
+            } else {
+                $('#asetTable').find('input[type="checkbox"]').prop('disabled', false);
+                $(this).val('0'); 
+            }
+
+        });
 
         $('#btn_search_single_tag').click(function() {
 
@@ -1545,7 +1627,7 @@
 
                 swal({
                     title: "Error",
-                    text: "Pilih dulu Aset yang akan di registrasi!",
+                    text: "Pilih dulu Aset yang akan di pindahkan!",
                     type: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#DD6B55",
@@ -1555,38 +1637,6 @@
 
                 return false;
 
-            }
-
-            var total_rfid_tag = $('#total_rfid_tag').html();
-
-            if (total_rfid_tag == 0) {
-
-                swal({
-                    title: "Error",
-                    text: "RFID Tag tidak boleh kosong!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-
-                return false;
-            }
-
-            if (total_rfid_tag != total_aset_checklist) {
-
-                swal({
-                    title: "Error",
-                    text: "Total RFID Tag tidak sama dengan total Aset yang dipilih!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-
-                return false;
             }
 
             get_datatables_checked();
@@ -1939,6 +1989,56 @@
                     });
                     $('#id_ruangan').html(html);
                     $('#id_ruangan').trigger('chosen:updated');
+
+                })
+                .fail(function() {
+                    toastr['error']('Error', 'Getting data fail')
+                })
+                .always(function() {
+                    $.LoadingOverlay('hide')
+                });
+
+        });
+
+        $('#id_area2').change(function(event) {
+            var val = $(this).val();
+            $.LoadingOverlay('show')
+            $.ajax({
+                    url: ADMIN_BASE_URL + '/pemindahan/ajax_id_gedung2/' + val,
+                    dataType: 'JSON',
+                })
+                .done(function(res) {
+                    var html = '<option value=""></option>';
+                    $.each(res, function(index, val) {
+                        html += '<option value="' + val.id + '">' + val.gedung2 + '</option>'
+                    });
+                    $('#id_gedung2').html(html);
+                    $('#id_gedung2').trigger('chosen:updated');
+
+                })
+                .fail(function() {
+                    toastr['error']('Error', 'Getting data fail')
+                })
+                .always(function() {
+                    $.LoadingOverlay('hide')
+                });
+
+        });
+
+        $('#id_gedung2').change(function(event) {
+            var val = $(this).val();
+            $.LoadingOverlay('show')
+            $.ajax({
+                    url: ADMIN_BASE_URL + '/pemindahan/ajax_id_ruangan2/' + val,
+                    dataType: 'JSON',
+                })
+                .done(function(res) {
+                    var html = '<option value=""></option>';
+                    $.each(res, function(index, val) {
+                        html += '<option value="' + val.id + '">' + val.ruangan2 + '</option>'
+                    });
+                    $('#id_ruangan2').html(html);
+                    $('#id_ruangan2').trigger('chosen:updated');
 
                 })
                 .fail(function() {
