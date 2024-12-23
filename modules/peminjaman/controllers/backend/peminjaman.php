@@ -4,17 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
 *| --------------------------------------------------------------------------
-*| Tb Master Transaksi Controller
+*| Pencarian Aset Controller
 *| --------------------------------------------------------------------------
-*| Tb Master Transaksi site
+*| Pencarian Aset site
 *|
 */
-class peminjaman extends Admin	
+class Peminjaman extends Admin	
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('tb_master_aset/model_tb_master_aset');
 
 		$this->load->model('model_peminjaman');
 		$this->load->model('group/model_group');
@@ -22,10 +23,14 @@ class peminjaman extends Admin
 	}
 
 	/**
-	* show all Tb Master Transaksis
+	* Add new tb_master_transaksis
 	*
-	* @var $offset String
 	*/
+	/**
+	 * show all Tb Master Transaksis
+	 *
+	 * @var $offset String
+	 */
 	public function index($offset = 0)
 	{
 		$this->is_allowed('peminjaman_list');
@@ -44,9 +49,9 @@ class peminjaman extends Admin
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
-		
+
 		$this->data['tables'] = $this->load->view('backend/standart/administrator/peminjaman/tb_master_transaksi_data_table', $this->data, true);
-		
+
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
@@ -55,7 +60,7 @@ class peminjaman extends Admin
 			]);
 		}
 
-		$this->template->title('Peminjaman Aset List');
+		$this->template->title('Peminjaman List');
 		$this->render('backend/standart/administrator/peminjaman/peminjaman_list', $this->data);
 	}
 
@@ -67,7 +72,8 @@ class peminjaman extends Admin
             1 => 'id_aset',
             2 => 'nama_aset',
             3 => 'kode_aset',
-            4 => 'nup'
+            4 => 'nup',
+			5 => 'kode_tid'
         );
 
         $limit = $this->input->post('length');
@@ -75,35 +81,40 @@ class peminjaman extends Admin
         $order = $columns[$this->input->post('order')[0]['column']];
         $dir = $this->input->post('order')[0]['dir'];
 
-        $filter_id_parameter = $this->input->post('filter_id_parameter');
+        $id_area = $this->input->post('id_area');
+        $id_gedung = $this->input->post('id_gedung');
+        $id_ruangan = $this->input->post('id_ruangan');
+        $select_all = $this->input->post('select_all');
+
+		$filter_data = array();
+
+		$filter_data['id_area'] = $id_area;
+		$filter_data['id_gedung'] = $id_gedung;
+		$filter_data['id_ruangan'] = $id_ruangan;
 
         $totalData = $this->model_peminjaman->count_all_content();
         $totalFiltered = $totalData;
 
         if(empty($this->input->post('search')['value'])) {
-            $contents = $this->model_peminjaman->get_content($limit, $start, $order, $dir);
+            $contents = $this->model_peminjaman->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
         } else {
             $search = $this->input->post('search')['value'];
-            $contents =  $this->model_peminjaman->content_search($limit, $start, $search, $order, $dir);
-            $totalFiltered = $this->model_peminjaman->content_search_count($search);
+            $contents =  $this->model_peminjaman->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+            $totalFiltered = $this->model_peminjaman->content_search_count($search, $select_all, $filter_data);
         }
-
-		// echo '<pre>';
-		// print_r($contents);
-		// echo '</pre>';
-		// exit();
 
         $data = array();
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'">';
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'">';
 				$nestedData['auto_number'] = $autoNumber;
 				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
                 $nestedData['nama_aset'] = $row->nama_aset;
                 $nestedData['kode_aset'] = $row->kode_aset;
                 $nestedData['nup'] = $row->nup;
+                $nestedData['kode_tid'] = $row->kode_tid;
                 $data[] = $nestedData;
             }
         }
@@ -117,16 +128,17 @@ class peminjaman extends Admin
 
         echo json_encode($json_data);
     }
-	
-	/**
-	* Add new tb_master_transaksis
-	*
-	*/
+
+		/**
+	 * Add new tb_master_transaksis
+	 *
+	 */
 	public function add()
 	{
 		$this->is_allowed('peminjaman_add');
 
 		$this->data['pengaturan_sistem'] = $this->model_peminjaman->getPengaturanSistem();
+		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
 
 		$this->template->title('Peminjaman Aset');
 		$this->render('backend/standart/administrator/peminjaman/peminjaman_add', $this->data);
@@ -151,7 +163,6 @@ class peminjaman extends Admin
 		$this->form_validation->set_rules('tipe_transaksi', 'Tipe Transaksi', 'trim|required');
 		$this->form_validation->set_rules('status_transaksi', 'Status Transaksi', 'trim|required');
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
-		$this->form_validation->set_rules('tgl_akhir_transaksi', 'Tgl Akhir Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
 		// $this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
 		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
@@ -166,7 +177,7 @@ class peminjaman extends Admin
 				'status_transaksi' => $this->input->post('status_transaksi'),
 				'tgl_input' => date('Y-m-d H:i:s'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
-				'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
+				// 'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
 				'id_pegawai_input' => $this->input->post('id_pegawai_input'),
 				'nama_pegawai_input' => $this->input->post('nama_pegawai_input'),
 				'id_pegawai' => $this->input->post('id_pegawai'),
@@ -256,9 +267,9 @@ class peminjaman extends Admin
 	{
 		$this->is_allowed('peminjaman_update');
 
-		$this->data['peminjaman'] = $this->model_peminjaman->find($id);
+		$this->data['tb_master_transaksi'] = $this->model_peminjaman->find($id);
 
-		$this->template->title('Peminjaman Aset Update');
+		$this->template->title('Register Aset Update');
 		$this->render('backend/standart/administrator/peminjaman/peminjaman_update', $this->data);
 	}
 
@@ -284,10 +295,9 @@ class peminjaman extends Admin
 		$this->form_validation->set_rules('status_transaksi', 'Status Transaksi', 'trim|required');
 		
 
-		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		
 
-		$this->form_validation->set_rules('tgl_akhir_transaksi', 'Tgl Akhir Transaksi', 'trim|required');
+		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		
 
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
@@ -316,7 +326,6 @@ class peminjaman extends Admin
 				'tipe_transaksi' => $this->input->post('tipe_transaksi'),
 				'status_transaksi' => $this->input->post('status_transaksi'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
-				'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
 				'ket_transaksi' => $this->input->post('ket_transaksi'),
 				'id_pegawai_input' => $this->input->post('id_pegawai_input'),
 				'nama_pegawai_input' => $this->input->post('nama_pegawai_input'),
@@ -399,20 +408,20 @@ class peminjaman extends Admin
 			if ($remove) {
 				$this->response([
 					"success" => true,
-					"message" => cclang('has_been_deleted', 'peminjaman')
+					"message" => cclang('has_been_deleted', 'tb_master_transaksi')
 				]);
 			} else {
 				$this->response([
 					"success" => true,
-					"message" => cclang('error_delete', 'peminjaman')
+					"message" => cclang('error_delete', 'tb_master_transaksi')
 				]);
 			}
 
 		} else {
 			if ($remove) {
-				set_message(cclang('has_been_deleted', 'peminjaman'), 'success');
+				set_message(cclang('has_been_deleted', 'tb_master_transaksi'), 'success');
 			} else {
-				set_message(cclang('error_delete', 'peminjaman'), 'error');
+				set_message(cclang('error_delete', 'tb_master_transaksi'), 'error');
 			}
 			redirect_back();
 		}
@@ -430,7 +439,7 @@ class peminjaman extends Admin
 
 		$this->data['tb_master_transaksi'] = $this->model_peminjaman->getTransaksiById($id);
 		$this->data['tb_detail_transaksi'] = $this->model_peminjaman->getDetailTransaksiById($id);
-		$this->template->title('Detail Peminjaman Aset');
+		$this->template->title('Detail Register Aset');
 		$this->render('backend/standart/administrator/peminjaman/peminjaman_view', $this->data);
 	}
 	
@@ -471,7 +480,7 @@ class peminjaman extends Admin
 	{
 		$this->is_allowed('peminjaman_export');
 
-		$this->model_tb_master_transaksi->pdf('peminjaman', 'peminjaman');
+		$this->model_peminjaman->pdf('peminjaman', 'peminjaman');
 	}
 
 
@@ -493,7 +502,7 @@ class peminjaman extends Admin
 
         $result = $this->db->get($table);
        
-        $data = $this->model_tb_master_transaksi->find($id);
+        $data = $this->model_peminjaman->find($id);
         $fields = $result->list_fields();
 
         $content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
@@ -609,6 +618,43 @@ class peminjaman extends Admin
 		$this->response($response);
 	}
 
+	public function get_all_aset()
+	{
+		$id_area = $this->input->get('id_area');	
+		$id_gedung = $this->input->get('id_gedung');
+		$id_ruangan = $this->input->get('id_ruangan');
+
+		$filter_data = array();
+
+		$filter_data = array(
+			'id_area' => $id_area,
+			'id_gedung' => $id_gedung,
+			'id_ruangan' => $id_ruangan
+		);
+
+		$results = $this->model_peminjaman->get_all_aset($filter_data);
+		
+		$response = [
+			'success' => true,
+			'data' => $results
+		];
+
+		$this->response($response);
+	}
+
+	public function ajax_pie_chart()
+	{
+		$results = $this->model_peminjaman->get_data_pie_chart();
+
+		$response = [
+			'success' => true,
+			'data' => $results
+		];
+
+		$this->response($response);
+		echo "Coba";
+
+	}
 }
 
 /* End of file tb_master_transaksi.php */
