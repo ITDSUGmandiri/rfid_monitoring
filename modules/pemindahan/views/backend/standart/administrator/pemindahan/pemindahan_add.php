@@ -444,6 +444,13 @@ console.log("xxx");
                     ]); 
                 ?>
 
+                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="2">
+                    <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
+                    <input type="hidden" name="id_pegawai_input" id="id_pegawai_input" value="0">
+                    <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
+                    <input type="hidden" name="id_pegawai" id="id_pegawai" value="0">
+                    <input type="hidden" name="nama_pegawai" id="nama_pegawai" value="0">
+
                     <div class="form-group group-tgl_awal_transaksi ">
                         <label for="tgl_awal_transaksi" class="col-sm-2 control-label">Tgl Pemindahan<i class="required">*</i>
                         </label>
