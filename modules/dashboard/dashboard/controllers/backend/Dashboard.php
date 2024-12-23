@@ -60,7 +60,7 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($row_total)->result();
 				break;
 			case "anomali":
-				$query_anomali = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 1 AND x.kode_tid !=''";
+				$query_anomali = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.lokasi_moving WHERE x.status = 1 AND x.kode_tid !='' order by x.lokasi_moving asc, x.kode_aset asc, nup asc";
 				$data_json = $this->db->query($query_anomali)->result();
 				break;
 			case "mutation":
@@ -222,7 +222,7 @@ class Dashboard extends Admin
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room
-		$querycateg = "SELECT c.ruangan,count(a.id_lokasi) as total FROM tb_master_aset a JOIN tb_master_ruangan c ON a.lokasi_moving = c.id AND a.lokasi_moving = a.id_lokasi AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
+		$querycateg = "SELECT c.ruangan,count(a.lokasi_moving) as total FROM tb_master_aset a JOIN tb_master_ruangan c ON c.id = a.lokasi_moving AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
 		$data_ruangan = $this->db->query($querycateg)->result();
 
 		//status kategory
