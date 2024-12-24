@@ -63,6 +63,7 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
 
 <script type="text/javascript">
+<<<<<<< HEAD
 
     var dataArrayAset = [];
     var dataArrayAsetForBulk = [];
@@ -106,6 +107,10 @@
             bell.pause();
         }, 1000);
     }
+=======
+console.log("xxx");
+    var dataArrayAset = []; // Array untuk menyimpan data
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 
     function removeAllRow() {
 
@@ -1513,6 +1518,7 @@
                         closeOnConfirm: true
                     });
                     return false;
+<<<<<<< HEAD
                 }   
 
                 var postTimeout = null; // Timer untuk mendeteksi tidak ada data baru
@@ -1558,6 +1564,11 @@
 
             var port_ws_server = $('#port_ws_server').val();
             var protocol_ws_server = $('#protocol_ws_server').val();
+=======
+                }    
+
+            } // end validation bulk
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 
             localStorage.setItem('ip_address', ip_address);
             const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
@@ -1578,6 +1589,18 @@
                 $('#data_processing').html('');
             };
 
+<<<<<<< HEAD
+=======
+            var postTimeout = null; // Timer untuk mendeteksi tidak ada data baru
+            var timeoutDuration = 2000; // Waktu tunggu (ms) untuk memposting data ke database
+
+            var tidCount = {}; // Objek untuk menghitung frekuensi pembacaan TID
+            var selisih = 0;
+
+            getAllAsetForBulk();
+            // console.log('dataArrayAset: ', dataArrayAset);
+
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
             socket.onmessage = function (event) {
 
                 var parsedData = JSON.parse(event.data);
@@ -1633,12 +1656,26 @@
                                             
                                 // console.log(`TID: ${tid} telah terbaca ${tidCount[tid].count} kali`);
 
+<<<<<<< HEAD
                                 if (is_web_play_buzzer == 1){
                                     playBuzzerPencarian();
                                 } else {
                                     if (navigator.userAgent.match(/Android/i)) {
                                         playBuzzerPencarian();        
                                     }
+=======
+                                if (navigator.userAgent.match(/Android/i)) {
+                                        
+                                    var bell = document.getElementById('buzzer');
+
+                                    // mainkan suara bell antrian
+                                    // bell.src = bell.src + "?v=" + Math.random(); // Add a random query parameter to the URL to ensure the browser treats it as a new resource
+                                    bell.type = "audio/mp3"; // Set the correct "Content-Type" response header for the audio file
+                                    bell.pause();
+                                    bell.currentTime = 0;
+                                    bell.play();
+                                            
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
                                 }
 
                             } else {

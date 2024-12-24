@@ -63,7 +63,11 @@ class Pencarian_aset extends Admin
 		$filter_data['id_gedung'] = $id_gedung;
 		$filter_data['id_ruangan'] = $id_ruangan;
 
+<<<<<<< HEAD
         $totalData = $this->model_pencarian_aset->count_all_content($filter_data);
+=======
+        $totalData = $this->model_pencarian_aset->count_all_content();
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
         $totalFiltered = $totalData;
 
         if(empty($this->input->post('search')['value'])) {
@@ -531,6 +535,7 @@ class Pencarian_aset extends Admin
 
 	public function check_unique_single_tag()
 	{
+<<<<<<< HEAD
 
 		$tid = $this->input->get('tid');
 
@@ -574,6 +579,18 @@ class Pencarian_aset extends Admin
 			
 		}
 
+=======
+		$tid = $this->input->get('tid');
+		$check = $this->db->get_where('tb_master_tag_rfid', 
+		[
+			'kode_tid' => $tid,
+			'status_tag' => 'Y'
+		])->num_rows();
+
+		$response = [	
+			'check' => $check
+		];
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 		$this->response($response);
 
 	}
@@ -613,15 +630,22 @@ class Pencarian_aset extends Admin
 		$id_area = $this->input->get('id_area');	
 		$id_gedung = $this->input->get('id_gedung');
 		$id_ruangan = $this->input->get('id_ruangan');
+<<<<<<< HEAD
 		$metode_pencarian = $this->input->get('metode_pencarian');
+=======
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 
 		$filter_data = array();
 
 		$filter_data = array(
 			'id_area' => $id_area,
 			'id_gedung' => $id_gedung,
+<<<<<<< HEAD
 			'id_ruangan' => $id_ruangan,
 			'metode_pencarian' => $metode_pencarian
+=======
+			'id_ruangan' => $id_ruangan
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 		);
 
 		$results = $this->model_pencarian_aset->get_all_aset($filter_data);
@@ -644,6 +668,10 @@ class Pencarian_aset extends Admin
 		];
 
 		$this->response($response);
+<<<<<<< HEAD
+=======
+		echo "Coba";
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 
 	}
 }

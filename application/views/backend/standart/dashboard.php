@@ -752,7 +752,11 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
+<<<<<<< HEAD
     }, 3000);
+=======
+    }, 5000);
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
@@ -902,7 +906,11 @@ $CI = &get_instance();
       }
     });
 
+<<<<<<< HEAD
     setInterval(newLibraraian, 3000);
+=======
+    setInterval(newLibraraian, 5000);
+>>>>>>> 4a211ed1fb918bfd61b042a0a515cfffd0650dfb
 
     $(document).ready(function() {
 
