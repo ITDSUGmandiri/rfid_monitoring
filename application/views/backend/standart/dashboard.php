@@ -129,14 +129,14 @@ $CI = &get_instance();
   /* batas */
 </style>
 
-<link rel="stylesheet" href="<?= BASE_ASSET; ?>admin-lte/plugins/morris/morris.css">
+<link rel="stylesheet" href="<?php BASE_ASSET; ?>admin-lte/plugins/morris/morris.css">
 
 <section class="content-header">
   <!-- <h1>
-    <?= cclang('DASHBOARD INVENTORY ASET') ?>
+    <?php cclang('DASHBOARD INVENTORY ASET') ?>
     <small>
 
-      <?= cclang('Dashboard') ?>
+      <?php cclang('Dashboard') ?>
     </small>
   </h1> -->
   <!-- <ol class="breadcrumb">
@@ -144,11 +144,11 @@ $CI = &get_instance();
       <a href="#">
         <i class="fa fa-dashboard">
         </i>
-        <?= cclang('home') ?>
+        <?php cclang('home') ?>
       </a>
     </li>
     <li class="active">
-      <?= cclang('dashboard') ?>
+      <?php cclang('dashboard') ?>
     </li>
   </ol> -->
 </section>
@@ -381,7 +381,7 @@ $CI = &get_instance();
       console.log(message);
       // updateDashboard(message);
     };
-
+    console.log("ugmandiri");
     ws.onclose = function() {
       console.log("Connection closed");
     };
@@ -752,7 +752,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 10000);
+    }, 3000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
@@ -902,7 +902,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 10000);
+    setInterval(newLibraraian, 3000);
 
     $(document).ready(function() {
 
