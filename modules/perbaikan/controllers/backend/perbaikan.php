@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *| Tb Master Transaksi site
  *|
  */
-class pemindahan extends Admin
+class perbaikan extends Admin
 {
 
 	public function __construct()
@@ -17,7 +17,7 @@ class pemindahan extends Admin
 		parent::__construct();
 		$this->load->model('tb_master_aset/model_tb_master_aset');
 
-		$this->load->model('model_pemindahan');
+		$this->load->model('model_perbaikan');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);
 	}
@@ -29,35 +29,35 @@ class pemindahan extends Admin
 	 */
 	public function index($offset = 0)
 	{
-		$this->is_allowed('pemindahan_list');
+		$this->is_allowed('perbaikan_list');
 
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
-		$this->data['pemindahans'] = $this->model_pemindahan->get($filter, $field, $this->limit_page, $offset);
-		$this->data['pemindahan_counts'] = $this->model_pemindahan->count_all($filter, $field);
+		$this->data['perbaikans'] = $this->model_perbaikan->get($filter, $field, $this->limit_page, $offset);
+		$this->data['perbaikan_counts'] = $this->model_perbaikan->count_all($filter, $field);
 
 		$config = [
-			'base_url'     => ADMIN_NAMESPACE_URL  . '/pemindahan/index/',
-			'total_rows'   => $this->data['pemindahan_counts'],
+			'base_url'     => ADMIN_NAMESPACE_URL  . '/perbaikan/index/',
+			'total_rows'   => $this->data['perbaikan_counts'],
 			'per_page'     => $this->limit_page,
 			'uri_segment'  => 4,
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
 
-		$this->data['tables'] = $this->load->view('backend/standart/administrator/pemindahan/tb_master_transaksi_data_table', $this->data, true);
+		$this->data['tables'] = $this->load->view('backend/standart/administrator/perbaikan/tb_master_transaksi_data_table', $this->data, true);
 
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
 				'pagination' => $this->data['pagination'],
-				'total_row' => $this->data['pemindahan_counts']
+				'total_row' => $this->data['perbaikan_counts']
 			]);
 		}
 
-		$this->template->title('Pemindahan List');
-		$this->render('backend/standart/administrator/pemindahan/pemindahan_list', $this->data);
+		$this->template->title('Perbaikan List');
+		$this->render('backend/standart/administrator/perbaikan/perbaikan_list', $this->data);
 	}
 
 	/**
@@ -66,13 +66,13 @@ class pemindahan extends Admin
 	 */
 	public function add()
 	{
-		$this->is_allowed('pemindahan_add');
+		$this->is_allowed('perbaikan_add');
 
-		$this->data['pengaturan_sistem'] = $this->model_pemindahan->getPengaturanSistem();
+		$this->data['pengaturan_sistem'] = $this->model_perbaikan->getPengaturanSistem();
 		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
 
-		$this->template->title('Pemindahan Aset');
-		$this->render('backend/standart/administrator/pemindahan/pemindahan_add', $this->data);
+		$this->template->title('Perbaikan Aset');
+		$this->render('backend/standart/administrator/perbaikan/perbaikan_add', $this->data);
 	}
 
 	public function serverSideData()
@@ -103,15 +103,15 @@ class pemindahan extends Admin
 		$filter_data['id_gedung'] = $id_gedung;
 		$filter_data['id_ruangan'] = $id_ruangan;
 
-        $totalData = $this->model_pemindahan->count_all_content();
+        $totalData = $this->model_perbaikan->count_all_content();
         $totalFiltered = $totalData;
 
         if(empty($this->input->post('search')['value'])) {
-            $contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
+            $contents = $this->model_perbaikan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
         } else {
             $search = $this->input->post('search')['value'];
-            $contents =  $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
-            $totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
+            $contents =  $this->model_perbaikan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+            $totalFiltered = $this->model_perbaikan->content_search_count($search, $select_all, $filter_data);
         }
 
         $data = array();
@@ -149,7 +149,7 @@ class pemindahan extends Admin
 	public function add_save()
 	{
 
-		if (!$this->is_allowed('pemindahan_add', false)) {
+		if (!$this->is_allowed('perbaikan_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -222,7 +222,7 @@ class pemindahan extends Admin
 			// echo '</pre>';
 			// exit();
 
-			$save_register_aset = $id = $this->model_pemindahan->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset);
+			$save_register_aset = $id = $this->model_perbaikan->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset);
 			// $save_register_aset = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 
 			// echo '<pre>';
@@ -236,11 +236,11 @@ class pemindahan extends Admin
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_register_aset;
-					$this->data['message'] = cclang('success_save_data_stay', [admin_anchor('/pemindahan', 'Go back to list')]);
+					$this->data['message'] = cclang('success_save_data_stay', [admin_anchor('/perbaikan', 'Go back to list')]);
 				} else {
-					set_message(cclang('success_save_data_redirect', [admin_anchor('/pemindahan/view/' . $save_register_aset, 'See detail')]), 'success');
+					set_message(cclang('success_save_data_redirect', [admin_anchor('/perbaikan/view/' . $save_register_aset, 'See detail')]), 'success');
 					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/pemindahan');
+					$this->data['redirect'] = admin_base_url('/perbaikan');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -249,7 +249,7 @@ class pemindahan extends Admin
 				} else {
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/pemindahan');
+					$this->data['redirect'] = admin_base_url('/perbaikan');
 				}
 			}
 		} else {
@@ -268,12 +268,12 @@ class pemindahan extends Admin
 	 */
 	public function edit($id)
 	{
-		$this->is_allowed('pemindahan_update');
+		$this->is_allowed('perbaikan_update');
 
-		$this->data['pemindahan'] = $this->model_pemindahan->find($id);
+		$this->data['perbaikan'] = $this->model_perbaikan->find($id);
 
-		$this->template->title('Pemindahan Update');
-		$this->render('backend/standart/administrator/pemindahan/pemindahan_update', $this->data);
+		$this->template->title('Perbaikan Update');
+		$this->render('backend/standart/administrator/perbaikan/perbaikan_update', $this->data);
 	}
 
 	/**
@@ -283,7 +283,7 @@ class pemindahan extends Admin
 	 */
 	public function edit_save($id)
 	{
-		if (!$this->is_allowed('pemindahan_update', false)) {
+		if (!$this->is_allowed('perbaikan_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -344,7 +344,7 @@ class pemindahan extends Admin
 
 
 
-			$save_tb_master_transaksi = $this->model_pemindahan->change($id, $save_data);
+			$save_tb_master_transaksi = $this->model_perbaikan->change($id, $save_data);
 
 			if ($save_tb_master_transaksi) {
 
@@ -356,7 +356,7 @@ class pemindahan extends Admin
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
 					$this->data['message'] = cclang('success_update_data_stay', [
-						admin_anchor('/pemindahan', ' Go back to list')
+						admin_anchor('/perbaikan', ' Go back to list')
 					]);
 				} else {
 					set_message(
@@ -365,7 +365,7 @@ class pemindahan extends Admin
 					);
 
 					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/pemindahan');
+					$this->data['redirect'] = admin_base_url('/perbaikan');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -374,7 +374,7 @@ class pemindahan extends Admin
 				} else {
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/pemindahan');
+					$this->data['redirect'] = admin_base_url('/perbaikan');
 				}
 			}
 		} else {
@@ -393,7 +393,7 @@ class pemindahan extends Admin
 	 */
 	public function delete($id = null)
 	{
-		$this->is_allowed('pemindahan_delete');
+		$this->is_allowed('perbaikan_delete');
 
 		$this->load->helper('file');
 
@@ -412,19 +412,19 @@ class pemindahan extends Admin
 			if ($remove) {
 				$this->response([
 					"success" => true,
-					"message" => cclang('has_been_deleted', 'pemindahan')
+					"message" => cclang('has_been_deleted', 'perbaikan')
 				]);
 			} else {
 				$this->response([
 					"success" => true,
-					"message" => cclang('error_delete', 'pemindahan')
+					"message" => cclang('error_delete', 'perbaikan')
 				]);
 			}
 		} else {
 			if ($remove) {
-				set_message(cclang('has_been_deleted', 'pemindahan'), 'success');
+				set_message(cclang('has_been_deleted', 'perbaikan'), 'success');
 			} else {
-				set_message(cclang('error_delete', 'pemindahan'), 'error');
+				set_message(cclang('error_delete', 'perbaikan'), 'error');
 			}
 			redirect_back();
 		}
@@ -437,12 +437,12 @@ class pemindahan extends Admin
 	 */
 	public function view($id)
 	{
-		$this->is_allowed('pemindahan_view');
+		$this->is_allowed('perbaikan_view');
 
-		$this->data['tb_master_transaksi'] = $this->model_pemindahan->getTransaksiById($id);
-		$this->data['tb_detail_transaksi'] = $this->model_pemindahan->getDetailTransaksiById($id);
-		$this->template->title('Detail Pemindahan');
-		$this->render('backend/standart/administrator/pemindahan/pemindahan_view', $this->data);
+		$this->data['tb_master_transaksi'] = $this->model_perbaikan->getTransaksiById($id);
+		$this->data['tb_detail_transaksi'] = $this->model_perbaikan->getDetailTransaksiById($id);
+		$this->template->title('Detail Perbaikan');
+		$this->render('backend/standart/administrator/perbaikan/perbaikan_view', $this->data);
 	}
 
 	/**
@@ -452,8 +452,8 @@ class pemindahan extends Admin
 	 */
 	private function _remove($id)
 	{
-		$tb_master_transaksi = $this->model_pemindahan->find($id);
-		return $this->model_pemindahan->remove($id);
+		$tb_master_transaksi = $this->model_perbaikan->find($id);
+		return $this->model_perbaikan->remove($id);
 	}
 
 
@@ -464,12 +464,12 @@ class pemindahan extends Admin
 	 */
 	public function export()
 	{
-		$this->is_allowed('pemindahan_export');
+		$this->is_allowed('perbaikan_export');
 
-		$this->model_pemindahan->export(
-			'pemindahan',
-			'pemindahan',
-			$this->model_pemindahan->field_search
+		$this->model_perbaikan->export(
+			'perbaikan',
+			'perbaikan',
+			$this->model_perbaikan->field_search
 		);
 	}
 
@@ -480,17 +480,17 @@ class pemindahan extends Admin
 	 */
 	public function export_pdf()
 	{
-		$this->is_allowed('pemindahan_export');
+		$this->is_allowed('perbaikan_export');
 
-		$this->model_tb_master_transaksi->pdf('pemindahan', 'pemindahan');
+		$this->model_tb_master_transaksi->pdf('perbaikan', 'perbaikan');
 	}
 
 
 	public function single_pdf($id = null)
 	{
-		$this->is_allowed('pemindahan_export');
+		$this->is_allowed('perbaikan_export');
 
-		$table = $title = 'pemindahan';
+		$table = $title = 'perbaikan';
 		$this->load->library('HtmlPdf');
 
 		$config = array(
@@ -521,7 +521,7 @@ class pemindahan extends Admin
 
 	public function ajax_id_gedung($id = null)
 	{
-		if (!$this->is_allowed('pemindahan_list', false)) {
+		if (!$this->is_allowed('perbaikan_list', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -534,7 +534,7 @@ class pemindahan extends Admin
 
 	public function ajax_id_ruangan($id = null)
 	{
-		if (!$this->is_allowed('pemindahan_list', false)) {
+		if (!$this->is_allowed('perbaikan_list', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -636,7 +636,7 @@ class pemindahan extends Admin
 			'id_ruangan' => $id_ruangan
 		);
 
-		$results = $this->model_pemindahan->get_all_aset($filter_data);
+		$results = $this->model_perbaikan->get_all_aset($filter_data);
 		
 		$response = [
 			'success' => true,

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['tb_master_transaksi'] = 'Pemindahan Aset';
+$lang['tb_master_transaksi'] = 'Perbaikan Aset';
 $lang['id'] = 'Id';
 $lang['kode_transaksi'] = 'Kode Transaksi';
 $lang['tipe_transaksi'] = 'Tipe Transaksi';

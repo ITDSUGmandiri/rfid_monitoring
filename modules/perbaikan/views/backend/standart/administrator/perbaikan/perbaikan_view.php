@@ -16,11 +16,11 @@ jQuery(document).ready(domo);
 
 <section class="content-header">
    <h1>
-      Pemindahan<small><?= cclang('detail', ['Pemindahan']); ?> </small>
+      Perbaikan<small><?= cclang('detail', ['Perbaikan']); ?> </small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class=""><a  href="<?= admin_site_url('/pemindahan'); ?>">Pemindahan</a></li>
+      <li class=""><a  href="<?= admin_site_url('/perbaikan'); ?>">Perbaikan</a></li>
       <li class="active"><?= cclang('detail'); ?></li>
    </ol>
 </section>
@@ -31,7 +31,7 @@ jQuery(document).ready(domo);
 
 		<div class="box-header with-border">
 
-			<h3 class="box-title">Data Pemindahan</h3>
+			<h3 class="box-title">Data Perbaikan</h3>
 				<div class="box-tools pull-right">
 					<!-- <button type="button" onClick="window.location='<?php echo site_url();?>aset';" class="btn btn-default"><i class="fa fa-undo"></i> Cancel</button> -->
 				</div>	
@@ -56,13 +56,13 @@ jQuery(document).ready(domo);
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
-                <h3 style="text-decoration: underline;">Detail Pemindahan</h3>
+                <h3 style="text-decoration: underline;">Detail Perbaikan</h3>
 
                      <fieldset> 
                      
                      <div class="form-group">
                         <div class="row">
-                           <label class="col-sm-2 control-label">Tgl Pemindahan</label>
+                           <label class="col-sm-2 control-label">Tgl Perbaikan</label>
                            <div class="col-sm-8" style="padding-top: 7px;">
                               <?= date('d-m-Y', strtotime(_ent($tb_master_transaksi->tgl_awal_transaksi))); ?>
                            </div>
@@ -188,7 +188,7 @@ jQuery(document).ready(domo);
                <?= form_close(); ?>
                           
                <div class="view-nav text-center">
-                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/pemindahan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pemindahan']); ?></a>
+                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/perbaikan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Perbaikan']); ?></a>
                </div>
                     
          </div>

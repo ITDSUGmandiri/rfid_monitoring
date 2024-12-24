@@ -1,4 +1,4 @@
-<?php foreach($pemindahans as $tb_master_transaksi): ?>
+<?php foreach($perbaikans as $tb_master_transaksi): ?>
     <tr>
                 <td width="5">
             <input type="checkbox" class="flat-red check" name="id[]" value="<?= $tb_master_transaksi->id; ?>">
@@ -25,24 +25,24 @@
         } ?></td>
         <td width="200" style="text-align: center">
         
-            <?php is_allowed('pemindahan_view', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/pemindahan/view/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+            <?php is_allowed('perbaikan_view', function() use ($tb_master_transaksi){?>
+                <a href="<?= admin_site_url('/perbaikan/view/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
             <?php }) ?>
             
             <!-- <?php is_allowed('tb_master_transaksi_update', function() use ($tb_master_transaksi){?>
-            <a href="<?= admin_site_url('/pemindahan/edit/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-edit"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+            <a href="<?= admin_site_url('/perbaikan/edit/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-edit"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
             <?php }) ?> -->
             <!-- <?php is_allowed('tb_master_transaksi_delete', function() use ($tb_master_transaksi){?>
-                <a href="javascript:void(0);" data-href="<?= admin_site_url('/pemindahan/delete/' . $tb_master_transaksi->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                <a href="javascript:void(0);" data-href="<?= admin_site_url('/perbaikan/delete/' . $tb_master_transaksi->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
             <?php }) ?> -->
 
         </td>    
     </tr>
 <?php endforeach; ?>
-<?php if ($pemindahan_counts == 0) :?>
+<?php if ($perbaikan_counts == 0) :?>
         <tr>
         <td colspan="100">
-        Pemindahan data is not available
+        Perbaikan data is not available
         </td>
     </tr>
 <?php endif; ?>

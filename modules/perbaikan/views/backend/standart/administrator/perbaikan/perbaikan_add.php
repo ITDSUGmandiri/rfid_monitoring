@@ -197,7 +197,7 @@ console.log("xxx");
 
         try {
             const response = await $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/get_all_aset',
+                url: ADMIN_BASE_URL + '/perbaikan/get_all_aset',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -282,7 +282,7 @@ console.log("xxx");
     function get_check_unique_data(uniqueDataArray) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/check_unique_data',
+                url: ADMIN_BASE_URL + '/perbaikan/check_unique_data',
                 type: 'GET',
                 dataType: 'json', 
                 data: {
@@ -301,7 +301,7 @@ console.log("xxx");
     function get_check_unique_single_tag(tid) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/check_unique_single_tag',
+                url: ADMIN_BASE_URL + '/perbaikan/check_unique_single_tag',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -331,7 +331,7 @@ console.log("xxx");
 
         try {
             const response = await $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/get_all_aset',
+                url: ADMIN_BASE_URL + '/perbaikan/get_all_aset',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -403,11 +403,11 @@ console.log("xxx");
 
 <section class="content-header">
     <h1>    
-    Pemindahan<small><?= cclang('new', ['Pemindahan']); ?></small>
+    Perbaikan<small><?= cclang('new', ['Perbaikan']); ?></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a href="<?= admin_site_url('/pemindahan'); ?>">Pemindahan</a></li>
+        <li class=""><a href="<?= admin_site_url('/perbaikan'); ?>">Perbaikan</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -426,15 +426,15 @@ console.log("xxx");
 			
 		<div class="box-body" id="add_new">
 
-        <h3 style="text-decoration: underline;">Form Pemindahan</h3>
+        <h3 style="text-decoration: underline;">Form Perbaikan</h3>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                 <?= form_open('', [            
-                        'name' => 'form_pemindahan_add',            
+                        'name' => 'form_perbaikan_add',            
                         // 'class' => 'form-horizontal form-step',
                         // 'class' => 'form-step',
-                        'id' => 'form_pemindahan_add',
+                        'id' => 'form_perbaikan_add',
                         'enctype' => 'multipart/form-data',
                         'method' => 'POST',
                         'autocomplete' => 'off',
@@ -450,7 +450,7 @@ console.log("xxx");
                     <input type="hidden" name="nama_pegawai" id="nama_pegawai" value="0">
 
                     <div class="form-group group-tgl_awal_transaksi ">
-                        <label for="tgl_awal_transaksi" class="col-sm-2 control-label">Tgl Pemindahan<i class="required">*</i>
+                        <label for="tgl_awal_transaksi" class="col-sm-2 control-label">Tgl Perbaikan<i class="required">*</i>
                         </label>
                         <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
@@ -462,12 +462,12 @@ console.log("xxx");
                     </div>
 
                     <div class="form-group group-ket_transaksi ">
-                        <label for="ket_transaksi" class="col-sm-2 control-label">Ket Pemindahan<i class="required">*</i>
+                        <label for="ket_transaksi" class="col-sm-2 control-label">Ket Perbaikan<i class="required">*</i>
                         </label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="ket_transaksi" id="ket_transaksi" placeholder="Ket Transaksi" value="<?= set_value('ket_transaksi'); ?>">
                             <small class="info help-block">
-                                <b>Input Ket Pemindahan</b> Max Length : 500.</small>
+                                <b>Input Ket Perbaikan</b> Max Length : 500.</small>
                         </div>
                     </div>
                             
@@ -723,7 +723,7 @@ console.log("xxx");
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script type="text/javascript">
-  var module_name = "pemindahan"
+  var module_name = "perbaikan"
   var use_ajax_crud = false
 </script>
 
@@ -1268,7 +1268,7 @@ console.log("xxx");
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    window.location.href = ADMIN_BASE_URL + '/pemindahan';
+                    window.location.href = ADMIN_BASE_URL + '/perbaikan';
                 }
             });
 
@@ -1299,8 +1299,8 @@ console.log("xxx");
             
             }
 
-            var form_pemindahan = $('#form_pemindahan_add');
-            var data_post = form_pemindahan.serializeArray();
+            var form_perbaikan = $('#form_perbaikan_add');
+            var data_post = form_perbaikan.serializeArray();
             var save_type = $(this).attr('data-stype');
 
             data_post.push({
@@ -1317,7 +1317,7 @@ console.log("xxx");
             $('.loading').show();
 
             $.ajax({
-                    url: ADMIN_BASE_URL + '/pemindahan/add_save',
+                    url: ADMIN_BASE_URL + '/perbaikan/add_save',
                     type: 'POST',
                     dataType: 'json',
                     data: data_post,
@@ -1394,7 +1394,7 @@ console.log("xxx");
                     }
 
                     if (use_ajax_crud == true) {
-                        var url = BASE_URL + ADMIN_NAMESPACE_URL + '/pemindahan/index/?ajax=1'
+                        var url = BASE_URL + ADMIN_NAMESPACE_URL + '/perbaikan/index/?ajax=1'
                         reloadDataTable(url);
                     }
 
@@ -1419,7 +1419,7 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_gedung/' + val,
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_gedung/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
@@ -1444,7 +1444,7 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_ruangan/' + val,
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_ruangan/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
@@ -1469,7 +1469,7 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_gedung/' + val,
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_gedung/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
@@ -1494,7 +1494,7 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_ruangan/' + val,
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_ruangan/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {

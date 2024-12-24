@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pemindahan extends MY_Model {
+class Model_perbaikan extends MY_Model {
 
     private $primary_key    = 'id';
     private $table_name     = 'tb_master_transaksi';
@@ -303,5 +303,5 @@ class Model_pemindahan extends MY_Model {
 
 }
 
-/* End of file Model_pemindahan.php */
-/* Location: ./application/models/Model_pemindahan.php */
+/* End of file Model_perbaikan.php */
+/* Location: ./application/models/Model_perbaikan.php */
