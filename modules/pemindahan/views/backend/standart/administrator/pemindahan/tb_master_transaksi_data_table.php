@@ -42,7 +42,7 @@
 <?php if ($pemindahan_counts == 0) :?>
         <tr>
         <td colspan="100">
-        Register Aset data is not available
+        Pemindahan data is not available
         </td>
     </tr>
 <?php endif; ?>

@@ -215,16 +215,14 @@ class Model_pemindahan extends MY_Model {
                         'id_transaksi' => $id_transaksi,
                         // 'kode_transaksi' => $save_data_master_transaksi['kode_transaksi'],
                         'kode_transaksi' => '',
-                        'kode_tid' => $data['tag']['tid'], // Ambil tid dari tag
+                        'kode_tid' => $data['aset']['tid'], 
                         'id_aset' => $data['aset']['id'],
                         'kode_aset' => $data['aset']['kode_aset'],
                         'nup' => $data['aset']['nup'],
-                        'nama_aset' => $data['aset']['nama_aset'],
-                        // 'id_area' => $save_data_detail_transaksi['id_area'],
-                        // 'id_gedung' => $save_data_detail_transaksi['id_gedung'], 
-                        // 'id_ruangan' => $save_data_detail_transaksi['id_ruangan'],
-                        'status' => 1,
-                        'id_kondisi' => 1
+                        'id_area' => $save_data_master_transaksi['id_area'],
+                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
+                        'id_ruangan' => $save_data_master_transaksi['id_ruangan'],
+
                     );
 
                     // echo '<pre>';
@@ -234,24 +232,13 @@ class Model_pemindahan extends MY_Model {
                     // Insert ke tabel detail transaksi
                     $this->db->insert('tb_detail_transaksi', $data_detail);
 
-                    // Update status tag
-                    $this->db->where('kode_tid', $data['tag']['tid']);
-                    $this->db->update('tb_master_tag_rfid', array(
-                        'status_tag' => 'N',
-                        'id_aset' => $data['aset']['id']
-                    ));
-
                     // update field kode_rfid, id_area, id _gedung, id_ruangan, id_kondisi, status ke master aset
                     $this->db->where('id_aset', $data['aset']['id']);
                     $this->db->update('tb_master_aset', array(
-                        'kode_tid' => $data['tag']['tid'],
+                        'kode_tid' => $data['aset']['tid'],
                         'id_area' => $save_data_master_transaksi['id_area'],
                         'id_gedung' => $save_data_master_transaksi['id_gedung'],
-                        'id_lokasi' => $save_data_master_transaksi['id_ruangan'],
-                        'kondisi' => 1,
-                        'status' => 1,
-                        'flag_inventarisasi' => 1,
-                        'tgl_inventarisasi' => date('Y-m-d')
+                        'id_lokasi' => $save_data_master_transaksi['id_ruangan']
                     )); 
                     
                 }
@@ -302,14 +289,6 @@ class Model_pemindahan extends MY_Model {
         $this->db->select('*');
         $this->db->from('pengaturan_sistem');
         return $this->db->get()->row();
-    }
-    
-    function get_data_pie_chart(){
-        $this->db->select('tb_master_area.area, count(tb_master_transaksi.id_area) as total');
-        $this->db->from('tb_master_transaksi');
-        $this->db->join('tb_master_area', 'tb_master_transaksi.id_area = tb_master_area.id', 'left');
-        $this->db->group_by('tb_master_transaksi.id_area');
-        return $this->db->get()->result();
     }
 
 }

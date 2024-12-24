@@ -2,7 +2,7 @@
 function domo(){
  
    $('*').bind('keydown', 'Ctrl+a', function() {
-       window.location.href = ADMIN_BASE_URL + '/pemindahan/add';
+       window.location.href = ADMIN_BASE_URL + '/Pemindahan/add';
        return false;
    });
 
@@ -59,7 +59,7 @@ jQuery(document).ready(domo);
                      </div>
                      <!-- /.widget-user-image -->
                      <h3 class="widget-user-username"><?= cclang('tb_master_transaksi') ?></h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_master_transaksi')]); ?>  <i class="label bg-yellow"><span class="total-rows"><?= $pemindahan_counts; ?></span>  <?= cclang('items'); ?></i></h5>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_master_transaksi')]); ?>  <i class="label bg-yellow"><span class="total-rows"><?= $tb_master_transaksi_counts; ?></span>  <?= cclang('items'); ?></i></h5>
                   </div>
 
                   <form name="form_tb_master_transaksi" id="form_tb_master_transaksi" action="<?= admin_base_url('/pemindahan/index'); ?>">
@@ -98,7 +98,7 @@ jQuery(document).ready(domo);
                            </button>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
-                           <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/pemindahan');?>" title="<?= cclang('reset_filter'); ?>">
+                           <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_transaksi');?>" title="<?= cclang('reset_filter'); ?>">
                            <i class="fa fa-undo"></i>
                            </a>
                         </div>
