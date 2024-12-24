@@ -171,7 +171,7 @@ console.log("xxx");
         if (string_id == "") {
                 swal({
                     title: "Perhatian !",
-                    text: "Pilih / Ceklis dulu data yang ingin dipindahkan !!",
+                    text: "Pilih / Ceklis dulu data yang ingin diperbaiki !!",
                     type: "warning"
                 });
             return false;
@@ -442,7 +442,7 @@ console.log("xxx");
                     ]); 
                 ?>
 
-                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="5">
+                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="6">
                     <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
                     <input type="hidden" name="id_pegawai_input" id="id_pegawai_input" value="0">
                     <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
@@ -481,7 +481,7 @@ console.log("xxx");
                     <fieldset>
                         
                         <div class="form-group group-id_area ">
-                            <label for="id_area" class="col-sm-2 control-label">Area Asal
+                            <label for="id_area" class="col-sm-2 control-label">Area
                                 </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_area" id="id_area" data-placeholder="Pilih Area">
@@ -495,7 +495,7 @@ console.log("xxx");
                         </div>
 
                         <div class="form-group group-id_gedung ">
-                            <label for="id_gedung" class="col-sm-2 control-label">Gedung Asal</label>
+                            <label for="id_gedung" class="col-sm-2 control-label">Gedung</label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_gedung" id="id_gedung" data-placeholder="Pilih Gedung">
                                     <option value=""></option>
@@ -506,53 +506,10 @@ console.log("xxx");
                         </div>
 
                         <div class="form-group group-id_ruangan ">
-                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan Asal
+                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan
                                 </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_ruangan" id="id_ruangan" data-placeholder="Pilih Ruangan">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                    <!-- </section> -->
-                    </fieldset>
-                
-                    <!-- <section> -->
-                    <fieldset>
-                        
-                        <div class="form-group group-id_area2 ">
-                            <label for="id_area2" class="col-sm-2 control-label">Area Tujuan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_area2" id="id_area2" data-placeholder="Pilih Area">
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('tb_master_area') as $row): ?>
-                                    <option value="<?= $row->id ?>"><?= $row->area; ?></option>
-                                    <?php endforeach; ?>                                 </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_gedung2 ">
-                            <label for="id_gedung2" class="col-sm-2 control-label">Gedung Tujuan</label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_gedung2" id="id_gedung2" data-placeholder="Pilih Gedung">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_ruangan2 ">
-                            <label for="id_ruangan2" class="col-sm-2 control-label">Ruangan Tujuan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_ruangan2" id="id_ruangan2" data-placeholder="Pilih Ruangan">
                                     <option value=""></option>
                                                                     </select>
                                 <small class="info help-block">
@@ -626,7 +583,7 @@ console.log("xxx");
 
                     </fieldset>
 
-                    <h3 style="text-decoration: underline;">Barang Yang Dipindahkan</h3>
+                    <h3 style="text-decoration: underline;">Barang Yang Diperbaiki</h3>
 
                     <div id="containerHasilPencarian" class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">
@@ -1287,7 +1244,7 @@ console.log("xxx");
 
                 swal({
                     title: "Error",
-                    text: "Pilih dulu Aset yang akan dipindahkan!",
+                    text: "Pilih dulu Aset yang akan diperbaiki!",
                     type: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#DD6B55",

@@ -51,7 +51,7 @@ class Model_perbaikan extends MY_Model {
         }
 
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where($where);
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 6');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -92,7 +92,7 @@ class Model_perbaikan extends MY_Model {
         }
         
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where($where);
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 6');
         $this->db->limit($limit, $offset);
         
         $this->sortable();
@@ -228,9 +228,9 @@ class Model_perbaikan extends MY_Model {
                         'id_aset' => $data['id'],
                         'kode_aset' => $data['kode_aset'],
                         'nup' => $data['nup'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_ruangan' => $save_data_master_transaksi['id_ruangan2']
+                        'id_area' => $save_data_master_transaksi['id_area'],
+                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
+                        'id_ruangan' => $save_data_master_transaksi['id_ruangan']
                     );
                     
                     // Insert ke tabel detail transaksi
@@ -240,10 +240,11 @@ class Model_perbaikan extends MY_Model {
                     $this->db->where('id_aset', $data['id']);
                     $this->db->update('tb_master_aset', array(
                         // 'kode_tid' => $data['aset']['tid'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
-                        'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                        // 'id_area' => $save_data_master_transaksi['id_area2'],
+                        // 'id_gedung' => $save_data_master_transaksi['id_gedung2'],
+                        // 'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
+                        // 'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                        'status' => 3,
                         
                     )); 
                     

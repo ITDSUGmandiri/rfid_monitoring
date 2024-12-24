@@ -69,14 +69,14 @@ jQuery(document).ready(domo);
                      <!-- /.widget-user -->
                   <div class="row">
                      <div class="col-md-8">
-                                                <div class="col-sm-2 padd-left-0 " >
+                                                <!-- <div class="col-sm-2 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >
                                                          <option value="delete">Delete</option>
                                                       </select>
                         </div>
                         <div class="col-sm-2 padd-left-0 ">
                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                        </div>
+                        </div> -->
                                                 <div class="col-sm-3 padd-left-0  " >
                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
                         </div>
@@ -125,9 +125,9 @@ jQuery(document).ready(domo);
                            <th style="text-align: center" data-field="ket_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Keterangan') ?></th>
                            <!-- <th data-field="id_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('id_pegawai_input') ?></th>
                            <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th> -->
-                           <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area Asal') ?></th>
+                           <!-- <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area Asal') ?></th>
                            <th style="text-align: center" data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Asal') ?></th>
-                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th>
+                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th> -->
                            <th style="text-align: center">Action</th>                        
                         </tr>
                      </thead>

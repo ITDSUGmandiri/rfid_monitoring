@@ -165,9 +165,6 @@ class perbaikan extends Admin
 		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
 		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
 		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
-		$this->form_validation->set_rules('id_area2', 'Id Area2', 'trim|required');
-		$this->form_validation->set_rules('id_gedung2', 'Id Gedung2', 'trim|required');
-		$this->form_validation->set_rules('id_ruangan2', 'Id Ruangan2', 'trim|required');
 
 		if ($this->form_validation->run()) {
 
@@ -186,9 +183,6 @@ class perbaikan extends Admin
 				'id_area' => $this->input->post('id_area'),
 				'id_gedung' => $this->input->post('id_gedung'),
 				'id_ruangan' => $this->input->post('id_ruangan'),
-				'id_area2' => $this->input->post('id_area2'),
-				'id_gedung2' => $this->input->post('id_gedung2'),
-				'id_ruangan2' => $this->input->post('id_ruangan2'),
 			];
 
 			$save_data_detail_transaksi = [
@@ -199,7 +193,7 @@ class perbaikan extends Admin
 				// 'id_gedung' => $save_data_master_transaksi['id_gedung'], 
 				// 'id_ruangan' => $save_data_master_transaksi['id_ruangan'],
 				'status' => 1,
-				'id_kondisi' => 1
+				// 'id_kondisi' => 1
 			];
 
 			$string_id = $this->input->post('string_id');

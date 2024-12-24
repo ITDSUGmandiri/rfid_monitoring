@@ -4,7 +4,7 @@
             <input type="checkbox" class="flat-red check" name="id[]" value="<?= $tb_master_transaksi->id; ?>">
         </td>
                 
-        <td><span class="list_group-kode_transaksi"><?= _ent($tb_master_transaksi->kode_transaksi); ?></span></td> 
+        <!-- <td><span class="list_group-kode_transaksi"><?= _ent($tb_master_transaksi->kode_transaksi); ?></span></td>  -->
         <td style="text-align: center"><?php if ($tb_master_transaksi->tipe_transaksi) {
             echo $tb_master_transaksi->tb_master_type_transaksi_tipe_transaksi; }?></td>
         <!-- <td><span class="list_group-status_transaksi"><?= _ent($tb_master_transaksi->status_transaksi); ?></span></td>  -->

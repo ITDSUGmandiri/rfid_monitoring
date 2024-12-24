@@ -12,7 +12,7 @@
         <td><span class="list_group-ket_transaksi"><?= _ent($tb_master_transaksi->ket_transaksi); ?></span></td> 
         <!-- <td><span class="list_group-id_pegawai_input"><?= _ent($tb_master_transaksi->id_pegawai_input); ?></span></td> 
         <td><span class="list_group-nama_pegawai_input"><?= _ent($tb_master_transaksi->nama_pegawai_input); ?></span></td>  -->
-        <td style="text-align: center"><?php if ($tb_master_transaksi->id_area) {
+        <!-- <td style="text-align: center"><?php if ($tb_master_transaksi->id_area) {
             echo $tb_master_transaksi->tb_master_area_area;
         } ?></td>
          
@@ -22,7 +22,8 @@
          
          <td style="text-align: center"><?php if ($tb_master_transaksi->id_ruangan) {
             echo $tb_master_transaksi->tb_master_ruangan_ruangan;
-        } ?></td>
+        } ?></td> -->
+        
         <td width="200" style="text-align: center">
         
             <?php is_allowed('perbaikan_view', function() use ($tb_master_transaksi){?>
