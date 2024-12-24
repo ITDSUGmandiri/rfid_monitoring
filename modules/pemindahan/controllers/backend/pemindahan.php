@@ -165,6 +165,9 @@ class pemindahan extends Admin
 		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
 		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
 		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
+		$this->form_validation->set_rules('id_area2', 'Id Area2', 'trim|required');
+		$this->form_validation->set_rules('id_gedung2', 'Id Gedung2', 'trim|required');
+		$this->form_validation->set_rules('id_ruangan2', 'Id Ruangan2', 'trim|required');
 
 		if ($this->form_validation->run()) {
 
@@ -183,6 +186,9 @@ class pemindahan extends Admin
 				'id_area' => $this->input->post('id_area'),
 				'id_gedung' => $this->input->post('id_gedung'),
 				'id_ruangan' => $this->input->post('id_ruangan'),
+				'id_area2' => $this->input->post('id_area2'),
+				'id_gedung2' => $this->input->post('id_gedung2'),
+				'id_ruangan2' => $this->input->post('id_ruangan2'),
 			];
 
 			$save_data_detail_transaksi = [
@@ -212,13 +218,17 @@ class pemindahan extends Admin
 			}
 
 			// echo '<pre>';
-			// print_r($linked_data);
+			// print_r($array_data_aset);
 			// echo '</pre>';
 			// exit();
 
-			$save_register_aset = $id = $this->model_pemindahan->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
+			$save_register_aset = $id = $this->model_pemindahan->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset);
 			// $save_register_aset = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 
+			// echo '<pre>';
+			// print_r($save_register_aset);
+			// echo '</pre>';
+			// exit();
 
 			if ($save_register_aset) {
 				

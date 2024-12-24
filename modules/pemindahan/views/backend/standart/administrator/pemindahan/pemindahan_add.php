@@ -171,7 +171,7 @@ console.log("xxx");
         if (string_id == "") {
                 swal({
                     title: "Perhatian !",
-                    text: "Pilih / Ceklis dulu data yang ingin !!",
+                    text: "Pilih / Ceklis dulu data yang ingin dipindahkan !!",
                     type: "warning"
                 });
             return false;
@@ -523,7 +523,7 @@ console.log("xxx");
                     <!-- <section> -->
                     <fieldset>
                         
-                        <!-- <div class="form-group group-id_area2 ">
+                        <div class="form-group group-id_area2 ">
                             <label for="id_area2" class="col-sm-2 control-label">Area Tujuan
                                 </label>
                             <div class="col-sm-8">
@@ -558,7 +558,7 @@ console.log("xxx");
                                 <small class="info help-block">
                                     </small>
                             </div>
-                        </div> -->
+                        </div>
 
                     <!-- </section> -->
                     </fieldset>
@@ -1311,11 +1311,6 @@ console.log("xxx");
             data_post.push({
                 name: 'event_submit_and_action', 
                 value: window.event_submit_and_action
-            });
-
-            data_post.push({
-                name: 'uniqueDataArray',
-                value: JSON.stringify(uniqueDataArray)
             });
 
             $('#data_processing').html('Saving data...');

@@ -195,10 +195,16 @@ class Model_pemindahan extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data){
+    public function saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset){
 
         // Mulai transaksi database
         $this->db->trans_start();
+
+        
+        // echo '<pre>';
+        // print_r($array_data_aset);
+        // echo '</pre>';
+        // exit;
 
         try {
             // Insert ke tabel master transaksi
@@ -206,39 +212,39 @@ class Model_pemindahan extends MY_Model {
             $id_transaksi = $this->db->insert_id();
 
             // Jika ada data linked aset dan tag
-            if(!empty($linked_data)) {
+            if(!empty($array_data_aset)) {
+
+                $data_detail = [];
                 
                 // Loop untuk setiap data linked
-                foreach($linked_data as $data) {
+                foreach($array_data_aset as $data) {
                     
                     $data_detail = array(
                         'id_transaksi' => $id_transaksi,
                         // 'kode_transaksi' => $save_data_master_transaksi['kode_transaksi'],
                         'kode_transaksi' => '',
-                        'kode_tid' => $data['aset']['tid'], 
-                        'id_aset' => $data['aset']['id'],
-                        'kode_aset' => $data['aset']['kode_aset'],
-                        'nup' => $data['aset']['nup'],
-                        'id_area' => $save_data_master_transaksi['id_area'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
-                        'id_ruangan' => $save_data_master_transaksi['id_ruangan'],
-
+                        'nama_aset' => $data['nama_aset'],
+                        'kode_tid' => $data['kode_tid'], 
+                        'id_aset' => $data['id'],
+                        'kode_aset' => $data['kode_aset'],
+                        'nup' => $data['nup'],
+                        'id_area' => $save_data_master_transaksi['id_area2'],
+                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
+                        'id_ruangan' => $save_data_master_transaksi['id_ruangan2']
                     );
-
-                    // echo '<pre>';
-                    // print_r($data_detail);
-                    // echo '</pre>';
                     
                     // Insert ke tabel detail transaksi
                     $this->db->insert('tb_detail_transaksi', $data_detail);
 
                     // update field kode_rfid, id_area, id _gedung, id_ruangan, id_kondisi, status ke master aset
-                    $this->db->where('id_aset', $data['aset']['id']);
+                    $this->db->where('id_aset', $data['id']);
                     $this->db->update('tb_master_aset', array(
-                        'kode_tid' => $data['aset']['tid'],
-                        'id_area' => $save_data_master_transaksi['id_area'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
-                        'id_lokasi' => $save_data_master_transaksi['id_ruangan']
+                        // 'kode_tid' => $data['aset']['tid'],
+                        'id_area' => $save_data_master_transaksi['id_area2'],
+                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
+                        'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
+                        'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                        
                     )); 
                     
                 }
@@ -269,11 +275,15 @@ class Model_pemindahan extends MY_Model {
     }
 
     function getTransaksiById($id){
-        $this->db->select('tb_master_transaksi.*, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan');
+        $this->db->select('tb_master_transaksi.*, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,
+        tb_master_area2.area as tb_master_area_area2, tb_master_gedung2.gedung as tb_master_gedung_gedung2, tb_master_ruangan2.ruangan as tb_master_ruangan_ruangan2');
         $this->db->from('tb_master_transaksi');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_transaksi.id_area', 'left');   
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_transaksi.id_gedung', 'left');
         $this->db->join('tb_master_ruangan', 'tb_master_ruangan.id = tb_master_transaksi.id_ruangan', 'left');
+        $this->db->join('tb_master_area as tb_master_area2', 'tb_master_area2.id = tb_master_transaksi.id_area2', 'left');   
+        $this->db->join('tb_master_gedung as tb_master_gedung2', 'tb_master_gedung2.id = tb_master_transaksi.id_gedung2', 'left');
+        $this->db->join('tb_master_ruangan as tb_master_ruangan2', 'tb_master_ruangan2.id = tb_master_transaksi.id_ruangan2', 'left');
         $this->db->where('tb_master_transaksi.id', $id);
         return $this->db->get()->row();
     }
