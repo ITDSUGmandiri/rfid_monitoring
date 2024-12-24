@@ -16,11 +16,11 @@ jQuery(document).ready(domo);
 
 <section class="content-header">
    <h1>
-      Register Aset<small><?= cclang('detail', ['Register Aset']); ?> </small>
+      Pemindahan<small><?= cclang('detail', ['Pemindahan']); ?> </small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class=""><a  href="<?= admin_site_url('/tb_master_transaksi'); ?>">Register Aset</a></li>
+      <li class=""><a  href="<?= admin_site_url('/pemindahan'); ?>">Pemindahan</a></li>
       <li class="active"><?= cclang('detail'); ?></li>
    </ol>
 </section>
@@ -31,7 +31,7 @@ jQuery(document).ready(domo);
 
 		<div class="box-header with-border">
 
-			<h3 class="box-title">Data Register Aset</h3>
+			<h3 class="box-title">Data Pemindahan</h3>
 				<div class="box-tools pull-right">
 					<!-- <button type="button" onClick="window.location='<?php echo site_url();?>aset';" class="btn btn-default"><i class="fa fa-undo"></i> Cancel</button> -->
 				</div>	
@@ -56,13 +56,13 @@ jQuery(document).ready(domo);
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
-                <h3 style="text-decoration: underline;">Detail Register</h3>
+                <h3 style="text-decoration: underline;">Detail Pemindahan</h3>
 
                      <fieldset> 
                      
                      <div class="form-group">
                         <div class="row">
-                           <label class="col-sm-2 control-label">Tgl Awal Transaksi</label>
+                           <label class="col-sm-2 control-label">Tgl Pemindahan</label>
                            <div class="col-sm-8" style="padding-top: 7px;">
                               <?= date('d-m-Y', strtotime(_ent($tb_master_transaksi->tgl_awal_transaksi))); ?>
                            </div>
@@ -71,39 +71,66 @@ jQuery(document).ready(domo);
 
                      <div class="form-group">
                         <div class="row">
-                           <label class="col-sm-2 control-label">Ket Transaksi</label>
+                           <label class="col-sm-2 control-label">Keterangan</label>
                            <div class="col-sm-8" style="padding-top: 7px;">
                               <?= _ent($tb_master_transaksi->ket_transaksi); ?>
                            </div>
                         </div>
                      </div>
                   
-                     <div class="form-group">
-                        <div class="row">
-                           <label class="col-sm-2 control-label">Area</label>
-                           <div class="col-sm-8" style="padding-top: 7px;">
-                              <?= _ent($tb_master_transaksi->tb_master_area_area); ?>
-                           </div>
+                  <div class="form-group">
+                     <div class="row">
+                        <label class="col-sm-2 control-label">Area Asal</label>
+                        <div class="col-sm-8" style="padding-top: 7px;">
+                           <?= _ent($tb_master_transaksi->tb_master_area_area); ?>
                         </div>
                      </div>
-                                          
-                     <div class="form-group">
-                        <div class="row">
-                           <label class="col-sm-2 control-label">Gedung</label>
-                           <div class="col-sm-8" style="padding-top: 7px;">
-                              <?= _ent($tb_master_transaksi->tb_master_gedung_gedung); ?>
-                           </div>
+                  </div>
+                                       
+                  <div class="form-group">
+                     <div class="row">
+                        <label class="col-sm-2 control-label">Gedung Asal</label>
+                        <div class="col-sm-8" style="padding-top: 7px;">
+                           <?= _ent($tb_master_transaksi->tb_master_gedung_gedung); ?>
                         </div>
                      </div>
-                                          
-                     <div class="form-group">
-                        <div class="row">
-                           <label class="col-sm-2 control-label">Ruangan</label>
-                           <div class="col-sm-8" style="padding-top: 7px;">
-                              <?= _ent($tb_master_transaksi->tb_master_ruangan_ruangan); ?>
-                           </div>
+                  </div>
+                                       
+                  <div class="form-group">
+                     <div class="row">
+                        <label class="col-sm-2 control-label">Ruangan Asal</label>
+                        <div class="col-sm-8" style="padding-top: 7px;">
+                           <?= _ent($tb_master_transaksi->tb_master_ruangan_ruangan); ?>
                         </div>
                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                     <div class="row">
+                        <label class="col-sm-2 control-label">Area Tujuan</label>
+                        <div class="col-sm-8" style="padding-top: 7px;">
+                           <?= _ent($tb_master_transaksi->tb_master_area_area2); ?>
+                        </div>
+                     </div>
+                  </div>
+                                       
+                  <div class="form-group">
+                     <div class="row">
+                        <label class="col-sm-2 control-label">Gedung Tujuan</label>
+                        <div class="col-sm-8" style="padding-top: 7px;">
+                           <?= _ent($tb_master_transaksi->tb_master_gedung_gedung2); ?>
+                        </div>
+                     </div>
+                  </div>
+                                       
+                  <div class="form-group">
+                     <div class="row">
+                        <label class="col-sm-2 control-label">Ruangan Tujuan</label>
+                        <div class="col-sm-8" style="padding-top: 7px;">
+                           <?= _ent($tb_master_transaksi->tb_master_ruangan_ruangan2); ?>
+                        </div>
+                     </div>
+                  </div>
                                           
                   </fieldset>
 
@@ -161,7 +188,7 @@ jQuery(document).ready(domo);
                <?= form_close(); ?>
                           
                <div class="view-nav text-center">
-                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/tb_master_transaksi/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Register Aset']); ?></a>
+                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/pemindahan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pemindahan']); ?></a>
                </div>
                     
          </div>

@@ -1,4 +1,4 @@
-<?php foreach($tb_master_transaksis as $tb_master_transaksi): ?>
+<?php foreach($pemindahans as $tb_master_transaksi): ?>
     <tr>
                 
         <td width="5">
@@ -12,7 +12,7 @@
          
     </tr>
     <?php endforeach; ?>
-    <?php if ($tb_master_transaksi_counts == 0) :?>
+    <?php if ($pemindahan_counts == 0) :?>
         <tr>
         <td colspan="100">
         data is not available
