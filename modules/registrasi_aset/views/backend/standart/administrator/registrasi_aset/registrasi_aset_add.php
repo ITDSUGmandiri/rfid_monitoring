@@ -1,5 +1,4 @@
 <link href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css" rel="stylesheet" type="text/css" />
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" /> -->
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
 <script src="<?= BASE_ASSET; ?>js/loadingoverlay.min.js"></script>
@@ -552,10 +551,7 @@
             ],
         });
 
-        // function reload_datatables() {
-        //     myTable.ajax.reload();
-        //     // table.ajax.reload(null,false); //reload datatable ajax 
-        // }
+
 
         $('#MyTableCheckAllButton').click(function() {
             if (myTable.rows({
@@ -631,6 +627,7 @@
             // e.preventDefault();
             // get_datatables_checked();
             // return false;
+            console.log("ridwan", myTable.rows('.selected').data().toArray().length);
 
             if (myTable.rows('.selected').data().toArray().length == 0) {
                 $('#total_aset_checklist').html(0);
@@ -796,11 +793,6 @@
             //     return false;
             // }
 
-            localStorage.setItem('ip_address', ip_address);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             const socket = new WebSocket('ws://' + ip_address + ':3030');
 
             // socket.addEventListener('open', function() {
@@ -910,10 +902,7 @@
                 var flag_alarm = 0;
 
                 // var flag_alarm_input = prompt("Masukkan nilai flag alarm (0 atau 1):", "0");
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
                 // // Validasi input hanya boleh 0 atau 1
                 // if(flag_alarm_input !== "0" && flag_alarm_input !== "1") {
                 //     swal({
@@ -1017,10 +1006,6 @@
                 });
                 return false;
             }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             const socket = new WebSocket('ws://' + ip_address + ':' + port_ws_server);
 
             socket.addEventListener('open', function() {
@@ -1030,10 +1015,6 @@
                 var description = 'DEMO-RFID';
                 var flag_alarm = 0;
                 var category = 0;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 socket.send('{"event": "db-storage-insert-rfid-list", "value": {"tid": "' + single_rfid_tag + '", "epc": "' + single_kode_epc + '", "status": "' + status + '", "description": "' + description + '", "flag_alarm": "' + flag_alarm + '", "category": "' + category + '"}}');
                 console.log('post db-storage-insert-rfid-list: ' + single_rfid_tag);
             });
@@ -1203,10 +1184,6 @@
                                 await new Promise(resolve => setTimeout(resolve, 100)); // Delay antar pengiriman
 
                             }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                             resolve();
 
                         } catch (error) {
@@ -1427,10 +1404,6 @@
                 });
                 return false;
             }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             const socket = new WebSocket('ws://' + ip_address + ':' + port_ws_server);
 
             socket.addEventListener('open', function() {
@@ -1539,10 +1512,6 @@
 
             // Reset uniqueDataArray
             uniqueDataArray = [];
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             var ip_address = $('#ip_address').val();
 
             if (ip_address == '') {
@@ -1605,10 +1574,6 @@
                     // $('.loading').show();
 
                     try {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                         var tid = parsedData.data_tid;
                         var epc = parsedData.data;
                         var alias_antenna = 'handheld';
@@ -1665,10 +1630,6 @@
                                         $('#total_rfid_tag').html(uniqueDataArray.length);
 
                                         //console.log('Data baru ditambahkan:', parsedData.value);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                                     }
 
                                 } else {
@@ -1708,6 +1669,8 @@
 
             var total_aset_checklist = $('#total_aset_checklist').html();
 
+            console.log("ko", total_aset_checklis.length);
+
             if (total_aset_checklist == 0) {
 
                 swal({
@@ -1721,10 +1684,6 @@
                 });
 
                 return false;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             }
 
             var total_rfid_tag = $('#total_rfid_tag').html();
@@ -1745,10 +1704,6 @@
             }
 
             if (total_rfid_tag != total_aset_checklist) {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 swal({
                     title: "Error",
                     text: "Total RFID Tag tidak sama dengan total Aset yang dipilih!",
@@ -1767,10 +1722,6 @@
             // Cek apakah data RFID sudah ada di database
             try {
                 const response = await get_check_unique_data(uniqueDataArray);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 if (response.exists) {
                     swal({
                         title: "Error",
@@ -1847,10 +1798,6 @@
             //     var tid = parsedData.value.tid;
 
             //     if (event_name == 'response-db-storage-insert-rfid-list') {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             //         if (message == '[Success] Insert Tags!') {
             //             is_posting_rfid_tag_success = true;
             //             console.log('posting data rfid tag: ' + tid + ', is_posting_rfid_tag_success: ' + is_posting_rfid_tag_success + ' berhasil!');
@@ -1888,10 +1835,6 @@
             //         } else if (message == '[Invalid] Rfid Tags!') {
 
             //             is_posting_rfid_tag_success = false;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             //             swal({
             //                 title: "Info",
             //                 text: "RFID Tag tidak valid!",
@@ -1907,10 +1850,6 @@
             //         }   
 
             //     } else if (event_name == 'error') {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             //         console.log('error: ' + message);
 
             //         swal({
@@ -2045,19 +1984,11 @@
                             });
 
                             $('.steps li').removeClass('error');
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                             $('.content section').each(function(index, el) {
                                 if ($(this).find('.has-error').length) {
                                     $('.steps li:eq(' + index + ')').addClass('error').find('a').trigger('click');
                                 }
                             });
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                         }
 
                         $('#data_processing').html('');

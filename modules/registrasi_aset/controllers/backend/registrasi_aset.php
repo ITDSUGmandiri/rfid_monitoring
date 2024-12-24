@@ -212,10 +212,6 @@ class registrasi_aset extends Admin
 			$save_register_aset = $id = $this->model_registrasi_aset->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 			// $save_register_aset = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 
-			// echo '<pre>';	
-			// print_r($save_register_aset);
-			// echo '</pre>';
-			// exit();
 
 			if ($save_register_aset) {
 
