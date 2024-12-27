@@ -73,7 +73,7 @@ class Auth extends Admin
 			$save_data = [
 				'full_name' => $this->input->post('full_name')
 			];
-			$save_user = $this->aauth->create_user($this->input->post('email'), $this->input->post('password'), $this->input->post('username'), $save_data);
+			$save_user = $this->aauth->create_user(0,$this->input->post('email'), $this->input->post('password'), $this->input->post('username'), $save_data);
 
 			if ($save_user) {
 				set_message('Your account sucessfully created');

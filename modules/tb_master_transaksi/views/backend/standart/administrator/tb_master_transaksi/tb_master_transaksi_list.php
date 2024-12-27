@@ -117,21 +117,22 @@ jQuery(document).ready(domo);
                   <br>
                   <table class="table table-bordered table-striped dataTable">
                      <thead>
-                        <tr class="">
-                                                     <th>
-                            <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
+                        <tr class="">                             
+                           <th style="text-align: center">
+                              <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                                                    <th data-field="kode_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('kode_transaksi') ?></th>
-                           <th data-field="tipe_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('tipe_transaksi') ?></th>
-                           <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th>
-                           <th data-field="tgl_awal_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('tgl_awal_transaksi') ?></th>
-                           <th data-field="ket_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('ket_transaksi') ?></th>
-                           <th data-field="id_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('id_pegawai_input') ?></th>
-                           <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th>
-                           <th data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('id_area') ?></th>
-                           <th data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('id_gedung') ?></th>
-                           <th data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('id_ruangan') ?></th>
-                           <th>Action</th>                        </tr>
+                           <th style="text-align: center" data-field="kode_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Kode') ?></th>
+                           <th style="text-align: center" data-field="tipe_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tipe') ?></th>
+                           <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
+                           <th style="text-align: center" data-field="tgl_awal_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tanggal') ?></th>
+                           <th style="text-align: center" data-field="ket_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Keterangan') ?></th>
+                           <!-- <th data-field="id_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('id_pegawai_input') ?></th>
+                           <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th> -->
+                           <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area') ?></th>
+                           <th style="text-align: center" data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('Gedung') ?></th>
+                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan') ?></th>
+                           <th style="text-align: center">Action</th>                        
+                        </tr>
                      </thead>
                      <tbody id="tbody_tb_master_transaksi">
                             <?= $tables ?>

@@ -166,6 +166,12 @@ class Model_ug_mstag extends MY_Model {
         }
     }
 
+    function getPengaturanSistem(){
+        $this->db->select('*');
+        $this->db->from('pengaturan_sistem');
+        return $this->db->get()->row();
+    }
+
 }
 
 /* End of file Model_ug_mstag.php */

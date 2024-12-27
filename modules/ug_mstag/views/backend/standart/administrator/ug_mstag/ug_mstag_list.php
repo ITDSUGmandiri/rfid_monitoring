@@ -122,13 +122,14 @@ jQuery(document).ready(domo);
                      <table class="table table-bordered table-striped dataTable">
                         <thead>
                            <tr class="">
-                                                      <th>
-                              <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
+                              <th style="text-align: center">
+                                 <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                               </th>
-                                                      <th data-field="kode_tid"data-sort="1" data-primary-key="0"> <?= cclang('kode_tid') ?></th>
-                              <th data-field="kode_epc"data-sort="1" data-primary-key="0"> <?= cclang('kode_epc') ?></th>
-                              <th data-field="status_tag"data-sort="1" data-primary-key="0"> <?= cclang('status_tag') ?></th>
-                              <th>Action</th>                        </tr>
+                              <th style="text-align: center" data-field="kode_tid" data-sort="1" data-primary-key="0"> <?= cclang('kode_tid') ?></th>
+                              <th style="text-align: center" data-field="kode_epc" data-sort="1" data-primary-key="0"> <?= cclang('kode_epc') ?></th>
+                              <th style="text-align: center" data-field="status_tag" data-sort="1" data-primary-key="0"> <?= cclang('status_tag') ?></th>
+                              <th style="text-align: center">Action</th>
+                           </tr>
                         </thead>
                         <tbody id="tbody_ug_mstag">
                               <?= $tables ?>
