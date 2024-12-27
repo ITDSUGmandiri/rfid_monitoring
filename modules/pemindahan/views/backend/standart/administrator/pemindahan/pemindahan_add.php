@@ -93,6 +93,7 @@ console.log("xxx");
         var no = 1;
         var rowCount = $('#your_table_id tbody tr').length;
 
+
         // $('#your_table_id tbody').empty();
 
         for (let i = 0; i < rowcollection.length; i++) {
@@ -103,7 +104,6 @@ console.log("xxx");
             var kode_aset = $(elem).data("kode-aset");
             var nup = $(elem).data("nup");
             var kode_tid = $(elem).data("kode-tid");
-            var status_aset = $(elem).data("status_aset");
 
             // Cek apakah kode_tid sudah ada di dataArrayAset
             var tidExists = dataArrayAset.some(function(item) {
@@ -117,8 +117,7 @@ console.log("xxx");
                     kode_aset: kode_aset,
                     nup: nup, 
                     nama_aset: nama_aset,
-                    kode_tid: kode_tid,
-                    status_aset: status_aset,
+                    kode_tid: kode_tid
                 });
             }
 
@@ -151,7 +150,7 @@ console.log("xxx");
                             <td id="asset_name" style="text-align: left">${nama_aset}</td>
                             <td id="asset_code" style="text-align: left">${kode_aset}</td>
                             <td id="asset_nup" style="text-align: center">${nup}</td>
-                            <td id="asset_tid_${kode_tid}" style="text-align: center">${kode_tid}</td>
+                            <td id="${kode_tid}" style="text-align: center">${kode_tid}</td>
                             <td style="text-align: center">
                                 <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                             </td>
@@ -165,15 +164,16 @@ console.log("xxx");
             
         }
 
+        console.log('string_id:', string_id); // Untuk mengecek apakah string_id sudah terisi
+        console.log('dataArrayAset:', dataArrayAset); // Untuk mengecek apakah string_id sudah terisi
+
+
         if (string_id == "") {
-            await new Promise(resolve => {
                 swal({
                     title: "Perhatian !",
-                    text: "Pilih / Ceklis dulu data yang ingin di pindahkan !!",
+                    text: "Pilih / Ceklis dulu data yang ingin dipindahkan !!",
                     type: "warning"
                 });
-                resolve();
-            });
             return false;
         } else {
             $('#total_rfid_tag').html(count+rowCount);
@@ -223,7 +223,6 @@ console.log("xxx");
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid,
-                            status_aset: item.status_aset,
                         });
                     }
 
@@ -368,7 +367,6 @@ console.log("xxx");
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid,
-                            status_aset: item.status_aset,
                         });
                     }
 
@@ -444,7 +442,7 @@ console.log("xxx");
                     ]); 
                 ?>
 
-                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="2">
+                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="5">
                     <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
                     <input type="hidden" name="id_pegawai_input" id="id_pegawai_input" value="0">
                     <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
@@ -586,7 +584,6 @@ console.log("xxx");
                                                 <th style="text-align: center">Kode Aset</th>
                                                 <th style="text-align: center">Kode NUP</th>
                                                 <th style="text-align: center">Kode Tag</th>
-                                                <th style="text-align: center">Status Aset</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -804,7 +801,6 @@ console.log("xxx");
                 { data: "kode_aset", className: "dt-left", orderable: true, searchable: true },
                 { data: "nup", className: "dt-center", orderable: true, searchable: true },
                 { data: "kode_tid", className: "dt-center", orderable: true, searchable: true },
-                { data: "status_aset", className: "dt-center", orderable: true, searchable: true },
             ],
             "createdRow": function (row, data, dataIndex) {
                 // Paksa semua kolom angka menjadi rata tengah
@@ -1303,41 +1299,8 @@ console.log("xxx");
             
             }
 
-            get_datatables_checked();
-
-            // Cek apakah data RFID sudah ada di database
-            try {
-                const response = await get_check_unique_data(uniqueDataArray);
-                
-                if (response.exists) {
-                    swal({
-                        title: "Error",
-                        text: "RFID Tag sudah terdaftar di database!",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#DD6B55", 
-                        confirmButtonText: "Okay!",
-                        closeOnConfirm: true
-                    });
-                    return false;
-                }
-
-            } catch (error) {
-                console.error('Error checking unique data:', error);
-                swal({
-                    title: "Error",
-                    text: "Terjadi kesalahan saat memeriksa data RFID!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-                return false;
-            }
-
-            var form_tb_master_transaksi = $('#form_tb_master_transaksi_add');
-            var data_post = form_tb_master_transaksi.serializeArray();
+            var form_pemindahan = $('#form_pemindahan_add');
+            var data_post = form_pemindahan.serializeArray();
             var save_type = $(this).attr('data-stype');
 
             data_post.push({
@@ -1348,11 +1311,6 @@ console.log("xxx");
             data_post.push({
                 name: 'event_submit_and_action', 
                 value: window.event_submit_and_action
-            });
-
-            data_post.push({
-                name: 'uniqueDataArray',
-                value: JSON.stringify(uniqueDataArray)
             });
 
             $('#data_processing').html('Saving data...');
@@ -1511,13 +1469,13 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_gedung2/' + val,
+                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_gedung/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
                 var html = '<option value=""></option>';
                 $.each(res, function(index, val) {
-                    html += '<option value="' + val.id + '">' + val.gedung2 + '</option>'
+                    html += '<option value="' + val.id + '">' + val.gedung + '</option>'
                 });
                 $('#id_gedung2').html(html);
                 $('#id_gedung2').trigger('chosen:updated');
@@ -1536,13 +1494,13 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_ruangan2/' + val,
+                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_ruangan/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
                 var html = '<option value=""></option>';
                 $.each(res, function(index, val) {
-                    html += '<option value="' + val.id + '">' + val.ruangan2 + '</option>'
+                    html += '<option value="' + val.id + '">' + val.ruangan + '</option>'
                 });
                 $('#id_ruangan2').html(html);
                 $('#id_ruangan2').trigger('chosen:updated');

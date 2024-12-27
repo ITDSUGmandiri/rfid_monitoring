@@ -93,6 +93,7 @@ console.log("xxx");
         var no = 1;
         var rowCount = $('#your_table_id tbody tr').length;
 
+
         // $('#your_table_id tbody').empty();
 
         for (let i = 0; i < rowcollection.length; i++) {
@@ -149,8 +150,7 @@ console.log("xxx");
                             <td id="asset_name" style="text-align: left">${nama_aset}</td>
                             <td id="asset_code" style="text-align: left">${kode_aset}</td>
                             <td id="asset_nup" style="text-align: center">${nup}</td>
-                            <td id="asset_tid_${kode_tid}" style="text-align: center">${kode_tid}</td>
-                            <td id="${kode_tid}" style="text-align: center; background-color: #FF0000">Not Available</td>
+                            <td id="${kode_tid}" style="text-align: center">${kode_tid}</td>
                             <td style="text-align: center">
                                 <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                             </td>
@@ -164,15 +164,16 @@ console.log("xxx");
             
         }
 
+        console.log('string_id:', string_id); // Untuk mengecek apakah string_id sudah terisi
+        console.log('dataArrayAset:', dataArrayAset); // Untuk mengecek apakah string_id sudah terisi
+
+
         if (string_id == "") {
-            await new Promise(resolve => {
                 swal({
                     title: "Perhatian !",
-                    text: "Pilih / Ceklis dulu data yang ingin di cari !!",
+                    text: "Pilih / Ceklis dulu data yang ingin diperbaiki !!",
                     type: "warning"
                 });
-                resolve();
-            });
             return false;
         } else {
             $('#total_rfid_tag').html(count+rowCount);
@@ -196,7 +197,7 @@ console.log("xxx");
 
         try {
             const response = await $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/get_all_aset',
+                url: ADMIN_BASE_URL + '/perbaikan/get_all_aset',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -221,7 +222,7 @@ console.log("xxx");
                             kode_aset: item.kode_aset, 
                             nup: item.nup,
                             nama_aset: item.nama_aset,
-                            kode_tid: item.kode_tid
+                            kode_tid: item.kode_tid,
                         });
                     }
 
@@ -253,8 +254,6 @@ console.log("xxx");
                                     <td id="asset_code" style="text-align: left">${item.kode_aset}</td>
                                     <td id="asset_nup" style="text-align: center">${item.nup}</td>
                                     <td id="asset_tid_${item.kode_tid}" style="text-align: center">${item.kode_tid}</td>
-                                    <td id="${item.kode_tid}" style="text-align: center; background-color: #FF0000">Not Available</td>
-                                    <td style="text-align: center">
                                         <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                                     </td>
                                 </tr>
@@ -283,7 +282,7 @@ console.log("xxx");
     function get_check_unique_data(uniqueDataArray) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/check_unique_data',
+                url: ADMIN_BASE_URL + '/perbaikan/check_unique_data',
                 type: 'GET',
                 dataType: 'json', 
                 data: {
@@ -302,7 +301,7 @@ console.log("xxx");
     function get_check_unique_single_tag(tid) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/check_unique_single_tag',
+                url: ADMIN_BASE_URL + '/perbaikan/check_unique_single_tag',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -332,7 +331,7 @@ console.log("xxx");
 
         try {
             const response = await $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/get_all_aset',
+                url: ADMIN_BASE_URL + '/perbaikan/get_all_aset',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -367,7 +366,7 @@ console.log("xxx");
                             kode_aset: item.kode_aset, 
                             nup: item.nup,
                             nama_aset: item.nama_aset,
-                            kode_tid: item.kode_tid
+                            kode_tid: item.kode_tid,
                         });
                     }
 
@@ -404,11 +403,11 @@ console.log("xxx");
 
 <section class="content-header">
     <h1>    
-    Pencarian Aset<small><?= cclang('new', ['Pencarian Aset']); ?></small>
+    Perbaikan<small><?= cclang('new', ['Perbaikan']); ?></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a href="<?= admin_site_url('/pemindahan'); ?>">Pencarian Aset</a></li>
+        <li class=""><a href="<?= admin_site_url('/perbaikan'); ?>">Perbaikan</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -427,25 +426,56 @@ console.log("xxx");
 			
 		<div class="box-body" id="add_new">
 
+        <h3 style="text-decoration: underline;">Form Perbaikan</h3>
+
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                 <?= form_open('', [            
-                        'name' => 'form_pemindahan_add',            
+                        'name' => 'form_perbaikan_add',            
                         // 'class' => 'form-horizontal form-step',
                         // 'class' => 'form-step',
-                        'id' => 'form_pemindahan_add',
+                        'id' => 'form_perbaikan_add',
                         'enctype' => 'multipart/form-data',
                         'method' => 'POST',
                         'autocomplete' => 'off',
                         'class' => 'form form-horizontal'
                     ]); 
                 ?>
+
+                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="6">
+                    <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
+                    <input type="hidden" name="id_pegawai_input" id="id_pegawai_input" value="0">
+                    <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
+                    <input type="hidden" name="id_pegawai" id="id_pegawai" value="0">
+                    <input type="hidden" name="nama_pegawai" id="nama_pegawai" value="0">
+
+                    <div class="form-group group-tgl_awal_transaksi ">
+                        <label for="tgl_awal_transaksi" class="col-sm-2 control-label">Tgl Perbaikan<i class="required">*</i>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="input-group date col-sm-8">
+                                <input type="text" class="form-control pull-right datepicker" name="tgl_awal_transaksi" placeholder="Tgl Awal Transaksi" id="tgl_awal_transaksi">
+                            </div>
+                            <small class="info help-block">
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group group-ket_transaksi ">
+                        <label for="ket_transaksi" class="col-sm-2 control-label">Ket Perbaikan<i class="required">*</i>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="ket_transaksi" id="ket_transaksi" placeholder="Ket Transaksi" value="<?= set_value('ket_transaksi'); ?>">
+                            <small class="info help-block">
+                                <b>Input Ket Perbaikan</b> Max Length : 500.</small>
+                        </div>
+                    </div>
                             
                 <?php
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
-                <h3 style="text-decoration: underline;">Filter Pencarian</h3>
+                <h3 style="text-decoration: underline;">Isi Data Area</h3>
                 
                     <!-- <section> -->
                     <fieldset>
@@ -484,17 +514,6 @@ console.log("xxx");
                                                                     </select>
                                 <small class="info help-block">
                                     </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-metode_pencarian">
-                            <label for="metode_pencarian" class="col-sm-2 control-label">Metode Pencarian</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="metode_pencarian" id="metode_pencarian">
-                                    <option value="partial" selected>Parsial</option>
-                                    <option value="bulk">Bulk</option>
-                                </select>
-                                <small class="info help-block"></small>
                             </div>
                         </div>
 
@@ -564,123 +583,7 @@ console.log("xxx");
 
                     </fieldset>
 
-                    <h3 style="text-decoration: underline;">Hasil Pencarian</h3>
-
-                    <fieldset>
-
-                        <div class="row">
-
-                            <div class="col-md-3"></div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">IP Address</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="IP Address">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-3"></div>
-                            
-                        </div>
-
-                    </fieldset>
-
-                    <!-- <fieldset>
-
-                        <div class="row">
-
-                            <div class="col-md-3"></div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Single RFID Tag</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="single_rfid_tag" name="single_rfid_tag" placeholder="Single RFID Tag">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button class="btn btn-flat btn-primary btn_search btn_action btn_search_back btn-block" id="btn_search_single_tag" data-stype='back' title="Search">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-3"></div>
-                            
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-3"></div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Kode EPC</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="single_kode_epc" name="single_kode_epc" placeholder="Kode EPC">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-3"></div>
-                            
-                        </div>
-
-                    </fieldset> -->
-
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <input type="hidden" name="array_tag_code" id="array_tag_code" value="0">   
-                        </div>
-                                    
-                        <div class="col-md-6">
-
-                            <div class="d-flex justify-content-center">
-                                
-                                <a class="btn btn-flat btn-info btn_search btn_action btn_search_back btn-block" id="btn_search" data-stype='back' title="Search">
-                                    <i class="fa fa-search"></i>&nbsp;Search
-                                </a>
-
-                            </div>
-
-                            <small class="info help-block"><b>Status:</b> <div id="status"></div></small>&nbsp;&nbsp;
-                            <div id="container_total_rfid_tag">
-                                <small class="info help-block"><b>Total RFID Tag:</b> <div id="total_rfid_tag">0</div></small>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3"></div>
-                    </div>
-
-                    <div id="containerChartResult">
-
-                        <div class="row">        
-                            <div class="col-md-3"></div>
-
-                            <div class="col-md-2 text-center">
-                                <small class="info help-block"><b>Total Aset Real:</b> <div id="chart_aset_real">0</div></small>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <small class="info help-block"><b>Total Aset Found:</b> <div id="chart_aset_found">0</div></small>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <small class="info help-block"><b>Total Aset Not Found:</b> <div id="chart_aset_not_found">0</div></small>
-                            </div>
-
-                            <div class="col-md-3"></div>
-                        </div>
-
-                    </div>
+                    <h3 style="text-decoration: underline;">Barang Yang Diperbaiki</h3>
 
                     <div id="containerHasilPencarian" class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">
@@ -697,7 +600,6 @@ console.log("xxx");
                                         <th style="text-align: center" data-field="kode_aset"data-sort="1" data-primary-key="0"> <?= cclang('Kode Aset') ?></th>
                                         <th style="text-align: center" data-field="nup"data-sort="1" data-primary-key="0"> <?= cclang('Kode NUP') ?></th>
                                         <th style="text-align: center" data-field="kode_tid"data-sort="1" data-primary-key="0"> <?= cclang('Kode Tag') ?></th>
-                                        <th style="text-align: center" data-field="hasil_pencarian"data-sort="1" data-primary-key="0"> <?= cclang('Hasil Pencarian') ?></th>
                                         
                                         <th style="text-align: center; vertical-align: middle;">
                                             <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
@@ -722,22 +624,17 @@ console.log("xxx");
                         </div>
                     </div>
 
-                    <div id="containerChart">
-
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-6">
-                                <canvas id="myChartPencarian"></canvas>
-                            </div>
-                            <div class="col-md-3"></div>
-                        </div>
-
-                    </div>
-                    <!-- /.containerChart -->
-
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-12">
                             <div class="form-group text-center">
+
+                                <button class="btn btn-flat btn-primary btn_save btn_action" id="btn_save" data-stype='stay' title="<?= cclang('save_button'); ?> (Ctrl+s)">
+                                    <i class="fa fa-save"></i> <?= cclang('save_button'); ?>
+                                </button>
+
+                                <a class="btn btn-flat btn-info btn_save btn_action btn_save_back" id="btn_save" data-stype='back' title="<?= cclang('save_and_go_the_list_button'); ?> (Ctrl+d)">
+                                    <i class="ion ion-ios-list-outline"></i> <?= cclang('save_and_go_the_list_button'); ?>
+                                </a>
 
                                 <!-- Cancel Button -->
                                 <div class="custom-button-wrapper"></div>
@@ -782,40 +679,8 @@ console.log("xxx");
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-    var ctx = document.getElementById('myChartPencarian').getContext('2d');
-    var chart = new Chart(ctx, {           
-        type: 'pie',                            
-        data: {
-            labels: ["Aset Real", "Aset Ditemukan", "Aset Tidak Ditemukan"],                            
-            // labels: ["Aset Tidak Ditemukan", "Aset Ditemukan", "Aset Real"],                          
-            datasets: [{
-                                            
-                label: "Data Aset",                            
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)',
-                ],                            
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)',
-                ],
-                data: [0, 0, 0],
-                                        
-            }]
-        },                  
-        options: {                   
-            legend: {              
-                display: false                           
-            }                            
-        }
-    });
-</script>
-
 <script type="text/javascript">
-  var module_name = "pemindahan"
+  var module_name = "perbaikan"
   var use_ajax_crud = false
 </script>
 
@@ -911,6 +776,32 @@ console.log("xxx");
             reload_datatables();
         });
 
+        $('#metode_pencarian').change(function() {
+            var metode_pencarian = $(this).val();
+            // console.log(metode_pencarian);
+
+            // Periksa nilai metode_pencarian
+            if (metode_pencarian === 'bulk') {
+                // Tampilkan elemen
+                $('#containerHasilPencarian').hide();
+                $('#containerHeaderPilihAset').hide();
+                $('#containerPilihAset').hide();
+                $('#containerChart').show();
+                $('#containerPilihAsetFooter').hide();
+                $('#containerChartResult').show();
+                $('#container_total_rfid_tag').hide();
+            } else {
+                // Sembunyikan elemen
+                $('#containerHasilPencarian').show();
+                $('#containerHeaderPilihAset').show();
+                $('#containerPilihAset').show();
+                $('#containerChart').hide();
+                $('#containerPilihAsetFooter').show();
+                $('#containerChartResult').hide();
+                $('#container_total_rfid_tag').show();
+            }
+        });
+
         $('#select_all').change(function() {
 
             var id_area = $('#id_area').val();
@@ -964,9 +855,6 @@ console.log("xxx");
 
             let metode_pencarian = $('#metode_pencarian').val();
 
-            // Reset uniqueDataArray
-            // uniqueDataArray = [];
-            
             var ip_address = $('#ip_address').val();
 
             if (ip_address == '') {
@@ -1337,7 +1225,7 @@ console.log("xxx");
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    window.location.href = ADMIN_BASE_URL + '/pemindahan';
+                    window.location.href = ADMIN_BASE_URL + '/perbaikan';
                 }
             });
 
@@ -1356,7 +1244,7 @@ console.log("xxx");
 
                 swal({
                     title: "Error",
-                    text: "Pilih dulu Aset yang akan di registrasi!",
+                    text: "Pilih dulu Aset yang akan diperbaiki!",
                     type: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#DD6B55",
@@ -1368,73 +1256,8 @@ console.log("xxx");
             
             }
 
-            var total_rfid_tag = $('#total_rfid_tag').html();
-
-            if (total_rfid_tag == 0) {
-
-                swal({
-                    title: "Error",
-                    text: "RFID Tag tidak boleh kosong!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-
-                return false;
-            }
-
-            if (total_rfid_tag != total_aset_checklist) {
-                
-                swal({
-                    title: "Error",
-                    text: "Total RFID Tag tidak sama dengan total Aset yang dipilih!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-
-                return false;
-            }
-
-            get_datatables_checked();
-
-            // Cek apakah data RFID sudah ada di database
-            try {
-                const response = await get_check_unique_data(uniqueDataArray);
-                
-                if (response.exists) {
-                    swal({
-                        title: "Error",
-                        text: "RFID Tag sudah terdaftar di database!",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#DD6B55", 
-                        confirmButtonText: "Okay!",
-                        closeOnConfirm: true
-                    });
-                    return false;
-                }
-
-            } catch (error) {
-                console.error('Error checking unique data:', error);
-                swal({
-                    title: "Error",
-                    text: "Terjadi kesalahan saat memeriksa data RFID!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-                return false;
-            }
-
-            var form_tb_master_transaksi = $('#form_tb_master_transaksi_add');
-            var data_post = form_tb_master_transaksi.serializeArray();
+            var form_perbaikan = $('#form_perbaikan_add');
+            var data_post = form_perbaikan.serializeArray();
             var save_type = $(this).attr('data-stype');
 
             data_post.push({
@@ -1447,16 +1270,11 @@ console.log("xxx");
                 value: window.event_submit_and_action
             });
 
-            data_post.push({
-                name: 'uniqueDataArray',
-                value: JSON.stringify(uniqueDataArray)
-            });
-
             $('#data_processing').html('Saving data...');
             $('.loading').show();
 
             $.ajax({
-                    url: ADMIN_BASE_URL + '/pemindahan/add_save',
+                    url: ADMIN_BASE_URL + '/perbaikan/add_save',
                     type: 'POST',
                     dataType: 'json',
                     data: data_post,
@@ -1533,7 +1351,7 @@ console.log("xxx");
                     }
 
                     if (use_ajax_crud == true) {
-                        var url = BASE_URL + ADMIN_NAMESPACE_URL + '/pemindahan/index/?ajax=1'
+                        var url = BASE_URL + ADMIN_NAMESPACE_URL + '/perbaikan/index/?ajax=1'
                         reloadDataTable(url);
                     }
 
@@ -1554,11 +1372,11 @@ console.log("xxx");
             return false;
         }); /*end btn save*/
 
-    $('#id_area').change(function(event) {
+        $('#id_area').change(function(event) {
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_gedung/' + val,
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_gedung/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
@@ -1583,7 +1401,7 @@ console.log("xxx");
         var val = $(this).val();
         $.LoadingOverlay('show')
         $.ajax({
-                url: ADMIN_BASE_URL + '/pemindahan/ajax_id_ruangan/' + val,
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_ruangan/' + val,
                 dataType: 'JSON',
             })
             .done(function(res) {
@@ -1593,6 +1411,56 @@ console.log("xxx");
                 });
                 $('#id_ruangan').html(html);
                 $('#id_ruangan').trigger('chosen:updated');
+
+            })
+            .fail(function() {
+                toastr['error']('Error', 'Getting data fail')
+            })
+            .always(function() {
+                $.LoadingOverlay('hide')
+            });
+
+    });
+
+    $('#id_area2').change(function(event) {
+        var val = $(this).val();
+        $.LoadingOverlay('show')
+        $.ajax({
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_gedung/' + val,
+                dataType: 'JSON',
+            })
+            .done(function(res) {
+                var html = '<option value=""></option>';
+                $.each(res, function(index, val) {
+                    html += '<option value="' + val.id + '">' + val.gedung + '</option>'
+                });
+                $('#id_gedung2').html(html);
+                $('#id_gedung2').trigger('chosen:updated');
+
+            })
+            .fail(function() {
+                toastr['error']('Error', 'Getting data fail')
+            })
+            .always(function() {
+                $.LoadingOverlay('hide')
+            });
+
+    });
+
+    $('#id_gedung2').change(function(event) {
+        var val = $(this).val();
+        $.LoadingOverlay('show')
+        $.ajax({
+                url: ADMIN_BASE_URL + '/perbaikan/ajax_id_ruangan/' + val,
+                dataType: 'JSON',
+            })
+            .done(function(res) {
+                var html = '<option value=""></option>';
+                $.each(res, function(index, val) {
+                    html += '<option value="' + val.id + '">' + val.ruangan + '</option>'
+                });
+                $('#id_ruangan2').html(html);
+                $('#id_ruangan2').trigger('chosen:updated');
 
             })
             .fail(function() {

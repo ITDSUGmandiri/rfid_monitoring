@@ -162,9 +162,12 @@ class pemindahan extends Admin
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
 		// $this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
-		$this->form_validation->set_rules('id_area2', 'Id Area', 'trim|required');
-		$this->form_validation->set_rules('id_gedung2', 'Id Gedung', 'trim|required');
-		$this->form_validation->set_rules('id_ruangan2', 'Id Ruangan', 'trim|required');
+		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
+		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
+		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
+		$this->form_validation->set_rules('id_area2', 'Id Area2', 'trim|required');
+		$this->form_validation->set_rules('id_gedung2', 'Id Gedung2', 'trim|required');
+		$this->form_validation->set_rules('id_ruangan2', 'Id Ruangan2', 'trim|required');
 
 		if ($this->form_validation->run()) {
 
@@ -180,9 +183,12 @@ class pemindahan extends Admin
 				'id_pegawai' => $this->input->post('id_pegawai'),
 				'nama_pegawai' => $this->input->post('nama_pegawai'),
 				'ket_transaksi' => $this->input->post('ket_transaksi'),
-				'id_area2' => $this->input->post('id_area'),
-				'id_gedung2' => $this->input->post('id_gedung'),
-				'id_ruangan2' => $this->input->post('id_ruangan'),
+				'id_area' => $this->input->post('id_area'),
+				'id_gedung' => $this->input->post('id_gedung'),
+				'id_ruangan' => $this->input->post('id_ruangan'),
+				'id_area2' => $this->input->post('id_area2'),
+				'id_gedung2' => $this->input->post('id_gedung2'),
+				'id_ruangan2' => $this->input->post('id_ruangan2'),
 			];
 
 			$save_data_detail_transaksi = [
@@ -207,20 +213,25 @@ class pemindahan extends Admin
 			for ($i = 0; $i < count($array_data_aset); $i++) {
 				$linked_data[] = array(
 					'aset' => $array_data_aset[$i],
-					'tag' => $uniqueDataArray[$i]
+					'aset' => $uniqueDataArray[$i]
 				);
 			}
 
 			// echo '<pre>';
-			// print_r($linked_data);
+			// print_r($array_data_aset);
 			// echo '</pre>';
 			// exit();
 
-			$save_register_aset = $id = $this->model_pemindahan->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
+			$save_register_aset = $id = $this->model_pemindahan->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset);
 			// $save_register_aset = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 
+			// echo '<pre>';
+			// print_r($save_register_aset);
+			// echo '</pre>';
+			// exit();
 
 			if ($save_register_aset) {
+				
 
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
@@ -533,7 +544,6 @@ class pemindahan extends Admin
 		$results = db_get_all_data('tb_master_ruangan', ['id_gedung' => $id]);
 		$this->response($results);
 	}
-
 
 	public function check_unique_data()
 	{
