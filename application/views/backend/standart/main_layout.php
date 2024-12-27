@@ -255,15 +255,9 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
-  <script>
-    const lastTwo = window.location.href.split('/').slice(-2).join('/');
-
-    if (lastTwo != 'registered_aset/add') {
-      <
-      script src = "https://cdn.datatables.net/2.1.8/js/dataTables.js" / >
-    }
-  </script>
-
+  <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <?php } ?>
 
   <script>
     $(document).ready(function() {

@@ -902,7 +902,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 5000);
+    setInterval(newLibraraian, 3000);
 
     $(document).ready(function() {
 
