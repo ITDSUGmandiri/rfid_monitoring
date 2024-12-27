@@ -77,6 +77,102 @@
     var chart_aset_wrong_room = 0;
     var chart_aset_foreign_tag = 0;
 
+    function setDropdownValue(idDropdown, storageKey) {
+        let value = localStorage.getItem(storageKey);
+        if (value) {
+            // console.log(`${storageKey} tersimpan:`, value);
+
+            // Cek apakah opsi sudah tersedia
+            let interval = setInterval(function () {
+                let $dropdown = $('#' + idDropdown);
+                if ($dropdown.find(`option[value="${value}"]`).length) {
+                    $dropdown.val(value).trigger('change');
+                    $dropdown.trigger('chosen:updated');  // Update Chosen
+                    // console.log(`${storageKey} berhasil di trigger dan diupdate`);
+                    clearInterval(interval);  // Stop interval setelah berhasil
+                }
+            }, 200);  // Cek setiap 200ms
+        }
+    }
+
+    async function confirmCancelSearch(metode_pencarian) {
+               
+        const result = await Swal.fire({
+          title: 'Apakah Anda yakin ingin membatalkan pencarian aset secara ' + metode_pencarian + '?',
+          text: "Jika ya maka pencarian akan dihentikan, semua data akan direset.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Ya, batalkan!',
+          cancelButtonText: 'Batal',
+          allowOutsideClick: false  // Blok klik di luar alert
+        });
+
+        // Kembalikan true jika pengguna memilih 'Ya'
+        if (result.isConfirmed) {
+            return true;
+        }
+
+        // Kembalikan false jika klik batal atau tutup popup
+        return false;
+    }
+
+    async function confirmSearch() {
+
+        let metode_pencarian = $('#metode_pencarian').val();
+
+        if (metode_pencarian == 'partial') {
+
+            if (chart_aset_found > 0) {
+                
+                const result = await Swal.fire({
+                    title: 'Apakah Anda yakin ingin mulai pencarian ulang?',
+                    text: "Jika ya maka pencarian akan dimulai dari awal, semua data akan direset.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, mulai ulang!',
+                    cancelButtonText: 'Batal',
+                    allowOutsideClick: false  // Blok klik di luar alert
+                });
+
+                // Kembalikan true jika pengguna memilih 'Ya'
+                if (result.isConfirmed) {
+                    return true;
+                }
+                
+                // Kembalikan false jika klik batal atau tutup popup
+                return false;
+            }
+
+        } else {
+
+            let jml_keranjang_anomali = $('#your_table_id_bulk tbody tr').length;
+
+            if (chart_aset_found > 0 || jml_keranjang_anomali > 0) {
+                
+                const result = await Swal.fire({
+                    title: 'Apakah Anda yakin ingin mulai pencarian ulang?',
+                    text: "Jika ya maka pencarian akan dimulai dari awal, semua data akan direset.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, mulai ulang!',
+                    cancelButtonText: 'Batal',
+                    allowOutsideClick: false  // Blok klik di luar alert
+                });
+
+                // Kembalikan true jika pengguna memilih 'Ya'
+                if (result.isConfirmed) {
+                    return true;
+                }
+                
+                // Kembalikan false jika klik batal atau tutup popup
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
     function playTtsPencarian(free_text_tts) {
 
         try {
@@ -139,7 +235,7 @@
         $('#chart_aset_found').html(0);
         $('#chart_aset_not_found').html(0);
 
-        $('#help_text').html(JSON.stringify(dataArrayAset));
+        // $('#help_text').html(JSON.stringify(dataArrayAset));
 
     }   
 
@@ -178,7 +274,7 @@
         $('#chart_aset_found').html(0);
         $('#chart_aset_not_found').html(0);
 
-        $('#help_text').html(JSON.stringify(dataArrayAsetForBulk));
+        // $('#help_text').html(JSON.stringify(dataArrayAsetForBulk));
 
         // another tag
 
@@ -235,7 +331,7 @@
         $('#chart_aset_found').html(chart_aset_found);
         $('#chart_aset_not_found').html(chart_aset_not_found);
 
-        $('#help_text').html(JSON.stringify(dataArrayAset));
+        // $('#help_text').html(JSON.stringify(dataArrayAset));
         
     }
 
@@ -271,7 +367,7 @@
         $('#chart_aset_wrong_room').html(chart_aset_wrong_room);
         $('#chart_aset_foreign_tag').html(chart_aset_foreign_tag);
 
-        $('#help_text').html(JSON.stringify(dataArrayAset));
+        // $('#help_text').html(JSON.stringify(dataArrayAset));
         
     }
 
@@ -407,7 +503,7 @@
             $('#string_id').val(string_id);
             // $('#data_array_aset').val(JSON.stringify(dataArrayAset)); // Menyimpan array data ke hidden input
 
-            fixingNumbering();
+            fixingNumbering('partial');
 
             $('#chart_aset_real').html(jumlah_aset_with_tag);
             $('#chart_aset_found').html('0');
@@ -528,7 +624,7 @@
                 $('#string_id').val(string_id);
                 $('#data_array_aset').val(JSON.stringify(dataArrayAset));
 
-                fixingNumbering();
+                fixingNumbering('partial');
 
                 $('#chart_aset_real').html(jumlah_aset_with_tag);
                 $('#chart_aset_found').html('0');
@@ -660,7 +756,7 @@
                 chart_aset_found = 0;
                 chart_aset_not_found = jumlah_aset_with_tag;
 
-                $('#help_text').html(JSON.stringify(dataArrayAsetForBulk));
+                // $('#help_text').html(JSON.stringify(dataArrayAsetForBulk));
 
             }
 
@@ -758,6 +854,7 @@
                         <div class="form-group group-metode_pencarian">
                             <label for="metode_pencarian" class="col-sm-2 control-label">Metode Pencarian</label>
                             <div class="col-sm-8">
+                                <input type="hidden" name="metode_pencarian_terakhir" id="metode_pencarian_terakhir" value="partial">
                                 <select class="form-control" name="metode_pencarian" id="metode_pencarian">
                                     <option value="partial" selected>Parsial</option>
                                     <option value="bulk">Bulk</option>
@@ -926,12 +1023,23 @@
                             </div>
 
                             <small class="info help-block"><b>Status:</b> <div id="status"></div></small>&nbsp;&nbsp;
+
+                            <div class="form-group">
+                                <label>Power Handheld</label>
+                                <input type="range" class="form-control-range" id="power_handheld" name="power_handheld" min="0" max="30" value="15">
+                                <small class="info help-block">
+                                    <b>Power:</b> <span id="power_handheld_info">15</span>
+                                </small>
+                            </div>
+                            
                             <div id="container_total_rfid_tag">
                                 <small class="info help-block"><b>Total RFID Tag:</b> <div id="total_rfid_tag">0</div></small>
                             </div>
+
                         </div>
 
                         <div class="col-md-3"></div>
+
                     </div>
 
                     <div id="containerChartResult">
@@ -1104,10 +1212,10 @@
                                 <!-- <h3 style="text-decoration: underline;">Query Standing Awal, hasilnya insert semua ke array: dataArrayAsetForBulk</h3> -->
 
                                 <!-- Help Text -->
-                                <div class="text-center">
+                                <!-- <div class="text-center"> -->
                                     <!-- <p class="help-block">(*) Mandatory</p> -->
-                                    <p class="help-block" style="display: block !important;" id="help_text"></p>
-                                </div>
+                                    <!-- <p class="help-block" style="display: block !important;" id="help_text"></p> -->
+                                <!-- </div> -->
 
                                 <hr>
                               
@@ -1220,6 +1328,74 @@
 
         // playBell();
 
+        // if (localStorage.getItem('id_area')) {   
+        //     console.log('ID Area tersimpan:', localStorage.getItem('id_area'));
+        //     let id_area = $('#id_area').val(localStorage.getItem('id_area'));
+        //     $('#id_area').val(localStorage.getItem('id_area')).trigger('change');
+        //     console.log('id_area berhasil di trigger');
+        // }
+
+        // if (localStorage.getItem('id_gedung')) {   
+        //     console.log('ID Gedung tersimpan:', localStorage.getItem('id_gedung'));
+        //     let id_gedung = $('#id_gedung').val(localStorage.getItem('id_gedung'));
+        //     $('#id_gedung').val(localStorage.getItem('id_gedung')).trigger('change');
+        //     console.log('id_gedung berhasil di trigger');
+        // }
+
+        // if (localStorage.getItem('id_ruangan')) {   
+        //     console.log('ID Ruangan tersimpan:', localStorage.getItem('id_ruangan'));
+        //     let id_ruangan = $('#id_ruangan').val(localStorage.getItem('id_ruangan'));
+        //     $('#id_ruangan').val(localStorage.getItem('id_ruangan')).trigger('change');
+        // }
+
+        var port_ws_server = $('#port_ws_server').val();
+        var protocol_ws_server = $('#protocol_ws_server').val();
+
+        var stored_ip_address = localStorage.getItem('ip_address');
+
+        if (stored_ip_address) {
+            
+            $('#ip_address').val(stored_ip_address);
+            console.log('IP Address yang tersimpan: ', stored_ip_address);
+            // $('#btn_search').trigger('click');
+
+            var socket = new WebSocket(protocol_ws_server + '://' + stored_ip_address + ':' + port_ws_server);
+
+        } else {
+            console.log('Tidak ada IP Address yang tersimpan, set default');
+            $('#ip_address').val('192.168.1.195');
+            localStorage.setItem('ip_address', '192.168.1.195');
+        }
+
+        socket.onopen = function(event) {    
+            console.log('Your System Connected to WebSocket server');
+            $('#status').html('Connected');
+
+            socket.send('{"event": "get-rfid-power"}');
+            console.log('post get-rfid-power');
+        };
+
+        socket.onclose = function(event) {
+            if (event.wasClean) {
+                console.log('WebSocket connection closed');
+            } else {
+                console.log('WebSocket connection died');
+            }
+            $('#status').html('Not Connected to Server');
+            $('#data_processing').html('');
+        };
+
+        socket.onerror = function(err) {
+            console.error('Socket encountered error: ', err.message, 'Closing socket');
+            socket.close();
+        };
+
+        $('#metode_pencarian_terakhir').val('partial');
+
+        setDropdownValue('id_area', 'id_area');
+        setDropdownValue('id_gedung', 'id_gedung');
+        setDropdownValue('id_ruangan', 'id_ruangan');
+
         $('#containerChart').hide();
         $('#containerChartResult').show();
         $('#container_total_rfid_tag').hide();
@@ -1232,49 +1408,6 @@
         $('#status').html('Disconnected');
         $('#ip_address').attr('placeholder', 'Masukkan IP Address');
         // $('#ip_address').val('');
-
-        var stored_ip_address = localStorage.getItem('ip_address');
-        var port_ws_server = $('#port_ws_server').val();
-        var protocol_ws_server = $('#protocol_ws_server').val();
-
-        if (stored_ip_address) {
-
-            $('#ip_address').val(stored_ip_address);
-
-            const socket = new WebSocket(protocol_ws_server + '://' + stored_ip_address + ':' + port_ws_server);
-
-            socket.onopen = function(event) {
-                console.log('Your System Connected to WebSocket server');
-                $('#status').html('Connected');
-            };
-
-            socket.onclose = function(event) {
-
-                if (event.wasClean) {
-                        console.log('WebSocket connection closed');
-                } else {
-                        console.log('WebSocket connection died');
-                }
-
-                $('#status').html('Not Connected to Server');
-                $('#data_processing').html('');
-
-                console.log('Socket is closed. Reconnect will be attempted in 1 second.', event.reason);
-
-                setTimeout(function() {
-                    
-                    const socket = new WebSocket(protocol_ws_server + '://' + stored_ip_address + ':' + port_ws_server);
-
-                }, 1000);
-
-
-            };
-            
-        } else {
-            console.log('Tidak ada IP Address yang tersimpan, set default');
-            $('#ip_address').val('192.168.1.195');
-            localStorage.setItem('ip_address', '192.168.1.195');
-        }
 
         "use strict";
         window.event_submit_and_action = '';
@@ -1330,17 +1463,62 @@
         }
 
         $('#id_ruangan').change(function() {
+            // console.log('ID Ruangan:', $(this).val());
+            localStorage.setItem('id_ruangan', $(this).val());
             reload_datatables();
             // $('#btn_search').trigger('click');
         });
 
-        $('#metode_pencarian').change(function() {
+        $('#power_handheld').on('input change', function() {
+            
+            var power_handheld = $(this).val();
+            localStorage.setItem('power_handheld', power_handheld);
+            $('#power_handheld_info').text(power_handheld);  // Update teks span
+
+            socket.send(JSON.stringify({
+                event: "set-rfid-power",
+                value: power_handheld
+            }));
+            console.log('post set-rfid-power: ' + power_handheld);
+
+        });
+
+        $('#metode_pencarian').change(async function() {
 
             var metode_pencarian = $(this).val();
-            // console.log(metode_pencarian);
 
-            // Periksa nilai metode_pencarian
             if (metode_pencarian === 'bulk') {
+
+                var metode_pencarian_terakhir = $('#metode_pencarian_terakhir').val();
+
+                // if (metode_pencarian_terakhir === 'partial') {
+
+                    let rowCount = $('#your_table_id tbody tr').length;
+
+                    if (rowCount > 0) {
+
+                        const isConfirmed = await confirmCancelSearch('partial');  // Tunggu hasil konfirmasi
+
+                        if (!isConfirmed) {
+                            $('#metode_pencarian_terakhir').val('partial');
+                            $('#metode_pencarian').val('partial');
+                            return false;
+                        } else {
+                            $('#btn_search').trigger('click');  // Memicu klik tombol lain
+                            removeAllRowBulk();
+                            $('#metode_pencarian_terakhir').val('bulk');
+                        }
+
+                    } else {
+
+                        $('#btn_search').trigger('click');  // Memicu klik tombol lain
+                        removeAllRowBulk();
+                        $('#metode_pencarian_terakhir').val('bulk');
+                        // $('#metode_pencarian').val('bulk').trigger('change');
+                    }
+
+                // }
+
                 // Tampilkan elemen
                 $('#containerHasilPencarianBulk').show();
                 $('#containerHasilPencarian').hide();
@@ -1352,10 +1530,39 @@
                 // $('#containerChartResult').show();
                 // $('#container_total_rfid_tag').hide();
 
-                $('#btn_search').trigger('click');  // Memicu klik tombol lain
-                removeAllRowBulk();
+            } else { // metode_pencarian === 'partial'
 
-            } else {
+                let rowCount = $('#your_table_id_bulk tbody tr').length;
+
+                if (chart_aset_found > 0 || rowCount > 0) {
+
+                    const isConfirmed = await confirmCancelSearch('bulk');  // Tunggu hasil konfirmasi
+
+                    if (!isConfirmed) {
+                        console.log("Proses dihentikan oleh pengguna.");
+                        $('#metode_pencarian_terakhir').val('bulk');
+                        $('#metode_pencarian').val('bulk');
+                        return false;
+                    }
+                    else {
+
+                        $('#select_all').prop('checked', true);
+                        $('#select_all').val('1');
+                        console.log('checkbox select all...');
+                        
+                        // $('#btn_pilih_aset').trigger('click');
+
+                        $("#your_table_id tbody tr").each(function() {
+                            var targetCell = $(this).find("td").eq(6);
+                            targetCell.text('Not Available').css('background-color', '#FF0000');
+                        });
+
+                        reload_datatables();
+                        // $('#btn_search').trigger('click');
+
+                    }
+
+                }
 
                 // Sembunyikan elemen
                 $('#containerHasilPencarianBulk').hide();
@@ -1367,22 +1574,6 @@
                 $('#containerPilihAsetFooter').show();
                 // $('#containerChartResult').hide();
                 // $('#container_total_rfid_tag').show();
-
-                $('#select_all').prop('checked', true);
-                $('#select_all').val('1');
-                console.log('checkbox select all...');
-                $('#btn_pilih_aset').trigger('click');
-
-                $("#your_table_id tbody tr").each(function() {
-                    // Cari kolom index ke-6 (index 5 dalam array)
-                    var targetCell = $(this).find("td").eq(6);
-                    
-                    // Ubah text dan gaya kolom tersebut
-                    targetCell.text('Not Available').css('background-color', '#FF0000');
-                });
-
-                reload_datatables();
-                $('#btn_search').trigger('click');
 
             }
         });
@@ -1451,21 +1642,19 @@
 
         });
 
-        $('#btn_search').click(function() {
+        $('#btn_search').click(async function() {
 
+            console.log('btn_search...');
             let metode_pencarian = $('#metode_pencarian').val();
             var is_web_play_buzzer = $('#is_web_play_buzzer').val();
             var ip_address = $('#ip_address').val();
 
-            if (ip_address == '') {
-                swal({
+            if (ip_address === '') {
+                await Swal.fire({
                     title: "Error",
                     text: "IP Address tidak boleh kosong!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
+                    icon: "error",
+                    confirmButtonText: "Okay!"
                 });
                 return false;
             }
@@ -1513,7 +1702,14 @@
                         closeOnConfirm: true
                     });
                     return false;
-                }   
+                }
+
+                const isConfirmed = await confirmSearch();  // Tunggu hasil konfirmasi
+
+                if (!isConfirmed) {
+                    console.log("Proses dihentikan oleh pengguna.");
+                    return;  // Hentikan eksekusi jika pengguna membatalkan
+                }
 
                 var postTimeout = null; // Timer untuk mendeteksi tidak ada data baru
                 var timeoutDuration = 2000; // Waktu tunggu (ms) untuk memposting data ke database
@@ -1542,41 +1738,74 @@
                 removeAllRowBulk();
 
             } // end validation bulk
-            else {
+            else { // validation partial
+
+                if ($("#your_table_id tbody tr").length == 0) {
+                    await Swal.fire({
+                        title: "Perhatian!",
+                        text: "Pilih dulu data yang ingin di cari!",
+                        icon: "warning",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay!"
+                    });
+                    return false;
+                }
+                
+                if (chart_aset_found > 0) {
+
+                    const isConfirmed = await confirmSearch();  // Tunggu hasil konfirmasi
+
+                    if (!isConfirmed) {
+                        console.log("Proses dihentikan oleh pengguna.");
+                        return;  // Hentikan eksekusi jika pengguna membatalkan
+                    }
+                    
+                }
+
+                $("#your_table_id tbody tr").each(function() {
+                    var targetCell = $(this).find("td").eq(6);
+                    targetCell.text('Not Available').css('background-color', '#FF0000');
+                });
+
+                // Menghitung jumlah "Available" dan "Not Available"
+                let availableCount = 0;
+                let notAvailableCount = 0;
+
+                $("#your_table_id tbody tr").each(function (index, tr) {
+                    let cell = $(tr).find('td:eq(6)');
+                    let cellText = cell.text().trim();
+                    if (cellText === "Available") {
+                        availableCount++;
+                    } else if (cellText === "Not Available") {
+                        notAvailableCount++;
+                    }
+                });
+
+                // Tampilkan hasilnya
+                console.log("Available:", availableCount);
+                console.log("Not Available:", notAvailableCount);
+
+                // chart_aset_real = rowCount-1;
+                chart_aset_found = availableCount;
+                chart_aset_not_found = notAvailableCount;
                 
                 console.log('result of getAllAsetForPartial: ', dataArrayAset);
                 tidCountForPartial = {}; // Objek untuk menghitung frekuensi pembacaan TID
 
-                chart_aset_found = 0;
-                console.log('chart_aset_found di awal: ', chart_aset_found);
-                chart_aset_not_found = 0;
-                console.log('chart_aset_not_found di awal: ', chart_aset_not_found);
+                // chart_aset_found = 0;
+                // chart_aset_not_found = 0;
 
             }
 
-            chart_aset_not_found = 0;
+            // chart_aset_not_found = 0;
 
             var port_ws_server = $('#port_ws_server').val();
             var protocol_ws_server = $('#protocol_ws_server').val();
 
             localStorage.setItem('ip_address', ip_address);
-            const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
 
-            socket.onopen = function(event) {
-                console.log('Your System Connected to WebSocket server');
-                $('#status').html('Connected');
-
-            };
-
-            socket.onclose = function(event) {
-                if (event.wasClean) {
-                    console.log('WebSocket connection closed');
-                } else {
-                    console.log('WebSocket connection died');
-                }
-                $('#status').html('Not Connected to Server');
-                $('#data_processing').html('');
-            };
+            // const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
+            socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
 
             socket.onmessage = function (event) {
 
@@ -1584,8 +1813,6 @@
                 var event_name = parsedData.event;
 
                 if (event_name == 'scan-rfid-result') {
-
-                    $('#data_processing').html('Searching RFID Tag...');
 
                     metode_pencarian = $('#metode_pencarian').val();
 
@@ -1652,16 +1879,16 @@
                                     is_unique_single_tag = response.check;
                                     data_aset = response.data_aset;
 
-                                    id = data_aset.id_aset;
-                                    kode_aset = data_aset.kode_aset;
-                                    nup = data_aset.nup;
-                                    nama_aset = data_aset.nama_aset;
-                                    kode_tid = data_aset.kode_tid;
-                                    area = data_aset.area;
-                                    gedung = data_aset.gedung;
-                                    ruangan = data_aset.ruangan;
-
                                     if (is_unique_single_tag != 0) {
+
+                                        id = data_aset.id_aset;
+                                        kode_aset = data_aset.kode_aset;
+                                        nup = data_aset.nup;
+                                        nama_aset = data_aset.nama_aset;
+                                        kode_tid = data_aset.kode_tid;
+                                        area = data_aset.area;
+                                        gedung = data_aset.gedung;
+                                        ruangan = data_aset.ruangan;
 
                                         if (!(kode_tid in tidCountWrongRoom)) {
 
@@ -1694,7 +1921,8 @@
                                             tidCountWrongRoom[kode_tid] += 1;
                                         }
                                         
-                                    } else {
+                                    } // end if registered tag 
+                                    else { // else if unregistered tag
 
                                         if (!(tid in tidCountForeignTag)) {
 
@@ -1727,7 +1955,7 @@
 
                                     }
 
-                                });
+                                }); // end get_check_unique_single_tag
 
                             }
 
@@ -1775,6 +2003,8 @@
 
                             // Cek apakah array dataArrayAset kosong
                             if (dataArrayAset.length === 0) {
+
+                                console.log('dataArrayAset kosong...');
 
                                 // let jml_data_pencarian = $('#your_table_id tbody tr').length;
 
@@ -1866,6 +2096,7 @@
                 } else if (event_name == 'response-scan-rfid-on') {
 
                     $('.loading').show();
+                    $('#data_processing').html('Searching RFID Tag...');
 
                     // let metode_pencarian = $('#metode_pencarian').val();
                     // var free_text_tts = 'Memulai pencarian ' + metode_pencarian;
@@ -1921,6 +2152,16 @@
 
                     // }
 
+                } else if (event_name == 'response-get-rfid-power') {
+                    
+                    // var parsedData = JSON.parse(event.data);
+                    // var event_name = parsedData.event;
+                    var value = parsedData.value;
+                    console.log('response-get-rfid-power: ' + value);
+
+                    $('#power_handheld').val(value);
+                    $('#power_handheld_info').html(value);
+
                 }
 
             };
@@ -1929,8 +2170,12 @@
         });
 
         $('#checkall').change(function(){
+
             var cells = $('#asetTable').find('tbody > tr > td:nth-child(1)');
             $(cells).find(':checkbox').prop('checked', $(this).is(':checked'));
+            
+            $('#select_all').prop('checked', false).removeAttr('checked');
+
         });
             
         $('.form-step').steps({
@@ -2018,6 +2263,32 @@
             $('#asetTable').find('input[type="checkbox"]').prop('checked', false);
             // $('#help_text').html(JSON.stringify(dataArrayAset));
 
+            // Menghitung jumlah "Available" dan "Not Available"
+            let availableCount = 0;
+            let notAvailableCount = 0;
+
+            $("#your_table_id tbody tr").each(function (index, tr) {
+                let cell = $(tr).find('td:eq(6)');
+                let cellText = cell.text().trim();
+                if (cellText === "Available") {
+                    availableCount++;
+                } else if (cellText === "Not Available") {
+                    notAvailableCount++;
+                }
+            });
+
+            // Tampilkan hasilnya
+            console.log("Available:", availableCount);
+            console.log("Not Available:", notAvailableCount);
+
+            // chart_aset_real = rowCount-1;
+            chart_aset_found = availableCount;
+            chart_aset_not_found = notAvailableCount;
+
+            // $('#chart_aset_real').html(chart_aset_real);
+            $('#chart_aset_found').html(chart_aset_found);
+            $('#chart_aset_not_found').html(chart_aset_not_found);
+
             return false;
 
         });
@@ -2047,7 +2318,8 @@
         $('#id_area').change(function(event) {
         
             var val = $(this).val();
-            $.LoadingOverlay('show')
+            $.LoadingOverlay('show');
+            localStorage.setItem('id_area', val);
         
             $.ajax({
                 url: ADMIN_BASE_URL + '/pencarian_aset/ajax_id_gedung/' + val,
@@ -2073,7 +2345,9 @@
 
         $('#id_gedung').change(function(event) {
             var val = $(this).val();
-            $.LoadingOverlay('show')
+            $.LoadingOverlay('show');
+            localStorage.setItem('id_gedung', val);
+            // console.log('id_gedung', val);
             $.ajax({
                     url: ADMIN_BASE_URL + '/pencarian_aset/ajax_id_ruangan/' + val,
                     dataType: 'JSON',
