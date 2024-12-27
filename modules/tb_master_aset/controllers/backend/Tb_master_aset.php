@@ -389,7 +389,7 @@ class Tb_master_aset extends Admin
 			$this->session->set_flashdata('nulldata', 'data kosong');
 		} else {
 			$kode = json_encode($this->data['tb_master_aset'][0]->kode_tid);
-			$this->data['history'] = $this->model_tb_master_aset->get_history(str_replace('"', '', $kode));
+			$this->data['history'] = $this->model_tb_master_aset->get_history($kode);
 			$this->data['transaksi'] = [];
 		}
 
