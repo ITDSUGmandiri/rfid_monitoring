@@ -10,51 +10,55 @@
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=jQZ2zcdq"></script>
 
 <style>
-#containerChart {
-    display: block;
-}
+    #containerChart {
+        display: block;
+    }
 
-#containerHasilPencarian {
-    display: block;
-}
+    #containerHasilPencarian {
+        display: block;
+    }
 
-#containerHasilPencarianBulk {
-    display: block;
-}
+    #containerHasilPencarianBulk {
+        display: block;
+    }
 
-#containerHeaderPilihAset {
-    display: block;
-}
+    #containerHeaderPilihAset {
+        display: block;
+    }
 
-#containerHeaderPilihAsetAnomali{
-    display:block;
-}
+    #containerHeaderPilihAsetAnomali {
+        display: block;
+    }
 
-#containerPilihAset {
-    display: block;
-}
+    #containerPilihAset {
+        display: block;
+    }
 
-#containerPilihAsetFooter {
-    display: block;
-}
+    #containerPilihAsetFooter {
+        display: block;
+    }
 
-#containerChartResult {
-    display: block;
-}
+    #containerChartResult {
+        display: block;
+    }
 
-#container_total_rfid_tag {
-    display: block;
-}
+    #container_total_rfid_tag {
+        display: block;
+    }
 
-.fa-trash-o {
-    color: #ff0000; /* Warna default merah terang */
-    font-size: 22px; /* Ukuran font tetap seperti yang diminta */
-    cursor: pointer; /* Memastikan kursor pointer */
-}
+    .fa-trash-o {
+        color: #ff0000;
+        /* Warna default merah terang */
+        font-size: 22px;
+        /* Ukuran font tetap seperti yang diminta */
+        cursor: pointer;
+        /* Memastikan kursor pointer */
+    }
 
-.fa-trash-o:hover {
-    color: #ff4500; /* Warna saat di-hover (lebih cerah atau kontras) */
-}
+    .fa-trash-o:hover {
+        color: #ff4500;
+        /* Warna saat di-hover (lebih cerah atau kontras) */
+    }
 </style>
 
 <script src="<?= BASE_ASSET; ?>js/loadingoverlay.min.js"></script>
@@ -63,7 +67,6 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
 
 <script type="text/javascript">
-
     var dataArrayAset = [];
     var dataArrayAsetForBulk = [];
     // var uniqueDataArray = [];
@@ -83,28 +86,28 @@
             // console.log(`${storageKey} tersimpan:`, value);
 
             // Cek apakah opsi sudah tersedia
-            let interval = setInterval(function () {
+            let interval = setInterval(function() {
                 let $dropdown = $('#' + idDropdown);
                 if ($dropdown.find(`option[value="${value}"]`).length) {
                     $dropdown.val(value).trigger('change');
-                    $dropdown.trigger('chosen:updated');  // Update Chosen
+                    $dropdown.trigger('chosen:updated'); // Update Chosen
                     // console.log(`${storageKey} berhasil di trigger dan diupdate`);
-                    clearInterval(interval);  // Stop interval setelah berhasil
+                    clearInterval(interval); // Stop interval setelah berhasil
                 }
-            }, 200);  // Cek setiap 200ms
+            }, 200); // Cek setiap 200ms
         }
     }
 
     async function confirmCancelSearch(metode_pencarian) {
-               
+
         const result = await Swal.fire({
-          title: 'Apakah Anda yakin ingin membatalkan pencarian aset secara ' + metode_pencarian + '?',
-          text: "Jika ya maka pencarian akan dihentikan, semua data akan direset.",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Ya, batalkan!',
-          cancelButtonText: 'Batal',
-          allowOutsideClick: false  // Blok klik di luar alert
+            title: 'Apakah Anda yakin ingin membatalkan pencarian aset secara ' + metode_pencarian + '?',
+            text: "Jika ya maka pencarian akan dihentikan, semua data akan direset.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, batalkan!',
+            cancelButtonText: 'Batal',
+            allowOutsideClick: false // Blok klik di luar alert
         });
 
         // Kembalikan true jika pengguna memilih 'Ya'
@@ -123,7 +126,7 @@
         if (metode_pencarian == 'partial') {
 
             if (chart_aset_found > 0) {
-                
+
                 const result = await Swal.fire({
                     title: 'Apakah Anda yakin ingin mulai pencarian ulang?',
                     text: "Jika ya maka pencarian akan dimulai dari awal, semua data akan direset.",
@@ -131,14 +134,14 @@
                     showCancelButton: true,
                     confirmButtonText: 'Ya, mulai ulang!',
                     cancelButtonText: 'Batal',
-                    allowOutsideClick: false  // Blok klik di luar alert
+                    allowOutsideClick: false // Blok klik di luar alert
                 });
 
                 // Kembalikan true jika pengguna memilih 'Ya'
                 if (result.isConfirmed) {
                     return true;
                 }
-                
+
                 // Kembalikan false jika klik batal atau tutup popup
                 return false;
             }
@@ -148,7 +151,7 @@
             let jml_keranjang_anomali = $('#your_table_id_bulk tbody tr').length;
 
             if (chart_aset_found > 0 || jml_keranjang_anomali > 0) {
-                
+
                 const result = await Swal.fire({
                     title: 'Apakah Anda yakin ingin mulai pencarian ulang?',
                     text: "Jika ya maka pencarian akan dimulai dari awal, semua data akan direset.",
@@ -156,14 +159,14 @@
                     showCancelButton: true,
                     confirmButtonText: 'Ya, mulai ulang!',
                     cancelButtonText: 'Batal',
-                    allowOutsideClick: false  // Blok klik di luar alert
+                    allowOutsideClick: false // Blok klik di luar alert
                 });
 
                 // Kembalikan true jika pengguna memilih 'Ya'
                 if (result.isConfirmed) {
                     return true;
                 }
-                
+
                 // Kembalikan false jika klik batal atau tutup popup
                 return false;
             }
@@ -180,7 +183,7 @@
                 rate: 0.9,
                 pitch: 1,
                 volume: 1,
-                onend: function () {
+                onend: function() {
                     console.log('speaking:', free_text_tts + 'selesai di speak');
                 }
 
@@ -191,14 +194,14 @@
         } catch (error) {
             console.error('Error saat memutar suara:', error);
         }
-        
+
     }
 
     function playBuzzerPencarian() {
         var bell = document.getElementById('buzzer');
         bell.currentTime = 0;
         bell.play();
-        setTimeout(function(){
+        setTimeout(function() {
             bell.pause();
         }, 1000);
     }
@@ -237,7 +240,7 @@
 
         // $('#help_text').html(JSON.stringify(dataArrayAset));
 
-    }   
+    }
 
     function removeAllRowBulk() {
 
@@ -306,7 +309,7 @@
         let availableCount = 0;
         let notAvailableCount = 0;
 
-        $("#your_table_id tbody tr").each(function (index, tr) {
+        $("#your_table_id tbody tr").each(function(index, tr) {
             let cell = $(tr).find('td:eq(6)'); // Ambil td dengan index 5
             let cellText = cell.text().trim(); // Ambil teks dan hapus spasi
             if (cellText === "Available") {
@@ -320,10 +323,10 @@
         console.log("Available:", availableCount);
         console.log("Not Available:", notAvailableCount);
 
-        $('#total_rfid_tag').html(rowCount-1);
-        $('#total_aset_checklist').html(rowCount-1);
+        $('#total_rfid_tag').html(rowCount - 1);
+        $('#total_aset_checklist').html(rowCount - 1);
 
-        chart_aset_real = rowCount-1;
+        chart_aset_real = rowCount - 1;
         chart_aset_found = availableCount;
         chart_aset_not_found = notAvailableCount;
 
@@ -332,7 +335,7 @@
         $('#chart_aset_not_found').html(chart_aset_not_found);
 
         // $('#help_text').html(JSON.stringify(dataArrayAset));
-        
+
     }
 
     function removeRowBulk(row, tid) {
@@ -346,17 +349,17 @@
         $(row).closest('tr').remove();
         fixingNumbering('bulk');
 
-        if (tidCount[tid]){
+        if (tidCount[tid]) {
             console.log('Hapus data TID: ' + tid + ' berhasil');
             delete tidCount[tid];
         }
 
-        if (tidCountWrongRoom[tid]){
+        if (tidCountWrongRoom[tid]) {
             console.log('Hapus data TID Wrong Room: ' + tid + ' berhasil');
             delete tidCountWrongRoom[tid];
         }
 
-        if (tidCountForeignTag[tid]){
+        if (tidCountForeignTag[tid]) {
             console.log('Hapus data TID Unidentified TAG: ' + tid + ' berhasil');
             delete tidCountForeignTag[tid];
         }
@@ -368,7 +371,7 @@
         $('#chart_aset_foreign_tag').html(chart_aset_foreign_tag);
 
         // $('#help_text').html(JSON.stringify(dataArrayAset));
-        
+
     }
 
     function fixingNumbering(metode_pencarian) {
@@ -383,13 +386,14 @@
             });
         }
 
-    }   
+    }
 
     //get value from checkbox table
-    async function get_datatables_checked() 
-    {
+    async function get_datatables_checked() {
         var table = $('#asetTable').DataTable();
-        var rowcollection =  table.$(".cekbok:checked", {"page": "all"});
+        var rowcollection = table.$(".cekbok:checked", {
+            "page": "all"
+        });
         var string_id = "";
         var count = 0;
         var no = 1;
@@ -416,7 +420,7 @@
                 dataArrayAset.push({
                     id: id,
                     kode_aset: kode_aset,
-                    nup: nup, 
+                    nup: nup,
                     nama_aset: nama_aset,
                     kode_tid: kode_tid
                 });
@@ -430,7 +434,7 @@
             for (let j = 0; j < rows.length; j++) {
                 // Cari kolom dengan id yang sama dengan tid
                 var hasilPencarianCell = $(rows[j]).find("td[id='" + kode_tid + "']");
-                
+
                 // Jika ditemukan kolom dengan id yang sesuai
                 if (hasilPencarianCell.length > 0) {
                     console.log('Data dengan TID ' + kode_tid + ' sudah ada');
@@ -441,9 +445,9 @@
 
             if (!found) {
                 count++;
-                
+
                 // tampilkan data di table hasil pencarian
-                await new Promise(resolve => {        
+                await new Promise(resolve => {
                     $('#your_table_id tbody').append(`
                         <tr>    
                             <td id="numbering" style="text-align: center">${no}</td>
@@ -463,12 +467,12 @@
 
                 no = no + 1;
             } else {
-                
-                $("#your_table_id tbody tr").each(function () {
-                                    
+
+                $("#your_table_id tbody tr").each(function() {
+
                     // Cari kolom dengan id yang sama dengan tid
                     var hasilPencarianCell = $(this).find("td[id='" + kode_tid + "']");
-                                        
+
                     // Jika ditemukan kolom dengan id yang sesuai
                     if (hasilPencarianCell.length > 0) {
 
@@ -482,7 +486,7 @@
                 });
 
             }
-            
+
         }
 
         if (string_id == "") {
@@ -518,7 +522,7 @@
     }
 
     async function getAllAset() {
-        
+
         var rowCount = $('#your_table_id tbody tr').length;
         var no = rowCount + 1;
         var count = 0;
@@ -544,12 +548,12 @@
 
                     // Cek apakah kode_tid sudah ada dalam array
                     let tidExists = dataArrayAset.some(data => data.kode_tid === item.kode_tid);
-                    
+
                     if (!tidExists) {
                         // Menambahkan data ke array jika kode_tid belum ada
                         dataArrayAset.push({
                             id: item.id_aset,
-                            kode_aset: item.kode_aset, 
+                            kode_aset: item.kode_aset,
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid
@@ -564,7 +568,7 @@
                     for (let j = 0; j < rows.length; j++) {
                         // Cari kolom dengan id yang sama dengan tid
                         var hasilPencarianCell = $(rows[j]).find("td[id='" + item.kode_tid + "']");
-                        
+
                         // Jika ditemukan kolom dengan id yang sesuai
                         if (hasilPencarianCell.length > 0) {
                             console.log('Data dengan TID ' + item.kode_tid + ' sudah ada');
@@ -596,11 +600,11 @@
                         no = no + 1;
                     } else {
 
-                        $("#your_table_id tbody tr").each(function () {
-                                    
+                        $("#your_table_id tbody tr").each(function() {
+
                             // Cari kolom dengan id yang sama dengan tid
                             var hasilPencarianCell = $(this).find("td[id='" + item.kode_tid + "']");
-                                    
+
                             // Jika ditemukan kolom dengan id yang sesuai
                             if (hasilPencarianCell.length > 0) {
 
@@ -647,7 +651,7 @@
             $.ajax({
                 url: ADMIN_BASE_URL + '/pencarian_aset/check_unique_data',
                 type: 'GET',
-                dataType: 'json', 
+                dataType: 'json',
                 data: {
                     uniqueData: JSON.stringify(uniqueDataArray)
                 },
@@ -674,14 +678,14 @@
                     resolve(response);
                 },
                 error: function(xhr, status, error) {
-                    reject(error); 
+                    reject(error);
                 }
             });
         });
     }
 
-    async function getAllAsetForBulk(){
-        
+    async function getAllAsetForBulk() {
+
         document.getElementById('myChartPencarian').getContext('2d').clearRect(0, 0, chart.canvas.width, chart.canvas.height);
         chart.data.datasets[0].data = [0, 0, 0];
         chart.update();
@@ -691,7 +695,7 @@
         var jumlah_aset_with_tag = 0;
 
         try {
-            
+
             const response = await $.ajax({
                 url: ADMIN_BASE_URL + '/pencarian_aset/get_all_aset',
                 type: 'GET',
@@ -708,7 +712,7 @@
                 alert(response.message);
                 return;
             }
-            
+
             if (response.data.length === 0) {
                 alert('Data tidak ditemukan!');
                 return;
@@ -721,12 +725,12 @@
 
                     // Cek apakah kode_tid sudah ada dalam array
                     let tidExists = dataArrayAsetForBulk.some(data => data.kode_tid === item.kode_tid);
-                    
+
                     if (!tidExists) {
                         // Menambahkan data ke array jika kode_tid belum ada
                         dataArrayAsetForBulk.push({
                             id: item.id_aset,
-                            kode_aset: item.kode_aset, 
+                            kode_aset: item.kode_aset,
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid
@@ -767,8 +771,8 @@
 </script>
 
 <section class="content-header">
-    <h1>    
-    Pencarian Aset<small><?= cclang('new', ['Pencarian Aset']); ?></small>
+    <h1>
+        Pencarian Aset<small><?= cclang('new', ['Pencarian Aset']); ?></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -780,181 +784,184 @@
 <section class="content">
 
     <!-- Insert New Data box -->
-	<div class="box">
-			
-		<div class="box-header with-border">
-			<h3 class="box-title">Isi data pada form dengan lengkap dan benar</h3>
-				<div class="box-tools pull-right">
-					<!-- <button type="button" onClick="window.location='<?php echo site_url();?>aset';" class="btn btn-default"><i class="fa fa-undo"></i> Cancel</button> -->
-				</div>	
+    <div class="box">
+
+        <div class="box-header with-border">
+            <h3 class="box-title">Isi data pada form dengan lengkap dan benar</h3>
+            <div class="box-tools pull-right">
+                <!-- <button type="button" onClick="window.location='<?php echo site_url(); ?>aset';" class="btn btn-default"><i class="fa fa-undo"></i> Cancel</button> -->
+            </div>
         </div>
-			
-		<div class="box-body" id="add_new">
+
+        <div class="box-body" id="add_new">
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                <?= form_open('', [            
-                        'name' => 'form_pencarian_aset_add',            
-                        // 'class' => 'form-horizontal form-step',
-                        // 'class' => 'form-step',
-                        'id' => 'form_pencarian_aset_add',
-                        'enctype' => 'multipart/form-data',
-                        'method' => 'POST',
-                        'autocomplete' => 'off',
-                        'class' => 'form form-horizontal'
-                    ]); 
+                <?= form_open('', [
+                    'name' => 'form_pencarian_aset_add',
+                    // 'class' => 'form-horizontal form-step',
+                    // 'class' => 'form-step',
+                    'id' => 'form_pencarian_aset_add',
+                    'enctype' => 'multipart/form-data',
+                    'method' => 'POST',
+                    'autocomplete' => 'off',
+                    'class' => 'form form-horizontal'
+                ]);
                 ?>
-                            
+
                 <?php
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
                 <h3 style="text-decoration: underline;">Filter Pencarian</h3>
-                
-                    <!-- <section> -->
-                    <fieldset>
-                        
-                        <div class="form-group group-id_area ">
-                            <label for="id_area" class="col-sm-2 control-label">Area
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_area" id="id_area" data-placeholder="Pilih Area">
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('tb_master_area') as $row): ?>
+
+                <!-- <section> -->
+                <fieldset>
+
+                    <div class="form-group group-id_area ">
+                        <label for="id_area" class="col-sm-2 control-label">Area
+                        </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_area" id="id_area" data-placeholder="Pilih Area">
+                                <option value=""></option>
+                                <?php foreach (db_get_all_data('tb_master_area') as $row): ?>
                                     <option value="<?= $row->id ?>"><?= $row->area; ?></option>
-                                    <?php endforeach; ?>                                 </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
+                                <?php endforeach; ?>
+                            </select>
+                            <small class="info help-block">
+                            </small>
                         </div>
-
-                        <div class="form-group group-id_gedung ">
-                            <label for="id_gedung" class="col-sm-2 control-label">Gedung</label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_gedung" id="id_gedung" data-placeholder="Pilih Gedung">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_ruangan ">
-                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_ruangan" id="id_ruangan" data-placeholder="Pilih Ruangan">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-metode_pencarian">
-                            <label for="metode_pencarian" class="col-sm-2 control-label">Metode Pencarian</label>
-                            <div class="col-sm-8">
-                                <input type="hidden" name="metode_pencarian_terakhir" id="metode_pencarian_terakhir" value="partial">
-                                <select class="form-control" name="metode_pencarian" id="metode_pencarian">
-                                    <option value="partial" selected>Parsial</option>
-                                    <option value="bulk">Bulk</option>
-                                </select>
-                                <small class="info help-block"></small>
-                            </div>
-                        </div>
-
-                    <!-- </section> -->
-                    </fieldset>
-                    
-                    <div id="containerHeaderPilihAset">
-                        <h3 style="text-decoration: underline;">Pilih Aset</h3>
                     </div>
-                    <!-- <hr> -->
 
-                    <!-- <section> -->
-                    <fieldset id="containerPilihAset">
-
-                        <div class="row" style="margin-top: 10px; margin-bottom: 20px">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped" id="asetTable">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center" class="check"><input type="checkbox" id="checkall" value=""/></th>
-                                                <th style="text-align: center">No.</th>
-                                                <th style="text-align: center">ID Aset</th>
-                                                <th style="text-align: center">Nama Aset</th>
-                                                <th style="text-align: center">Kode Aset</th>
-                                                <th style="text-align: center">Kode NUP</th>
-                                                <th style="text-align: center">Kode Tag</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- DataTable will populate the rows automatically -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <div class="form-group group-id_gedung ">
+                        <label for="id_gedung" class="col-sm-2 control-label">Gedung</label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_gedung" id="id_gedung" data-placeholder="Pilih Gedung">
+                                <option value=""></option>
+                            </select>
+                            <small class="info help-block">
+                            </small>
                         </div>
-                    
+                    </div>
+
+                    <div class="form-group group-id_ruangan ">
+                        <label for="id_ruangan" class="col-sm-2 control-label">Ruangan
+                        </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_ruangan" id="id_ruangan" data-placeholder="Pilih Ruangan">
+                                <option value=""></option>
+                            </select>
+                            <small class="info help-block">
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group group-metode_pencarian">
+                        <label for="metode_pencarian" class="col-sm-2 control-label">Metode Pencarian</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="metode_pencarian_terakhir" id="metode_pencarian_terakhir" value="partial">
+                            <select class="form-control" name="metode_pencarian" id="metode_pencarian">
+                                <option value="partial" selected>Parsial</option>
+                                <option value="bulk">Bulk</option>
+                            </select>
+                            <small class="info help-block"></small>
+                        </div>
+                    </div>
+
                     <!-- </section> -->
-                    </fieldset>
+                </fieldset>
 
-                    <fieldset id="containerPilihAsetFooter">
+                <div id="containerHeaderPilihAset">
+                    <h3 style="text-decoration: underline;">Pilih Aset</h3>
+                </div>
+                <!-- <hr> -->
 
-                        <div class="row" style="margin-top: 10px; margin-bottom: 20px">
+                <!-- <section> -->
+                <fieldset id="containerPilihAset">
 
-                            <div class="col-md-3"></div>
-                                        
-                            <div class="col-md-6">
-                                <input type="hidden" name="data_array_aset" id="data_array_aset" value="0">
-                                <input type="hidden" name="string_id" id="string_id" value="0">
-                                    
-                                <a class="btn btn-flat btn-success btn_search btn_action btn_search_back btn-block" id="btn_pilih_aset" data-stype='back' title="Search">
-                                    <i class="ion ion-ios-list-outline"></i> Pilih Aset
-                                </a>    
-                                    
-                                <small class="info help-block"><b>Total aset:</b> <div id="total_aset_checklist"></div></small>
+                    <div class="row" style="margin-top: 10px; margin-bottom: 20px">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="asetTable">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center" class="check"><input type="checkbox" id="checkall" value="" /></th>
+                                            <th style="text-align: center">No.</th>
+                                            <th style="text-align: center">ID Aset</th>
+                                            <th style="text-align: center">Nama Aset</th>
+                                            <th style="text-align: center">Kode Aset</th>
+                                            <th style="text-align: center">Kode NUP</th>
+                                            <th style="text-align: center">Kode Tag</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- DataTable will populate the rows automatically -->
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="col-md-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" id="select_all" value="0"> Pilih Semua
-                                    </label>
+                    <!-- </section> -->
+                </fieldset>
+
+                <fieldset id="containerPilihAsetFooter">
+
+                    <div class="row" style="margin-top: 10px; margin-bottom: 20px">
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-6">
+                            <input type="hidden" name="data_array_aset" id="data_array_aset" value="0">
+                            <input type="hidden" name="string_id" id="string_id" value="0">
+
+                            <a class="btn btn-flat btn-success btn_search btn_action btn_search_back btn-block" id="btn_pilih_aset" data-stype='back' title="Search">
+                                <i class="ion ion-ios-list-outline"></i> Pilih Aset
+                            </a>
+
+                            <small class="info help-block"><b>Total aset:</b>
+                                <div id="total_aset_checklist"></div>
+                            </small>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="select_all" value="0"> Pilih Semua
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <h3 style="text-decoration: underline;">Hasil Pencarian</h3>
+
+                <fieldset>
+
+                    <div class="row">
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">IP Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="IP Address">
                                 </div>
                             </div>
 
                         </div>
 
-                    </fieldset>
+                        <div class="col-md-3"></div>
 
-                    <h3 style="text-decoration: underline;">Hasil Pencarian</h3>
+                    </div>
 
-                    <fieldset>
+                </fieldset>
 
-                        <div class="row">
-
-                            <div class="col-md-3"></div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">IP Address</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="IP Address">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-3"></div>
-                            
-                        </div>
-
-                    </fieldset>
-
-                    <!-- <fieldset>
+                <!-- <fieldset>
 
                         <div class="row">
 
@@ -1002,167 +1009,177 @@
 
                     </fieldset> -->
 
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-md-3">
-                            <input type="hidden" name="array_tag_code" id="array_tag_code" value="0">   
-                            <input type="hidden" name="is_web_play_buzzer" id="is_web_play_buzzer" value="<?php echo $pengaturan_sistem->is_web_play_buzzer ?>">   
-                            <input type="hidden" name="ip_address_server" id="ip_address_server" value="<?php echo $pengaturan_sistem->ip_address_server ?>">
-                            <input type="hidden" name="protocol_ws_server" id="protocol_ws_server" value="<?php echo $pengaturan_sistem->protocol_ws_server ?>">
-                            <input type="hidden" name="port_ws_server" id="port_ws_server" value="<?php echo $pengaturan_sistem->port_ws_server ?>">
-                        </div>
-                                    
-                        <div class="col-md-6">
+                    <div class="col-md-3">
+                        <input type="hidden" name="array_tag_code" id="array_tag_code" value="0">
+                        <input type="hidden" name="is_web_play_buzzer" id="is_web_play_buzzer" value="<?php echo $pengaturan_sistem->is_web_play_buzzer ?>">
+                        <input type="hidden" name="ip_address_server" id="ip_address_server" value="<?php echo $pengaturan_sistem->ip_address_server ?>">
+                        <input type="hidden" name="protocol_ws_server" id="protocol_ws_server" value="<?php echo $pengaturan_sistem->protocol_ws_server ?>">
+                        <input type="hidden" name="port_ws_server" id="port_ws_server" value="<?php echo $pengaturan_sistem->port_ws_server ?>">
+                    </div>
 
-                            <div class="d-flex justify-content-center">
-                                
-                                <a class="btn btn-flat btn-info btn_search btn_action btn_search_back btn-block" id="btn_search" data-stype='back' title="Search">
-                                    <i class="fa fa-search"></i>&nbsp;Search
-                                </a>
+                    <div class="col-md-6">
 
-                            </div>
+                        <div class="d-flex justify-content-center">
 
-                            <small class="info help-block"><b>Status:</b> <div id="status"></div></small>&nbsp;&nbsp;
-
-                            <div class="form-group">
-                                <label>Power Handheld</label>
-                                <input type="range" class="form-control-range" id="power_handheld" name="power_handheld" min="0" max="30" value="15">
-                                <small class="info help-block">
-                                    <b>Power:</b> <span id="power_handheld_info">15</span>
-                                </small>
-                            </div>
-                            
-                            <div id="container_total_rfid_tag">
-                                <small class="info help-block"><b>Total RFID Tag:</b> <div id="total_rfid_tag">0</div></small>
-                            </div>
+                            <a class="btn btn-flat btn-info btn_search btn_action btn_search_back btn-block" id="btn_search" data-stype='back' title="Search">
+                                <i class="fa fa-search"></i>&nbsp;Search
+                            </a>
 
                         </div>
 
-                        <div class="col-md-3"></div>
+                        <small class="info help-block"><b>Status:</b>
+                            <div id="status"></div>
+                        </small>&nbsp;&nbsp;
+
+                        <div class="form-group">
+                            <label>Power Handheld</label>
+                            <input type="range" class="form-control-range" id="power_handheld" name="power_handheld" min="0" max="30" value="15">
+                            <small class="info help-block">
+                                <b>Power:</b> <span id="power_handheld_info">15</span>
+                            </small>
+                        </div>
+
+                        <div id="container_total_rfid_tag">
+                            <small class="info help-block"><b>Total RFID Tag:</b>
+                                <div id="total_rfid_tag">0</div>
+                            </small>
+                        </div>
 
                     </div>
 
-                    <div id="containerChartResult">
+                    <div class="col-md-3"></div>
 
-                        <div class="row">        
-                            <div class="col-md-3"></div>
+                </div>
 
-                            <!-- <div class="col-md-2 text-center">
+                <div id="containerChartResult">
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+
+                        <!-- <div class="col-md-2 text-center">
                                 <small class="info help-block"><b>Metode Pencarian:</b> <div id="info_metode_pencarian"><b>Bulk</b></div></small>
                             </div> -->
 
-                            <div class="col-md-2 text-center">
-                                <small class="info help-block"><b>Total Aset Real:</b> <div id="chart_aset_real"><b>0</b></div></small>
-                            </div>
+                        <div class="col-md-2 text-center">
+                            <small class="info help-block"><b>Total Aset Real:</b>
+                                <div id="chart_aset_real"><b>0</b></div>
+                            </small>
+                        </div>
 
-                            <div class="col-md-2 text-center">
-                                <small class="info help-block"><b>Total Aset Found:</b> <div id="chart_aset_found"><b>0</b></div></small>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <small class="info help-block"><b>Total Aset Not Found:</b> <div id="chart_aset_not_found"><b>0</b></div></small>
-                            </div>
+                        <div class="col-md-2 text-center">
+                            <small class="info help-block"><b>Total Aset Found:</b>
+                                <div id="chart_aset_found"><b>0</b></div>
+                            </small>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <small class="info help-block"><b>Total Aset Not Found:</b>
+                                <div id="chart_aset_not_found"><b>0</b></div>
+                            </small>
+                        </div>
 
-                            <!-- <div class="col-md-2 text-center">
+                        <!-- <div class="col-md-2 text-center">
                                 <small class="info help-block"><b>Total Aset Read:</b> <div id="chart_aset_read"><b>0</b></div></small>
                             </div>
                             <div class="col-md-2 text-center">
                                 <small class="info help-block"><b>Total Aset Wrong Room:</b> <div id="chart_aset_wrong_room"><b>0</b></div></small>
                             </div> -->
 
-                            <div class="col-md-3"></div>
-                        </div>
-
+                        <div class="col-md-3"></div>
                     </div>
 
-                    <div id="containerHasilPencarian" class="row" style="margin-top: 10px; margin-bottom: 20px">
-                        <div class="col-md-12">
-                                
-                            <div class="table-responsive"> 
+                </div>
 
-                                <br>
-                                <table class="table table-bordered table-striped dataTable" id="your_table_id">
-                                    <thead>
-                                    <tr class="">                            
+                <div id="containerHasilPencarian" class="row" style="margin-top: 10px; margin-bottom: 20px">
+                    <div class="col-md-12">
+
+                        <div class="table-responsive">
+
+                            <br>
+                            <table class="table table-bordered table-striped dataTable" id="your_table_id">
+                                <thead>
+                                    <tr class="">
                                         <th style="text-align: center">No.</th>
-                                        <th style="text-align: center" data-field="id_aset"data-sort="1" data-primary-key="0"> <?= cclang('ID Aset') ?></th>
-                                        <th style="text-align: center" data-field="nama_aset"data-sort="1" data-primary-key="0"> <?= cclang('Nama Aset') ?></th>
-                                        <th style="text-align: center" data-field="kode_aset"data-sort="1" data-primary-key="0"> <?= cclang('Kode Aset') ?></th>
-                                        <th style="text-align: center" data-field="nup"data-sort="1" data-primary-key="0"> <?= cclang('Kode NUP') ?></th>
-                                        <th style="text-align: center" data-field="kode_tid"data-sort="1" data-primary-key="0"> <?= cclang('Kode Tag') ?></th>
-                                        <th style="text-align: center" data-field="hasil_pencarian"data-sort="1" data-primary-key="0"> <?= cclang('Hasil Pencarian') ?></th>
-                                        
+                                        <th style="text-align: center" data-field="id_aset" data-sort="1" data-primary-key="0"> <?= cclang('ID Aset') ?></th>
+                                        <th style="text-align: center" data-field="nama_aset" data-sort="1" data-primary-key="0"> <?= cclang('Nama Aset') ?></th>
+                                        <th style="text-align: center" data-field="kode_aset" data-sort="1" data-primary-key="0"> <?= cclang('Kode Aset') ?></th>
+                                        <th style="text-align: center" data-field="nup" data-sort="1" data-primary-key="0"> <?= cclang('Kode NUP') ?></th>
+                                        <th style="text-align: center" data-field="kode_tid" data-sort="1" data-primary-key="0"> <?= cclang('Kode Tag') ?></th>
+                                        <th style="text-align: center" data-field="hasil_pencarian" data-sort="1" data-primary-key="0"> <?= cclang('Hasil Pencarian') ?></th>
+
                                         <th style="text-align: center; vertical-align: middle;">
                                             <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                <i class="ui-tooltip fa fa-trash-o" 
-                                                title="Hapus Semua" 
-                                                style="font-size: 22px; cursor: pointer;" 
-                                                data-original-title="Hapus Semua" 
-                                                onclick="removeAllRow(this)">
+                                                <i class="ui-tooltip fa fa-trash-o"
+                                                    title="Hapus Semua"
+                                                    style="font-size: 22px; cursor: pointer;"
+                                                    data-original-title="Hapus Semua"
+                                                    onclick="removeAllRow(this)">
                                                 </i>
                                             </div>
                                         </th>
 
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- DataTable will populate the rows automatically -->
-                                    </tbody>
-                                </table>
-
-                            </div>
+                                </thead>
+                                <tbody>
+                                    <!-- DataTable will populate the rows automatically -->
+                                </tbody>
+                            </table>
 
                         </div>
+
                     </div>
+                </div>
 
-                    <fieldset id="containerChart">
+                <fieldset id="containerChart">
 
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <canvas id="myChartPencarian"></canvas>
-                            </div>
-                            <div class="col-md-4"></div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <canvas id="myChartPencarian"></canvas>
                         </div>
-
-                    </fieldset>
-                    <!-- /.containerChart -->
-
-                    <div id="containerHeaderPilihAsetAnomali">
-                        <h3 style="text-decoration: underline;">Hasil Pencarian Anomali</h3>
+                        <div class="col-md-4"></div>
                     </div>
 
-                    <fieldset id="containerHasilPencarianBulk">
+                </fieldset>
+                <!-- /.containerChart -->
+
+                <div id="containerHeaderPilihAsetAnomali">
+                    <h3 style="text-decoration: underline;">Hasil Pencarian Anomali</h3>
+                </div>
+
+                <fieldset id="containerHasilPencarianBulk">
 
                     <div class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">
-                                
-                            <div class="table-responsive"> 
+
+                            <div class="table-responsive">
 
                                 <br>
                                 <table class="table table-bordered table-striped dataTable" id="your_table_id_bulk">
                                     <thead>
-                                    <tr class="">                            
-                                        <th style="text-align: center">No.</th>
-                                        <th style="text-align: center" data-field="id_aset"data-sort="1" data-primary-key="0"> <?= cclang('ID Aset') ?></th>
-                                        <th style="text-align: center" data-field="nama_aset"data-sort="1" data-primary-key="0"> <?= cclang('Nama Aset') ?></th>
-                                        <th style="text-align: center" data-field="kode_aset"data-sort="1" data-primary-key="0"> <?= cclang('Kode Aset') ?></th>
-                                        <th style="text-align: center" data-field="nup"data-sort="1" data-primary-key="0"> <?= cclang('Kode NUP') ?></th>
-                                        <th style="text-align: center" data-field="kode_tid"data-sort="1" data-primary-key="0"> <?= cclang('Kode Tag') ?></th>
-                                        <th style="text-align: center" data-field="hasil_pencarian"data-sort="1" data-primary-key="0"> <?= cclang('Hasil Pencarian') ?></th>
-                                        <th style="text-align: center" data-field="posisi_seharusnya"data-sort="1" data-primary-key="0"> <?= cclang('Posisi Seharusnya') ?></th>
-                                        
-                                        <th style="text-align: center; vertical-align: middle;">
-                                            <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                                <i class="ui-tooltip fa fa-trash-o" 
-                                                title="Hapus Semua" 
-                                                style="font-size: 22px; cursor: pointer;" 
-                                                data-original-title="Hapus Semua" 
-                                                onclick="removeAllRowBulk(this)">
-                                                </i>
-                                            </div>
-                                        </th>
+                                        <tr class="">
+                                            <th style="text-align: center">No.</th>
+                                            <th style="text-align: center" data-field="id_aset" data-sort="1" data-primary-key="0"> <?= cclang('ID Aset') ?></th>
+                                            <th style="text-align: center" data-field="nama_aset" data-sort="1" data-primary-key="0"> <?= cclang('Nama Aset') ?></th>
+                                            <th style="text-align: center" data-field="kode_aset" data-sort="1" data-primary-key="0"> <?= cclang('Kode Aset') ?></th>
+                                            <th style="text-align: center" data-field="nup" data-sort="1" data-primary-key="0"> <?= cclang('Kode NUP') ?></th>
+                                            <th style="text-align: center" data-field="kode_tid" data-sort="1" data-primary-key="0"> <?= cclang('Kode Tag') ?></th>
+                                            <th style="text-align: center" data-field="hasil_pencarian" data-sort="1" data-primary-key="0"> <?= cclang('Hasil Pencarian') ?></th>
+                                            <th style="text-align: center" data-field="posisi_seharusnya" data-sort="1" data-primary-key="0"> <?= cclang('Posisi Seharusnya') ?></th>
 
-                                    </tr>
+                                            <th style="text-align: center; vertical-align: middle;">
+                                                <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                                                    <i class="ui-tooltip fa fa-trash-o"
+                                                        title="Hapus Semua"
+                                                        style="font-size: 22px; cursor: pointer;"
+                                                        data-original-title="Hapus Semua"
+                                                        onclick="removeAllRowBulk(this)">
+                                                    </i>
+                                                </div>
+                                            </th>
+
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <!-- DataTable will populate the rows automatically -->
@@ -1188,81 +1205,86 @@
                         </div>
                     </div>
 
-                    </fieldset>
+                </fieldset>
 
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-md-12">
-                            <div class="form-group text-center">
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-12">
+                        <div class="form-group text-center">
 
-                                <!-- Cancel Button -->
-                                <div class="custom-button-wrapper"></div>
+                            <!-- Cancel Button -->
+                            <div class="custom-button-wrapper"></div>
 
-                                    <a class="btn btn-flat btn-default btn_action" id="btn_cancel" title="<?= cclang('cancel_button'); ?> (Ctrl+x)">
-                                        <i class="fa fa-undo"></i> <?= cclang('cancel_button'); ?>
-                                    </a>
+                            <a class="btn btn-flat btn-default btn_action" id="btn_cancel" title="<?= cclang('cancel_button'); ?> (Ctrl+x)">
+                                <i class="fa fa-undo"></i> <?= cclang('cancel_button'); ?>
+                            </a>
 
-                                    <!-- Loading Indicator -->
-                                    <span class="loading loading-hide" style="display: inline-block; margin-left: 15px;">
-                                        <img src="<?= BASE_ASSET; ?>/img/loading-spin-primary.svg" alt="Loading">
-                                        <i id="data_processing"></i>
-                                    </span>
-                            
-                                </div>
+                            <!-- Loading Indicator -->
+                            <span class="loading loading-hide" style="display: inline-block; margin-left: 15px;">
+                                <img src="<?= BASE_ASSET; ?>/img/loading-spin-primary.svg" alt="Loading">
+                                <i id="data_processing"></i>
+                            </span>
 
-                                <!-- <h3 style="text-decoration: underline;">Query Standing Awal, hasilnya insert semua ke array: dataArrayAsetForBulk</h3> -->
-
-                                <!-- Help Text -->
-                                <!-- <div class="text-center"> -->
-                                    <!-- <p class="help-block">(*) Mandatory</p> -->
-                                    <!-- <p class="help-block" style="display: block !important;" id="help_text"></p> -->
-                                <!-- </div> -->
-
-                                <hr>
-                              
-                            </div>
                         </div>
+
+                        <!-- <h3 style="text-decoration: underline;">Query Standing Awal, hasilnya insert semua ke array: dataArrayAsetForBulk</h3> -->
+
+                        <!-- Help Text -->
+                        <!-- <div class="text-center"> -->
+                        <!-- <p class="help-block">(*) Mandatory</p> -->
+                        <!-- <p class="help-block" style="display: block !important;" id="help_text"></p> -->
+                        <!-- </div> -->
+
+                        <hr>
+
                     </div>
-                    <!-- /.row -->
-                    
-                    <div class="message"></div>
-
-                <?= form_close(); ?>
-
+                </div>
             </div>
-            <!-- /.col-xs-12 -->
+            <!-- /.row -->
 
-        </div>		
-        <!-- /.box-body -->
+            <div class="message"></div>
 
-	</div>
-	<!-- /.box -->
+            <?= form_close(); ?>
+
+        </div>
+        <!-- /.col-xs-12 -->
+
+    </div>
+    <!-- /.box-body -->
+
+    </div>
+    <!-- /.box -->
 
 </section>
 
 <style>
-
     .table thead th {
-        border-bottom: 1px solid #dee2e6 !important;  /* Pakai !important agar override */
-        border-top: none !important; /* Hilangkan border atas */
+        border-bottom: 1px solid #dee2e6 !important;
+        /* Pakai !important agar override */
+        border-top: none !important;
+        /* Hilangkan border atas */
     }
 
     .table tbody td {
-        border-top: 1px solid #dee2e6 !important;  /* Pakai !important di baris data */
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di baris data */
     }
 
     .table tfoot td {
-        border-top: 1px solid #dee2e6 !important;  /* Pakai !important di footer */
-        border-bottom: none !important;  /* Hilangkan border bawah */
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di footer */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
     }
 
     .table tfoot td {
-        border-bottom: none !important;  /* Hilangkan border bawah */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
     }
 
     #asetTable tbody td {
-        border-bottom: none !important;  /* Hilangkan border bawah */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
     }
-
 </style>
 
 <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script>
@@ -1271,43 +1293,42 @@
 
 <script>
     var ctx = document.getElementById('myChartPencarian').getContext('2d');
-    var chart = new Chart(ctx, {           
-        type: 'pie',                            
+    var chart = new Chart(ctx, {
+        type: 'pie',
         data: {
-            labels: ["Aset Real", "Aset Ditemukan", "Aset Tidak Ditemukan"],                            
+            labels: ["Aset Real", "Aset Ditemukan", "Aset Tidak Ditemukan"],
             // labels: ["Aset Tidak Ditemukan", "Aset Ditemukan", "Aset Real"],                          
             datasets: [{
-                                            
-                label: "Data Aset",                            
+
+                label: "Data Aset",
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
                     'rgb(255, 205, 86)',
-                ],                            
+                ],
                 borderColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
                     'rgb(255, 205, 86)',
                 ],
                 data: [0, 0, 0],
-                                        
+
             }]
-        },                  
-        options: {                   
-            legend: {              
-                display: false                           
-            }                            
+        },
+        options: {
+            legend: {
+                display: false
+            }
         }
     });
 </script>
 
 <script type="text/javascript">
-  var module_name = "pencarian_aset"
-  var use_ajax_crud = false
+    var module_name = "pencarian_aset"
+    var use_ajax_crud = false
 </script>
 
 <script type="text/javascript">
-
     $(document).ready(function() {
 
         // var bell = document.getElementById('buzzer');
@@ -1354,7 +1375,7 @@
         var stored_ip_address = localStorage.getItem('ip_address');
 
         if (stored_ip_address) {
-            
+
             $('#ip_address').val(stored_ip_address);
             console.log('IP Address yang tersimpan: ', stored_ip_address);
             // $('#btn_search').trigger('click');
@@ -1367,7 +1388,7 @@
             localStorage.setItem('ip_address', '192.168.1.195');
         }
 
-        socket.onopen = function(event) {    
+        socket.onopen = function(event) {
             console.log('Your System Connected to WebSocket server');
             $('#status').html('Connected');
 
@@ -1401,7 +1422,7 @@
         $('#container_total_rfid_tag').hide();
         $('#containerHasilPencarianBulk').hide();
         $('#containerHeaderPilihAsetAnomali').hide();
-        
+
         $('.loading').hide();
         $('#total_aset_checklist').html('0');
         $('#total_rfid_tag').html('0');
@@ -1424,16 +1445,17 @@
                 type: "POST",
                 data: function(d) {
                     d.id_area = $('#id_area').val();
-                    d.id_gedung = $('#id_gedung').val(); 
+                    d.id_gedung = $('#id_gedung').val();
                     d.id_ruangan = $('#id_ruangan').val();
                     d.select_all = $('#select_all').val();
                 }
             },
-            "order": [[3, 'asc']],
-            columns: [
-                {
+            "order": [
+                [3, 'asc']
+            ],
+            columns: [{
                     "data": "checkbox_id_master_aset",
-                    "className": "dt-center", 
+                    "className": "dt-center",
                     "orderable": false,
                     "searchable": false
                 },
@@ -1443,13 +1465,38 @@
                     "orderable": false,
                     "searchable": false
                 },
-                { data: "id", className: "dt-center", orderable: true, searchable: true },
-                { data: "nama_aset", className: "dt-left", orderable: true, searchable: true },
-                { data: "kode_aset", className: "dt-left", orderable: true, searchable: true },
-                { data: "nup", className: "dt-center", orderable: true, searchable: true },
-                { data: "kode_tid", className: "dt-center", orderable: true, searchable: true },
+                {
+                    data: "id",
+                    className: "dt-center",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "nama_aset",
+                    className: "dt-left",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "kode_aset",
+                    className: "dt-left",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "nup",
+                    className: "dt-center",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "kode_tid",
+                    className: "dt-center",
+                    orderable: true,
+                    searchable: true
+                },
             ],
-            "createdRow": function (row, data, dataIndex) {
+            "createdRow": function(row, data, dataIndex) {
                 // Paksa semua kolom angka menjadi rata tengah
                 $('td', row).eq(1).css('text-align', 'center');
                 $('td', row).eq(2).css('text-align', 'center');
@@ -1470,10 +1517,10 @@
         });
 
         $('#power_handheld').on('input change', function() {
-            
+
             var power_handheld = $(this).val();
             localStorage.setItem('power_handheld', power_handheld);
-            $('#power_handheld_info').text(power_handheld);  // Update teks span
+            $('#power_handheld_info').text(power_handheld); // Update teks span
 
             socket.send(JSON.stringify({
                 event: "set-rfid-power",
@@ -1493,29 +1540,29 @@
 
                 // if (metode_pencarian_terakhir === 'partial') {
 
-                    let rowCount = $('#your_table_id tbody tr').length;
+                let rowCount = $('#your_table_id tbody tr').length;
 
-                    if (rowCount > 0) {
+                if (rowCount > 0) {
 
-                        const isConfirmed = await confirmCancelSearch('partial');  // Tunggu hasil konfirmasi
+                    const isConfirmed = await confirmCancelSearch('partial'); // Tunggu hasil konfirmasi
 
-                        if (!isConfirmed) {
-                            $('#metode_pencarian_terakhir').val('partial');
-                            $('#metode_pencarian').val('partial');
-                            return false;
-                        } else {
-                            $('#btn_search').trigger('click');  // Memicu klik tombol lain
-                            removeAllRowBulk();
-                            $('#metode_pencarian_terakhir').val('bulk');
-                        }
-
+                    if (!isConfirmed) {
+                        $('#metode_pencarian_terakhir').val('partial');
+                        $('#metode_pencarian').val('partial');
+                        return false;
                     } else {
-
-                        $('#btn_search').trigger('click');  // Memicu klik tombol lain
+                        $('#btn_search').trigger('click'); // Memicu klik tombol lain
                         removeAllRowBulk();
                         $('#metode_pencarian_terakhir').val('bulk');
-                        // $('#metode_pencarian').val('bulk').trigger('change');
                     }
+
+                } else {
+
+                    $('#btn_search').trigger('click'); // Memicu klik tombol lain
+                    removeAllRowBulk();
+                    $('#metode_pencarian_terakhir').val('bulk');
+                    // $('#metode_pencarian').val('bulk').trigger('change');
+                }
 
                 // }
 
@@ -1536,20 +1583,19 @@
 
                 if (chart_aset_found > 0 || rowCount > 0) {
 
-                    const isConfirmed = await confirmCancelSearch('bulk');  // Tunggu hasil konfirmasi
+                    const isConfirmed = await confirmCancelSearch('bulk'); // Tunggu hasil konfirmasi
 
                     if (!isConfirmed) {
                         console.log("Proses dihentikan oleh pengguna.");
                         $('#metode_pencarian_terakhir').val('bulk');
                         $('#metode_pencarian').val('bulk');
                         return false;
-                    }
-                    else {
+                    } else {
 
                         $('#select_all').prop('checked', true);
                         $('#select_all').val('1');
                         console.log('checkbox select all...');
-                        
+
                         // $('#btn_pilih_aset').trigger('click');
 
                         $("#your_table_id tbody tr").each(function() {
@@ -1582,7 +1628,7 @@
 
             var id_area = $('#id_area').val();
             var id_gedung = $('#id_gedung').val();
-            var id_ruangan = $('#id_ruangan').val();    
+            var id_ruangan = $('#id_ruangan').val();
 
             if ($(this).is(':checked')) {
 
@@ -1637,7 +1683,7 @@
 
             } else {
                 $('#asetTable').find('input[type="checkbox"]').prop('disabled', false);
-                $(this).val('0'); 
+                $(this).val('0');
             }
 
         });
@@ -1704,11 +1750,11 @@
                     return false;
                 }
 
-                const isConfirmed = await confirmSearch();  // Tunggu hasil konfirmasi
+                const isConfirmed = await confirmSearch(); // Tunggu hasil konfirmasi
 
                 if (!isConfirmed) {
                     console.log("Proses dihentikan oleh pengguna.");
-                    return;  // Hentikan eksekusi jika pengguna membatalkan
+                    return; // Hentikan eksekusi jika pengguna membatalkan
                 }
 
                 var postTimeout = null; // Timer untuk mendeteksi tidak ada data baru
@@ -1724,8 +1770,8 @@
                 chart_aset_foreign_tag = 0;
                 console.log('chart_aset_foreign_tag di awal: ', chart_aset_foreign_tag);
 
-                tidCount = {}; 
-                tidCountWrongRoom = {}; 
+                tidCount = {};
+                tidCountWrongRoom = {};
                 tidCountForeignTag = {};
                 console.log('tidCount: ', tidCount);
 
@@ -1750,16 +1796,16 @@
                     });
                     return false;
                 }
-                
+
                 if (chart_aset_found > 0) {
 
-                    const isConfirmed = await confirmSearch();  // Tunggu hasil konfirmasi
+                    const isConfirmed = await confirmSearch(); // Tunggu hasil konfirmasi
 
                     if (!isConfirmed) {
                         console.log("Proses dihentikan oleh pengguna.");
-                        return;  // Hentikan eksekusi jika pengguna membatalkan
+                        return; // Hentikan eksekusi jika pengguna membatalkan
                     }
-                    
+
                 }
 
                 $("#your_table_id tbody tr").each(function() {
@@ -1771,7 +1817,7 @@
                 let availableCount = 0;
                 let notAvailableCount = 0;
 
-                $("#your_table_id tbody tr").each(function (index, tr) {
+                $("#your_table_id tbody tr").each(function(index, tr) {
                     let cell = $(tr).find('td:eq(6)');
                     let cellText = cell.text().trim();
                     if (cellText === "Available") {
@@ -1788,7 +1834,7 @@
                 // chart_aset_real = rowCount-1;
                 chart_aset_found = availableCount;
                 chart_aset_not_found = notAvailableCount;
-                
+
                 console.log('result of getAllAsetForPartial: ', dataArrayAset);
                 tidCountForPartial = {}; // Objek untuk menghitung frekuensi pembacaan TID
 
@@ -1807,7 +1853,7 @@
             // const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
             socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
 
-            socket.onmessage = function (event) {
+            socket.onmessage = function(event) {
 
                 var parsedData = JSON.parse(event.data);
                 var event_name = parsedData.event;
@@ -1821,7 +1867,7 @@
                         try {
 
                             console.log('metode_pencarian: ' + metode_pencarian);
-                        
+
                             var tid = parsedData.data_tid;
                             var epc = parsedData.data;
                             var alias_antenna = 'handheld';
@@ -1857,14 +1903,14 @@
                                 } else {
                                     tidCount[tid].count += 1;
                                 }
-                                            
+
                                 // console.log(`TID: ${tid} telah terbaca ${tidCount[tid].count} kali`);
 
-                                if (is_web_play_buzzer == 1){
+                                if (is_web_play_buzzer == 1) {
                                     playBuzzerPencarian();
                                 } else {
                                     if (navigator.userAgent.match(/Android/i)) {
-                                        playBuzzerPencarian();        
+                                        playBuzzerPencarian();
                                     }
                                 }
 
@@ -1893,9 +1939,9 @@
                                         if (!(kode_tid in tidCountWrongRoom)) {
 
                                             let jmlNoUrutBulk = $('#your_table_id_bulk tbody tr').length;
-                                            
+
                                             tidCountWrongRoom[kode_tid] = 1;
-                                            noUrutBulk = jmlNoUrutBulk+1;
+                                            noUrutBulk = jmlNoUrutBulk + 1;
 
                                             await new Promise(resolve => {
                                                 $('#your_table_id_bulk tbody').append(`
@@ -1920,7 +1966,7 @@
                                         } else {
                                             tidCountWrongRoom[kode_tid] += 1;
                                         }
-                                        
+
                                     } // end if registered tag 
                                     else { // else if unregistered tag
 
@@ -1928,8 +1974,8 @@
 
                                             let jmlNoUrutBulk = $('#your_table_id_bulk tbody tr').length;
                                             tidCountForeignTag[tid] = 1;
-                                            noUrutBulk = jmlNoUrutBulk+1;
-                                            
+                                            noUrutBulk = jmlNoUrutBulk + 1;
+
                                             await new Promise(resolve => {
                                                 $('#your_table_id_bulk tbody').append(`
                                                     <tr>    
@@ -1991,7 +2037,7 @@
                         try {
 
                             console.log('metode_pencarian: ' + metode_pencarian);
-                        
+
                             var tid = parsedData.data_tid;
                             var epc = parsedData.data;
                             var alias_antenna = 'handheld';
@@ -2009,10 +2055,10 @@
                                 // let jml_data_pencarian = $('#your_table_id tbody tr').length;
 
                                 // if (jml_data_pencarian == 0) {
-                                    $('#select_all').prop('checked', true);
-                                    $('#select_all').val('1');
-                                    console.log('checkbox select all...');
-                                    $('#btn_pilih_aset').trigger('click');
+                                $('#select_all').prop('checked', true);
+                                $('#select_all').val('1');
+                                console.log('checkbox select all...');
+                                $('#btn_pilih_aset').trigger('click');
                                 // }
 
                                 // swal({
@@ -2030,7 +2076,7 @@
 
                             if (isExisting) {
 
-                                if (is_web_play_buzzer == 1){
+                                if (is_web_play_buzzer == 1) {
                                     playBuzzerPencarian();
                                 } else {
                                     if (navigator.userAgent.match(/Android/i)) {
@@ -2048,15 +2094,15 @@
                                 } else {
                                     tidCountForPartial[tid].count += 1;
                                 }
-                                            
+
                                 console.log('your tid: ' + tid, 'is available');
                                 count_tag++;
 
                                 // Tambahkan data baru ke tabel HTML
-                                $("#your_table_id tbody tr").each(function () {
+                                $("#your_table_id tbody tr").each(function() {
                                     // Cari kolom dengan id yang sama dengan tid
                                     var hasilPencarianCell = $(this).find("td[id='" + tid + "']");
-                                    
+
                                     // Jika ditemukan kolom dengan id yang sesuai
                                     if (hasilPencarianCell.length > 0) {
 
@@ -2095,7 +2141,9 @@
 
                 } else if (event_name == 'response-scan-rfid-on') {
 
-                    $('.loading').show();
+                    // $('.loading').show();
+                    $.LoadingOverlay('show');
+
                     $('#data_processing').html('Searching RFID Tag...');
 
                     // let metode_pencarian = $('#metode_pencarian').val();
@@ -2112,8 +2160,9 @@
                     // }
 
                 } else if (event_name == 'response-scan-rfid-off') {
+                    $.LoadingOverlay('hide')
 
-                    $('.loading').hide();
+                    // $('.loading').hide();
                     // let metode_pencarian = $('#metode_pencarian').val();
 
                     // var bell = document.getElementById('buzzer');
@@ -2153,7 +2202,7 @@
                     // }
 
                 } else if (event_name == 'response-get-rfid-power') {
-                    
+
                     // var parsedData = JSON.parse(event.data);
                     // var event_name = parsedData.event;
                     var value = parsedData.value;
@@ -2169,15 +2218,15 @@
             return false;
         });
 
-        $('#checkall').change(function(){
+        $('#checkall').change(function() {
 
             var cells = $('#asetTable').find('tbody > tr > td:nth-child(1)');
             $(cells).find(':checkbox').prop('checked', $(this).is(':checked'));
-            
+
             $('#select_all').prop('checked', false).removeAttr('checked');
 
         });
-            
+
         $('.form-step').steps({
             headerTag: 'h3',
             bodyTag: 'section',
@@ -2188,11 +2237,11 @@
             },
             labels: {
                 finish: 'save'
-            }    
+            }
         });
-        
+
         $('.custom-button-wrapper').appendTo('.actions')
-        
+
         $(document).on('click', '#refresh', function(event) {
             event.preventDefault();
             reload_datatables();
@@ -2200,41 +2249,41 @@
         });
 
         $('#btn_pilih_aset').click(async function(e) {
-            
+
             e.preventDefault();
 
             let id_area = $('#id_area').val();
             let id_gedung = $('#id_gedung').val();
             let id_ruangan = $('#id_ruangan').val();
-                
+
             if ($('#select_all').val() == '1') {
-                    
+
                 if (id_area == '') {
-                        
+
                     await new Promise((resolve) => {
-                            
+
                         swal({
-                                title: "Error",
-                                text: "Area tidak boleh kosong!",
-                                type: "error", 
-                                showCancelButton: false,
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Okay!",
-                                closeOnConfirm: true
-                            }, function() {
-                                resolve();
-                            });
+                            title: "Error",
+                            text: "Area tidak boleh kosong!",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Okay!",
+                            closeOnConfirm: true
+                        }, function() {
+                            resolve();
+                        });
 
                     });
 
                     return false;
-                    
-                }   
+
+                }
 
                 if (id_gedung == '') {
-    
+
                     await new Promise((resolve) => {
-                        
+
                         swal({
                             title: "Error",
                             text: "Gedung tidak boleh kosong!",
@@ -2251,7 +2300,7 @@
 
                     return false;
 
-                }   
+                }
 
                 // arrayDataAset = [];
                 await getAllAset();
@@ -2267,7 +2316,7 @@
             let availableCount = 0;
             let notAvailableCount = 0;
 
-            $("#your_table_id tbody tr").each(function (index, tr) {
+            $("#your_table_id tbody tr").each(function(index, tr) {
                 let cell = $(tr).find('td:eq(6)');
                 let cellText = cell.text().trim();
                 if (cellText === "Available") {
@@ -2292,54 +2341,54 @@
             return false;
 
         });
-    
+
         $('#btn_cancel').click(function() {
-                
+
             swal({
-                title: "<?= cclang('are_you_sure'); ?>",
-                text: "<?= cclang('data_to_be_deleted_can_not_be_restored'); ?>",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes!",
-                cancelButtonText: "No!",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    window.location.href = ADMIN_BASE_URL + '/pencarian_aset';
-                }
-            });
+                    title: "<?= cclang('are_you_sure'); ?>",
+                    text: "<?= cclang('data_to_be_deleted_can_not_be_restored'); ?>",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes!",
+                    cancelButtonText: "No!",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = ADMIN_BASE_URL + '/pencarian_aset';
+                    }
+                });
 
             return false;
         }); /*end btn cancel*/
 
         $('#id_area').change(function(event) {
-        
+
             var val = $(this).val();
             $.LoadingOverlay('show');
             localStorage.setItem('id_area', val);
-        
+
             $.ajax({
-                url: ADMIN_BASE_URL + '/pencarian_aset/ajax_id_gedung/' + val,
-                dataType: 'JSON',
-            })
-            .done(function(res) {
-                var html = '<option value=""></option>';
-                $.each(res, function(index, val) {
-                    html += '<option value="' + val.id + '">' + val.gedung + '</option>'
+                    url: ADMIN_BASE_URL + '/pencarian_aset/ajax_id_gedung/' + val,
+                    dataType: 'JSON',
+                })
+                .done(function(res) {
+                    var html = '<option value=""></option>';
+                    $.each(res, function(index, val) {
+                        html += '<option value="' + val.id + '">' + val.gedung + '</option>'
+                    });
+                    $('#id_gedung').html(html);
+                    $('#id_gedung').trigger('chosen:updated');
+                    reload_datatables();
+                })
+                .fail(function() {
+                    toastr['error']('Error', 'Getting data fail')
+                })
+                .always(function() {
+                    $.LoadingOverlay('hide')
                 });
-                $('#id_gedung').html(html);
-                $('#id_gedung').trigger('chosen:updated');
-                reload_datatables();
-            })
-            .fail(function() {
-                toastr['error']('Error', 'Getting data fail')
-            })
-            .always(function() {
-                $.LoadingOverlay('hide')
-            });
 
         });
 
