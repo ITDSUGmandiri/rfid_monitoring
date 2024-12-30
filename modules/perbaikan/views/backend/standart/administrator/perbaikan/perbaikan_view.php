@@ -9,6 +9,11 @@ function domo(){
       $('#btn_back').trigger('click');
        return false;
    });
+
+   // $('*').bind('keydown', 'Ctrl+s', function() {
+   //    $('#btn_selesai').trigger('click');
+   //     return false;
+   // });
 }
 
 jQuery(document).ready(domo);
@@ -78,7 +83,7 @@ jQuery(document).ready(domo);
                         </div>
                      </div>
                   
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <div class="row">
                         <label class="col-sm-2 control-label">Area</label>
                         <div class="col-sm-8" style="padding-top: 7px;">
@@ -103,7 +108,7 @@ jQuery(document).ready(domo);
                            <?= _ent($tb_master_transaksi->tb_master_ruangan_ruangan); ?>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   
                   </fieldset>
 
@@ -161,7 +166,9 @@ jQuery(document).ready(domo);
                <?= form_close(); ?>
                           
                <div class="view-nav text-center">
-                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/perbaikan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Perbaikan']); ?></a>
+                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="Go To List Perbaikan" href="<?= admin_site_url('/perbaikan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Perbaikan']); ?></a>
+                  <a class="btn btn-flat btn-success" id="btn_selesai" href="<?= admin_site_url('/perbaikan/selesai/' . $id); ?>" data-id="<?= $id; ?>">
+                     <i class="fa fa-check"></i> <?= cclang('perbaikan_selesai', ['Perbaikan']); ?> </a>
                </div>
                     
          </div>
@@ -176,10 +183,13 @@ jQuery(document).ready(domo);
 </section>
 
 <script>
-$(document).ready(function(){
-
-   "use strict";
-   $('.container-button-bottom').hide();
-   
-  });
+$(document).on('click', '#btn_selesai', function(e) {
+    e.preventDefault();
+    const id = $(this).data('id');
+    if (!id) {
+        alert('ID tidak ditemukan!');
+        return false;
+    }
+    window.location.href = $(this).attr('href');
+   });
 </script>

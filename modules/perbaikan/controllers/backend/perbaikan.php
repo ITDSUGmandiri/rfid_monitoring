@@ -162,9 +162,9 @@ class perbaikan extends Admin
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
 		// $this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
-		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
-		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
-		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
+		// $this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
+		// $this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
+		// $this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
 
 		if ($this->form_validation->run()) {
 
@@ -434,10 +434,49 @@ class perbaikan extends Admin
 		$this->is_allowed('perbaikan_view');
 
 		$this->data['tb_master_transaksi'] = $this->model_perbaikan->getTransaksiById($id);
+
 		$this->data['tb_detail_transaksi'] = $this->model_perbaikan->getDetailTransaksiById($id);
 		$this->template->title('Detail Perbaikan');
+		$this->data['id'] = $id; // Pastikan ID diteruskan ke view
 		$this->render('backend/standart/administrator/perbaikan/perbaikan_view', $this->data);
+		
 	}
+
+		public function selesai($id)
+	{
+		// Ambil detail aset berdasarkan ID perbaikan
+		$this->load->model('model_perbaikan');
+		$detail_aset = $this->model_perbaikan->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// echo '<pre>';
+		// print_r($detail_aset);
+		// echo '</pre>';
+		// exit;
+
+		foreach ($detail_aset as $aset) {
+			// Debug ID Aset sebelum update
+			// echo 'Mengupdate ID Aset: ' . $aset->id_aset . '<br>';
+
+			// Update status menjadi 1 di tabel master_aset
+			$this->db->trans_start();
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', ['status' => 1]);
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE) {
+				log_message('error', 'Query update gagal untuk ID Aset: ' . $aset->id_aset);
+			}
+		}
+
+		// Redirect kembali ke halaman perbaikan
+		redirect(admin_site_url('/perbaikan'));
+	}
+
 
 	/**
 	 * delete Tb Master Transaksis
@@ -639,6 +678,7 @@ class perbaikan extends Admin
 
 		$this->response($response);
 	}
+
 }
 
 /* End of file tb_master_transaksi.php */
