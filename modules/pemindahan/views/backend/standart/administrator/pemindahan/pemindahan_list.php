@@ -68,7 +68,7 @@ jQuery(document).ready(domo);
 
                      <!-- /.widget-user -->
                   <div class="row">
-                     <!-- <div class="col-md-8">
+                     <div class="col-md-8">
                                                 <div class="col-sm-2 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >
                                                          <option value="delete">Delete</option>
@@ -76,11 +76,11 @@ jQuery(document).ready(domo);
                         </div>
                         <div class="col-sm-2 padd-left-0 ">
                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                        </div> -->
-                                                <div class="col-sm-3 padd-right-0  " >
+                        </div>
+                                                <div class="col-sm-3 padd-left-0  " >
                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
                         </div>
-                        <div class="col-sm-3 padd-right-0 " >
+                        <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
                               <!-- <option <?= $this->input->get('f') == 'kode_transaksi' ? 'selected' :''; ?> value="kode_transaksi">Kode Transaksi</option> -->
@@ -92,12 +92,12 @@ jQuery(document).ready(domo);
                               <option <?= $this->input->get('f') == 'nama_pegawai_input' ? 'selected' :''; ?> value="nama_pegawai_input">Nama Pegawai Input</option> -->
                            </select>
                         </div>
-                        <div class="col-sm-1 padd-right-0 ">
+                        <div class="col-sm-1 padd-left-0 ">
                            <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
                            Filter
                            </button>
                         </div>
-                        <div class="col-sm-1 padd-right-0 ">
+                        <div class="col-sm-1 padd-left-0 ">
                            <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_transaksi');?>" title="<?= cclang('reset_filter'); ?>">
                            <i class="fa fa-undo"></i>
                            </a>

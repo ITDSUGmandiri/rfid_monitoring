@@ -465,7 +465,8 @@ class perbaikan extends Admin
 			// Update status menjadi 1 di tabel master_aset
 			$this->db->trans_start();
 			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', ['status' => 1]);
+			$this->db->update('tb_master_aset', ['status' => 1, 'borrow' => 0]);
+			
 			$this->db->trans_complete();
 
 			if ($this->db->trans_status() === FALSE) {
