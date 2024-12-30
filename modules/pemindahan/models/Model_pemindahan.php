@@ -51,7 +51,7 @@ class Model_pemindahan extends MY_Model {
         }
 
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where($where);
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -92,7 +92,7 @@ class Model_pemindahan extends MY_Model {
         }
         
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where($where);
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
         $this->db->limit($limit, $offset);
         
         $this->sortable();

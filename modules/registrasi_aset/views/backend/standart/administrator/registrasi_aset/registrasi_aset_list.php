@@ -67,7 +67,7 @@ jQuery(document).ready(domo);
 
 
                      <!-- /.widget-user -->
-                  <div class="row">
+                  <!-- <div class="row"> -->
                      <!-- <div class="col-md-8">
                                                 <div class="col-sm-2 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >

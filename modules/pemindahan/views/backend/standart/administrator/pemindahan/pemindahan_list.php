@@ -67,16 +67,16 @@ jQuery(document).ready(domo);
 
 
                      <!-- /.widget-user -->
-                  <div class="row">
-                     <div class="col-md-8">
+                  <!-- <div class="row"> -->
+                     <!-- <div class="col-md-8">
                                                 <div class="col-sm-2 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >
                                                          <option value="delete">Delete</option>
                                                       </select>
-                        </div>
-                        <div class="col-sm-2 padd-left-0 ">
+                        </div> -->
+                        <!-- <div class="col-sm-2 padd-left-0 ">
                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                        </div>
+                        </div> -->
                                                 <div class="col-sm-3 padd-left-0  " >
                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
                         </div>
