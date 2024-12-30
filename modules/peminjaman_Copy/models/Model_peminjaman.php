@@ -51,7 +51,7 @@ class Model_peminjaman extends MY_Model {
         }
 
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 4');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -92,7 +92,7 @@ class Model_peminjaman extends MY_Model {
         }
         
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 4');
         $this->db->limit($limit, $offset);
         
         $this->sortable();
@@ -121,7 +121,7 @@ class Model_peminjaman extends MY_Model {
     public function count_all_content(){
 
         $this->db->from('tb_master_aset');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('kode_tid IS NOT NULL');
         return $this->db->count_all_results();
         
     }
@@ -140,7 +140,7 @@ class Model_peminjaman extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         return $this->db->get()->result();
     }
 
@@ -166,7 +166,7 @@ class Model_peminjaman extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -178,7 +178,7 @@ class Model_peminjaman extends MY_Model {
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -189,22 +189,16 @@ class Model_peminjaman extends MY_Model {
 
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
     }
 
-    public function saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset){
+    public function saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data){
 
         // Mulai transaksi database
         $this->db->trans_start();
-
-        
-        // echo '<pre>';
-        // print_r($array_data_aset);
-        // echo '</pre>';
-        // exit;
 
         try {
             // Insert ke tabel master transaksi
@@ -212,39 +206,52 @@ class Model_peminjaman extends MY_Model {
             $id_transaksi = $this->db->insert_id();
 
             // Jika ada data linked aset dan tag
-            if(!empty($array_data_aset)) {
-
-                $data_detail = [];
+            if(!empty($linked_data)) {
                 
                 // Loop untuk setiap data linked
-                foreach($array_data_aset as $data) {
+                foreach($linked_data as $data) {
                     
                     $data_detail = array(
                         'id_transaksi' => $id_transaksi,
                         // 'kode_transaksi' => $save_data_master_transaksi['kode_transaksi'],
                         'kode_transaksi' => '',
-                        'nama_aset' => $data['nama_aset'],
-                        'kode_tid' => $data['kode_tid'], 
-                        'id_aset' => $data['id'],
-                        'kode_aset' => $data['kode_aset'],
-                        'nup' => $data['nup'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_ruangan' => $save_data_master_transaksi['id_ruangan2']
+                        'kode_tid' => $data['tag']['tid'], // Ambil tid dari tag
+                        'id_aset' => $data['aset']['id'],
+                        'kode_aset' => $data['aset']['kode_aset'],
+                        'nup' => $data['aset']['nup'],
+                        'nama_aset' => $data['aset']['nama_aset'],
+                        // 'id_area' => $save_data_detail_transaksi['id_area'],
+                        // 'id_gedung' => $save_data_detail_transaksi['id_gedung'], 
+                        // 'id_ruangan' => $save_data_detail_transaksi['id_ruangan'],
+                        'status' => 1,
+                        'id_kondisi' => 1
                     );
+
+                    // echo '<pre>';
+                    // print_r($data_detail);
+                    // echo '</pre>';
                     
                     // Insert ke tabel detail transaksi
                     $this->db->insert('tb_detail_transaksi', $data_detail);
 
+                    // Update status tag
+                    $this->db->where('kode_tid', $data['tag']['tid']);
+                    $this->db->update('tb_master_tag_rfid', array(
+                        'status_tag' => 'N',
+                        'id_aset' => $data['aset']['id']
+                    ));
+
                     // update field kode_rfid, id_area, id _gedung, id_ruangan, id_kondisi, status ke master aset
-                    $this->db->where('id_aset', $data['id']);
+                    $this->db->where('id_aset', $data['aset']['id']);
                     $this->db->update('tb_master_aset', array(
-                        // 'kode_tid' => $data['aset']['tid'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
-                        'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
-                        
+                        'kode_tid' => $data['tag']['tid'],
+                        'id_area' => $save_data_master_transaksi['id_area'],
+                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
+                        'id_lokasi' => $save_data_master_transaksi['id_ruangan'],
+                        'kondisi' => 1,
+                        'status' => 1,
+                        'flag_inventarisasi' => 1,
+                        'tgl_inventarisasi' => date('Y-m-d')
                     )); 
                     
                 }
@@ -275,15 +282,11 @@ class Model_peminjaman extends MY_Model {
     }
 
     function getTransaksiById($id){
-        $this->db->select('tb_master_transaksi.*, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,
-        tb_master_area2.area as tb_master_area_area2, tb_master_gedung2.gedung as tb_master_gedung_gedung2, tb_master_ruangan2.ruangan as tb_master_ruangan_ruangan2');
+        $this->db->select('tb_master_transaksi.*, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan');
         $this->db->from('tb_master_transaksi');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_transaksi.id_area', 'left');   
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_transaksi.id_gedung', 'left');
         $this->db->join('tb_master_ruangan', 'tb_master_ruangan.id = tb_master_transaksi.id_ruangan', 'left');
-        $this->db->join('tb_master_area as tb_master_area2', 'tb_master_area2.id = tb_master_transaksi.id_area2', 'left');   
-        $this->db->join('tb_master_gedung as tb_master_gedung2', 'tb_master_gedung2.id = tb_master_transaksi.id_gedung2', 'left');
-        $this->db->join('tb_master_ruangan as tb_master_ruangan2', 'tb_master_ruangan2.id = tb_master_transaksi.id_ruangan2', 'left');
         $this->db->where('tb_master_transaksi.id', $id);
         return $this->db->get()->row();
     }
@@ -300,8 +303,16 @@ class Model_peminjaman extends MY_Model {
         $this->db->from('pengaturan_sistem');
         return $this->db->get()->row();
     }
+    
+    function get_data_pie_chart(){
+        $this->db->select('tb_master_area.area, count(tb_master_transaksi.id_area) as total');
+        $this->db->from('tb_master_transaksi');
+        $this->db->join('tb_master_area', 'tb_master_transaksi.id_area = tb_master_area.id', 'left');
+        $this->db->group_by('tb_master_transaksi.id_area');
+        return $this->db->get()->result();
+    }
 
 }
 
-/* End of file Model_peminjaman.php */
-/* Location: ./application/models/Model_peminjaman.php */
+/* End of file Model_pencarian_aset.php */
+/* Location: ./application/models/Model_pencarian_aset.php */
