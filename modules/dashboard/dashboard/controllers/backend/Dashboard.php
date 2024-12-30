@@ -68,7 +68,7 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($query_mut)->result();
 				break;
 			case "moving":
-				$query_mov = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup,x.nama_lokasi_terakhir, x.status, x.id_lokasi AS asal, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 4 AND x.kode_tid !=''";
+				$query_mov = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup,x.nama_lokasi_terakhir, x.status, x.id_lokasi AS asal, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 4 AND x.borrow != 1 AND x.kode_tid !=''";
 				$data_json = $this->db->query($query_mov)->result();
 				break;
 			case "maintenance":
@@ -174,7 +174,7 @@ class Dashboard extends Admin
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 1 AND kode_tid != ''";
+		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE (status = 1 and borrow = 0  AND kode_tid != '') OR (status = 4 AND borrow = 1  AND kode_tid != '')";
 		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
@@ -186,11 +186,11 @@ class Dashboard extends Admin
 		$result_mutation = $this->db->query($query_mutation);
 		$mutation = $result_mutation->row();
 
-		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 0";
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 0 AND borrow != 1";
 		$result_dispo = $this->db->query($query_disp);
 		$ilegal = $result_dispo->row();
 
-		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 1";
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 1 AND borrow != 1";
 		$result_legal = $this->db->query($query_disp);
 		$legal = $result_legal->row();
 		// // $query_on_time = "SELECT COUNT(*) as total FROM tb_master_aset WHERE lokasi = 0 AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";
@@ -218,7 +218,7 @@ class Dashboard extends Admin
 		// $data_chart = $this->db->query($querycondt)->result();
 
 		//status chart
-		$querycateg = "SELECT case when a.status = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
+		$querycateg = "SELECT case when a.status = 1 AND a.borrow = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room

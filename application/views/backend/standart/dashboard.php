@@ -752,7 +752,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 5000);
+    }, 3000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
