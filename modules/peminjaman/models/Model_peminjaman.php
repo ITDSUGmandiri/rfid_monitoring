@@ -5,7 +5,7 @@ class Model_peminjaman extends MY_Model {
 
     private $primary_key    = 'id';
     private $table_name     = 'tb_master_transaksi';
-    public $field_search   = ['kode_transaksi', 'tipe_transaksi', 'status_transaksi', 'tgl_awal_transaksi', 'ket_transaksi', 'id_pegawai_input', 'nama_pegawai_input', 'id_area', 'id_gedung', 'id_ruangan', 'tb_master_type_transaksi.tipe_transaksi', 'tb_master_area.area', 'tb_master_gedung.gedung', 'tb_master_ruangan.ruangan'];
+    public $field_search   = ['kode_transaksi', 'tipe_transaksi', 'status_transaksi', 'tgl_awal_transaksi', 'tgl_akhir_transaksi', 'ket_transaksi', 'id_pegawai_input', 'nama_pegawai_input', 'id_area', 'id_gedung', 'id_ruangan', 'tb_master_type_transaksi.tipe_transaksi', 'tb_master_area.area', 'tb_master_gedung.gedung', 'tb_master_ruangan.ruangan'];
     public $sort_option = ['id', 'DESC'];
     
     public function __construct()
@@ -51,7 +51,7 @@ class Model_peminjaman extends MY_Model {
         }
 
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 4');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -92,7 +92,7 @@ class Model_peminjaman extends MY_Model {
         }
         
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->where('tb_master_transaksi.tipe_transaksi = 4');
         $this->db->limit($limit, $offset);
         
         $this->sortable();
@@ -121,7 +121,7 @@ class Model_peminjaman extends MY_Model {
     public function count_all_content(){
 
         $this->db->from('tb_master_aset');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('kode_tid IS NOT NULL');
         return $this->db->count_all_results();
         
     }
@@ -140,7 +140,7 @@ class Model_peminjaman extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         return $this->db->get()->result();
     }
 
@@ -166,7 +166,7 @@ class Model_peminjaman extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -178,7 +178,7 @@ class Model_peminjaman extends MY_Model {
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -189,7 +189,7 @@ class Model_peminjaman extends MY_Model {
 
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
@@ -228,9 +228,6 @@ class Model_peminjaman extends MY_Model {
                         'id_aset' => $data['id'],
                         'kode_aset' => $data['kode_aset'],
                         'nup' => $data['nup'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_ruangan' => $save_data_master_transaksi['id_ruangan2']
                     );
                     
                     // Insert ke tabel detail transaksi
@@ -240,10 +237,11 @@ class Model_peminjaman extends MY_Model {
                     $this->db->where('id_aset', $data['id']);
                     $this->db->update('tb_master_aset', array(
                         // 'kode_tid' => $data['aset']['tid'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
-                        'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                        'tgl_peminjaman' => $save_data_master_transaksi['tgl_awal_transaksi'],
+                        'tgl_pengembalian' => $save_data_master_transaksi['tgl_akhir_transaksi'],
+                        'id_peminjam' => $save_data_master_transaksi['id_pegawai'],
+                        'status' => 2,
+                        'borrow' => 1,
                         
                     )); 
                     

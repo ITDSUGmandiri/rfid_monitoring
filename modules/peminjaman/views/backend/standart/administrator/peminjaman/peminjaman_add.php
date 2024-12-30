@@ -442,11 +442,11 @@ console.log("xxx");
                     ]); 
                 ?>
 
-                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="5">
+                    <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="4">
                     <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
                     <input type="hidden" name="id_pegawai_input" id="id_pegawai_input" value="0">
                     <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
-                    <input type="hidden" name="id_pegawai" id="id_pegawai" value="0">
+                    <!-- <input type="hidden" name="id_pegawai" id="id_pegawai" value="0"> -->
                     <input type="hidden" name="nama_pegawai" id="nama_pegawai" value="0">
 
                     <div class="form-group group-tgl_awal_transaksi ">
@@ -454,7 +454,19 @@ console.log("xxx");
                         </label>
                         <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                                <input type="text" class="form-control pull-right datepicker" name="tgl_awal_transaksi" placeholder="Tgl Awal Transaksi" id="tgl_awal_transaksi">
+                                <input type="text" class="form-control pull-right datepicker" name="tgl_awal_transaksi" placeholder="Tgl Peminjaman" id="tgl_awal_transaksi">
+                            </div>
+                            <small class="info help-block">
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group group-tgl_akhir_transaksi ">
+                        <label for="tgl_awal_transaksi" class="col-sm-2 control-label">Tgl Pengembalian<i class="required">*</i>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="input-group date col-sm-8">
+                                <input type="text" class="form-control pull-right datepicker" name="tgl_akhir_transaksi" placeholder="Tgl Pengembalian" id="tgl_akhir_transaksi">
                             </div>
                             <small class="info help-block">
                             </small>
@@ -470,18 +482,32 @@ console.log("xxx");
                                 <b>Input Ket Peminjaman</b> Max Length : 500.</small>
                         </div>
                     </div>
+
+                    <div class="form-group group-nama_pegawai ">
+                            <label for="id_pegawai" class="col-sm-2 control-label">Nama Peminjam
+                                </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select-deselect" name="id_pegawai" id="id_pegawai" data-placeholder="Nama Peminjam">
+                                    <option value=""></option>
+                                    <?php foreach (db_get_all_data('tb_master_pegawai') as $row): ?>
+                                    <option value="<?= $row->id ?>"><?= $row->nama; ?></option>
+                                    <?php endforeach; ?>                                 </select>
+                                <small class="info help-block">
+                                    </small>
+                            </div>
+                        </div>
                             
                 <?php
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
-                <h3 style="text-decoration: underline;">Isi Data Area</h3>
+                <h3 style="text-decoration: underline;">Filter Area</h3>
                 
                     <!-- <section> -->
                     <fieldset>
                         
                         <div class="form-group group-id_area ">
-                            <label for="id_area" class="col-sm-2 control-label">Area Asal
+                            <label for="id_area" class="col-sm-2 control-label">Area
                                 </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_area" id="id_area" data-placeholder="Pilih Area">
@@ -495,7 +521,7 @@ console.log("xxx");
                         </div>
 
                         <div class="form-group group-id_gedung ">
-                            <label for="id_gedung" class="col-sm-2 control-label">Gedung Asal</label>
+                            <label for="id_gedung" class="col-sm-2 control-label">Gedung</label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_gedung" id="id_gedung" data-placeholder="Pilih Gedung">
                                     <option value=""></option>
@@ -506,53 +532,10 @@ console.log("xxx");
                         </div>
 
                         <div class="form-group group-id_ruangan ">
-                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan Asal
+                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan
                                 </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_ruangan" id="id_ruangan" data-placeholder="Pilih Ruangan">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                    <!-- </section> -->
-                    </fieldset>
-                
-                    <!-- <section> -->
-                    <fieldset>
-                        
-                        <div class="form-group group-id_area2 ">
-                            <label for="id_area2" class="col-sm-2 control-label">Area Tujuan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_area2" id="id_area2" data-placeholder="Pilih Area">
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('tb_master_area') as $row): ?>
-                                    <option value="<?= $row->id ?>"><?= $row->area; ?></option>
-                                    <?php endforeach; ?>                                 </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_gedung2 ">
-                            <label for="id_gedung2" class="col-sm-2 control-label">Gedung Tujuan</label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_gedung2" id="id_gedung2" data-placeholder="Pilih Gedung">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_ruangan2 ">
-                            <label for="id_ruangan2" class="col-sm-2 control-label">Ruangan Tujuan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_ruangan2" id="id_ruangan2" data-placeholder="Pilih Ruangan">
                                     <option value=""></option>
                                                                     </select>
                                 <small class="info help-block">
@@ -626,7 +609,7 @@ console.log("xxx");
 
                     </fieldset>
 
-                    <h3 style="text-decoration: underline;">Barang Yang Dipindahkan</h3>
+                    <h3 style="text-decoration: underline;">Barang Yang Dipinjam</h3>
 
                     <div id="containerHasilPencarian" class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">

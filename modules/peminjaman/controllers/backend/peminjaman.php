@@ -160,14 +160,15 @@ class peminjaman extends Admin
 		$this->form_validation->set_rules('tipe_transaksi', 'Tipe Transaksi', 'trim|required');
 		$this->form_validation->set_rules('status_transaksi', 'Status Transaksi', 'trim|required');
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
+		$this->form_validation->set_rules('tgl_akhir_transaksi', 'Tgl Akhir Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
-		// $this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
-		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
-		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
-		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
-		$this->form_validation->set_rules('id_area2', 'Id Area2', 'trim|required');
-		$this->form_validation->set_rules('id_gedung2', 'Id Gedung2', 'trim|required');
-		$this->form_validation->set_rules('id_ruangan2', 'Id Ruangan2', 'trim|required');
+		$this->form_validation->set_rules('id_pegawai', 'Id Pegawai', 'trim|required');
+		// $this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
+		// $this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
+		// $this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
+		// $this->form_validation->set_rules('id_area2', 'Id Area2', 'trim|required');
+		// $this->form_validation->set_rules('id_gedung2', 'Id Gedung2', 'trim|required');
+		// $this->form_validation->set_rules('id_ruangan2', 'Id Ruangan2', 'trim|required');
 
 		if ($this->form_validation->run()) {
 
@@ -177,7 +178,7 @@ class peminjaman extends Admin
 				'status_transaksi' => $this->input->post('status_transaksi'),
 				'tgl_input' => date('Y-m-d H:i:s'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
-				// 'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
+				'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
 				'id_pegawai_input' => $this->input->post('id_pegawai_input'),
 				'nama_pegawai_input' => $this->input->post('nama_pegawai_input'),
 				'id_pegawai' => $this->input->post('id_pegawai'),
