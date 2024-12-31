@@ -448,22 +448,14 @@ class perbaikan extends Admin
 		$this->load->model('model_perbaikan');
 		$detail_aset = $this->model_perbaikan->getDetailTransaksiById($id);
 
-		// Mulai transaksi untuk memastikan kedua update berjalan atomik
-		$this->db->trans_start();
-
-		// Update status transaksi menjadi 3 di tabel tb_master_transaksi
-		$this->db->where('id_transaksi', $id);  // Pastikan ID transaksi yang tepat digunakan
-		$this->db->update('tb_master_transaksi', ['status_transaksi' => 3]);
-	
-		// Cek apakah update status transaksi berhasil
-		if ($this->db->affected_rows() === 0) {
-			log_message('error', 'Update status transaksi gagal untuk ID Transaksi: ' . $id);
-		}
-
 		// Debugging $detail_aset
 		if (!$detail_aset) {
 			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
 		}
+
+		// Update status transaksi menjadi 3 di tabel tb_master_transaksi
+		$this->db->where('id', $id);  // Pastikan ID transaksi yang tepat digunakan
+		$this->db->update('tb_master_transaksi', ['status_transaksi' => 3]);	
 
 		// echo '<pre>';
 		// print_r($detail_aset);
@@ -475,8 +467,9 @@ class perbaikan extends Admin
 			// echo 'Mengupdate ID Aset: ' . $aset->id_aset . '<br>';
 
 			// Update status menjadi 1 di tabel master_aset
+			$this->db->trans_start();
 			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', ['borrow' => 0]);
+			$this->db->update('tb_master_aset', ['status' => 1, 'borrow' => 0]);
 			
 			$this->db->trans_complete();
 
