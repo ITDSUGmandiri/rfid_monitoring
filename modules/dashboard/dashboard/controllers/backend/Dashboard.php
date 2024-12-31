@@ -174,7 +174,7 @@ class Dashboard extends Admin
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE (status = 1 and borrow = 0  AND kode_tid != '') OR (status = 4 AND borrow = 1  AND kode_tid != '')";
+		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE (status = 1 and borrow = 1  AND kode_tid != '') OR (status = 1 and borrow = 0  AND kode_tid != '') OR (status = 4 AND borrow = 1  AND kode_tid != '')";
 		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
