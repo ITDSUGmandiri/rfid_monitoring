@@ -121,7 +121,7 @@ class Model_pemindahan extends MY_Model {
     public function count_all_content(){
 
         $this->db->from('tb_master_aset');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('kode_tid IS NOT NULL');
         return $this->db->count_all_results();
         
     }
@@ -140,7 +140,7 @@ class Model_pemindahan extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         return $this->db->get()->result();
     }
 
@@ -166,7 +166,7 @@ class Model_pemindahan extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -178,7 +178,7 @@ class Model_pemindahan extends MY_Model {
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -189,7 +189,7 @@ class Model_pemindahan extends MY_Model {
 
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
@@ -244,6 +244,7 @@ class Model_pemindahan extends MY_Model {
                         'id_gedung' => $save_data_master_transaksi['id_gedung2'],
                         'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
                         'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                        'borrow' => 1,
                         
                     )); 
                     
