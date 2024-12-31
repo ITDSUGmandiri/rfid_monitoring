@@ -164,11 +164,26 @@ jQuery(document).ready(domo);
                <div class="message"></div>
 
                <?= form_close(); ?>
+
+               <?php
+               // Pastikan $tb_master_transaksi sudah di-load sebelumnya
+               $status_transaksi = $tb_master_transaksi->status_transaksi;  // Ambil status transaksi
+
+               // Cek apakah status transaksi = 3, jika ya, sembunyikan tombol selesai
+               $show_selesai_button = ($status_transaksi != 3); // Tombol selesai hanya muncul jika status bukan 3
+               ?>
                           
                <div class="view-nav text-center">
-                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="Go To List Perbaikan" href="<?= admin_site_url('/perbaikan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Perbaikan']); ?></a>
-                  <a class="btn btn-flat btn-success" id="btn_selesai" href="<?= admin_site_url('/perbaikan/selesai/' . $id); ?>" data-id="<?= $id; ?>">
-                     <i class="fa fa-check"></i> <?= cclang('perbaikan_selesai', ['Perbaikan']); ?> </a>
+                  <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/perbaikan/'); ?>">
+                     <i class="fa fa-undo"></i> <?= cclang('go_list_button', ['Perbaikan']); ?>
+                  </a>
+
+                  <!-- Tombol selesai hanya ditampilkan jika status_transaksi != 3 -->
+                  <?php if ($show_selesai_button): ?>
+                     <a class="btn btn-flat btn-success" id="btn_selesai" href="<?= admin_site_url('/perbaikan/selesai/' . $id); ?>" data-id="<?= $id; ?>">
+                           <i class="fa fa-check"></i> <?= cclang('perbaikan_selesai', ['Perbaikan']); ?>
+                     </a>
+                  <?php endif; ?>
                </div>
                     
          </div>

@@ -442,7 +442,7 @@ class perbaikan extends Admin
 		
 	}
 
-		public function selesai($id)
+	public function selesai($id)
 	{
 		// Ambil detail aset berdasarkan ID perbaikan
 		$this->load->model('model_perbaikan');
@@ -452,6 +452,10 @@ class perbaikan extends Admin
 		if (!$detail_aset) {
 			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
 		}
+
+		// Update status transaksi menjadi 3 di tabel tb_master_transaksi
+		$this->db->where('id', $id);  // Pastikan ID transaksi yang tepat digunakan
+		$this->db->update('tb_master_transaksi', ['status_transaksi' => 3]);	
 
 		// echo '<pre>';
 		// print_r($detail_aset);
