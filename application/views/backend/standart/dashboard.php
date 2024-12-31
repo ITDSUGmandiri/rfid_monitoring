@@ -689,6 +689,7 @@ $CI = &get_instance();
           // librarian(data);
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -735,6 +736,7 @@ $CI = &get_instance();
 
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -761,13 +763,7 @@ $CI = &get_instance();
       data: {
         datasets: [{
           data: [],
-          backgroundColor: [
-            '#7fffd4',
-            '#ff4500',
-            '#ffa500',
-            '#ffff00',
-            '#faebd7',
-          ],
+          backgroundColor: [],
         }, ],
         labels: [],
       },
