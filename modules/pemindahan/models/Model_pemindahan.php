@@ -120,7 +120,7 @@ class Model_pemindahan extends MY_Model {
 
     public function count_all_content(){
 
-        $this->db->from('tb_master_aset');
+        $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
         return $this->db->count_all_results();
         
@@ -244,7 +244,7 @@ class Model_pemindahan extends MY_Model {
                         'id_gedung' => $save_data_master_transaksi['id_gedung2'],
                         'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
                         'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
-                        
+                        'borrow' => 1                        
                     )); 
                     
                 }
