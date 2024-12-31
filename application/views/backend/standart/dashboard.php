@@ -243,7 +243,7 @@ $CI = &get_instance();
                     </div>
                     <div class="c-dashboardInfo col-lg-2">
                       <div id="perp" class="wrap">
-                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Pemindahan
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perpindahan
                           <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
                           <path fill="none" d="M0 0h24v24H0z"></path>
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
@@ -773,7 +773,9 @@ $CI = &get_instance();
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20
+            padding: 20,
+            fontSize: 18,
+
           }
         },
         plugins: {
@@ -806,7 +808,9 @@ $CI = &get_instance();
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20
+            padding: 20,
+            fontSize: 18,
+
           }
         },
         plugins: {
@@ -837,6 +841,7 @@ $CI = &get_instance();
         legend: {
           position: 'bottom',
           labels: {
+            fontSize: 18,
             fontColor: "black",
             boxWidth: 20,
             padding: 20
@@ -878,7 +883,7 @@ $CI = &get_instance();
               // Draw the text in black, with the specified font
               ctx.fillStyle = '#000';
 
-              var fontSize = 14;
+              var fontSize = 18;
               var fontStyle = 'bold';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle);
 
