@@ -60,7 +60,7 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($row_total)->result();
 				break;
 			case "anomali":
-				$query_anomali = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.lokasi_moving WHERE x.status = 1 AND x.kode_tid !='' order by x.lokasi_moving asc, x.kode_aset asc, nup asc";
+				$query_anomali = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup, x.status, x.id_lokasi, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.lokasi_moving WHERE (x.status = 1 AND x.borrow = 1  AND x.kode_tid !='') OR (x.status = 1 AND x.borrow = 0  AND x.kode_tid !='') OR (x.status = 4 AND x.borrow = 1  AND x.kode_tid !='')  order by x.lokasi_moving asc, x.kode_aset asc, nup asc";
 				$data_json = $this->db->query($query_anomali)->result();
 				break;
 			case "mutation":
@@ -174,7 +174,7 @@ class Dashboard extends Admin
 		$row_total = $result_total->row();
 
 		// // Ambil data untuk chart
-		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE (status = 1 and borrow = 0  AND kode_tid != '') OR (status = 4 AND borrow = 1  AND kode_tid != '')";
+		$query_inv = "SELECT COUNT(*) as total FROM tb_master_aset WHERE (status = 1 and borrow = 1  AND kode_tid != '') OR (status = 1 and borrow = 0  AND kode_tid != '') OR (status = 4 AND borrow = 1  AND kode_tid != '')";
 		$result_total = $this->db->query($query_inv);
 		$row_sensus = $result_total->row();
 
@@ -218,11 +218,21 @@ class Dashboard extends Admin
 		// $data_chart = $this->db->query($querycondt)->result();
 
 		//status chart
-		$querycateg = "SELECT case when a.status = 1 AND a.borrow = 1 then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
+		$querycateg = "
+		SELECT case when (a.status = 4 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 0) then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, case when (a.status = 1 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 0) then '#7fffd4' when a.status = 2 then '#ffa500' when a.status = 3 then '#faebd7' when a.status = 4 and a.tipe_moving = 1 then '#ffff00' else '#ff4500' end as color, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room
-		$querycateg = "SELECT c.ruangan,count(a.lokasi_moving) as total FROM tb_master_aset a JOIN tb_master_ruangan c ON c.id = a.lokasi_moving AND a.status != 0 AND a.kode_tid !='' GROUP BY c.ruangan";
+		$querycateg = "SELECT 
+case 
+when (status = 1 AND borrow = 1  AND kode_tid != '' ) then count(a.lokasi_moving) 
+when (status = 4 AND borrow = 1  AND kode_tid != '') then  count(a.id_lokasi) 
+when (status = 1 AND borrow = 0  AND kode_tid != '') then  count(a.lokasi_moving) end as total, c.ruangan 
+FROM tb_master_aset a JOIN tb_master_ruangan c 
+ON ((a.status = 1 AND a.borrow = 1  AND a.kode_tid != '' ) AND c.id = a.id_lokasi)
+OR ((a.status = 4 AND a.borrow = 1  AND a.kode_tid != '') AND c.id = a.id_lokasi)
+OR ((a.status = 1 AND a.borrow = 0  AND a.kode_tid != '') AND c.id = a.lokasi_moving)
+GROUP BY c.ruangan";
 		$data_ruangan = $this->db->query($querycateg)->result();
 
 		//status kategory
