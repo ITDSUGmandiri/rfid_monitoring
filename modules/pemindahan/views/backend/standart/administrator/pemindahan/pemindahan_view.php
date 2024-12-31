@@ -189,6 +189,8 @@ jQuery(document).ready(domo);
                           
                <div class="view-nav text-center">
                   <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/pemindahan/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pemindahan']); ?></a>
+                  <a class="btn btn-flat btn-success" id="btn_selesai" href="<?= admin_site_url('/pemindahan/selesai/' . $id); ?>" data-id="<?= $id; ?>">
+                     <i class="fa fa-check"></i> <?= cclang('pemindahan_selesai', ['Pemindahan']); ?> </a>
                </div>
                     
          </div>
@@ -209,4 +211,13 @@ $(document).ready(function(){
    $('.container-button-bottom').hide();
    
   });
+  $(document).on('click', '#btn_selesai', function(e) {
+    e.preventDefault();
+    const id = $(this).data('id');
+    if (!id) {
+        alert('ID tidak ditemukan!');
+        return false;
+    }
+    window.location.href = $(this).attr('href');
+   });
 </script>
