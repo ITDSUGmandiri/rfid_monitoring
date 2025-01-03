@@ -82,6 +82,16 @@ jQuery(document).ready(domo);
                            </div>
                         </div>
                      </div>
+
+                     <!-- Menampilkan Keterangan Selesai -->
+                     <?php if ($status_transaksi == 3): ?>
+                        <div class="form-group">
+                           <label class="col-sm-2 control-label">Keterangan Selesai</label>
+                           <div class="col-sm-8" style="padding-top: 7px;">
+                                 <span id="keterangan_selesai_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
+                           </div>
+                        </div>
+                     <?php endif; ?>
                   
                   <!-- <div class="form-group">
                      <div class="row">
@@ -180,10 +190,31 @@ jQuery(document).ready(domo);
 
                   <!-- Tombol selesai hanya ditampilkan jika status_transaksi != 3 -->
                   <?php if ($show_selesai_button): ?>
-                     <a class="btn btn-flat btn-success" id="btn_selesai" href="<?= admin_site_url('/perbaikan/selesai/' . $id); ?>" data-id="<?= $id; ?>">
-                           <i class="fa fa-check"></i> <?= cclang('perbaikan_selesai', ['Perbaikan']); ?>
+                     <a class="btn btn-flat btn-success" id="btn_selesai" href="javascript:void(0);" data-id="<?= $id; ?>">
+                        <i class="fa fa-check"></i> <?= cclang('perbaikan_selesai', ['Perbaikan']); ?>
                      </a>
                   <?php endif; ?>
+               </div>
+
+               <!-- Modal Popup untuk Keterangan Selesai -->
+               <div id="modal_selesai" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h4 class="modal-title">Keterangan Selesai</h4>
+                        </div>
+                        <div class="modal-body">
+                           <div class="form-group">
+                              <label for="keterangan_selesai">Masukkan Keterangan:</label>
+                              <textarea id="keterangan_selesai" class="form-control" rows="5"></textarea>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                           <button type="button" class="btn btn-success" id="submit_selesai">Selesai</button>
+                        </div>
+                     </div>
+                  </div>
                </div>
                     
          </div>
@@ -198,13 +229,65 @@ jQuery(document).ready(domo);
 </section>
 
 <script>
+// Menambahkan event listener untuk tombol selesai
 $(document).on('click', '#btn_selesai', function(e) {
     e.preventDefault();
-    const id = $(this).data('id');
-    if (!id) {
-        alert('ID tidak ditemukan!');
-        return false;
+    
+    // Tampilkan modal untuk input keterangan selesai
+    $('#modal_selesai').modal('show');
+});
+
+// Menambahkan event listener untuk tombol submit di modal
+$(document).on('click', '#submit_selesai', function(e) {
+    e.preventDefault();
+    
+    // Ambil keterangan yang diinputkan
+    const keterangan = $('#keterangan_selesai').val().trim();
+    
+    if (!keterangan) {
+        alert('Keterangan tidak boleh kosong!');
+        return;
     }
-    window.location.href = $(this).attr('href');
-   });
+    
+    // Ambil ID transaksi dari tombol
+    const id = $('#btn_selesai').data('id');
+    if (!id) {
+        alert('ID transaksi tidak ditemukan!');
+        return;
+    }
+
+    // Kirim data keterangan selesai dan update status transaksi
+    $.ajax({
+        url: '<?= admin_site_url('/perbaikan/selesai/'); ?>' + id,  // Pastikan URL sudah sesuai
+        method: 'POST',
+        data: {
+            keterangan_selesai: keterangan
+        },
+        success: function(response) {
+            console.log(response);  // Tambahkan log untuk melihat respons yang diterima
+            // Cek apakah update berhasil berdasarkan respons
+            if (response['success']) {
+                // Update tampilan keterangan selesai di halaman
+                $('#keterangan_selesai_display').text(keterangan);
+               
+                // Update status transaksi menjadi selesai (status 3)
+                $('#status_transaksi').text('Selesai');
+               
+                // Tutup modal setelah update berhasil
+                $('#modal_selesai').modal('hide');
+                
+                // Update tombol selesai, sembunyikan
+                $('#btn_selesai').hide();
+            } else {
+                // Jika ada masalah atau gagal, tampilkan pesan error
+                alert('Gagal mengupdate status! Coba lagi.');
+            }
+        },
+        error: function(xhr, status, error) {
+            // Jika terjadi error dalam AJAX, tampilkan pesan error
+            console.error('AJAX Error:', status, error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
+        }
+    });
+});
 </script>
