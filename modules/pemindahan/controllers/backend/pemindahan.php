@@ -459,33 +459,97 @@ class pemindahan extends Admin
 			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
 		}
 
-		// Update status transaksi menjadi 3 di tabel tb_master_transaksi
-		$this->db->where('id', $id);  // Pastikan ID transaksi yang tepat digunakan
-		$this->db->update('tb_master_transaksi', ['status_transaksi' => 3]);	
-
-		// echo '<pre>';
-		// print_r($detail_aset);
-		// echo '</pre>';
-		// exit;
-
-		foreach ($detail_aset as $aset) {
-			// Debug ID Aset sebelum update
-			// echo 'Mengupdate ID Aset: ' . $aset->id_aset . '<br>';
-
-			// Update status menjadi 1 di tabel master_aset
-			$this->db->trans_start();
-			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', ['borrow' => 0]);
-			
-			$this->db->trans_complete();
-
-			if ($this->db->trans_status() === FALSE) {
-				log_message('error', 'Query update gagal untuk ID Aset: ' . $aset->id_aset);
-			}
+		// Ambil keterangan selesai dari request POST
+		$keterangan_selesai = $this->input->post('keterangan_selesai');
+		if (!$keterangan_selesai) {
+			show_error('Keterangan selesai tidak ditemukan!', 400);
 		}
 
-		// Redirect kembali ke halaman perbaikan
-		redirect(admin_site_url('/pemindahan'));
+		// Mulai transaksi untuk memastikan atomicity
+		$this->db->trans_start();
+
+		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan selesai
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 3,    // Set status menjadi 3 (selesai)
+			'ket_transaksi2' => $keterangan_selesai  // Simpan keterangan selesai
+		]);
+
+		// Perbarui status aset terkait dengan perbaikan
+		foreach ($detail_aset as $aset) {
+			// Update status aset menjadi 1 dan set borrow menjadi 0
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', [
+				'status' => 1,  // Aset sudah kembali
+				'borrow' => 0   // Aset tidak dipinjam lagi
+			]);
+		}
+
+		// Selesaikan transaksi
+		$this->db->trans_complete();
+
+		// Cek apakah transaksi berhasil
+		if ($this->db->trans_status() === FALSE) {
+			log_message('error', 'Gagal melakukan update transaksi selesai untuk ID: ' . $id);
+			show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		}
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
+	}
+
+	public function batal($id)
+	{
+		// Ambil detail aset berdasarkan ID perbaikan
+		$this->load->model('model_pemindahan');
+		$detail_aset = $this->model_pemindahan->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// Ambil keterangan batal dari request POST
+		$keterangan_batal = $this->input->post('keterangan_batal');
+		if (!$keterangan_batal) {
+			show_error('Keterangan batal tidak ditemukan!', 400);
+		}
+
+		// Mulai transaksi untuk memastikan atomicity
+		$this->db->trans_start();
+
+		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan batal
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
+			'ket_transaksi2' => $keterangan_batal  // Simpan keterangan batal
+		]);
+
+		// Perbarui status aset terkait dengan perbaikan
+		foreach ($detail_aset as $aset) {
+			// Update status aset menjadi 1 dan set borrow menjadi 0
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', [
+				'id_area' => $aset->id_area,
+                'id_gedung' => $aset->id_gedung,
+                'id_lokasi' => $aset->id_ruangan,
+				'lokasi_moving' => $aset->id_ruangan,
+				'status' => 1,  // Aset sudah kembali
+				'borrow' => 0   // Aset tidak dipinjam lagi
+			]);
+		}
+
+		// Selesaikan transaksi
+		$this->db->trans_complete();
+
+		// Cek apakah transaksi berhasil
+		if ($this->db->trans_status() === FALSE) {
+			log_message('error', 'Gagal melakukan update transaksi pembatalan untuk ID: ' . $id);
+			show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		}
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
 	}
 
 	/**

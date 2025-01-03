@@ -488,9 +488,58 @@ class perbaikan extends Admin
 			show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
 		}
 
-		$response['success'] = TRUE;
-		// Berikan response sukses
-		echo json_encode($response);
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
+	}
+
+	public function batal($id)
+	{
+		// Ambil detail aset berdasarkan ID perbaikan
+		$this->load->model('model_perbaikan');
+		$detail_aset = $this->model_perbaikan->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// Ambil keterangan batal dari request POST
+		$keterangan_batal = $this->input->post('keterangan_batal');
+		if (!$keterangan_batal) {
+			show_error('Keterangan batal tidak ditemukan!', 400);
+		}
+
+		// Mulai transaksi untuk memastikan atomicity
+		$this->db->trans_start();
+
+		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan batal
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
+			'ket_transaksi2' => $keterangan_batal  // Simpan keterangan batal
+		]);
+
+		// Perbarui status aset terkait dengan perbaikan
+		foreach ($detail_aset as $aset) {
+			// Update status aset menjadi 1 dan set borrow menjadi 0
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', [
+				'status' => 1,  // Aset sudah kembali
+				'borrow' => 0   // Aset tidak dipinjam lagi
+			]);
+		}
+
+		// Selesaikan transaksi
+		$this->db->trans_complete();
+
+		// Cek apakah transaksi berhasil
+		if ($this->db->trans_status() === FALSE) {
+			log_message('error', 'Gagal melakukan update transaksi pembatalan untuk ID: ' . $id);
+			show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		}
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
 	}
 
 

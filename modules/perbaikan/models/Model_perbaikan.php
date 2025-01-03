@@ -122,6 +122,7 @@ class Model_perbaikan extends MY_Model {
 
         $this->db->from('tb_master_aset');
         $this->db->where('kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         return $this->db->count_all_results();
         
     }
@@ -141,6 +142,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         return $this->db->get()->result();
     }
 
@@ -167,6 +169,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -179,6 +182,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -190,6 +194,7 @@ class Model_perbaikan extends MY_Model {
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();

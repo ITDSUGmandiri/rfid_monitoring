@@ -83,14 +83,37 @@ jQuery(document).ready(domo);
                         </div>
                      </div>
 
-                     <!-- Menampilkan Keterangan Selesai -->
-                     <?php if ($status_transaksi == 3): ?>
-                        <div class="form-group">
-                           <label class="col-sm-2 control-label">Keterangan Selesai</label>
+                     <!-- <div class="form-group">
+                        <div class="row">
+                           <label class="col-sm-2 control-label">Status Transaksi</label>
                            <div class="col-sm-8" style="padding-top: 7px;">
-                                 <span id="keterangan_selesai_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
+                              <?= _ent($tb_master_transaksi->status_transaksi); ?>
                            </div>
                         </div>
+                     </div> -->
+
+                     <!-- Menampilkan Keterangan Selesai -->
+                     <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Keterangan Selesai</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <span id="keterangan_selesai_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
+                              </div>
+                           </div>
+                     </div>
+                     <?php endif; ?>
+
+                     <!-- Menampilkan Keterangan Batal -->
+                     <?php if (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Keterangan Batal</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <span id="keterangan_batal_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
+                              </div>
+                           </div>
+                     </div>
                      <?php endif; ?>
                   
                   <!-- <div class="form-group">
@@ -180,7 +203,8 @@ jQuery(document).ready(domo);
                $status_transaksi = $tb_master_transaksi->status_transaksi;  // Ambil status transaksi
 
                // Cek apakah status transaksi = 3, jika ya, sembunyikan tombol selesai
-               $show_selesai_button = ($status_transaksi != 3); // Tombol selesai hanya muncul jika status bukan 3
+               $show_selesai_button = ($status_transaksi == 1); // Tombol selesai hanya muncul jika status bukan 3
+               $show_batal_button = ($status_transaksi == 1); // Tombol selesai hanya muncul jika status bukan 3
                ?>
                           
                <div class="view-nav text-center">
@@ -188,13 +212,20 @@ jQuery(document).ready(domo);
                      <i class="fa fa-undo"></i> <?= cclang('go_list_button', ['Perbaikan']); ?>
                   </a>
 
-                  <!-- Tombol selesai hanya ditampilkan jika status_transaksi != 3 -->
+                  <!-- Tombol selesai hanya ditampilkan jika status_transaksi == 1 -->
                   <?php if ($show_selesai_button): ?>
                      <a class="btn btn-flat btn-success" id="btn_selesai" href="javascript:void(0);" data-id="<?= $id; ?>">
                         <i class="fa fa-check"></i> <?= cclang('perbaikan_selesai', ['Perbaikan']); ?>
                      </a>
                   <?php endif; ?>
-               </div>
+
+                  <!-- Tombol Batal hanya ditampilkan jika status_transaksi == 1 -->
+                  <?php if ($show_batal_button): ?>
+                     <a class="btn btn-flat btn-danger" id="btn_batal" href="javascript:void(0);" data-id="<?= $id; ?>">
+                        <i class="fa fa-times"></i> <?= cclang('perbaikan_batal', ['Perbaikan']); ?>
+                     </a>
+                  <?php endif; ?>
+                  </div>
 
                <!-- Modal Popup untuk Keterangan Selesai -->
                <div id="modal_selesai" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -212,6 +243,27 @@ jQuery(document).ready(domo);
                         <div class="modal-footer">
                            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                            <button type="button" class="btn btn-success" id="submit_selesai">Selesai</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Modal Popup untuk Keterangan Batal -->
+               <div id="modal_batal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h4 class="modal-title">Keterangan Batal</h4>
+                        </div>
+                        <div class="modal-body">
+                           <div class="form-group">
+                              <label for="keterangan_batal">Masukkan Keterangan Pembatalan:</label>
+                              <textarea id="keterangan_batal" class="form-control" rows="5"></textarea>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                           <button type="button" class="btn btn-danger" id="submit_batal">Selesai</button>
                         </div>
                      </div>
                   </div>
@@ -235,6 +287,14 @@ $(document).on('click', '#btn_selesai', function(e) {
     
     // Tampilkan modal untuk input keterangan selesai
     $('#modal_selesai').modal('show');
+});
+
+// Menambahkan event listener untuk tombol batal
+$(document).on('click', '#btn_batal', function(e) {
+    e.preventDefault();
+    
+    // Tampilkan modal untuk input keterangan selesai
+    $('#modal_batal').modal('show');
 });
 
 // Menambahkan event listener untuk tombol submit di modal
@@ -264,9 +324,10 @@ $(document).on('click', '#submit_selesai', function(e) {
             keterangan_selesai: keterangan
         },
         success: function(response) {
-            console.log(response);  // Tambahkan log untuk melihat respons yang diterima
+            var json = JSON.parse(response);
             // Cek apakah update berhasil berdasarkan respons
-            if (response['success']) {
+            if (json.success) {
+
                 // Update tampilan keterangan selesai di halaman
                 $('#keterangan_selesai_display').text(keterangan);
                
@@ -278,6 +339,76 @@ $(document).on('click', '#submit_selesai', function(e) {
                 
                 // Update tombol selesai, sembunyikan
                 $('#btn_selesai').hide();
+                
+                // Update tombol batal, sembunyikan
+                $('#btn_batal').hide();
+                
+                // Tampilkan pesan keterangan selesai berhasil
+                $('.message').html('<div class="alert alert-success">Keterangan selesai berhasil diperbarui!</div>');
+                            
+            } else {
+                // Jika ada masalah atau gagal, tampilkan pesan error
+                alert('Gagal mengupdate status! Coba lagi.');
+            }
+        },
+        error: function(xhr, status, error) {
+            // Jika terjadi error dalam AJAX, tampilkan pesan error
+            console.error('AJAX Error:', status, error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
+        }
+    });
+
+});
+
+// Menambahkan event listener untuk tombol submit di modal
+$(document).on('click', '#submit_batal', function(e) {
+    e.preventDefault();
+    
+    // Ambil keterangan yang diinputkan
+    const keterangan = $('#keterangan_batal').val().trim();
+    
+    if (!keterangan) {
+        alert('Keterangan tidak boleh kosong!');
+        return;
+    }
+    
+    // Ambil ID transaksi dari tombol
+    const id = $('#btn_batal').data('id');
+    if (!id) {
+        alert('ID transaksi tidak ditemukan!');
+        return;
+    }
+
+    // Kirim data keterangan selesai dan update status transaksi
+    $.ajax({
+        url: '<?= admin_site_url('/perbaikan/batal/'); ?>' + id,  // Pastikan URL sudah sesuai
+        method: 'POST',
+        data: {
+            keterangan_batal: keterangan
+        },
+        success: function(response) {
+            var json = JSON.parse(response);
+            // Cek apakah update berhasil berdasarkan respons
+            if (json.success) {
+
+                // Update tampilan keterangan batal di halaman
+                $('#keterangan_batal_display').text(keterangan);
+               
+                // Update status transaksi menjadi batal (status 4)
+                $('#status_transaksi').text('Batal');
+               
+                // Tutup modal setelah update berhasil
+                $('#modal_batal').modal('hide');
+                
+                // Update tombol selesai, sembunyikan
+                $('#btn_batal').hide();
+                
+                // Update tombol selesai, sembunyikan
+                $('#btn_selesai').hide();
+                
+                // Tampilkan pesan keterangan batal berhasil
+                $('.message').html('<div class="alert alert-success">Keterangan batal berhasil diperbarui!</div>');
+                                
             } else {
                 // Jika ada masalah atau gagal, tampilkan pesan error
                 alert('Gagal mengupdate status! Coba lagi.');
