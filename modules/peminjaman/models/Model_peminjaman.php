@@ -5,7 +5,7 @@ class Model_peminjaman extends MY_Model {
 
     private $primary_key    = 'id';
     private $table_name     = 'tb_master_transaksi';
-    public $field_search   = ['kode_transaksi', 'tipe_transaksi', 'status_transaksi', 'tgl_awal_transaksi', 'tgl_akhir_transaksi', 'ket_transaksi', 'id_pegawai_input', 'nama_pegawai_input', 'id_area', 'id_gedung', 'id_ruangan', 'tb_master_type_transaksi.tipe_transaksi', 'tb_master_area.area', 'tb_master_gedung.gedung', 'tb_master_ruangan.ruangan'];
+    public $field_search   = ['kode_transaksi', 'tipe_transaksi', 'status_transaksi', 'tgl_awal_transaksi', 'tgl_akhir_transaksi', 'ket_transaksi', 'id_pegawai_input', 'id_pegawai', 'id_area', 'id_gedung', 'id_ruangan', 'tb_master_type_transaksi.tipe_transaksi', 'tb_master_area.area', 'tb_master_gedung.gedung', 'tb_master_ruangan.ruangan'];
     public $sort_option = ['id', 'DESC'];
     
     public function __construct()
@@ -103,13 +103,15 @@ class Model_peminjaman extends MY_Model {
     }
 
     public function join_avaiable() {
-        $this->db->select('tb_master_type_transaksi.tipe_transaksi,tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.ruangan,tb_master_transaksi.*,tb_master_type_transaksi.tipe_transaksi as tb_master_type_transaksi_tipe_transaksi,tb_master_type_transaksi.tipe_transaksi as tipe_transaksi,tb_master_area.area as tb_master_area_area,tb_master_area.area as area,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung,tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,tb_master_ruangan.ruangan as ruangan');
+        $this->db->select('tb_master_type_transaksi.tipe_transaksi,tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.ruangan,tb_master_transaksi.*,tb_master_type_transaksi.tipe_transaksi as tb_master_type_transaksi_tipe_transaksi,tb_master_type_transaksi.tipe_transaksi as tipe_transaksi,tb_master_area.area as tb_master_area_area,
+        tb_master_area.area as area,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung,tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,tb_master_ruangan.ruangan as ruangan,tb_master_pegawai.nama as tb_master_pegawai_nama');
         // $this->db->select('tb_detail_transaksi.id as detail_id, tb_detail_transaksi.kode_tid, tb_detail_transaksi.id_aset, tb_detail_transaksi.kode_aset, tb_detail_transaksi.nup, tb_detail_transaksi.nama_aset, tb_detail_transaksi.status, tb_detail_transaksi.id_kondisi, tb_detail_transaksi.flag_transaksi');
         // $this->db->join('tb_detail_transaksi', 'tb_detail_transaksi.id_transaksi = tb_master_transaksi.id', 'INNER');
         $this->db->join('tb_master_type_transaksi', 'tb_master_type_transaksi.id = tb_master_transaksi.tipe_transaksi', 'LEFT');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_transaksi.id_area', 'LEFT');
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_transaksi.id_gedung', 'LEFT');
         $this->db->join('tb_master_ruangan', 'tb_master_ruangan.id = tb_master_transaksi.id_ruangan', 'LEFT');
+        $this->db->join('tb_master_pegawai', 'tb_master_pegawai.id = tb_master_transaksi.id_pegawai', 'LEFT');
         return $this;
     }
 
@@ -122,44 +124,46 @@ class Model_peminjaman extends MY_Model {
 
         $this->db->from('tb_master_aset');
         $this->db->where('kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         return $this->db->count_all_results();
         
     }
 
     public function get_all_aset($filter_data) {
 
-        if ($filter_data['id_area'] != '') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-        }
-        if ($filter_data['id_gedung'] != '') {
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-        }
+        // if ($filter_data['id_area'] != '') {
+        //     $this->db->where('a.id_area', $filter_data['id_area']);
+        // }
+        // if ($filter_data['id_gedung'] != '') {
+        //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+        // }
         if ($filter_data['id_ruangan'] != '') {
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         }
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         return $this->db->get()->result();
     }
 
     public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
 
         if ($select_all == '1') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+            // $this->db->where('a.id_area', $filter_data['id_area']);
+            // $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         } else {
             
-            if ($filter_data['id_area'] != '') {
-                $this->db->where('a.id_area', $filter_data['id_area']);
-            }
-            if ($filter_data['id_gedung'] != '') {
-                $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            }
+            // if ($filter_data['id_area'] != '') {
+            //     $this->db->where('a.id_area', $filter_data['id_area']);
+            // }
+            // if ($filter_data['id_gedung'] != '') {
+            //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            // }
             if ($filter_data['id_ruangan'] != '') {
-                $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+                $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
             }
 
         }
@@ -167,6 +171,7 @@ class Model_peminjaman extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -179,6 +184,7 @@ class Model_peminjaman extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -190,6 +196,7 @@ class Model_peminjaman extends MY_Model {
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
@@ -240,8 +247,7 @@ class Model_peminjaman extends MY_Model {
                         'tgl_peminjaman' => $save_data_master_transaksi['tgl_awal_transaksi'],
                         'tgl_pengembalian' => $save_data_master_transaksi['tgl_akhir_transaksi'],
                         'id_peminjam' => $save_data_master_transaksi['id_pegawai'],
-                        'status' => 2,
-                        'borrow' => 1,
+                        'status' => 2
                         
                     )); 
                     
@@ -274,7 +280,7 @@ class Model_peminjaman extends MY_Model {
 
     function getTransaksiById($id){
         $this->db->select('tb_master_transaksi.*, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,
-        tb_master_area2.area as tb_master_area_area2, tb_master_gedung2.gedung as tb_master_gedung_gedung2, tb_master_ruangan2.ruangan as tb_master_ruangan_ruangan2');
+        tb_master_area2.area as tb_master_area_area2, tb_master_gedung2.gedung as tb_master_gedung_gedung2, tb_master_ruangan2.ruangan as tb_master_ruangan_ruangan2,tb_master_pegawai.nama as tb_master_pegawai_nama');
         $this->db->from('tb_master_transaksi');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_transaksi.id_area', 'left');   
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_transaksi.id_gedung', 'left');
@@ -282,6 +288,7 @@ class Model_peminjaman extends MY_Model {
         $this->db->join('tb_master_area as tb_master_area2', 'tb_master_area2.id = tb_master_transaksi.id_area2', 'left');   
         $this->db->join('tb_master_gedung as tb_master_gedung2', 'tb_master_gedung2.id = tb_master_transaksi.id_gedung2', 'left');
         $this->db->join('tb_master_ruangan as tb_master_ruangan2', 'tb_master_ruangan2.id = tb_master_transaksi.id_ruangan2', 'left');
+        $this->db->join('tb_master_pegawai', 'tb_master_pegawai.id = tb_master_transaksi.id_pegawai', 'left');
         $this->db->where('tb_master_transaksi.id', $id);
         return $this->db->get()->row();
     }
