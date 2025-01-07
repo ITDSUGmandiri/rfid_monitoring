@@ -369,10 +369,10 @@ $(document).on('click', '#submit_selesai', function(e) {
         return;
     }
 
-   //  if (!foto) {
-   //      alert('Harap unggah foto!');
-   //      return;
-   //  }
+    if (!foto) {
+        alert('Harap unggah foto!');
+        return;
+    }
     
     // Ambil ID transaksi dari tombol
     const id = $('#btn_selesai').data('id');

@@ -131,6 +131,62 @@ jQuery(document).ready(domo);
                            </div>
                      </div>
                      <?php endif; ?>
+                     
+                     <!-- Menampilkan Foto berdasarkan Status -->
+                     <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
+                        <!-- Status Selesai -->
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Foto Selesai Peminjaman</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <?php if (!empty($tb_master_transaksi->image_uri)): ?>
+                                    <img src="<?= base_url('uploads/Peminjaman/' . $tb_master_transaksi->image_uri); ?>" 
+                                       alt="Foto Selesai Peminjaman" 
+                                       class="img-thumbnail" 
+                                       style="max-width: 300px;">
+                                 <?php else: ?>
+                                    <p>Tidak ada foto tersedia.</p>
+                                 <?php endif; ?>
+                              </div>
+                           </div>
+                        </div>
+
+                     <?php elseif (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
+                        <!-- Status Batal -->
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Foto Batal Peminjaman</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <?php if (!empty($tb_master_transaksi->image_uri)): ?>
+                                    <img src="<?= base_url('uploads/Peminjaman/' . $tb_master_transaksi->image_uri); ?>" 
+                                       alt="Foto Batal Peminjaman" 
+                                       class="img-thumbnail" 
+                                       style="max-width: 300px;">
+                                 <?php else: ?>
+                                    <p>Tidak ada foto tersedia.</p>
+                                 <?php endif; ?>
+                              </div>
+                           </div>
+                        </div>
+
+                     <?php elseif (_ent($tb_master_transaksi->status_transaksi) == 2): ?>
+                        <!-- Status Approve -->
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Foto Approve Peminjaman</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <?php if (!empty($tb_master_transaksi->image_uri2)): ?>
+                                    <img src="<?= base_url('uploads/Peminjaman/' . $tb_master_transaksi->image_uri2); ?>" 
+                                       alt="Foto Approve Peminjaman" 
+                                       class="img-thumbnail" 
+                                       style="max-width: 300px;">
+                                 <?php else: ?>
+                                    <p>Tidak ada foto tersedia.</p>
+                                 <?php endif; ?>
+                              </div>
+                           </div>
+                        </div>
+                     <?php endif; ?>
                                           
                   </fieldset>
 
@@ -237,6 +293,11 @@ jQuery(document).ready(domo);
                            <textarea id="keterangan_selesai" class="form-control" rows="5"></textarea>
                         </div>
                      </div>
+                     <div class="form-group">
+                        <label for="foto_selesai">Unggah Foto atau Ambil Gambar:</label>
+                        <input type="file" id="foto_selesai" class="form-control" accept="image/*" capture="camera">
+                        <small class="form-text text-muted">Unggah foto atau ambil gambar menggunakan kamera.</small>
+                     </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                         <button type="button" class="btn btn-success" id="submit_selesai">Selesai</button>
@@ -258,6 +319,11 @@ jQuery(document).ready(domo);
                            <textarea id="keterangan_batal" class="form-control" rows="5"></textarea>
                         </div>
                      </div>
+                     <div class="form-group">
+                        <label for="foto_batal">Unggah Foto atau Ambil Gambar:</label>
+                        <input type="file" id="foto_batal" class="form-control" accept="image/*" capture="camera">
+                        <small class="form-text text-muted">Unggah foto atau ambil gambar menggunakan kamera.</small>
+                     </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                         <button type="button" class="btn btn-danger" id="submit_batal">Selesai</button>
@@ -278,6 +344,11 @@ jQuery(document).ready(domo);
                            <label for="keterangan_approve">Masukkan Keterangan Approve:</label>
                            <textarea id="keterangan_approve" class="form-control" rows="5"></textarea>
                         </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="foto_approve">Unggah Foto atau Ambil Gambar:</label>
+                        <input type="file" id="foto_approve" class="form-control" accept="image/*" capture="camera">
+                        <small class="form-text text-muted">Unggah foto atau ambil gambar menggunakan kamera.</small>
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
@@ -329,11 +400,17 @@ $(document).on('click', '#submit_approve', function(e) {
     
     // Ambil keterangan yang diinputkan
     const keterangan = $('#keterangan_approve').val().trim();
-    
+    const foto = $('#foto_approve')[0].files[0];
+
     if (!keterangan) {
         alert('Keterangan tidak boleh kosong!');
         return;
     }
+
+   if (!foto) {
+      alert('Harap unggah foto!');
+      return;
+   }
     
     // Ambil ID transaksi dari tombol
     const id = $('#btn_approve').data('id');
@@ -342,18 +419,21 @@ $(document).on('click', '#submit_approve', function(e) {
         return;
     }
 
+    const formData = new FormData();
+   formData.append('keterangan_approve', keterangan);
+   formData.append('foto', foto);
+
     // Kirim data keterangan selesai dan update status transaksi
     $.ajax({
-        url: '<?= admin_site_url('/peminjaman/approve/'); ?>' + id,  // Pastikan URL sudah sesuai
-        method: 'POST',
-        data: {
-            keterangan_approve: keterangan
-        },
-        success: function(response) {
+      url: '<?= admin_site_url('/peminjaman/approve/'); ?>' + id,  // Pastikan URL sudah sesuai
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function(response) {
             var json = JSON.parse(response);
             // Cek apakah update berhasil berdasarkan respons
             if (json.success) {
-
                 // Update tampilan keterangan approve di halaman
                 $('#keterangan_approve_display').text(keterangan);
                
@@ -396,11 +476,17 @@ $(document).on('click', '#submit_selesai', function(e) {
     
     // Ambil keterangan yang diinputkan
     const keterangan = $('#keterangan_selesai').val().trim();
+    const foto = $('#foto_selesai')[0].files[0];
     
     if (!keterangan) {
         alert('Keterangan tidak boleh kosong!');
         return;
     }
+
+   if (!foto) {
+      alert('Harap unggah foto!');
+      return;
+   }
     
     // Ambil ID transaksi dari tombol
     const id = $('#btn_selesai').data('id');
@@ -409,14 +495,18 @@ $(document).on('click', '#submit_selesai', function(e) {
         return;
     }
 
+   const formData = new FormData();
+   formData.append('keterangan_selesai', keterangan);
+   formData.append('foto', foto);
+
     // Kirim data keterangan selesai dan update status transaksi
     $.ajax({
-        url: '<?= admin_site_url('/peminjaman/selesai/'); ?>' + id,  // Pastikan URL sudah sesuai
-        method: 'POST',
-        data: {
-            keterangan_selesai: keterangan
-        },
-        success: function(response) {
+      url: '<?= admin_site_url('/peminjaman/selesai/'); ?>' + id,  // Pastikan URL sudah sesuai
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function(response) {
             var json = JSON.parse(response);
             // Cek apakah update berhasil berdasarkan respons
             if (json.success) {
@@ -462,11 +552,17 @@ $(document).on('click', '#submit_batal', function(e) {
     
     // Ambil keterangan yang diinputkan
     const keterangan = $('#keterangan_batal').val().trim();
+    const foto = $('#foto_batal')[0].files[0];
     
     if (!keterangan) {
         alert('Keterangan tidak boleh kosong!');
         return;
     }
+
+   if (!foto) {
+      alert('Harap unggah foto!');
+      return;
+   }
     
     // Ambil ID transaksi dari tombol
     const id = $('#btn_batal').data('id');
@@ -475,14 +571,17 @@ $(document).on('click', '#submit_batal', function(e) {
         return;
     }
 
+   const formData = new FormData();
+   formData.append('keterangan_batal', keterangan);
+   formData.append('foto', foto);
+
     // Kirim data keterangan selesai dan update status transaksi
     $.ajax({
         url: '<?= admin_site_url('/peminjaman/batal/'); ?>' + id,  // Pastikan URL sudah sesuai
         method: 'POST',
-        data: {
-            keterangan_batal: keterangan
-            
-        },
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
             var json = JSON.parse(response);
             // Cek apakah update berhasil berdasarkan respons

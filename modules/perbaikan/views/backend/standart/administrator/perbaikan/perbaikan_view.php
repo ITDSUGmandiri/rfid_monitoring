@@ -447,6 +447,11 @@ $(document).on('click', '#submit_batal', function(e) {
         return;
     }
 
+   if (!foto) {
+      alert('Harap unggah foto!');
+      return;
+   }
+
    const formData = new FormData();
    formData.append('keterangan_batal', keterangan);
    formData.append('foto', foto);

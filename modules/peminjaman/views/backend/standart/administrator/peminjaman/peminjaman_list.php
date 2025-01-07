@@ -125,6 +125,7 @@ jQuery(document).ready(domo);
                            <th style="text-align: center" data-field="tgl_akhir_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tanggal Pengembalian') ?></th>
                            <th style="text-align: center" data-field="ket_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Keterangan') ?></th>
                            <th style="text-align: center" data-field="id_pegawai"data-sort="1" data-primary-key="0"> <?= cclang('Nama Peminjam') ?></th>
+                           <th style="text-align: center" data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Status Peminjaman') ?></th>
                            <!-- <th data-field="id_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('id_pegawai_input') ?></th>
                            <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th>
                            <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area Asal') ?></th>
