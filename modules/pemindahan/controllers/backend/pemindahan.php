@@ -465,6 +465,34 @@ class pemindahan extends Admin
 			show_error('Keterangan selesai tidak ditemukan!', 400);
 		}
 
+		// Simpan file foto selesai
+		if (!empty($_FILES['foto']['name'])) {
+			$upload_dir = 'uploads/Pemindahan/';
+			
+			// Pastikan direktori ada
+			if (!is_dir($upload_dir)) {
+				if (!mkdir($upload_dir, 0755, true)) {
+					show_error('Gagal membuat direktori unggahan: ' . $upload_dir, 500);
+				}
+			}
+		
+			$file_name = time() . '_' . basename($_FILES['foto']['name']);
+			$file_path = $upload_dir . $file_name;
+		
+			// Simpan file ke direktori
+			if (move_uploaded_file($_FILES['foto']['tmp_name'], $file_path)) {
+				$response['foto_url'] = base_url($file_path);
+			} else {
+				// Tambahkan logging error
+				log_message('error', 'Gagal mengunggah file: ' . $_FILES['foto']['error']);
+				
+				$response['success'] = false;
+				$response['message'] = 'Gagal mengunggah foto.';
+				echo json_encode($response);
+				exit;
+			}
+		}
+
 		// Mulai transaksi untuk memastikan atomicity
 		$this->db->trans_start();
 
@@ -472,7 +500,8 @@ class pemindahan extends Admin
 		$this->db->where('id', $id);
 		$this->db->update('tb_master_transaksi', [
 			'status_transaksi' => 3,    // Set status menjadi 3 (selesai)
-			'ket_transaksi2' => $keterangan_selesai  // Simpan keterangan selesai
+			'ket_transaksi2' => $keterangan_selesai,  // Simpan keterangan selesai
+			'image_uri' => $file_name		//menyimpan informasi nama foto
 		]);
 
 		// Perbarui status aset terkait dengan perbaikan
@@ -514,6 +543,34 @@ class pemindahan extends Admin
 		if (!$keterangan_batal) {
 			show_error('Keterangan batal tidak ditemukan!', 400);
 		}
+		
+		// Simpan file foto batal
+		if (!empty($_FILES['foto']['name'])) {
+			$upload_dir = 'uploads/Pemindahan/';
+			
+			// Pastikan direktori ada
+			if (!is_dir($upload_dir)) {
+				if (!mkdir($upload_dir, 0755, true)) {
+					show_error('Gagal membuat direktori unggahan: ' . $upload_dir, 500);
+				}
+			}
+		
+			$file_name = time() . '_' . basename($_FILES['foto']['name']);
+			$file_path = $upload_dir . $file_name;
+		
+			// Simpan file ke direktori
+			if (move_uploaded_file($_FILES['foto']['tmp_name'], $file_path)) {
+				$response['foto_url'] = base_url($file_path);
+			} else {
+				// Tambahkan logging error
+				log_message('error', 'Gagal mengunggah file: ' . $_FILES['foto']['error']);
+				
+				$response['success'] = false;
+				$response['message'] = 'Gagal mengunggah foto.';
+				echo json_encode($response);
+				exit;
+			}
+		}
 
 		// Mulai transaksi untuk memastikan atomicity
 		$this->db->trans_start();
@@ -522,7 +579,8 @@ class pemindahan extends Admin
 		$this->db->where('id', $id);
 		$this->db->update('tb_master_transaksi', [
 			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
-			'ket_transaksi2' => $keterangan_batal  // Simpan keterangan batal
+			'ket_transaksi2' => $keterangan_batal,  // Simpan keterangan batal
+			'image_uri' => $file_name		//menyimpan informasi nama foto
 		]);
 
 		// Perbarui status aset terkait dengan perbaikan

@@ -129,14 +129,14 @@ class Model_pemindahan extends MY_Model {
 
     public function get_all_aset($filter_data) {
 
-        // if ($filter_data['id_area'] != '') {
-        //     $this->db->where('a.id_area', $filter_data['id_area']);
-        // }
-        // if ($filter_data['id_gedung'] != '') {
-        //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-        // }
+        if ($filter_data['id_area'] != '') {
+            $this->db->where('a.id_area', $filter_data['id_area']);
+        }
+        if ($filter_data['id_gedung'] != '') {
+            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+        }
         if ($filter_data['id_ruangan'] != '') {
-            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
         }
 
         $this->db->select('a.*');
@@ -149,19 +149,19 @@ class Model_pemindahan extends MY_Model {
     public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
 
         if ($select_all == '1') {
-            // $this->db->where('a.id_area', $filter_data['id_area']);
-            // $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+            $this->db->where('a.id_area', $filter_data['id_area']);
+            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
         } else {
             
-            // if ($filter_data['id_area'] != '') {
-            //     $this->db->where('a.id_area', $filter_data['id_area']);
-            // }
-            // if ($filter_data['id_gedung'] != '') {
-            //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            // }
+            if ($filter_data['id_area'] != '') {
+                $this->db->where('a.id_area', $filter_data['id_area']);
+            }
+            if ($filter_data['id_gedung'] != '') {
+                $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            }
             if ($filter_data['id_ruangan'] != '') {
-                $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+                $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
             }
 
         }

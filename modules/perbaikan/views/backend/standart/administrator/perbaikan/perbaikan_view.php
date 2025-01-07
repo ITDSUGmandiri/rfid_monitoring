@@ -115,6 +115,45 @@ jQuery(document).ready(domo);
                            </div>
                      </div>
                      <?php endif; ?>
+                     
+                     <!-- Menampilkan Foto berdasarkan Status -->
+                     <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
+                        <!-- Status Selesai -->
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Foto Selesai Perbaikan</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <?php if (!empty($tb_master_transaksi->image_uri)): ?>
+                                    <img src="<?= base_url('uploads/Perbaikan/' . $tb_master_transaksi->image_uri); ?>" 
+                                       alt="Foto Selesai Perbaikan" 
+                                       class="img-thumbnail" 
+                                       style="max-width: 300px;">
+                                 <?php else: ?>
+                                    <p>Tidak ada foto tersedia.</p>
+                                 <?php endif; ?>
+                              </div>
+                           </div>
+                        </div>
+
+                     <?php elseif (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
+                        <!-- Status Batal -->
+                        <div class="form-group">
+                           <div class="row">
+                              <label class="col-sm-2 control-label">Foto Batal Perbaikan</label>
+                              <div class="col-sm-8" style="padding-top: 7px;">
+                                 <?php if (!empty($tb_master_transaksi->image_uri)): ?>
+                                    <img src="<?= base_url('uploads/Perbaikan/' . $tb_master_transaksi->image_uri); ?>" 
+                                       alt="Foto Batal Perbaikan" 
+                                       class="img-thumbnail" 
+                                       style="max-width: 300px;">
+                                 <?php else: ?>
+                                    <p>Tidak ada foto tersedia.</p>
+                                 <?php endif; ?>
+                              </div>
+                           </div>
+                        </div>
+                     <?php endif; ?>
+
                   
                   <!-- <div class="form-group">
                      <div class="row">
@@ -226,48 +265,59 @@ jQuery(document).ready(domo);
                      </a>
                   <?php endif; ?>
                   </div>
-
-               <!-- Modal Popup untuk Keterangan Selesai -->
-               <div id="modal_selesai" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <h4 class="modal-title">Keterangan Selesai</h4>
-                        </div>
-                        <div class="modal-body">
-                           <div class="form-group">
-                              <label for="keterangan_selesai">Masukkan Keterangan:</label>
-                              <textarea id="keterangan_selesai" class="form-control" rows="5"></textarea>
+                  
+                  <!-- Modal Popup untuk Keterangan Selesai -->
+                  <div id="modal_selesai" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                     <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h4 class="modal-title">Keterangan Selesai</h4>
                            </div>
-                        </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                           <button type="button" class="btn btn-success" id="submit_selesai">Selesai</button>
+                           <div class="modal-body">
+                              <div class="form-group">
+                                 <label for="keterangan_selesai">Masukkan Keterangan:</label>
+                                 <textarea id="keterangan_selesai" class="form-control" rows="5"></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label for="foto_selesai">Unggah Foto atau Ambil Gambar:</label>
+                                 <input type="file" id="foto_selesai" class="form-control" accept="image/*" capture="camera">
+                                 <small class="form-text text-muted">Unggah foto atau ambil gambar menggunakan kamera.</small>
+                              </div>
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              <button type="button" class="btn btn-success" id="submit_selesai">Selesai</button>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
 
-               <!-- Modal Popup untuk Keterangan Batal -->
-               <div id="modal_batal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <h4 class="modal-title">Keterangan Batal</h4>
-                        </div>
-                        <div class="modal-body">
-                           <div class="form-group">
-                              <label for="keterangan_batal">Masukkan Keterangan Pembatalan:</label>
-                              <textarea id="keterangan_batal" class="form-control" rows="5"></textarea>
+                  <!-- Modal Popup untuk Keterangan Batal -->
+                  <div id="modal_batal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                     <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h4 class="modal-title">Keterangan Batal</h4>
                            </div>
-                        </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                           <button type="button" class="btn btn-danger" id="submit_batal">Selesai</button>
+                           <div class="modal-body">
+                              <div class="form-group">
+                                 <label for="keterangan_batal">Masukkan Keterangan Pembatalan:</label>
+                                 <textarea id="keterangan_batal" class="form-control" rows="5"></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label for="foto_batal">Unggah Foto atau Ambil Gambar:</label>
+                                 <input type="file" id="foto_batal" class="form-control" accept="image/*" capture="camera">
+                                 <small class="form-text text-muted">Unggah foto atau ambil gambar menggunakan kamera.</small>
+                              </div>
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              <button type="button" class="btn btn-danger" id="submit_batal">Selesai</button>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
+
                     
          </div>
          <!-- /.col-xs-12 -->
@@ -303,11 +353,17 @@ $(document).on('click', '#submit_selesai', function(e) {
     
     // Ambil keterangan yang diinputkan
     const keterangan = $('#keterangan_selesai').val().trim();
+    const foto = $('#foto_selesai')[0].files[0];
     
     if (!keterangan) {
         alert('Keterangan tidak boleh kosong!');
         return;
     }
+
+   if (!foto) {
+      alert('Harap unggah foto!');
+      return;
+   }
     
     // Ambil ID transaksi dari tombol
     const id = $('#btn_selesai').data('id');
@@ -316,13 +372,17 @@ $(document).on('click', '#submit_selesai', function(e) {
         return;
     }
 
+   const formData = new FormData();
+   formData.append('keterangan_selesai', keterangan);
+   formData.append('foto', foto);
+
     // Kirim data keterangan selesai dan update status transaksi
     $.ajax({
         url: '<?= admin_site_url('/perbaikan/selesai/'); ?>' + id,  // Pastikan URL sudah sesuai
         method: 'POST',
-        data: {
-            keterangan_selesai: keterangan
-        },
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
             var json = JSON.parse(response);
             // Cek apakah update berhasil berdasarkan respons
@@ -360,17 +420,25 @@ $(document).on('click', '#submit_selesai', function(e) {
 
 });
 
+
+
 // Menambahkan event listener untuk tombol submit di modal
 $(document).on('click', '#submit_batal', function(e) {
     e.preventDefault();
     
     // Ambil keterangan yang diinputkan
     const keterangan = $('#keterangan_batal').val().trim();
+    const foto = $('#foto_batal')[0].files[0];
     
     if (!keterangan) {
         alert('Keterangan tidak boleh kosong!');
         return;
     }
+
+   // if (!foto) {
+   //    alert('Harap unggah foto!');
+   //    return;
+   // }
     
     // Ambil ID transaksi dari tombol
     const id = $('#btn_batal').data('id');
@@ -379,18 +447,22 @@ $(document).on('click', '#submit_batal', function(e) {
         return;
     }
 
+   const formData = new FormData();
+   formData.append('keterangan_batal', keterangan);
+   formData.append('foto', foto);
+
     // Kirim data keterangan selesai dan update status transaksi
     $.ajax({
         url: '<?= admin_site_url('/perbaikan/batal/'); ?>' + id,  // Pastikan URL sudah sesuai
         method: 'POST',
-        data: {
-            keterangan_batal: keterangan
-        },
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
             var json = JSON.parse(response);
             // Cek apakah update berhasil berdasarkan respons
             if (json.success) {
-
+   
                 // Update tampilan keterangan batal di halaman
                 $('#keterangan_batal_display').text(keterangan);
                
