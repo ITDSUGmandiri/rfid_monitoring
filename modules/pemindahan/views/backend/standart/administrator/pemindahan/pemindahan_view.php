@@ -77,68 +77,6 @@ jQuery(document).ready(domo);
                            </div>
                         </div>
                      </div>
-
-                    <!-- Menampilkan Keterangan Selesai -->
-                    <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
-                        <div class="form-group">
-                           <div class="row">
-                              <label class="col-sm-2 control-label">Keterangan Selesai</label>
-                              <div class="col-sm-8" style="padding-top: 7px;">
-                                 <span id="keterangan_selesai_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
-                              </div>
-                           </div>
-                     </div>
-                     <?php endif; ?>
-
-                     <!-- Menampilkan Keterangan Batal -->
-                     <?php if (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
-                        <div class="form-group">
-                           <div class="row">
-                              <label class="col-sm-2 control-label">Keterangan Batal</label>
-                              <div class="col-sm-8" style="padding-top: 7px;">
-                                 <span id="keterangan_batal_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
-                              </div>
-                           </div>
-                     </div>
-                     <?php endif; ?>
-                     
-                     <!-- Menampilkan Foto berdasarkan Status -->
-                     <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
-                        <!-- Status Selesai -->
-                        <div class="form-group">
-                           <div class="row">
-                              <label class="col-sm-2 control-label">Foto Selesai Pemindahan</label>
-                              <div class="col-sm-8" style="padding-top: 7px;">
-                                 <?php if (!empty($tb_master_transaksi->image_uri)): ?>
-                                    <img src="<?= base_url('uploads/Pemindahan/' . $tb_master_transaksi->image_uri); ?>" 
-                                       alt="Foto Selesai Pemindahan" 
-                                       class="img-thumbnail" 
-                                       style="max-width: 300px;">
-                                 <?php else: ?>
-                                    <p>Tidak ada foto tersedia.</p>
-                                 <?php endif; ?>
-                              </div>
-                           </div>
-                        </div>
-
-                     <?php elseif (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
-                        <!-- Status Batal -->
-                        <div class="form-group">
-                           <div class="row">
-                              <label class="col-sm-2 control-label">Foto Batal Pemindahan</label>
-                              <div class="col-sm-8" style="padding-top: 7px;">
-                                 <?php if (!empty($tb_master_transaksi->image_uri)): ?>
-                                    <img src="<?= base_url('uploads/Pemindahan/' . $tb_master_transaksi->image_uri); ?>" 
-                                       alt="Foto Batal Pemindahan" 
-                                       class="img-thumbnail" 
-                                       style="max-width: 300px;">
-                                 <?php else: ?>
-                                    <p>Tidak ada foto tersedia.</p>
-                                 <?php endif; ?>
-                              </div>
-                           </div>
-                        </div>
-                     <?php endif; ?>
                   
                   <div class="form-group">
                      <div class="row">
@@ -193,6 +131,68 @@ jQuery(document).ready(domo);
                         </div>
                      </div>
                   </div>
+
+                  <!-- Menampilkan Keterangan Selesai -->
+                  <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
+                     <div class="form-group">
+                        <div class="row">
+                           <label class="col-sm-2 control-label">Keterangan Selesai</label>
+                           <div class="col-sm-8" style="padding-top: 7px;">
+                              <span id="keterangan_selesai_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
+                           </div>
+                        </div>
+                  </div>
+                  <?php endif; ?>
+
+                  <!-- Menampilkan Keterangan Batal -->
+                  <?php if (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
+                     <div class="form-group">
+                        <div class="row">
+                           <label class="col-sm-2 control-label">Keterangan Batal</label>
+                           <div class="col-sm-8" style="padding-top: 7px;">
+                              <span id="keterangan_batal_display"><?= _ent($tb_master_transaksi->ket_transaksi2); ?></span>
+                           </div>
+                        </div>
+                  </div>
+                  <?php endif; ?>
+                  
+                  <!-- Menampilkan Foto berdasarkan Status -->
+                  <?php if (_ent($tb_master_transaksi->status_transaksi) == 3): ?>
+                     <!-- Status Selesai -->
+                     <div class="form-group">
+                        <div class="row">
+                           <label class="col-sm-2 control-label">Foto Selesai Pemindahan</label>
+                           <div class="col-sm-8" style="padding-top: 7px;">
+                              <?php if (!empty($tb_master_transaksi->image_uri)): ?>
+                                 <img src="<?= base_url('uploads/Pemindahan/' . $tb_master_transaksi->image_uri); ?>" 
+                                    alt="Foto Selesai Pemindahan" 
+                                    class="img-thumbnail" 
+                                    style="max-width: 300px;">
+                              <?php else: ?>
+                                 <p>Tidak ada foto tersedia.</p>
+                              <?php endif; ?>
+                           </div>
+                        </div>
+                     </div>
+
+                  <?php elseif (_ent($tb_master_transaksi->status_transaksi) == 4): ?>
+                     <!-- Status Batal -->
+                     <div class="form-group">
+                        <div class="row">
+                           <label class="col-sm-2 control-label">Foto Batal Pemindahan</label>
+                           <div class="col-sm-8" style="padding-top: 7px;">
+                              <?php if (!empty($tb_master_transaksi->image_uri)): ?>
+                                 <img src="<?= base_url('uploads/Pemindahan/' . $tb_master_transaksi->image_uri); ?>" 
+                                    alt="Foto Batal Pemindahan" 
+                                    class="img-thumbnail" 
+                                    style="max-width: 300px;">
+                              <?php else: ?>
+                                 <p>Tidak ada foto tersedia.</p>
+                              <?php endif; ?>
+                           </div>
+                        </div>
+                     </div>
+                  <?php endif; ?>
                                           
                   </fieldset>
 
