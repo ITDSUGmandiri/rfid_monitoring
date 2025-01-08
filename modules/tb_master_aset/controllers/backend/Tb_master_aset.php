@@ -34,7 +34,7 @@ class Tb_master_aset extends Admin
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
-		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get($filter, $field, $this->limit_page, $offset);
+		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
 
 		$this->data['tb_master_aset_counts'] = $this->model_tb_master_aset->count_all($filter, $field);
 
@@ -46,7 +46,6 @@ class Tb_master_aset extends Admin
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
-
 
 		$this->data['tables'] = $this->load->view('backend/standart/administrator/tb_master_aset/tb_master_aset_data_table', $this->data, true);
 

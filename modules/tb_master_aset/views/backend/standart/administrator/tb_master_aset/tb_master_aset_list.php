@@ -117,16 +117,16 @@
                               </a>
                            </div> -->
                         </div>
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                            <div class="dataTables_paginate paging_simple_numbers pull-right" id="example2_paginate">
                               <div class="table-pagination"><?= $pagination; ?></div>
                            </div>
-                        </div>
+                        </div> -->
                      </div>
                      <div class="table-responsive">
 
                         <br>
-                        <table id="exampleas" class="table table-bordered table-striped dataTable">
+                        <table id="masterdata" class="display">
                            <thead>
                               <tr class="">
 
@@ -137,7 +137,7 @@
                                  <th>Action</th>
                               </tr>
                            </thead>
-                           <tbody id="tbody_tb_master_aset">
+                           <tbody id="">
                               <?= $tables ?>
                            </tbody>
                         </table>
@@ -153,9 +153,9 @@
 </section>
 <script>
    var module_name = "tb_master_aset"
-   var use_ajax_crud = false
+   var use_ajax_crud = false;
 </script>
-<script src="<?= BASE_ASSET ?>js/filter.js"></script>
+// <script src="<?= BASE_ASSET ?>js/filter.js"></script>
 
 
 <script>

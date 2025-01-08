@@ -18,7 +18,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
 
   <?php } ?>
-
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css">
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -255,6 +255,12 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
+
+
+
+  <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js">
+  </script>
+
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js">
     </script>
@@ -272,34 +278,38 @@
       });
     });
 
+    // $(document).ready(function() {
+
+    //   // Setup - add a text input to each footer cell
+    //   $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
+    //   $('#exampleas thead tr:eq(1) th').each(function(i) {
+
+    //     var title = $(this).text();
+    //     if (title != 'Action') {
+    //       $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+    //       $('input', this).on('keyup change', function() {
+    //         if (table.column(i).search() !== this.value) {
+    //           table
+    //             .column(i)
+    //             .search(this.value)
+    //             .draw();
+    //         }
+    //       });
+    //     }
+    //   });
+
+    //   var table = $('#exampleas').DataTable({
+    //     bInfo: true,
+    //     orderCellsTop: true,
+    //     fixedHeader: true,
+    //     bPaginate: false,
+    //     searching: true,
+    //   });
+    // });
+
     $(document).ready(function() {
-
-      // Setup - add a text input to each footer cell
-      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
-      $('#exampleas thead tr:eq(1) th').each(function(i) {
-
-        var title = $(this).text();
-        if (title != 'Action') {
-          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-
-          $('input', this).on('keyup change', function() {
-            if (table.column(i).search() !== this.value) {
-              table
-                .column(i)
-                .search(this.value)
-                .draw();
-            }
-          });
-        }
-      });
-
-      var table = $('#exampleas').DataTable({
-        bInfo: true,
-        orderCellsTop: true,
-        fixedHeader: true,
-        bPaginate: false,
-        searching: true,
-      });
+      new DataTable('#masterdata');
     });
   </script>
 
