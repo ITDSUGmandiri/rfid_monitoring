@@ -182,7 +182,7 @@ class Dashboard extends Admin
 		$result_on_time = $this->db->query($query_on_time);
 		$row_on_time = $result_on_time->row();
 
-		$query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 2 AND kode_tid != 0";
+		$query_mutation = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 2 AND kode_tid != '' AND borrow != 1";
 		$result_mutation = $this->db->query($query_mutation);
 		$mutation = $result_mutation->row();
 
