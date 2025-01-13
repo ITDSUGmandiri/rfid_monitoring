@@ -18,6 +18,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
 
   <?php } ?>
+  <?php if (get_user_data('oauth_uid') == '') { ?>
+    <?php
+    header("Location: http://localhost/rfid_monitoring/administrator/auth/logout/1");
+    die();
+    ?>
+  <?php } ?>
   <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css">
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
@@ -71,6 +77,8 @@
     var csrf = '<?= $this->security->get_csrf_token_name(); ?>';
     var token = '<?= $this->security->get_csrf_hash(); ?>';
     var _lang = [];
+
+    console.log("xxx", get_user_data('oauth_uid'));
 
     <?php
     include(APPPATH . 'language/' . get_cookie('language') . '/web_lang.php');
