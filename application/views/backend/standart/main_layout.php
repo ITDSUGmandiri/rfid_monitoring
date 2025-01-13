@@ -78,7 +78,6 @@
     var token = '<?= $this->security->get_csrf_hash(); ?>';
     var _lang = [];
 
-    console.log("xxx", get_user_data('oauth_uid'));
 
     <?php
     include(APPPATH . 'language/' . get_cookie('language') . '/web_lang.php');
@@ -213,7 +212,7 @@
       <?= $template['partials']['content']; ?>
       <?php cicool()->eventListen('backend_content_bottom'); ?>
 
-      <div class="modal   " id="modalPopUp">
+      <div class="modal" id="modalPopUp">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-body">
@@ -286,35 +285,7 @@
       });
     });
 
-    // $(document).ready(function() {
 
-    //   // Setup - add a text input to each footer cell
-    //   $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
-    //   $('#exampleas thead tr:eq(1) th').each(function(i) {
-
-    //     var title = $(this).text();
-    //     if (title != 'Action') {
-    //       $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-
-    //       $('input', this).on('keyup change', function() {
-    //         if (table.column(i).search() !== this.value) {
-    //           table
-    //             .column(i)
-    //             .search(this.value)
-    //             .draw();
-    //         }
-    //       });
-    //     }
-    //   });
-
-    //   var table = $('#exampleas').DataTable({
-    //     bInfo: true,
-    //     orderCellsTop: true,
-    //     fixedHeader: true,
-    //     bPaginate: false,
-    //     searching: true,
-    //   });
-    // });
 
     $(document).ready(function() {
       new DataTable('#masterdata');
@@ -355,6 +326,45 @@
         bPaginate: false,
         searching: false,
       });
+
+
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      DataTable.ext.errMode = 'none';
+
+      // Setup - add a text input to each footer cell
+      $('#tabledetailevent thead tr').clone(true).appendTo('#tabledetailevent thead');
+      $('#tabledetailevent thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#tabledetailevent').DataTable({
+        paging: false,
+        scrollCollapse: true,
+        scrollY: '200px',
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: false,
+      });
+
+
     });
   </script>
 </body>

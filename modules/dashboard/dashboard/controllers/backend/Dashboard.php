@@ -186,11 +186,11 @@ class Dashboard extends Admin
 		$result_mutation = $this->db->query($query_mutation);
 		$mutation = $result_mutation->row();
 
-		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 0 AND borrow != 1";
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 0 AND borrow != 1 AND kode_tid != ''";
 		$result_dispo = $this->db->query($query_disp);
 		$ilegal = $result_dispo->row();
 
-		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 1 AND borrow != 1";
+		$query_disp = "SELECT COUNT(*) as total FROM tb_master_aset WHERE status = 4 AND tipe_moving = 1 AND borrow != 1 AND kode_tid != ''";
 		$result_legal = $this->db->query($query_disp);
 		$legal = $result_legal->row();
 		// // $query_on_time = "SELECT COUNT(*) as total FROM tb_master_aset WHERE lokasi = 0 AND librarian_id = '1' AND location_updated > DATE_SUB(NOW(), INTERVAL 2 DAY)";

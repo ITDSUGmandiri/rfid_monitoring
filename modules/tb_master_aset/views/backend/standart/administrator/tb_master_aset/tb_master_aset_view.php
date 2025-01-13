@@ -152,9 +152,9 @@
     }
 
     .tab {
-        display: none;
         margin-right: 18px;
         padding: 20px;
+        width: 100%;
         background-color: #ccc;
     }
 
@@ -326,7 +326,7 @@
                     <button class="tab-button active-tab-button" onclick="toggleTab(0)">History</button>
                     <button class="tab-button" onclick="toggleTab(1)">Event</button>
                 </div>
-                <div class="tab" id="tab1">
+                <div class="tab" style="width: auto;" id="tab1">
                     <table id="tabledetail" class="table table-bordered table-striped dataTable">
                         <?php if (count($history) > 0) { ?>
                             <thead>
@@ -364,30 +364,29 @@
                         <?php } ?>
                     </table>
                 </div>
-                <div class="tab" id="tab2">
-                    <table id="tabledetail" class="table table-bordered table-striped dataTable">
+                <div class="tab" style="width: auto;" id="tab2">
+                    <table id="tabledetailevent" class="table table-bordered table-striped dataTable">
                         <?php if (count($transaksi) > 0) { ?>
                             <thead>
                                 <tr class="">
 
-                                    <th data-field="kode_tid" data-primary-key="0"> <?= cclang('kode_tid') ?></th>
-                                    <th data-field="kode_aset" data-primary-key="0"> <?= cclang('kode_aset') ?></th>
-                                    <th data-field="nama_aset" data-primary-key="0"> <?= cclang('nama_aset') ?></th>
-                                    <th data-field="id_area" data-primary-key="0"> Status</th>
-                                    <th>Action</th>
+                                    <th data-field="kode_tid" data-primary-key="0"> Tanggal</th>
+                                    <th data-field="kode_aset" data-primary-key="0"> Waktu</th>
+                                    <th data-field="nama_aset" data-primary-key="0"> Ruangan Awal</th>
+
+                                    <th data-field="nama_aset" data-primary-key="0"> Ruangan Tujuan</th>
+                                    <th data-field="nama_aset" data-primary-key="0"> Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_tb_master_aset">
                                 <?php foreach ($transaksi as $tb_master_aset): ?>
                                     <tr>
+                                        <td><span class="list_group-kode_tid"><?= _ent($tb_master_aset->tglawal); ?></span></td>
+                                        <td><span class="list_group-kode_aset"><?= _ent($tb_master_aset->waktuawal); ?></span></td>
+                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangawal); ?></span></td>
 
-
-                                        <td><span class="list_group-kode_tid"><?= _ent($tb_master_aset->tanggal); ?></span></td>
-                                        <td><span class="list_group-kode_aset"><?= _ent($tb_master_aset->waktugerak); ?></span></td>
-                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangan); ?></span></td>
-                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->tipe_moving) === 0 ? 'Legal Moving' : 'Ilegal Moving' ?></span></td>
-
-                                        <td><span class="list_group-id_area"><?= _ent($tb_master_aset->status_moving); ?></span></td>
+                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangtujuan); ?></span></td>
+                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ket_transaksi); ?></span></td>
 
                                     </tr>
                                 <?php endforeach; ?>
@@ -441,7 +440,6 @@
             tabs[i].style.display = "none";
         }
         tabs[tabIndex].style.display = "block";
-
         // Remove the 'active-tab-button' class from all buttons
         let buttons = document.getElementsByClassName("tab-button");
         for (let i = 0; i < buttons.length; i++) {
@@ -453,6 +451,15 @@
     }
 
     toggleTab(0);
+
+
+    function switchDiv() {
+        var div1 = document.getElementById('div1');
+        var div2 = document.getElementById('div2');
+
+        div1.classList.toggle('active');
+        div2.classList.toggle('active');
+    }
 </script>
 
 <script>
