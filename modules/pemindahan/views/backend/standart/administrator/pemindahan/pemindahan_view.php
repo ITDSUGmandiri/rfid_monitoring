@@ -1,7 +1,9 @@
 <script type="text/javascript">
 
+var is_wss_on = false;
 var dataArrayAset = [];
-var dataArrayAset2 = [];
+var tidCountForPartial = {}; // Objek untuk menghitung frekuensi pembacaan TID
+
 
 function domo(){
    $('*').bind('keydown', 'Ctrl+e', function() {
@@ -258,8 +260,6 @@ jQuery(document).ready(domo);
                $status_transaksi = $tb_master_transaksi->status_transaksi;  // Ambil status transaksi
 
                // Cek apakah status transaksi = 3, jika ya, sembunyikan tombol selesai
-               $show_search_button = ($status_transaksi <> 0); // Tombol selesai hanya muncul jika status bukan 3
-               $show_clear_search_button = ($status_transaksi <> 0); // Tombol selesai hanya muncul jika status bukan 3
                $show_selesai_button = ($status_transaksi == 1); // Tombol selesai hanya muncul jika status bukan 3
                $show_batal_button = ($status_transaksi == 1); // Tombol selesai hanya muncul jika status bukan 3
                ?>
@@ -268,20 +268,6 @@ jQuery(document).ready(domo);
                   <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= admin_site_url('/pemindahan/'); ?>">
                      <i class="fa fa-undo"></i> <?= cclang('go_list_button', ['Pemindahan']); ?>
                   </a>
-
-               <!-- Tombol search hanya ditampilkan jika status_transaksi == 1 -->
-               <?php if ($show_search_button): ?>
-                  <a class="btn btn-flat btn-default btn-action" id="btn_search_aset" href="javascript:void(0);" data-id="<?= $id; ?>">
-                     <i class="fa fa"></i> <?= cclang('Search'); ?>
-                  </a>
-               <?php endif; ?>
-
-               <!-- Tombol search hanya ditampilkan jika status_transaksi == 1 -->
-               <?php if ($show_clear_search_button): ?>
-                  <a class="btn btn-flat btn-default btn-action" id="btn_clear_search" href="javascript:void(0);" data-id="<?= $id; ?>">
-                     <i class="fa fa"></i> <?= cclang('Clear Search'); ?>
-                  </a>
-               <?php endif; ?>
 
                <!-- Tombol selesai hanya ditampilkan jika status_transaksi == 1 -->
                <?php if ($show_selesai_button): ?>
@@ -297,6 +283,121 @@ jQuery(document).ready(domo);
                   </a>
                <?php endif; ?>
                </div>
+
+               <h3 style="text-decoration: underline;">Detail Pencarian Aset</h3>
+
+               <fieldset>
+                     
+                  <div class="row" style="margin-top: 1px; margin-bottom: 20px">
+                        
+                     <div class="col-md-12">
+                              
+                           <div class="table-responsive"> 
+
+                              <br>
+                              <table class="table table-bordered table-striped dataTable" id="your_table_id2">
+                                    
+                                 <thead>
+                                 <tr class="">                            
+                                    <th style="text-align: center">No.</th>
+                                    <th style="text-align: center">ID Aset</th>
+                                    <th style="text-align: center">Nama Aset</th>
+                                    <th style="text-align: center">Kode Aset</th>
+                                    <th style="text-align: center">Kode NUP</th>
+                                    <th style="text-align: center">Kode Tag</th>
+                                 </tr>   
+                                 </thead>
+                                    <tbody> 
+                                    </tbody>
+                              </table>
+
+                           </div>
+
+                     </div>
+
+                  </div>
+
+               </fieldset>
+
+               <fieldset>
+
+                  <div class="row">
+
+                     <div class="col-md-3"></div>
+
+                     <div class="col-md-6">
+
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label">IP Address</label>
+                              <div class="col-sm-10">
+                                 <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="IP Address">
+                              </div>
+                           </div>
+                     
+                     <div class="col-md-3">
+                        <input type="hidden" name="array_tag_code" id="array_tag_code" value="0">
+                        <input type="hidden" name="is_web_play_buzzer" id="is_web_play_buzzer" value="<?php echo $pengaturan_sistem->is_web_play_buzzer ?>">
+                        <input type="hidden" name="ip_address_server" id="ip_address_server" value="<?php echo $pengaturan_sistem->ip_address_server ?>">
+                        <input type="hidden" name="protocol_ws_server" id="protocol_ws_server" value="<?php echo $pengaturan_sistem->protocol_ws_server ?>">
+                        <input type="hidden" name="port_ws_server" id="port_ws_server" value="<?php echo $pengaturan_sistem->port_ws_server ?>">
+                    </div>
+         
+                           <?php
+                           // Pastikan $tb_master_transaksi sudah di-load sebelumnya
+                           $status_transaksi = $tb_master_transaksi->status_transaksi;  // Ambil status transaksi
+
+                           // Cek apakah status transaksi = 3, jika ya, sembunyikan tombol selesai
+                           $show_search_button = ($status_transaksi <> 0); // Tombol selesai hanya muncul jika status bukan 3
+                           $show_clear_search_button = ($status_transaksi <> 0); // Tombol selesai hanya muncul jika status bukan 3
+                           ?>
+
+                        <div class="view-nav text-center">
+                           <!-- Tombol search hanya ditampilkan jika status_transaksi == 1 -->
+                           <?php if ($show_search_button): ?>
+                              <a class="btn btn-flat btn-default btn-action" id="btn_search_aset" href="javascript:void(0);" data-id="<?= $id; ?>">
+                                 <i class="fa fa"></i> <?= cclang('Search'); ?>
+                              </a>
+                           <?php endif; ?>
+
+                           <!-- Tombol search hanya ditampilkan jika status_transaksi == 1 -->
+                           <?php if ($show_clear_search_button): ?>
+                              <a class="btn btn-flat btn-default btn-action" id="btn_clear_search" href="javascript:void(0);" data-id="<?= $id; ?>">
+                                 <i class="fa fa"></i> <?= cclang('Clear Search'); ?>
+                              </a>
+                           <?php endif; ?>
+                           
+                           <!-- Loading Indicator -->
+                            <span class="loading loading-hide" style="display: inline-block; margin-left: 15px;">
+                                <img src="<?= BASE_ASSET; ?>/img/loading-spin-primary.svg" alt="Loading">
+                                <i id="data_processing"></i>
+                            </span>
+                           </div>
+
+                           <small class="info help-block"><b>Status:</b>
+                              <div id="status"></div>
+                           </small>&nbsp;&nbsp;
+
+                           <div class="form-group">
+                              <label>Power Handheld</label>
+                              <input type="range" class="form-control-range" id="power_handheld" name="power_handheld" min="0" max="30" value="15">
+                              <small class="info help-block">
+                                 <b>Power:</b> <span id="power_handheld_info">15</span>
+                              </small>
+                           </div>
+
+                           <div id="container_total_rfid_tag">
+                              <small class="info help-block"><b>Total RFID Tag:</b>
+                                 <div id="total_rfid_tag">0</div>
+                              </small>
+                           </div>
+
+                     </div>
+
+                     <div class="col-md-3"></div>
+
+                  </div>
+
+               </fieldset>
 
                <!-- Modal Popup untuk Keterangan Selesai -->
                <div id="modal_selesai" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -360,7 +461,28 @@ jQuery(document).ready(domo);
 
 </section>
 
-<script>// Menambahkan event listener untuk tombol selesai
+<style>
+    .loading-overlay {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-image {
+        width: 60px; /* Sesuaikan ukuran gambar */
+        height: 60px; /* Sesuaikan ukuran gambar */
+        background-color: rgba(255, 255, 255, 0.8); /* Tambahkan latar belakang putih semi-transparan */
+        border-radius: 50%; /* Membuat sudut membulat */
+        padding: 5px; /* Memberikan sedikit ruang di sekitar gambar */
+    }
+</style>
+
+<script>
+// Menambahkan event listener untuk tombol selesai
 $(document).on('click', '#btn_selesai', function(e) {
     e.preventDefault();
     
@@ -528,6 +650,19 @@ $('#btn_search_aset').click(async function (e) {
 
     // Ambil ID dari data-id di tombol
     const id = $('#btn_search_aset').data('id');
+    var ip_address = $('#ip_address').val();
+
+            if (ip_address === '') {
+                await Swal.fire({
+                    title: "Error",
+                    text: "IP Address tidak boleh kosong!",
+                    icon: "error",
+                    confirmButtonText: "Okay!"
+                });
+                return false;
+            }
+
+            localStorage.setItem('ip_address', ip_address); 
     
     // Cek apakah ID ditemukan
     if (!id) {
@@ -541,11 +676,14 @@ $('#btn_search_aset').click(async function (e) {
     } catch (error) {
         console.error("Error saat pencarian aset:", error);
     }
+
+    connectWss(ip_address);
+
 });
 
 async function getSearchAset(id) {
 
-var rowCount = $('#your_table_id tbody tr').length;
+var rowCount = $('#your_table_id2 tbody tr').length;
 var no = rowCount + 1;
 var string_id = "";
 
@@ -585,12 +723,12 @@ try {
         for (const item of response.data) {
 
             // Cek apakah kode_tid sudah ada dalam array
-            let tidExists = dataArrayAset2.some(data => data.kode_tid === item.kode_tid);
+            let tidExists = dataArrayAset.some(data => data.kode_tid === item.kode_tid);
 
             if (!tidExists) {
 
                 // Menambahkan data ke array jika kode_tid belum ada
-                dataArrayAset2.push({
+                dataArrayAset.push({
                     id: item.id_aset,
                     kode_aset: item.kode_aset,
                     nup: item.nup,
@@ -598,7 +736,7 @@ try {
                     kode_tid: item.kode_tid
                 });
 
-                let rows = $("#your_table_id tbody tr");
+                let rows = $("#your_table_id2 tbody tr");
                 let found = false;
 
                 for (let j = 0; j < rows.length; j++) {
@@ -616,7 +754,7 @@ try {
                 if (!found) {
                     // tampilkan data di table hasil pencarian
                     await new Promise(resolve => {
-                        $('#your_table_id tbody').append(`
+                        $('#your_table_id2 tbody').append(`
                             <tr>    
                                 <td id="numbering" style="text-align: center">${no}</td>
                                 <td id="asset_id" style="text-align: center">${item.id_aset}</td>
@@ -643,14 +781,14 @@ try {
         }
 
         // let jumlah_aset_with_tag = $('#your_table_id tbody tr').length;
-        let jumlah_aset_with_tag = dataArrayAset2.length;
+        let jumlah_aset_with_tag = dataArrayAset.length;
 
         $('#total_rfid_tag').html(jumlah_aset_with_tag);
         $('#total_aset_checklist').html(jumlah_aset_with_tag);
         $('#string_id').val(string_id);
-        $('#data_array_aset').val(JSON.stringify(dataArrayAset2));
+        $('#data_array_aset').val(JSON.stringify(dataArrayAset));
 
-        fixingNumbering('partial');
+      //   fixingNumbering('partial');
 
         $('#chart_aset_real').html(jumlah_aset_with_tag);
 
@@ -678,12 +816,12 @@ $('#btn_clear_search').click(function (e) {
         allowOutsideClick: false
     }).then((result) => {
         if (result.isConfirmed) {
-            // Kosongkan dataArrayAset2
-            dataArrayAset2 = [];
-            console.log('Data array aset telah dihapus:', dataArrayAset2);
+            // Kosongkan dataArrayAset
+            dataArrayAset = [];
+            console.log('Data array aset telah dihapus:', dataArrayAset);
 
             // Kosongkan tabel hasil pencarian
-            $('#your_table_id tbody').empty();
+            $('#your_table_id2 tbody').empty();
 
             // Reset nilai indikator dan elemen terkait
             $('#total_rfid_tag').html(0);
@@ -704,5 +842,225 @@ $('#btn_clear_search').click(function (e) {
     });
 });
 
+</script>
 
+    <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script type="text/javascript">
+
+        // Menampilkan loading
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        // Menyembunyikan loading
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        var socket;  // Deklarasikan socket secara global
+
+        var stored_ip_address = localStorage.getItem('ip_address');
+        // localStorage.setItem('ip_address', ip_address);
+
+        if (stored_ip_address) {                
+            $('#ip_address').val(stored_ip_address);
+            console.log('IP Address yang tersimpan: ', stored_ip_address);
+        } else {
+            console.log('Tidak ada IP Address yang tersimpan, set default');
+            $('#ip_address').val('192.168.1.195');
+            localStorage.setItem('ip_address', '192.168.1.195');
+        }
+
+function connectWss(ip_address) {
+   var port_ws_server = $('#port_ws_server').val();
+   var protocol_ws_server = $('#protocol_ws_server').val();
+    document.getElementById('status').innerHTML = 'Connecting...';
+    setTimeout(function(){}, 500);
+    document.getElementById('data_processing').innerHTML = '';
+
+    socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
+    console.log('ee', socket);
+
+    socket.onopen = function(event) {
+        is_wss_on = true;
+        console.log('WebSocket connection is open', event);
+        socket.send('{"event": "get-rfid-power"}');
+        console.log('post get-rfid-power');
+        document.getElementById('status').innerHTML = 'Connected to Server';
+        document.getElementById('data_processing').innerHTML = '';
+    };
+
+    socket.onclose = function(event) {
+
+        $('#status').html('Not Connected to Server', event.reason);
+        $('#data_processing').html('');
+
+        console.log('Socket is closed. Reconnect will be attempted in 1 second.', event.reason);
+
+      //   setTimeout(function() {
+      //       location.reload();
+      //   }, 5000);
+
+    };
+
+    socket.onerror = function(err) {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+        socket.close();
+    };    
+
+    socket.onmessage = function (event) {
+
+        var parsedData = JSON.parse(event.data);
+        var event_name = parsedData.event;
+      //   var is_web_play_buzzer = $('#is_web_play_buzzer').val();
+
+        var metode_pencarian = $('#metode_pencarian').val();
+
+        if (event_name == 'scan-rfid-result') {
+
+            { // metode_pencarian = partial
+
+                try {
+                    console.log('metode_pencarian: ' + metode_pencarian);
+                    
+                    var tid = parsedData.data_tid;
+                    var epc = parsedData.data;
+                    var alias_antenna = 'handheld';
+                    var status_tag = 'OK';
+                    var description = 'OK';
+
+                    // Cek apakah array dataArrayAset kosong
+                    if (dataArrayAset.length === 0) {
+
+                        console.log('dataArrayAset kosong...');       
+
+                        Swal.fire({
+                            title: "Perhatian !",
+                            text: "Pilih / Ceklis dulu data yang ingin di cari !!",
+                            icon: "warning",
+                            allowOutsideClick: false
+                        });
+                        return;
+                    }
+
+                    // Cek apakah data dengan TID dan alias_antenna tersebut sudah ada
+                    var isExisting = dataArrayAset.some(data => data.kode_tid === tid);
+
+                    if (isExisting) {
+
+                        // if (is_web_play_buzzer == 1){
+                        //     playBuzzerPencarian();
+                        // } else {
+                        //     if (navigator.userAgent.match(/Android/i)) {
+                        //         playBuzzerPencarian();
+                        //     }
+                        // }
+
+                        // Tambahkan TID ke counter
+                        if (!tidCountForPartial[tid]) {
+
+                            tidCountForPartial[tid] = {
+                                count: 1,
+                            };
+
+                        } else {
+                            tidCountForPartial[tid].count += 1;
+                        }
+                                        
+                        console.log('your tid: ' + tid, 'is available');
+
+                        // Tambahkan data baru ke tabel HTML
+                        $("#your_table_id2 tbody tr").each(function () {
+                            // Cari kolom dengan id yang sama dengan tid
+                            var hasilPencarianCell = $(this).find("td[id='" + tid + "']");
+                                
+                            // Jika ditemukan kolom dengan id yang sesuai
+                            if (hasilPencarianCell.length > 0) {
+
+                                hasilPencarianCell.text('Available').css('background-color', '#90EE90');
+                                console.log('Data dengan TID ' + tid + ' ditemukan');
+
+                            } else {
+                                console.log('Data dengan TID ' + tid + ' tidak ditemukan');
+                            }
+
+                        });
+
+                    } else {
+                        console.log('Data dengan TID ' + tid + ' tidak ada di dataArrayAset. jika tidak ada ya tidak perlu looping table html');
+                    }
+
+                  //   chart_aset_found = Object.keys(tidCountForPartial).length;
+
+                  //   chart_aset_not_found = dataArrayAset.length - chart_aset_found;
+
+                  //   chart.data.datasets[0].data = [dataArrayAset.length, chart_aset_found, chart_aset_not_found];
+                  //   chart.update();
+
+                  //   $('#chart_aset_found').html(chart_aset_found);
+                  //   $('#chart_aset_not_found').html(chart_aset_not_found);
+
+                } catch (error) {
+                    console.error('Error parsing JSON data:', error);
+                }
+
+            } // metode_pencarian = partial
+
+        } else if (event_name == 'response-scan-rfid-on') {
+
+            // $('.loading').show();
+            $('#data_processing').html('Searching RFID Tag...');
+
+            showLoading();
+
+        } else if (event_name == 'response-scan-rfid-off') {
+
+            hideLoading();
+
+        } else if (event_name == 'response-get-rfid-power') {
+                
+            var value = parsedData.value;
+            console.log('response-get-rfid-power: ' + value);
+
+            $('#power_handheld').val(value);
+            $('#power_handheld_info').html(value);
+
+        }
+
+    };
+
+}
+
+connectWss(stored_ip_address);
+</script>
+
+<script type="text/javascript">
+      $(document).ready(function() {
+
+        setTimeout(() => {
+            if (is_wss_on == true) {
+                document.getElementById('status').innerHTML = 'Connected to Server';
+                // $('#status').html('Connected to Server');
+            }
+        }, 1000);
+
+        $('.loading').hide();
+
+      });
+
+      $('#power_handheld').on('input change', function() {
+
+         var power_handheld = $(this).val();
+         localStorage.setItem('power_handheld', power_handheld);
+         $('#power_handheld_info').text(power_handheld); // Update teks span
+
+         socket.send(JSON.stringify({
+            event: "set-rfid-power",
+            value: power_handheld
+         }));
+         console.log('post set-rfid-power: ' + power_handheld);
+
+      });
 </script>

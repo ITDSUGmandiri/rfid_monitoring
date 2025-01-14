@@ -443,6 +443,7 @@ class pemindahan extends Admin
 
 		$this->data['tb_master_transaksi'] = $this->model_pemindahan->getTransaksiById($id);
 		$this->data['tb_detail_transaksi'] = $this->model_pemindahan->getDetailTransaksiById($id);
+		$this->data['pengaturan_sistem'] = $this->model_pemindahan->getPengaturanSistem();
 		$this->template->title('Detail Pemindahan');
 		$this->data['id'] = $id; // Pastikan ID diteruskan ke view
 		$this->render('backend/standart/administrator/pemindahan/pemindahan_view', $this->data);

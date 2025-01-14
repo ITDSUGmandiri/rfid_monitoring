@@ -146,6 +146,16 @@ class Model_perbaikan extends MY_Model {
         return $this->db->get()->result();
     }
 
+    public function get_all_search_aset($filter_data)
+    {
+        // Lakukan query database berdasarkan filter data
+        $this->db->select('*');
+        $this->db->where($filter_data);
+        $query = $this->db->get('tb_detail_transaksi');
+        $result = $query->result();
+        return $result;
+    }   
+
     public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
 
         if ($select_all == '1') {
