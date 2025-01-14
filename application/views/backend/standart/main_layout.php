@@ -18,7 +18,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
 
   <?php } ?>
-
+  <?php if (get_user_data('oauth_uid') == '') { ?>
+    <?php
+    header("Location: http://localhost/rfid_monitoring/administrator/auth/logout/1");
+    die();
+    ?>
+  <?php } ?>
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css">
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -71,6 +77,7 @@
     var csrf = '<?= $this->security->get_csrf_token_name(); ?>';
     var token = '<?= $this->security->get_csrf_hash(); ?>';
     var _lang = [];
+
 
     <?php
     include(APPPATH . 'language/' . get_cookie('language') . '/web_lang.php');
@@ -205,7 +212,7 @@
       <?= $template['partials']['content']; ?>
       <?php cicool()->eventListen('backend_content_bottom'); ?>
 
-      <div class="modal   " id="modalPopUp">
+      <div class="modal" id="modalPopUp">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-body">
@@ -255,6 +262,12 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
+
+
+
+  <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js">
+  </script>
+
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
   <?php } ?>
@@ -271,34 +284,10 @@
       });
     });
 
+
+
     $(document).ready(function() {
-
-      // Setup - add a text input to each footer cell
-      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
-      $('#exampleas thead tr:eq(1) th').each(function(i) {
-
-        var title = $(this).text();
-        if (title != 'Action') {
-          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-
-          $('input', this).on('keyup change', function() {
-            if (table.column(i).search() !== this.value) {
-              table
-                .column(i)
-                .search(this.value)
-                .draw();
-            }
-          });
-        }
-      });
-
-      var table = $('#exampleas').DataTable({
-        bInfo: true,
-        orderCellsTop: true,
-        fixedHeader: true,
-        bPaginate: false,
-        searching: true,
-      });
+      new DataTable('#masterdata');
     });
   </script>
 
@@ -336,6 +325,45 @@
         bPaginate: false,
         searching: false,
       });
+
+
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      DataTable.ext.errMode = 'none';
+
+      // Setup - add a text input to each footer cell
+      $('#tabledetailevent thead tr').clone(true).appendTo('#tabledetailevent thead');
+      $('#tabledetailevent thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#tabledetailevent').DataTable({
+        paging: false,
+        scrollCollapse: true,
+        scrollY: '200px',
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: false,
+      });
+
+
     });
   </script>
 </body>
