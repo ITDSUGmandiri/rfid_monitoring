@@ -109,6 +109,11 @@
                             <div class="col-md-3">
                                 <input type="hidden" id="ip_address_server" name="ip_address_server" value="<?= $pengaturan_sistem->ip_address_server; ?>">
                                 <input type="hidden" id="port_ws_server" name="port_ws_server" value="<?= $pengaturan_sistem->port_ws_server; ?>">
+                                <input type="hidden" id="flag_alarm_register_tag" name="flag_alarm_register_tag" value="<?= $pengaturan_sistem->flag_alarm_register_tag; ?>">
+                                <input type="hidden" id="deras_status_default" name="deras_status_default" value="<?= $pengaturan_sistem->deras_status_default; ?>">
+                                <input type="hidden" id="deras_description" name="deras_description" value="<?= $pengaturan_sistem->deras_description; ?>">
+                                <input type="hidden" id="deras_category_default" name="deras_category_default" value="<?= $pengaturan_sistem->deras_category_default; ?>">
+                                <input type="hidden" id="protocol_ws_server" name="protocol_ws_server" value="<?= $pengaturan_sistem->protocol_ws_server; ?>">
                             </div>
 
                             <div class="col-md-6">
@@ -274,9 +279,10 @@
                 return false;
             }
 
+            var protocol_ws_server = $('#protocol_ws_server').val();
             localStorage.setItem('ip_address', ip_address);
             
-            const socket = new WebSocket('ws://' + ip_address + ':3030');
+            const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':3030');
 
             $('#your_table_id tbody tr').remove();
 
@@ -411,6 +417,11 @@
                 $('#data_processing').html('Saving RFID Tag...');
                 $('.loading').show();
 
+                var flag_alarm_register_tag = $('#flag_alarm_register_tag').val();
+                var deras_status_default = $('#deras_status_default').val();
+                var deras_description = $('#deras_description').val();
+                var deras_category_default = $('#deras_category_default').val();
+
                 // 1. Validasi input
                 const ip_address_server = $('#ip_address_server').val();
                 const port_ws_server = $('#port_ws_server').val();
@@ -472,39 +483,39 @@
                 }
 
                 // 3. Koneksi WebSocket dan kirim data
-                // const socket = new WebSocket(`ws://${ip_address_server}:${port_ws_server}`);
+                const socket = new WebSocket(`ws://${ip_address_server}:${port_ws_server}`);
                 
-                // await new Promise((resolve, reject) => {
-                //     socket.onopen = async () => {
-                //         try {
-                //             console.log('Connected to WebSocket server');
+                await new Promise((resolve, reject) => {
+                    socket.onopen = async () => {
+                        try {
+                            console.log('Connected to WebSocket server');
                             
-                //             // Kirim data satu per satu
-                //             for (const item of uniqueDataArray) {
-                //                 const data = {
-                //                     event: "db-storage-insert-rfid-list",
-                //                     value: {
-                //                         tid: item.tid,
-                //                         epc: item.epc,
-                //                         status: 1,
-                //                         description: 'DEMO-RFID',
-                //                         flag_alarm: 0,
-                //                         category: 0
-                //                     }
-                //                 };
-                //                 socket.send(JSON.stringify(data));
-                //                 await new Promise(resolve => setTimeout(resolve, 100)); // Delay antar pengiriman
-                //             }
-                //             resolve();
-                //         } catch (error) {
-                //             reject(error);
-                //         }
-                //     };
+                            // Kirim data satu per satu
+                            for (const item of uniqueDataArray) {
+                                const data = {
+                                    event: "db-storage-insert-rfid-list",
+                                    value: {
+                                        tid: item.tid,
+                                        epc: item.epc,
+                                        status: deras_status_default,
+                                        description: deras_description,
+                                        flag_alarm: flag_alarm_register_tag,
+                                        category: deras_category_default
+                                    }
+                                };
+                                socket.send(JSON.stringify(data));
+                                await new Promise(resolve => setTimeout(resolve, 100)); // Delay antar pengiriman
+                            }
+                            resolve();
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
 
-                //     socket.onerror = (error) => {
-                //         reject(new Error('WebSocket connection failed'));
-                //     };
-                // });
+                    socket.onerror = (error) => {
+                        reject(new Error('WebSocket connection failed'));
+                    };
+                });
 
                 // 4. Simpan ke database lokal
                 const form_ug_mstag = $('#form_ug_mstag_add');
