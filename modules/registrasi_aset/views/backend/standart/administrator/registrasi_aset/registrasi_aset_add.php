@@ -389,7 +389,7 @@
                                 <i class="fa fa-search"></i>&nbsp;Search
                             </a>
 
-                            <!-- &nbsp;&nbsp;
+                            &nbsp;&nbsp;
 
                                 <a class="btn btn-flat btn-success btn_search btn_action btn_search_back btn-block" id="btn_get_list_tag" data-stype='back' title="Search">
                                     <i class="fa fa-list"></i>&nbsp;Get All Data RFID Tag
@@ -423,7 +423,7 @@
 
                                 <a class="btn btn-flat btn-default btn_search btn_action btn_search_back btn-block" id="btn_delete_tag" data-stype='back' title="Search">
                                     <i class="fa fa-check"></i>&nbsp;Cek Data Valid
-                                </a> -->
+                                </a>
 
                         </div>
                         <small class="info help-block"><b>Status:</b>

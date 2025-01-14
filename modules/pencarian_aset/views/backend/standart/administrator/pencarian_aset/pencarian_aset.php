@@ -1599,48 +1599,57 @@
                                 get_check_unique_single_tag(tid).then(async function(response) {
 
                                     is_unique_single_tag = response.check;
+                                    status_tag = response.status_tag;
                                     data_aset = response.data_aset;
 
                                     if (is_unique_single_tag != 0) {
 
-                                        id = data_aset.id_aset;
-                                        kode_aset = data_aset.kode_aset;
-                                        nup = data_aset.nup;
-                                        nama_aset = data_aset.nama_aset;
-                                        kode_tid = data_aset.kode_tid;
-                                        area = data_aset.area;
-                                        gedung = data_aset.gedung;
-                                        ruangan = data_aset.ruangan;
+                                        if (status_tag != 'Y') {
+                                         
+                                            id = data_aset.id_aset;
+                                            kode_aset = data_aset.kode_aset;
+                                            nup = data_aset.nup;
+                                            nama_aset = data_aset.nama_aset;
+                                            kode_tid = data_aset.kode_tid;
+                                            area = data_aset.area;
+                                            gedung = data_aset.gedung;
+                                            ruangan = data_aset.ruangan;
 
-                                        if (!(kode_tid in tidCountWrongRoom)) {
+                                            if (!(kode_tid in tidCountWrongRoom)) {
 
-                                            let jmlNoUrutBulk = $('#your_table_id_bulk tbody tr').length;
-                                                
-                                            tidCountWrongRoom[kode_tid] = 1;
-                                            noUrutBulk = jmlNoUrutBulk+1;
+                                                let jmlNoUrutBulk = $('#your_table_id_bulk tbody tr').length;
+                                                    
+                                                tidCountWrongRoom[kode_tid] = 1;
+                                                noUrutBulk = jmlNoUrutBulk+1;
 
-                                            await new Promise(resolve => {
-                                                $('#your_table_id_bulk tbody').append(`
-                                                    <tr>    
-                                                        <td id="numbering" style="text-align: center">${noUrutBulk}</td>
-                                                        <td id="asset_id" style="text-align: center">${id}</td>
-                                                        <td id="asset_name" style="text-align: left">${nama_aset}</td>
-                                                        <td id="asset_code" style="text-align: left">${kode_aset}</td>
-                                                        <td id="asset_nup" style="text-align: center">${nup}</td>
-                                                        <td id="asset_tid_${kode_tid}" style="text-align: center">${kode_tid}</td>
-                                                        <td id="asset_tid_wrong_room_${kode_tid}" style="text-align: center; background-color:rgb(234, 255, 0)">Wrong Room Tag</td>
-                                                        <td id="asset_ruangan" style="text-align: center">${ruangan}</td>
-                                                        <td style="text-align: center">
-                                                            <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Data" onclick="removeRowBulk(this, '${kode_tid}')"></i>
-                                                            <!--<i class="ui-tooltip fa fa-info-circle" title="Lihat Informasi Ruangan" style="font-size: 22px; cursor:pointer;" onclick="showRoomInfoModal('${tid}')"></i>-->
-                                                        </td>
-                                                    </tr>
-                                                `);
-                                                resolve();
-                                            });
+                                                await new Promise(resolve => {
+                                                    $('#your_table_id_bulk tbody').append(`
+                                                        <tr>    
+                                                            <td id="numbering" style="text-align: center">${noUrutBulk}</td>
+                                                            <td id="asset_id" style="text-align: center">${id}</td>
+                                                            <td id="asset_name" style="text-align: left">${nama_aset}</td>
+                                                            <td id="asset_code" style="text-align: left">${kode_aset}</td>
+                                                            <td id="asset_nup" style="text-align: center">${nup}</td>
+                                                            <td id="asset_tid_${kode_tid}" style="text-align: center">${kode_tid}</td>
+                                                            <td id="asset_tid_wrong_room_${kode_tid}" style="text-align: center; background-color:rgb(234, 255, 0)">Wrong Room Tag</td>
+                                                            <td id="asset_ruangan" style="text-align: center">${ruangan}</td>
+                                                            <td style="text-align: center">
+                                                                <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Data" onclick="removeRowBulk(this, '${kode_tid}')"></i>
+                                                                <!--<i class="ui-tooltip fa fa-info-circle" title="Lihat Informasi Ruangan" style="font-size: 22px; cursor:pointer;" onclick="showRoomInfoModal('${tid}')"></i>-->
+                                                            </td>
+                                                        </tr>
+                                                    `);
+                                                    resolve();
+                                                });
+
+                                            } else {
+                                                tidCountWrongRoom[kode_tid] += 1;
+                                            }
 
                                         } else {
-                                            tidCountWrongRoom[kode_tid] += 1;
+
+                                            // tag teregister tapi belum dipakai / belum ada yang punya
+
                                         }
                                             
                                     } // end if registered tag 

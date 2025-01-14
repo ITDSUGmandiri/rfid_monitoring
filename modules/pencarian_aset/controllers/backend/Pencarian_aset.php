@@ -534,34 +534,61 @@ class Pencarian_aset extends Admin
 
 		$tid = $this->input->get('tid');
 
-		$check = $this->db->get_where('tb_master_tag_rfid', 
+		$query = $this->db->get_where('tb_master_tag_rfid', 
 		[
 			'kode_tid' => $tid
 			// 'status_tag' => 'Y'
-		])->num_rows();
+		]);
 
 		$response_data_aset = [];
 
+		$check = $query->num_rows();
+
 		if ($check > 0) {
 
-			$data_aset = $this->model_pencarian_aset->getAsetByID($tid);
+			$data_result = $query->row_array();
+			$status_tag = $data_result['status_tag'];
 
-			$response_data_aset = [
-				'id_aset' => $data_aset->id_aset,
-				'kode_aset' => $data_aset->kode_aset,
-				'nama_aset' => $data_aset->nama_aset,
-				'nup' => $data_aset->nup,
-				'id_area' => $data_aset->id_area,
-				'id_gedung' => $data_aset->id_gedung,
-				'id_ruangan' => $data_aset->id_lokasi,
-				'kode_tid' => $data_aset->kode_tid,
-				'area' => $data_aset->area,
-				'gedung' => $data_aset->gedung,
-				'ruangan' => $data_aset->ruangan
-			];
+			// tag belum ada yang punya
+			if ($status_tag == 'Y') {
+
+				$response_data_aset = [
+					'id_aset' => '',
+					'kode_aset' => '',
+					'nama_aset' => '',
+					'nup' => '',
+					'id_area' => '',
+					'id_gedung' => '',
+					'id_ruangan' => '',
+					'kode_tid' => '',
+					'area' => '',
+					'gedung' => '',
+					'ruangan' => ''
+				];
+				
+			} else {
+
+				$data_aset = $this->model_pencarian_aset->getAsetByID($tid);
+
+				$response_data_aset = [
+					'id_aset' => $data_aset->id_aset,
+					'kode_aset' => $data_aset->kode_aset,
+					'nama_aset' => $data_aset->nama_aset,
+					'nup' => $data_aset->nup,
+					'id_area' => $data_aset->id_area,
+					'id_gedung' => $data_aset->id_gedung,
+					'id_ruangan' => $data_aset->id_lokasi,
+					'kode_tid' => $data_aset->kode_tid,
+					'area' => $data_aset->area,
+					'gedung' => $data_aset->gedung,
+					'ruangan' => $data_aset->ruangan
+				];
+
+			}
 
 			$response = [	
 				'check' => $check,
+				'status_tag' => $status_tag,
 				'data_aset' => $response_data_aset
 			];
 
