@@ -22,6 +22,7 @@ class Dashboard extends Admin
 
 	public function index()
 	{
+
 		// echo !$this->aauth->is_allowed('dashboard');
 		// exit();
 		// if (!$this->aauth->is_allowed('dashboard')) {

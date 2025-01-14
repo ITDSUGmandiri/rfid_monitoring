@@ -242,7 +242,7 @@
                 },
                 function(isConfirm) {
                     if (isConfirm) {
-                        window.location.href = ADMIN_BASE_URL + '/tb_room_master';
+                        window.location.href = ADMIN_BASE_URL + '/tb_master_ruangan';
                     }
                 });
 
