@@ -15,8 +15,7 @@ class registrasi_aset extends Admin
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('tb_master_aset/model_tb_master_aset');
-
+		$this->load->model('model_tb_master_aset');
 		$this->load->model('model_registrasi_aset');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);

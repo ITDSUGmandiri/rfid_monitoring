@@ -117,6 +117,15 @@ class Model_tb_master_aset extends MY_Model {
         return $this;
     }
 
+    public function get_aset()
+    {
+        $query = $this->db->query(
+            "SELECT id_aset, kode_tid, kode_aset, nup, nama_aset FROM tb_master_aset WHERE kode_tid is null ORDER BY kode_tid ASC LIMIT 500 OFFSET 0"
+        );
+
+        return $query->result();
+    }
+
 }
 
 /* End of file Model_tb_master_transaksi.php */
