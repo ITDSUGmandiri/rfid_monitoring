@@ -609,6 +609,65 @@ console.log("xxx");
 
                     </fieldset>
 
+                    <fieldset>
+
+                        <div class="row">
+
+                            <div class="col-md-3"></div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">IP Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="IP Address">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3"></div>
+
+                        </div>
+
+                    </fieldset>
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <input type="hidden" name="array_tag_code" id="array_tag_code" value="0">
+                            <input type="hidden" name="is_web_play_buzzer" id="is_web_play_buzzer" value="<?php echo $pengaturan_sistem->is_web_play_buzzer ?>">
+                            <input type="hidden" name="ip_address_server" id="ip_address_server" value="<?php echo $pengaturan_sistem->ip_address_server ?>">
+                            <input type="hidden" name="protocol_ws_server" id="protocol_ws_server" value="<?php echo $pengaturan_sistem->protocol_ws_server ?>">
+                            <input type="hidden" name="port_ws_server" id="port_ws_server" value="<?php echo $pengaturan_sistem->port_ws_server ?>">
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="d-flex justify-content-center">
+                                <a class="btn btn-flat btn-info btn_search btn_action btn_search_back btn-block" id="btn_search" data-stype='back' title="Search">
+                                    <i class="fa fa-search"></i>&nbsp;Scanning Aset
+                                </a>
+                            </div>
+
+                            <small class="info help-block"><b>Status:</b>
+                                <div id="status"></div>
+                            </small>&nbsp;&nbsp;
+
+                            <div class="form-group">
+                                <label>Power Handheld</label>
+                                <input type="range" class="form-control-range" id="power_handheld" name="power_handheld" min="0" max="30" value="15">
+                                <small class="info help-block">
+                                    <b>Power:</b> <span id="power_handheld_info">15</span>
+                                </small>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3"></div>
+
+                    </div>
+
                     <h3 style="text-decoration: underline;">Barang Yang Dipinjam</h3>
 
                     <div id="containerHasilPencarian" class="row" style="margin-top: 10px; margin-bottom: 20px">
@@ -802,32 +861,6 @@ console.log("xxx");
             reload_datatables();
         });
 
-        $('#metode_pencarian').change(function() {
-            var metode_pencarian = $(this).val();
-            // console.log(metode_pencarian);
-
-            // Periksa nilai metode_pencarian
-            if (metode_pencarian === 'bulk') {
-                // Tampilkan elemen
-                $('#containerHasilPencarian').hide();
-                $('#containerHeaderPilihAset').hide();
-                $('#containerPilihAset').hide();
-                $('#containerChart').show();
-                $('#containerPilihAsetFooter').hide();
-                $('#containerChartResult').show();
-                $('#container_total_rfid_tag').hide();
-            } else {
-                // Sembunyikan elemen
-                $('#containerHasilPencarian').show();
-                $('#containerHeaderPilihAset').show();
-                $('#containerPilihAset').show();
-                $('#containerChart').hide();
-                $('#containerPilihAsetFooter').show();
-                $('#containerChartResult').hide();
-                $('#container_total_rfid_tag').show();
-            }
-        });
-
         $('#select_all').change(function() {
 
             var id_area = $('#id_area').val();
@@ -875,274 +908,6 @@ console.log("xxx");
                 $(this).val('0'); 
             }
 
-        });
-
-        $('#btn_search').click(function() {
-
-            let metode_pencarian = $('#metode_pencarian').val();
-
-            var ip_address = $('#ip_address').val();
-
-            if (ip_address == '') {
-                swal({
-                    title: "Error",
-                    text: "IP Address tidak boleh kosong!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
-                return false;
-            }
-
-            if (metode_pencarian == 'bulk') {
-
-                let id_area = $('#id_area').val();
-                let id_gedung = $('#id_gedung').val();
-                let id_ruangan = $('#id_ruangan').val();
-
-                if (id_area == '') {
-                    swal({
-                        title: "Error",
-                        text: "Area tidak boleh kosong!",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Okay!",
-                        closeOnConfirm: true
-                    });
-                    return false;
-                }
-
-                if (id_gedung == '') {
-                    swal({
-                        title: "Error",
-                        text: "Gedung tidak boleh kosong!",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Okay!",
-                        closeOnConfirm: true
-                    });
-                    return false;
-                }
-
-                if (id_ruangan == '') {
-                    swal({
-                        title: "Error",
-                        text: "Ruangan tidak boleh kosong!",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Okay!",
-                        closeOnConfirm: true
-                    });
-                    return false;
-                }    
-
-            } // end validation bulk
-
-            localStorage.setItem('ip_address', ip_address);
-            
-            const socket = new WebSocket('ws://' + ip_address + ':3030');
-
-            socket.onopen = function(event) {
-
-                // console.log('Your System Connected to WebSocket server');
-                $('#status').html('Connected');
-                //   const messageArea = document.getElementById('messageArea');
-                //   messageArea.innerHTML = '';
-                //   messageArea.innerHTML += 'Status : Connected to Server';
-                //socket.send('refresh');
-
-                getAllAsetForBulk();
-
-            };
-
-            socket.onclose = function(event) {
-                if (event.wasClean) {
-                    console.log('WebSocket connection closed');
-                } else {
-                    console.log('WebSocket connection died');
-                }
-                $('#status').html('Not Connected to Server');
-                $('#data_processing').html('');
-            };
-
-            var postTimeout = null; // Timer untuk mendeteksi tidak ada data baru
-            var timeoutDuration = 2000; // Waktu tunggu (ms) untuk memposting data ke database
-
-            var tidCount = {}; // Objek untuk menghitung frekuensi pembacaan TID
-            var selisih = 0;
-
-            getAllAsetForBulk();
-            // console.log('dataArrayAset: ', dataArrayAset);
-
-            socket.onmessage = function (event) {
-
-                var parsedData = JSON.parse(event.data);
-                var event_name = parsedData.event;
-
-                if (event_name == 'scan-rfid-result') {
-
-                    $('#data_processing').html('Searching RFID Tag...');
-
-                    if (metode_pencarian == 'bulk') {
-
-                        try {
-                        
-                            var tid = parsedData.data_tid;
-                            var epc = parsedData.data;
-                            var alias_antenna = 'handheld';
-                            var status_tag = 'OK';
-                            var description = 'OK';
-                            // var count_tag = 0;
-
-                            // alert('jumlah dataArrayAset: ' + dataArrayAset.length);
-
-                            // Cek apakah array dataArrayAset kosong
-                            if (dataArrayAset.length === 0) {
-                                swal({
-                                    title: "Perhatian !",
-                                    text: "Data Aset kosong / pilih dulu filter data pencarian !!",
-                                    type: "warning"
-                                });
-                                return;
-                            }
-
-                            // Cek apakah data dengan TID dan alias_antenna tersebut sudah ada
-                            var isExisting = dataArrayAset.some(data => data.kode_tid === tid);
-
-                            if (isExisting) {
-
-                                // Tambahkan TID ke counter
-                                if (!tidCount[tid]) {
-
-                                    tidCount[tid] = {
-                                        count: 1,
-                                    };
-
-                                } else {
-                                    tidCount[tid].count += 1;
-                                }
-                                            
-                                // console.log(`TID: ${tid} telah terbaca ${tidCount[tid].count} kali`);
-
-                                if (navigator.userAgent.match(/Android/i)) {
-                                        
-                                    var bell = document.getElementById('buzzer');
-
-                                    // mainkan suara bell antrian
-                                    // bell.src = bell.src + "?v=" + Math.random(); // Add a random query parameter to the URL to ensure the browser treats it as a new resource
-                                    bell.type = "audio/mp3"; // Set the correct "Content-Type" response header for the audio file
-                                    bell.pause();
-                                    bell.currentTime = 0;
-                                    bell.play();
-                                            
-                                }
-
-                            } else {
-                                // console.log('Data dengan TID ' + tid + ' tidak ada');
-                            }
-
-                            chart_aset_found = Object.keys(tidCount).length;
-                            console.log('chart_aset_found: ', chart_aset_found);
-
-                            selisih = dataArrayAset.length - chart_aset_found;
-                            console.log('selisih: ', '(' + dataArrayAset.length + ' - ' + chart_aset_found + ') = ' + selisih);
-
-                            // labels: ["Aset Real", "Aset Ditemukan", "Aset Tidak Ditemukan"],
-                            chart.data.datasets[0].data = [dataArrayAset.length, chart_aset_found, selisih];
-                            chart.update();
-
-                            // $('#chart_aset_real').html(chart_aset_real);
-                            $('#chart_aset_found').html(chart_aset_found);
-                            $('#chart_aset_not_found').html(selisih);
-
-                        } catch (error) {
-                            console.error('Error parsing JSON data:', error);
-                        }
-
-                    } // metode_pencarian = bulk
-                    else { // metode_pencarian = partial
-
-                        try {
-                        
-                            var tid = parsedData.data_tid;
-                            var epc = parsedData.data;
-                            var alias_antenna = 'handheld';
-                            var status_tag = 'OK';
-                            var description = 'OK';
-                            var count_tag = 0;
-
-                            // alert('jumlah dataArrayAset: ' + dataArrayAset.length);
-
-                            // Cek apakah array dataArrayAset kosong
-                            if (dataArrayAset.length === 0) {
-                                swal({
-                                    title: "Perhatian !",
-                                    text: "Pilih / Ceklis dulu data yang ingin di cari !!",
-                                    type: "warning"
-                                });
-                                return;
-                            }
-
-                            // Cek apakah data dengan TID dan alias_antenna tersebut sudah ada
-                            var isExisting = dataArrayAset.some(data => data.kode_tid === tid);
-
-                            if (isExisting) {
-                                            
-                                // console.log('your tid: ' + tid, 'is available');
-                                count_tag++;
-
-                                // Tambahkan data baru ke tabel HTML
-                                $("#your_table_id tbody tr").each(function () {
-                                    // Cari kolom dengan id yang sama dengan tid
-                                    var hasilPencarianCell = $(this).find("td[id='" + tid + "']");
-                                    
-                                    // Jika ditemukan kolom dengan id yang sesuai
-                                    if (hasilPencarianCell.length > 0) {
-
-                                        hasilPencarianCell.text('Available').css('background-color', '#90EE90');
-                                        console.log('Data dengan TID ' + tid + ' ditemukan');
-
-                                        if (navigator.userAgent.match(/Android/i)) {
-                                        
-                                            var bell = document.getElementById('buzzer');
-
-                                            // mainkan suara bell antrian
-                                            // bell.src = bell.src + "?v=" + Math.random(); // Add a random query parameter to the URL to ensure the browser treats it as a new resource
-                                            bell.type = "audio/mp3"; // Set the correct "Content-Type" response header for the audio file
-                                            bell.pause();
-                                            bell.currentTime = 0;
-                                            bell.play();
-                                            
-                                        }
-
-                                    }
-                                });
-
-                                $('#total_rfid_tag').html(count_tag);
-
-                            } else {
-                                // console.log('Data dengan TID ' + tid + ' tidak ada');
-                            }
-
-                        } catch (error) {
-                            console.error('Error parsing JSON data:', error);
-                        }
-
-                    } // metode_pencarian = partial
-
-                } else if (event_name == 'response-scan-rfid-on') {
-                    $('.loading').show();
-                } else if (event_name == 'response-scan-rfid-off') {
-                    $('.loading').hide();
-                }
-            };
-
-            return false;
         });
 
         $('#checkall').change(function(){
@@ -1234,7 +999,7 @@ console.log("xxx");
             $('#asetTable').find('input[type="checkbox"]').prop('checked', false);
             return false;
 
-        });
+        }); // end btn pilih aset
     
         $('#btn_cancel').click(function() {
                 
@@ -1397,6 +1162,39 @@ console.log("xxx");
                 
             return false;
         }); /*end btn save*/
+
+        $('#btn_search').click(async function() {
+
+            var ip_address = $('#ip_address').val();
+
+            if (ip_address === '') {
+                await Swal.fire({
+                    title: "Error",
+                    text: "IP Address tidak boleh kosong!",
+                    icon: "error",
+                    confirmButtonText: "Okay!"
+                });
+                return false;
+            }
+
+            localStorage.setItem('ip_address', ip_address);  
+
+            connectWss(ip_address);
+        }); // btn search
+
+        $('#power_handheld').on('input change', function() {
+
+            var power_handheld = $(this).val();
+            localStorage.setItem('power_handheld', power_handheld);
+            $('#power_handheld_info').text(power_handheld); // Update teks span
+
+            socket.send(JSON.stringify({
+                event: "set-rfid-power",
+                value: power_handheld
+            }));
+            console.log('post set-rfid-power: ' + power_handheld);
+
+        });
 
         $('#id_area').change(function(event) {
         var val = $(this).val();
