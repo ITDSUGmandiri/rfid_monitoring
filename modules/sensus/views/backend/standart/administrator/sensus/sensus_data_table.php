@@ -26,15 +26,15 @@
         <td width="200" style="text-align: center">
         
             <?php is_allowed('sensus_view', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/sensus/view/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                <a href="<?= admin_site_url('/sensus/view/' . $tb_master_transaksi->id . '/' . $tb_master_transaksi->id_ruangan); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
             <?php }) ?>
 
             <?php is_allowed('sensus_view_hasil_sensus', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/sensus/hasilSensus/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-pdf-o"></i> <?= cclang('Hasil'); ?>
+                <a href="<?= admin_site_url('/sensus/hasilSensus/' . $tb_master_transaksi->id . '/' . $tb_master_transaksi->id_ruangan); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-pdf-o"></i> <?= cclang('Hasil'); ?>
             <?php }) ?>
 
             <?php is_allowed('sensus_view_rekon_sensus', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/sensus/rekonSensus/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-text-o"></i> <?= cclang('Rekon'); ?>
+                <a href="<?= admin_site_url('/sensus/rekonSensus/' . $tb_master_transaksi->id . '/' . $tb_master_transaksi->id_ruangan); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-text-o"></i> <?= cclang('Rekon'); ?>
             <?php }) ?>
             
             <!-- <?php is_allowed('sensus_view_update', function() use ($tb_master_transaksi){?>

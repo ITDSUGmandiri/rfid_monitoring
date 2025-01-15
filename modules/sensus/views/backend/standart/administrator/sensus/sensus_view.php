@@ -62,7 +62,7 @@ jQuery(document).ready(domo);
                      
                      <div class="form-group">
                         <div class="row">
-                           <label class="col-sm-2 control-label">Tgl Awal Transaksi</label>
+                           <label class="col-sm-2 control-label">Tanggal</label>
                            <div class="col-sm-8" style="padding-top: 7px;">
                               <?= date('d-m-Y', strtotime(_ent($tb_master_transaksi->tgl_awal_transaksi))); ?>
                            </div>
@@ -71,7 +71,16 @@ jQuery(document).ready(domo);
 
                      <div class="form-group">
                         <div class="row">
-                           <label class="col-sm-2 control-label">Ket Transaksi</label>
+                           <label class="col-sm-2 control-label">Petugas</label>
+                           <div class="col-sm-8" style="padding-top: 7px;">
+                              <?= _ent($tb_master_transaksi->nama_pegawai_input); ?>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <div class="row">
+                           <label class="col-sm-2 control-label">Uraian</label>
                            <div class="col-sm-8" style="padding-top: 7px;">
                               <?= _ent($tb_master_transaksi->ket_transaksi); ?>
                            </div>
@@ -123,14 +132,17 @@ jQuery(document).ready(domo);
                                     <thead>
                                     <tr class="">                            
                                        <th style="text-align: center">No.</th>
-                                       <th style="text-align: center">ID Aset</th>
-                                       <th style="text-align: center">Nama Aset</th>
+                                       <th style="text-align: center">RFID Tag</th>
                                        <th style="text-align: center">Kode Aset</th>
-                                       <th style="text-align: center">Kode NUP</th>
-                                       <th style="text-align: center">Kode Tag</th>
-                                       <th style="text-align: center">Status</th>
+                                       <th style="text-align: center">NUP</th>
+                                       <th style="text-align: center">Nama Aset</th>
+                                       <th style="text-align: center">Kategori</th>
+                                       <th style="text-align: center">Lokasi Sensus</th>
+                                       <th style="text-align: center">Tahun Perolehan</th>
+                                       <th style="text-align: center">Status Aset</th>
                                        <th style="text-align: center">Kondisi</th>
-                                       <th style="text-align: center">Sensus</th>
+                                       <th style="text-align: center">Status Lokasi</th>
+                                       <th style="text-align: center">Nilai Perolehan</th>
                                     </tr>   
                                     </thead>
                                        <tbody id="tbody_tb_detail_transaksi">   
@@ -140,18 +152,77 @@ jQuery(document).ready(domo);
                                        foreach($tb_detail_transaksi as $tb_detail_transaksi): ?>
                                           <tr>
                                              <td style="text-align: center"><?= $no++; ?></td> 
-                                             <td style="text-align: center"><span class="list_group-id_aset"><?= _ent($tb_detail_transaksi->id_aset); ?></span></td>
-                                             <td style="text-align: left"><span class="list_group-nama_aset"><?= _ent($tb_detail_transaksi->nama_aset); ?></span></td>
+                                             <td style="text-align: center"><span class="list_group-id_aset"><?= _ent($tb_detail_transaksi->kode_tid); ?></span></td>
                                              <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($tb_detail_transaksi->kode_aset); ?></span></td>
                                              <td style="text-align: center"><span class="list_group-nup"><?= _ent($tb_detail_transaksi->nup); ?></span></td>
-                                             <td style="text-align: center"><span class="list_group-kode_tid"><?= _ent($tb_detail_transaksi->kode_tid); ?></span></td>
-                                             <td style="text-align: center"><span class="list_group-status_aset"><?= _ent($tb_detail_transaksi->status_aset); ?></span></td>
-                                             <td style="text-align: center"><span class="list_group-kondisi"><?= _ent($tb_detail_transaksi->kondisi_aset); ?></span></td>
-                                             
-                                             <td style="text-align: center"><span class="list_group-kondisi"><?= _ent(($tb_detail_transaksi->ceklis_sensus)); ?></span></td>
+                                             <td style="text-align: left"><span class="list_group-nama_aset"><?= _ent($tb_detail_transaksi->nama_aset); ?></span></td>
+                                             <td style="text-align: left"><span class="list_group-kategori_aset"></span><?= _ent($tb_detail_transaksi->kategori_aset); ?></td>
+                                             <td style="text-align: center"><span class="list_group-lokasi_sensus"><?= _ent($tb_detail_transaksi->lokasi_sensus); ?></span></td>
+                                             <td style="text-align: center"><span class="list_group-tahun_perolehan"><?= _ent($tb_detail_transaksi->tahun_perolehan); ?></span></td>
+                                             <td style="text-align: center"><span class="list_group-status_aset"><?= _ent(($tb_detail_transaksi->status_aset)); ?></span></td>
 
+                                             <td style="text-align: center"><span class="list_group-kondisi_aset"><?= _ent(($tb_detail_transaksi->kondisi_aset)); ?></span></td>
+                                             <td style="text-align: center"><span class="list_group-ceklis_sensus"><?= _ent(($tb_detail_transaksi->ceklis_sensus)); ?></span></td>
+                                             <td style="text-align: center"><span class="list_group-nilai_perolehan"><?= _ent(($tb_detail_transaksi->nilai_perolehan)); ?></span></td>
                                           </tr>
                                        <?php endforeach; ?>
+
+                                       </tbody>
+                                 </table>
+
+                              </div>
+
+                        </div>
+
+                     </div>
+
+                  </fieldset>
+
+                  <h3 style="text-decoration: underline;">Summary Sensus</h3>
+
+                  <fieldset>
+                        
+                     <div class="row" style="margin-top: 1px; margin-bottom: 20px">
+                           
+                        <div class="col-md-4">
+                                 
+                              <div class="table-responsive"> 
+
+                                 <br>
+                                 <table class="table table-bordered table-striped dataTable" id="your_table_id">
+                                       
+                                    <thead>
+                                    <tr class="">                            
+                                       <th style="text-align: center">Summary Sensus</th>
+                                       <th style="text-align: center">Nilai</th>
+                                    </tr>   
+                                    </thead>
+                                       <tbody id="tbody_tb_detail_transaksi">   
+                                       
+                                          <tr>
+                                             <td style="text-align: left"><span class="list_group-id_aset">Total Aset</span></td>
+                                             <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($summary_report['total_aset_tahun_all']); ?></span></td>
+                                          </tr>
+
+                                          <tr>
+                                             <td style="text-align: left"><span class="list_group-id_aset">Total Aset Ruangan</span></td>
+                                             <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($summary_report['total_aset_ruangan']); ?></span></td>
+                                          </tr>
+
+                                          <tr>
+                                             <td style="text-align: left"><span class="list_group-id_aset">Total Aset Terdata</span></td>
+                                             <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($summary_report['total_aset_terdata']); ?></span></td>
+                                          </tr>
+
+                                          <tr>
+                                             <td style="text-align: left"><span class="list_group-id_aset">Total Ditemukan</span></td>
+                                             <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($summary_report['total_cocok']); ?></span></td>
+                                          </tr>
+
+                                          <tr>
+                                             <td style="text-align: left"><span class="list_group-id_aset">Total Tidak Ditemukan</span></td>
+                                             <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($summary_report['total_hilang']); ?></span></td>
+                                          </tr>
 
                                        </tbody>
                                  </table>

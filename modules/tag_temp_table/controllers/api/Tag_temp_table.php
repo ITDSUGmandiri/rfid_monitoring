@@ -174,6 +174,7 @@ class Tag_temp_table extends API
 			$save_data = [
 				'lokasi_terakhir_id' => $this->input->post('room_id'),
 				'nama_lokasi_terakhir' => $this->input->post('room_name'),
+				'is_legal_moving' => $this->input->post('is_legal_moving'),
 				'room_id' => $this->input->post('room_id'),
 				'room_name' => $this->input->post('room_name'),
 				'reader_id' => $this->input->post('reader_id'),

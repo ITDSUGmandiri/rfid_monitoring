@@ -171,8 +171,8 @@ class sensus extends Admin
 				'tgl_input' => date('Y-m-d H:i:s'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
 				// 'tgl_akhir_transaksi' => $this->input->post('tgl_akhir_transaksi'),
-				'id_pegawai_input' => $this->input->post('id_pegawai_input'),
-				'nama_pegawai_input' => $this->input->post('nama_pegawai_input'),
+				'id_pegawai_input' => $this->session->userdata('id'),
+				'nama_pegawai_input' => $this->session->userdata('full_name'),
 				'id_pegawai' => $this->input->post('id_pegawai'),
 				'nama_pegawai' => $this->input->post('nama_pegawai'),
 				'ket_transaksi' => $this->input->post('ket_transaksi'),
@@ -403,17 +403,19 @@ class sensus extends Admin
 	 *
 	 * @var $id String
 	 */
-	public function view($id)
+	public function view($id, $id_ruangan)
 	{
 		$this->is_allowed('sensus_view');
 
 		$this->data['tb_master_transaksi'] = $this->model_sensus->getTransaksiById($id);
-		$this->data['tb_detail_transaksi'] = $this->model_sensus->getDetailTransaksiById($id);
+		$this->data['tb_detail_transaksi'] = $this->model_sensus->getHasilSensusById($id);
+		$this->data['summary_report'] = $this->model_sensus->getSummaryRekonSensusById($id, $id_ruangan);
+
 		$this->template->title('Detail Sensus');
 		$this->render('backend/standart/administrator/sensus/sensus_view', $this->data);
 	}
 
-	public function hasilSensus($id)
+	public function hasilSensus($id, $id_ruangan)
 	{
 		
 		$this->is_allowed('sensus_view_hasil_sensus');
@@ -423,13 +425,14 @@ class sensus extends Admin
 		// $this->template->title('Hasil Sensus');
 		// $this->render('backend/standart/administrator/sensus/laporan_hasil_sensus', $this->data);
 
-		// $data['username'] = $this->session->userdata('username');
-		// $data['nama_lengkap'] = $this->session->userdata('nama_lengkap');
-		// $data['email'] = $this->session->userdata('email');
+		$data['id'] = $this->session->userdata('id');
+		$data['username'] = $this->session->userdata('username');
+		$data['email'] = $this->session->userdata('email');
+		$data['full_name'] = $this->session->userdata('full_name');
 		// $data['address'] = $this->session->userdata('address');
 		// $data['phone'] = $this->session->userdata('phone');
 		// $data['user_id'] = $this->session->userdata('user_id');
-		// $data['level'] = $this->session->userdata('level'); 
+		// $data['level'] = $this->session->userdata('level');  
 
 		// end passing config and variable data
 
@@ -442,8 +445,59 @@ class sensus extends Admin
 
 		$data['tb_master_transaksi'] = $this->model_sensus->getTransaksiById($id);
 		$data['tb_detail_transaksi'] = $this->model_sensus->getHasilSensusById($id);
+		$data['summary_report'] = $this->model_sensus->getSummaryRekonSensusById($id, $id_ruangan);
 
 		$this->load->view('backend/standart/administrator/sensus/rpt_hasil_sensus', $data);
+
+	}
+
+	public function rekonSensus($id, $id_ruangan)
+	{
+
+		// echo '<pre>';
+		// print_r($id_ruangan);
+		// echo '</pre>';
+		// exit;
+		
+		$this->is_allowed('rekon_view_hasil_sensus');
+
+		// $this->data['tb_master_transaksi'] = $this->model_sensus->getTransaksiById($id);
+		// $this->data['tb_detail_transaksi'] = $this->model_sensus->getDetailTransaksiById($id);
+		// $this->template->title('Hasil Sensus');
+		// $this->render('backend/standart/administrator/sensus/laporan_hasil_sensus', $this->data);
+
+		// $ci = &get_instance();
+		// echo json_encode($ci->session->userdata());
+		// exit;
+
+		$data['id'] = $this->session->userdata('id');
+		$data['username'] = $this->session->userdata('username');
+		$data['email'] = $this->session->userdata('email');
+		$data['full_name'] = $this->session->userdata('full_name');
+		// $data['address'] = $this->session->userdata('address');
+		// $data['phone'] = $this->session->userdata('phone');
+		// $data['user_id'] = $this->session->userdata('user_id');
+		// $data['level'] = $this->session->userdata('level'); 
+
+		// end passing config and variable data
+
+		// $data['id_transaksi'] = $id;
+
+		$data['tb_master_transaksi'] = $this->model_sensus->getTransaksiById($id);
+		$data['tb_detail_transaksi'] = $this->model_sensus->getRekonSensusById($id);
+		$data['summary_report'] = $this->model_sensus->getSummaryRekonSensusById($id, $id_ruangan);
+
+		// echo '<pre>';
+		// print_r($data['tb_master_transaksi']);
+		// echo '</pre>';
+		// exit;
+
+		// echo '<pre>';
+		// print_r($data['summary_report']);
+		// echo '</pre>';
+		// exit;
+
+		$this->load->view('backend/standart/administrator/sensus/rpt_rekon_sensus', $data);
 
 	}
 
