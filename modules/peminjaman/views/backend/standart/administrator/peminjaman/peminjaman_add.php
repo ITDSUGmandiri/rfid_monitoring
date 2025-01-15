@@ -608,7 +608,7 @@ console.log("xxx");
                         </div>
 
                     </fieldset>
-
+<!-- 
                     <fieldset>
 
                         <div class="row">
@@ -666,7 +666,7 @@ console.log("xxx");
 
                         <div class="col-md-3"></div>
 
-                    </div>
+                    </div> -->
 
                     <h3 style="text-decoration: underline;">Barang Yang Dipinjam</h3>
 
