@@ -162,9 +162,9 @@ class perbaikan extends Admin
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
 		// $this->form_validation->set_rules('nama_pegawai_input', 'Nama Pegawai Input', 'trim|max_length[100]');
-		$this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
-		$this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
-		$this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
+		// $this->form_validation->set_rules('id_area', 'Id Area', 'trim|required');
+		// $this->form_validation->set_rules('id_gedung', 'Id Gedung', 'trim|required');
+		// $this->form_validation->set_rules('id_ruangan', 'Id Ruangan', 'trim|required');
 
 		if ($this->form_validation->run()) {
 
@@ -435,9 +435,172 @@ class perbaikan extends Admin
 
 		$this->data['tb_master_transaksi'] = $this->model_perbaikan->getTransaksiById($id);
 		$this->data['tb_detail_transaksi'] = $this->model_perbaikan->getDetailTransaksiById($id);
+		$this->data['pengaturan_sistem'] = $this->model_perbaikan->getPengaturanSistem();
+
 		$this->template->title('Detail Perbaikan');
+		$this->data['id'] = $id; // Pastikan ID diteruskan ke view
 		$this->render('backend/standart/administrator/perbaikan/perbaikan_view', $this->data);
+		
 	}
+
+	public function selesai($id)
+	{
+		// Ambil detail aset berdasarkan ID perbaikan
+		$this->load->model('model_perbaikan');
+		$detail_aset = $this->model_perbaikan->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// Ambil keterangan selesai dari request POST
+		$keterangan_selesai = $this->input->post('keterangan_selesai');
+		if (!$keterangan_selesai) {
+			show_error('Keterangan selesai tidak ditemukan!', 400);
+		}
+
+		// Simpan file foto selesai
+		if (!empty($_FILES['foto']['name'])) {
+			$upload_dir = 'uploads/Perbaikan/';
+			
+			// Pastikan direktori ada
+			if (!is_dir($upload_dir)) {
+				if (!mkdir($upload_dir, 0755, true)) {
+					show_error('Gagal membuat direktori unggahan: ' . $upload_dir, 500);
+				}
+			}
+		
+			$file_name = time() . '_' . basename($_FILES['foto']['name']);
+			$file_path = $upload_dir . $file_name;
+		
+			// Simpan file ke direktori
+			if (move_uploaded_file($_FILES['foto']['tmp_name'], $file_path)) {
+				$response['foto_url'] = base_url($file_path);
+			} else {
+				// Tambahkan logging error
+				log_message('error', 'Gagal mengunggah file: ' . $_FILES['foto']['error']);
+				
+				$response['success'] = false;
+				$response['message'] = 'Gagal mengunggah foto.';
+				echo json_encode($response);
+				exit;
+			}
+		}
+
+		// Mulai transaksi untuk memastikan atomicity
+		$this->db->trans_start();
+
+		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan selesai
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 3,    // Set status menjadi 3 (selesai)
+			'ket_transaksi2' => $keterangan_selesai,  // Simpan keterangan selesai
+			'image_uri' => $file_name		//menyimpan informasi nama foto
+		]);
+
+		// Perbarui status aset terkait dengan perbaikan
+		foreach ($detail_aset as $aset) {
+			// Update status aset menjadi 1 dan set borrow menjadi 0
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', [
+				'status' => 1,  // Aset sudah kembali
+				'borrow' => 0   // Aset tidak dipinjam lagi
+			]);
+		}
+
+		// Selesaikan transaksi
+		$this->db->trans_complete();
+
+		// Cek apakah transaksi berhasil
+		if ($this->db->trans_status() === FALSE) {
+			log_message('error', 'Gagal melakukan update transaksi selesai untuk ID: ' . $id);
+			show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		}
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
+	}
+
+	public function batal($id)
+	{
+		// Ambil detail aset berdasarkan ID perbaikan
+		$this->load->model('model_perbaikan');
+		$detail_aset = $this->model_perbaikan->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// Ambil keterangan batal dari request POST
+		$keterangan_batal = $this->input->post('keterangan_batal');
+		if (!$keterangan_batal) {
+			show_error('Keterangan batal tidak ditemukan!', 400);
+		}
+		
+		// Simpan file foto batal
+		if (!empty($_FILES['foto']['name'])) {
+			$upload_dir = 'uploads/Perbaikan/';
+			
+			// Pastikan direktori ada
+			if (!is_dir($upload_dir)) {
+				if (!mkdir($upload_dir, 0755, true)) {
+					show_error('Gagal membuat direktori unggahan: ' . $upload_dir, 500);
+				}
+			}
+		
+			$file_name = time() . '_' . basename($_FILES['foto']['name']);
+			$file_path = $upload_dir . $file_name;
+		
+			// Simpan file ke direktori
+			if (move_uploaded_file($_FILES['foto']['tmp_name'], $file_path)) {
+				$response['foto_url'] = base_url($file_path);
+			} else {
+				// Tambahkan logging error
+				log_message('error', 'Gagal mengunggah file: ' . $_FILES['foto']['error']);
+				
+				$response['success'] = false;
+				$response['message'] = 'Gagal mengunggah foto.';
+				echo json_encode($response);
+				exit;
+			}
+		}
+
+		// Mulai transaksi untuk memastikan atomicity
+		$this->db->trans_start();
+
+		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan batal
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
+			'ket_transaksi2' => $keterangan_batal,  // Simpan keterangan batal
+			'image_uri' => $file_name		//menyimpan informasi nama foto
+		]);
+
+		// Perbarui status aset terkait dengan perbaikan
+		foreach ($detail_aset as $aset) {
+			// Update status aset menjadi 1 dan set borrow menjadi 0
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', [
+				'status' => 1,  // Aset sudah kembali
+				'borrow' => 0   // Aset tidak dipinjam lagi
+			]);
+		}
+
+		// Selesaikan transaksi
+		$this->db->trans_complete();
+
+		// Cek apakah transaksi berhasil
+		if ($this->db->trans_status() === FALSE) {
+			log_message('error', 'Gagal melakukan update transaksi pembatalan untuk ID: ' . $id);
+			show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		}
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
+	}
+
 
 	/**
 	 * delete Tb Master Transaksis
@@ -639,7 +802,49 @@ class perbaikan extends Admin
 
 		$this->response($response);
 	}
+
+	public function get_search_aset()
+	{
+		try {
+			// Ambil parameter id dari query string
+			$id = $this->input->get('id');
+
+			// Validasi parameter id
+			if (empty($id)) {
+				throw new Exception('Parameter "id" is required. Received ID: ' . var_export($id, true)); // Menampilkan nilai id jika kosong
+			}
+
+			$filter_data = [
+				'id_transaksi' => $id
+			];
+
+			// Panggil model untuk mendapatkan data
+			$results = $this->model_perbaikan->get_all_search_aset($filter_data);
+
+			// Periksa apakah data ditemukan
+			if (empty($results)) {
+				throw new Exception('No data found for the given ID: '. json_encode($filter_data));
+			}
+
+			// Berikan respons sukses
+			$response = [
+				'success' => true,
+				'data' => $results
+			];
+			$this->response($response);
+
+		} catch (Exception $e) {
+			// Laporkan error melalui log dan kirim respons error
+			log_message('error', 'Error dalam proses: ' . $e->getMessage());
+			$response = [
+				'success' => false,
+				'message' => $e->getMessage()
+			];
+			$this->response($response, 500); // Kirim status code 500
+		}
+	}
 }
+
 
 /* End of file tb_master_transaksi.php */
 /* Location: ./application/controllers/administrator/Tb Master Transaksi.php */

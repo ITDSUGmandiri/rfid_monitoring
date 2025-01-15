@@ -1299,6 +1299,25 @@ console.log("xxx");
             
             }
 
+
+            // Cek apakah Area Asal dan Area Tujuan sama
+            var areaAsal = $('#id_area').val();
+            var areaTujuan = $('#id_area2').val();
+
+            if (areaAsal === areaTujuan) {
+                swal({
+                    title: "Error",
+                    text: "Area asal tidak boleh sama dengan area tujuan!",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay!",
+                    closeOnConfirm: true
+                });
+
+                return false; // Mencegah proses lebih lanjut jika validasi gagal
+            }
+
             var form_pemindahan = $('#form_pemindahan_add');
             var data_post = form_pemindahan.serializeArray();
             var save_type = $(this).attr('data-stype');

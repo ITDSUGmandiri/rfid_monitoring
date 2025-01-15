@@ -2,7 +2,7 @@
 function domo(){
  
    $('*').bind('keydown', 'Ctrl+a', function() {
-       window.location.href = ADMIN_BASE_URL + '/peminjaman/add';
+       window.location.href = ADMIN_BASE_URL + '/Peminjaman/add';
        return false;
    });
 
@@ -59,7 +59,7 @@ jQuery(document).ready(domo);
                      </div>
                      <!-- /.widget-user-image -->
                      <h3 class="widget-user-username"><?= cclang('tb_master_transaksi') ?></h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_master_transaksi')]); ?>  <i class="label bg-yellow"><span class="total-rows"><?= $peminjaman_counts; ?></span>  <?= cclang('items'); ?></i></h5>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_master_transaksi')]); ?>  <i class="label bg-yellow"><span class="total-rows"><?= $tb_master_transaksi_counts; ?></span>  <?= cclang('items'); ?></i></h5>
                   </div>
 
                   <form name="form_tb_master_transaksi" id="form_tb_master_transaksi" action="<?= admin_base_url('/peminjaman/index'); ?>">
@@ -69,14 +69,14 @@ jQuery(document).ready(domo);
                      <!-- /.widget-user -->
                   <div class="row">
                      <div class="col-md-8">
-                                                <div class="col-sm-2 padd-left-0 " >
+                                                <!-- <div class="col-sm-2 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >
                                                          <option value="delete">Delete</option>
                                                       </select>
                         </div>
                         <div class="col-sm-2 padd-left-0 ">
                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                        </div>
+                        </div> -->
                                                 <div class="col-sm-3 padd-left-0  " >
                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
                         </div>
@@ -87,10 +87,9 @@ jQuery(document).ready(domo);
                               <!-- <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe Transaksi</option> -->
                               <!-- <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' :''; ?> value="status_transaksi">Status Transaksi</option> -->
                               <!-- <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tgl Awal Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'tgl_akhir_transaksi' ? 'selected' :''; ?> value="tgl_akhir_transaksi">Tgl Akhir Transaksi</option> -->
-                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Ket Peminjaman</option>
-                              <!-- <option <?= $this->input->get('f') == 'id_pegawai_input' ? 'selected' :''; ?> value="id_pegawai_input">Id Pegawai Input</option -->
-                              <option <?= $this->input->get('f') == 'nama_pegawai_input' ? 'selected' :''; ?> value="nama_pegawai_input">Nama Peminjam</option>
+                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Ket Transaksi</option>
+                              <!-- <option <?= $this->input->get('f') == 'id_pegawai_input' ? 'selected' :''; ?> value="id_pegawai_input">Id Pegawai Input</option
+                              <option <?= $this->input->get('f') == 'nama_pegawai_input' ? 'selected' :''; ?> value="nama_pegawai_input">Nama Pegawai Input</option> -->
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -99,7 +98,7 @@ jQuery(document).ready(domo);
                            </button>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
-                           <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/peminjaman');?>" title="<?= cclang('reset_filter'); ?>">
+                           <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_transaksi');?>" title="<?= cclang('reset_filter'); ?>">
                            <i class="fa fa-undo"></i>
                            </a>
                         </div>
@@ -119,17 +118,19 @@ jQuery(document).ready(domo);
                            <th style="text-align: center">
                               <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th style="text-align: center" data-field="kode_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Kode') ?></th>
+                           <!-- <th style="text-align: center" data-field="kode_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Kode') ?></th> -->
                            <th style="text-align: center" data-field="tipe_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tipe') ?></th>
                            <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
                            <th style="text-align: center" data-field="tgl_awal_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tanggal Peminjaman') ?></th>
                            <th style="text-align: center" data-field="tgl_akhir_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tanggal Pengembalian') ?></th>
                            <th style="text-align: center" data-field="ket_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Keterangan') ?></th>
-                           <!-- <th data-field="id_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('id_pegawai_input') ?></th> -->
-                           <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('Nama Peminjam') ?></th>
-                           <!-- <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area') ?></th>
-                           <th style="text-align: center" data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('Gedung') ?></th>
-                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan') ?></th> -->
+                           <th style="text-align: center" data-field="id_pegawai"data-sort="1" data-primary-key="0"> <?= cclang('Nama Peminjam') ?></th>
+                           <th style="text-align: center" data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Status Peminjaman') ?></th>
+                           <!-- <th data-field="id_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('id_pegawai_input') ?></th>
+                           <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th>
+                           <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area Asal') ?></th>
+                           <th style="text-align: center" data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Asal') ?></th>
+                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th> -->
                            <th style="text-align: center">Action</th>                        
                         </tr>
                      </thead>

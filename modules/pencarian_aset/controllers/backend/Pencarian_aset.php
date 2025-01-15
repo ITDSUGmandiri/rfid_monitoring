@@ -63,7 +63,7 @@ class Pencarian_aset extends Admin
 		$filter_data['id_gedung'] = $id_gedung;
 		$filter_data['id_ruangan'] = $id_ruangan;
 
-        $totalData = $this->model_pencarian_aset->count_all_content();
+        $totalData = $this->model_pencarian_aset->count_all_content($filter_data);
         $totalFiltered = $totalData;
 
         if(empty($this->input->post('search')['value'])) {
@@ -531,17 +531,78 @@ class Pencarian_aset extends Admin
 
 	public function check_unique_single_tag()
 	{
-		$tid = $this->input->get('tid');
-		$check = $this->db->get_where('tb_master_tag_rfid', 
-		[
-			'kode_tid' => $tid,
-			'status_tag' => 'Y'
-		])->num_rows();
 
-		$response = [	
-			'check' => $check
-		];
+		$tid = $this->input->get('tid');
+
+		$query = $this->db->get_where('tb_master_tag_rfid', 
+		[
+			'kode_tid' => $tid
+			// 'status_tag' => 'Y'
+		]);
+
+		$response_data_aset = [];
+
+		$check = $query->num_rows();
+
+		if ($check > 0) {
+
+			$data_result = $query->row_array();
+			$status_tag = $data_result['status_tag'];
+
+			// tag belum ada yang punya
+			if ($status_tag == 'Y') {
+
+				$response_data_aset = [
+					'id_aset' => '',
+					'kode_aset' => '',
+					'nama_aset' => '',
+					'nup' => '',
+					'id_area' => '',
+					'id_gedung' => '',
+					'id_ruangan' => '',
+					'kode_tid' => '',
+					'area' => '',
+					'gedung' => '',
+					'ruangan' => ''
+				];
+				
+			} else {
+
+				$data_aset = $this->model_pencarian_aset->getAsetByID($tid);
+
+				$response_data_aset = [
+					'id_aset' => $data_aset->id_aset,
+					'kode_aset' => $data_aset->kode_aset,
+					'nama_aset' => $data_aset->nama_aset,
+					'nup' => $data_aset->nup,
+					'id_area' => $data_aset->id_area,
+					'id_gedung' => $data_aset->id_gedung,
+					'id_ruangan' => $data_aset->id_lokasi,
+					'kode_tid' => $data_aset->kode_tid,
+					'area' => $data_aset->area,
+					'gedung' => $data_aset->gedung,
+					'ruangan' => $data_aset->ruangan
+				];
+
+			}
+
+			$response = [	
+				'check' => $check,
+				'status_tag' => $status_tag,
+				'data_aset' => $response_data_aset
+			];
+
+		} else {
+
+			$response = [
+				'check' => $check,
+				'data_aset' => $response_data_aset
+			];
+			
+		}
+
 		$this->response($response);
+
 	}
 
 	public function get_all_tag()
@@ -579,13 +640,15 @@ class Pencarian_aset extends Admin
 		$id_area = $this->input->get('id_area');	
 		$id_gedung = $this->input->get('id_gedung');
 		$id_ruangan = $this->input->get('id_ruangan');
+		$metode_pencarian = $this->input->get('metode_pencarian');
 
 		$filter_data = array();
 
 		$filter_data = array(
 			'id_area' => $id_area,
 			'id_gedung' => $id_gedung,
-			'id_ruangan' => $id_ruangan
+			'id_ruangan' => $id_ruangan,
+			'metode_pencarian' => $metode_pencarian
 		);
 
 		$results = $this->model_pencarian_aset->get_all_aset($filter_data);
@@ -608,7 +671,6 @@ class Pencarian_aset extends Admin
 		];
 
 		$this->response($response);
-		echo "Coba";
 
 	}
 }

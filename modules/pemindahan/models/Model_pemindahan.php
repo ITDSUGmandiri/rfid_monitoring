@@ -121,7 +121,8 @@ class Model_pemindahan extends MY_Model {
     public function count_all_content(){
 
         $this->db->from('tb_master_aset');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         return $this->db->count_all_results();
         
     }
@@ -140,9 +141,21 @@ class Model_pemindahan extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         return $this->db->get()->result();
     }
+
+    public function get_all_search_aset($filter_data)
+    {
+        // Lakukan query database berdasarkan filter data
+        $this->db->select('*');
+        $this->db->where($filter_data);
+        $query = $this->db->get('tb_detail_transaksi');
+        $result = $query->result();
+        return $result;
+    }
+
 
     public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
 
@@ -166,7 +179,8 @@ class Model_pemindahan extends MY_Model {
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -178,7 +192,8 @@ class Model_pemindahan extends MY_Model {
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -189,7 +204,8 @@ class Model_pemindahan extends MY_Model {
 
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
-        $this->db->where('a.kode_tid IS NOT NULL and a.status = 1');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
@@ -228,9 +244,9 @@ class Model_pemindahan extends MY_Model {
                         'id_aset' => $data['id'],
                         'kode_aset' => $data['kode_aset'],
                         'nup' => $data['nup'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_ruangan' => $save_data_master_transaksi['id_ruangan2']
+                        'id_area' => $save_data_master_transaksi['id_area'],
+                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
+                        'id_ruangan' => $save_data_master_transaksi['id_ruangan']
                     );
                     
                     // Insert ke tabel detail transaksi
@@ -244,6 +260,7 @@ class Model_pemindahan extends MY_Model {
                         'id_gedung' => $save_data_master_transaksi['id_gedung2'],
                         'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
                         'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                        'borrow' => 1,
                         
                     )); 
                     

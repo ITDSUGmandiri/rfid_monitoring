@@ -475,7 +475,7 @@ console.log("xxx");
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
-                <h3 style="text-decoration: underline;">Isi Data Area</h3>
+                <h3 style="text-decoration: underline;">Filter Area Aset</h3>
                 
                     <!-- <section> -->
                     <fieldset>
