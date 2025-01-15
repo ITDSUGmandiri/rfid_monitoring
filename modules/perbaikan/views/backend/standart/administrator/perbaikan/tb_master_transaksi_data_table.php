@@ -24,6 +24,29 @@
             echo $tb_master_transaksi->tb_master_ruangan_ruangan;
         } ?></td> -->
         
+
+        <!-- Status Transaksi -->
+        <td style="text-align: center">
+            <?php 
+                switch ($tb_master_transaksi->status_transaksi) {
+                    case 1:
+                        echo "Open";
+                        break;
+                    case 2:
+                        echo "Progress";
+                        break;
+                    case 3:
+                        echo "Complete";
+                        break;
+                    case 4:
+                        echo "Batal";
+                        break;
+                    default:
+                        echo "Unknown";
+                }
+            ?>
+        </td>
+        
         <td width="200" style="text-align: center">
         
             <?php is_allowed('perbaikan_view', function() use ($tb_master_transaksi){?>

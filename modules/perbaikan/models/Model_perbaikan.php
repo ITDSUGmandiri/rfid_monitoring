@@ -122,44 +122,56 @@ class Model_perbaikan extends MY_Model {
 
         $this->db->from('tb_master_aset');
         $this->db->where('kode_tid IS NOT NULL');
+        $this->db->where('status = 1');
         return $this->db->count_all_results();
         
     }
 
     public function get_all_aset($filter_data) {
 
-        if ($filter_data['id_area'] != '') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-        }
-        if ($filter_data['id_gedung'] != '') {
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-        }
+        // if ($filter_data['id_area'] != '') {
+        //     $this->db->where('a.id_area', $filter_data['id_area']);
+        // }
+        // if ($filter_data['id_gedung'] != '') {
+        //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+        // }
         if ($filter_data['id_ruangan'] != '') {
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         }
 
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         return $this->db->get()->result();
     }
+
+    public function get_all_search_aset($filter_data)
+    {
+        // Lakukan query database berdasarkan filter data
+        $this->db->select('*');
+        $this->db->where($filter_data);
+        $query = $this->db->get('tb_detail_transaksi');
+        $result = $query->result();
+        return $result;
+    }   
 
     public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
 
         if ($select_all == '1') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+            // $this->db->where('a.id_area', $filter_data['id_area']);
+            // $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         } else {
             
-            if ($filter_data['id_area'] != '') {
-                $this->db->where('a.id_area', $filter_data['id_area']);
-            }
-            if ($filter_data['id_gedung'] != '') {
-                $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            }
+            // if ($filter_data['id_area'] != '') {
+            //     $this->db->where('a.id_area', $filter_data['id_area']);
+            // }
+            // if ($filter_data['id_gedung'] != '') {
+            //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            // }
             if ($filter_data['id_ruangan'] != '') {
-                $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+                $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
             }
 
         }
@@ -167,6 +179,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -179,6 +192,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -190,6 +204,7 @@ class Model_perbaikan extends MY_Model {
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();

@@ -1,4 +1,4 @@
-<?php foreach($pemindahans as $tb_master_transaksi): ?>
+<?php foreach($peminjamans as $tb_master_transaksi): ?>
     <tr>
                 <td width="5">
             <input type="checkbox" class="flat-red check" name="id[]" value="<?= $tb_master_transaksi->id; ?>">
@@ -8,11 +8,19 @@
         <td style="text-align: center"><?php if ($tb_master_transaksi->tipe_transaksi) {
             echo $tb_master_transaksi->tb_master_type_transaksi_tipe_transaksi; }?></td>
         <!-- <td><span class="list_group-status_transaksi"><?= _ent($tb_master_transaksi->status_transaksi); ?></span></td>  -->
+         
         <td style="text-align: center"><span class="list_group-tgl_awal_transaksi"><?= _ent(date('d-m-Y', strtotime($tb_master_transaksi->tgl_awal_transaksi))); ?></span></td>
         <td style="text-align: center"><span class="list_group-tgl_akhir_transaksi"><?= _ent(date('d-m-Y', strtotime($tb_master_transaksi->tgl_akhir_transaksi))); ?></span></td>
         <td><span class="list_group-ket_transaksi"><?= _ent($tb_master_transaksi->ket_transaksi); ?></span></td> 
-        <!-- <td><span class="list_group-id_pegawai_input"><?= _ent($tb_master_transaksi->id_pegawai_input); ?></span></td> 
+        
+        <td style="text-align: center"><?php if ($tb_master_transaksi->id_pegawai) {
+            echo $tb_master_transaksi->tb_master_pegawai_nama;
+        } ?></td>
+        
+        <!-- <td><span class="list_group-id_pegawai_input"><?= _ent($tb_master_transaksi->id_pegawai); ?></span></td> 
         <td><span class="list_group-nama_pegawai_input"><?= _ent($tb_master_transaksi->nama_pegawai_input); ?></span></td>  -->
+        <!-- <td><span class="list_group-id_pegawai_input"><?= _ent($tb_master_transaksi->id_pegawai_input); ?></span></td> 
+        <td><span class="list_group-nama_pegawai_input"><?= _ent($tb_master_transaksi->nama_pegawai_input); ?></span></td> 
         <td style="text-align: center"><?php if ($tb_master_transaksi->id_area) {
             echo $tb_master_transaksi->tb_master_area_area;
         } ?></td>
@@ -23,7 +31,29 @@
          
          <td style="text-align: center"><?php if ($tb_master_transaksi->id_ruangan) {
             echo $tb_master_transaksi->tb_master_ruangan_ruangan;
-        } ?></td>
+        } ?></td> -->
+
+        <!-- Status Transaksi -->
+        <td style="text-align: center">
+            <?php 
+                switch ($tb_master_transaksi->status_transaksi) {
+                    case 1:
+                        echo "Open";
+                        break;
+                    case 2:
+                        echo "Progress";
+                        break;
+                    case 3:
+                        echo "Complete";
+                        break;
+                    case 4:
+                        echo "Batal";
+                        break;
+                    default:
+                        echo "Unknown";
+                }
+            ?>
+        </td>
         <td width="200" style="text-align: center">
         
             <?php is_allowed('peminjaman_view', function() use ($tb_master_transaksi){?>
