@@ -63,7 +63,8 @@
 </script>
 
 <style>
-    </style>
+    
+</style>
 
 <section class="content-header">
     <h1>
@@ -204,6 +205,37 @@
 </div>
 
 </section>
+
+<style>
+    .table thead th {
+        border-bottom: 1px solid #dee2e6 !important;
+        /* Pakai !important agar override */
+        border-top: none !important;
+        /* Hilangkan border atas */
+    }
+
+    .table tbody td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di baris data */
+    }
+
+    .table tfoot td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di footer */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    .table tfoot td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    #asetTable tbody td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+</style>
 
 <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script>
 

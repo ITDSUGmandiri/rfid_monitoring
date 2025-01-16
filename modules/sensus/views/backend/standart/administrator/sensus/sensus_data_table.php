@@ -23,18 +23,31 @@
         <td><?php if ($tb_master_transaksi->id_ruangan) {
             echo $tb_master_transaksi->tb_master_ruangan_ruangan;
         } ?></td>
+
+        <td style="text-align: center"><?php if ($tb_master_transaksi->status_transaksi == '1') {
+            echo 'Open';
+        } else if ($tb_master_transaksi->status_transaksi == '2') {
+            echo 'Progress';
+        } else if ($tb_master_transaksi->status_transaksi == '3') {
+            echo 'Complete';
+        } else {
+            echo 'Cancel';
+        } 
+        ?>
+        </td>
+
         <td width="200" style="text-align: center">
         
             <?php is_allowed('sensus_view', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/sensus/view/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                <a href="<?= admin_site_url('/sensus/view/' . $tb_master_transaksi->id . '/' . $tb_master_transaksi->id_ruangan); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
             <?php }) ?>
 
             <?php is_allowed('sensus_view_hasil_sensus', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/sensus/hasilSensus/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-pdf-o"></i> <?= cclang('Hasil'); ?>
+                <a href="<?= admin_site_url('/sensus/hasilSensus/' . $tb_master_transaksi->id . '/' . $tb_master_transaksi->id_ruangan); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-pdf-o"></i> <?= cclang('Hasil'); ?>
             <?php }) ?>
 
             <?php is_allowed('sensus_view_rekon_sensus', function() use ($tb_master_transaksi){?>
-                <a href="<?= admin_site_url('/sensus/rekonSensus/' . $tb_master_transaksi->id); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-text-o"></i> <?= cclang('Rekon'); ?>
+                <a href="<?= admin_site_url('/sensus/rekonSensus/' . $tb_master_transaksi->id . '/' . $tb_master_transaksi->id_ruangan); ?>" data-id="<?= $tb_master_transaksi->id ?>" class="label-default btn-act-view"><i class="fa fa-file-text-o"></i> <?= cclang('Rekon'); ?>
             <?php }) ?>
             
             <!-- <?php is_allowed('sensus_view_update', function() use ($tb_master_transaksi){?>
