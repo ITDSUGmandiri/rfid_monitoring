@@ -255,11 +255,6 @@
   <script src="<?= BASE_ASSET ?>js-scroll/script/jquery.jscrollpane.min.js"></script>
   <script src="<?= BASE_ASSET ?>jquery-switch-button/jquery.switchButton.js"></script>
   <script src="<?= BASE_ASSET ?>js/custom.js"></script>
-<<<<<<< HEAD
-  <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js">
-    </script>
-=======
 
 
 
@@ -270,7 +265,6 @@
     </script>
     <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js">
     </script>
->>>>>>> modul_masterdata
   <?php } ?>
 
 
