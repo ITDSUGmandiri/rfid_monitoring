@@ -73,7 +73,7 @@
                     console.log('Connecting to WebSocket server...');
 
                     socket.addEventListener('open', function () {
-                        var status = 2;
+                        var status = 1;
                         var flag_alarm = 0;
                         var description = 'DEMO-RFID';
                         var category = 0;
@@ -1413,7 +1413,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Gagal update flag alarm di deras server!',
+                    text: 'Gagal update flag alarm di server!',
                     showCancelButton: false,
                     confirmButtonColor: '#DD6B55',
                     confirmButtonText: 'Okay!'

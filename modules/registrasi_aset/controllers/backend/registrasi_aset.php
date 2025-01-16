@@ -124,7 +124,9 @@ class registrasi_aset extends Admin
 	 */
 	public function add()
 	{
+
 		$this->is_allowed('registrasi_aset_add');
+
 
 		$this->data['pengaturan_sistem'] = $this->model_registrasi_aset->getPengaturanSistem();
 		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
@@ -133,6 +135,20 @@ class registrasi_aset extends Admin
 		$this->render('backend/standart/administrator/registrasi_aset/registrasi_aset_add', $this->data);
 	}
 
+	public function getKategori()
+	{
+		if (isset($_POST['value']) && $_POST['value'] != 0) {
+			$category = $_POST['value'];
+			$this->data['tb_master_asets'] = array();
+			$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_asetkategori($category);
+
+			echo json_encode($this->data['tb_master_asets']);
+		} else {
+			$this->data['tb_master_asets'] = array();
+			$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+			echo json_encode($this->data['tb_master_asets']);
+		}
+	}
 	/**
 	 * Add New Tb Master Transaksis
 	 *
