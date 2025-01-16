@@ -457,9 +457,9 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
-          console.log("bbb", topic);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
+
           var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
@@ -472,7 +472,7 @@ $CI = &get_instance();
           } else if (topic == 'borrow' || topic == 'mainten') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th></tr>';
           } else if (topic == 'moving') {
-            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Ruangan Eksisting</th></tr>';
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Posisi Terakhir</th></tr>';
 
 
           } else {
