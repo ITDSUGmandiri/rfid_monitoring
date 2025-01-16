@@ -448,6 +448,7 @@ $CI = &get_instance();
       showModalWithPagination(endpoint, title, topic);
     });
 
+
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
     function showModalWithPagination(endpoint, title, topic) {
 
@@ -460,7 +461,7 @@ $CI = &get_instance();
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
 
-          var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
+          var modalContent = '<div class="modal-header"> <span class="close-btn" id="closeModal">&times;</span><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
           modalContent += '<table class="table table-bordered table-striped dataTable responsive">';
@@ -516,7 +517,7 @@ $CI = &get_instance();
           modalContent += '</div>';
           // Tambahkan tombol pagination di bagian bawah modal jika diperlukan
           // Misalnya, Anda dapat menambahkan tombol Next dan Previous untuk pagination
-          modalContent += '<div class="modal-footer">';
+          modalContent += '<div class="modal-footer"><button id="closeBtn">Tutup</button>';
           // modalContent += '<button type="button" class="btn btn-secondary">Previous</button>';
           // modalContent += '<button type="button" class="btn btn-secondary">Next</button>';
           modalContent += '</div>';
@@ -525,6 +526,17 @@ $CI = &get_instance();
           $('#myModal').modal('show');
           $('.modal-content').html(modalContent);
 
+          var closeModal = document.getElementById("closeModal");
+          var closeBtn = document.getElementById("closeBtn");
+
+          closeModal.onclick = function() {
+            $('#myModal').modal('hide');
+          }
+
+          // Event listener untuk tombol tutup di footer
+          closeBtn.onclick = function() {
+            $('#myModal').modal('hide');
+          }
 
         },
         error: function(xhr, status, error) {
