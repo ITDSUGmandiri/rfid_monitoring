@@ -23,6 +23,19 @@
         <td><?php if ($tb_master_transaksi->id_ruangan) {
             echo $tb_master_transaksi->tb_master_ruangan_ruangan;
         } ?></td>
+
+        <td style="text-align: center"><?php if ($tb_master_transaksi->status_transaksi == '1') {
+            echo 'Open';
+        } else if ($tb_master_transaksi->status_transaksi == '2') {
+            echo 'Progress';
+        } else if ($tb_master_transaksi->status_transaksi == '3') {
+            echo 'Complete';
+        } else {
+            echo 'Cancel';
+        } 
+        ?>
+        </td>
+
         <td width="200" style="text-align: center">
         
             <?php is_allowed('sensus_view', function() use ($tb_master_transaksi){?>

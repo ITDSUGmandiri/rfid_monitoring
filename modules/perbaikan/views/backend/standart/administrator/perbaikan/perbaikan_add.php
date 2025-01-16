@@ -50,8 +50,100 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
 
 <script type="text/javascript">
-console.log("xxx");
+    
+    console.log("xxx");
     var dataArrayAset = []; // Array untuk menyimpan data
+
+    async function updateFlagAlarmDeras() {
+        var ip_address = $('#ip_address_server').val();
+        var port_ws_server = $('#port_ws_server').val();
+        var protocol_ws_server = $('#protocol_ws_server').val();
+
+        if (dataArrayAset.length !== 0) {
+            // Kumpulan semua promises
+            var promises = [];
+
+            for (const item of dataArrayAset) {
+                var single_rfid_tag = item.kode_tid;
+                var single_kode_epc = item.kode_epc;
+
+                // Masukkan operasi WebSocket ke dalam sebuah Promise
+                var promise = new Promise((resolve, reject) => {
+                    const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
+                    console.log('Connecting to WebSocket server...');
+
+                    socket.addEventListener('open', function () {
+                        var status = 2;
+                        var flag_alarm = 0;
+                        var description = 'DEMO-RFID';
+                        var category = 0;
+
+                        socket.send(JSON.stringify({
+                            event: "db-storage-update-rfid-list",
+                            value: {
+                                tid: single_rfid_tag,
+                                epc: single_kode_epc,
+                                status: status,
+                                description: description,
+                                flag_alarm: flag_alarm,
+                                category: category
+                            }
+                        }));
+                    });
+
+                    socket.addEventListener('message', function (event) {
+                        try {
+                            var parsedData = JSON.parse(event.data);
+                            console.log('Event received: ', parsedData);
+
+                            if (parsedData.event === 'response-db-storage-update-rfid-list') {
+                                if (parsedData.message === 'success') {
+                                    console.log('Flag alarm updated successfully for tag:', single_rfid_tag);
+                                    resolve(true);
+                                } else {
+                                    console.log('Failed to update flag alarm:', parsedData.message);
+                                    reject(parsedData.message);
+                                }
+                            } else if (parsedData.event === 'error') {
+                                console.log('Error received:', parsedData.message);
+                                reject(parsedData.message);
+                            }
+                        } catch (err) {
+                            console.error('Failed to parse message:', event.data);
+                            reject(err);
+                        } finally {
+                            socket.close();
+                        }
+                    });
+
+                    socket.addEventListener('close', function () {
+                        console.log('WebSocket connection closed for tag:', single_rfid_tag);
+                    });
+
+                    socket.addEventListener('error', function (error) {
+                        console.error('WebSocket error:', error);
+                        reject(error);
+                    });
+                });
+
+                promises.push(promise);
+            }
+
+            // Tunggu semua promises selesai
+            try {
+                await Promise.all(promises);
+                console.log('All WebSocket operations completed successfully.');
+                return true;
+            } catch (err) {
+                console.error('One or more WebSocket operations failed:', err);
+                return false;
+            }
+
+        } else {
+            console.log('No data in dataArrayAset.');
+            return false;
+        }
+    }
 
     function removeAllRow() {
 
@@ -104,6 +196,7 @@ console.log("xxx");
             var kode_aset = $(elem).data("kode-aset");
             var nup = $(elem).data("nup");
             var kode_tid = $(elem).data("kode-tid");
+            var kode_epc = $(elem).data("kode-epc");
 
             // Cek apakah kode_tid sudah ada di dataArrayAset
             var tidExists = dataArrayAset.some(function(item) {
@@ -117,7 +210,8 @@ console.log("xxx");
                     kode_aset: kode_aset,
                     nup: nup, 
                     nama_aset: nama_aset,
-                    kode_tid: kode_tid
+                    kode_tid: kode_tid,
+                    kode_epc: kode_epc
                 });
             }
 
@@ -223,6 +317,7 @@ console.log("xxx");
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid,
+                            kode_epc: item.kode_epc
                         });
                     }
 
@@ -441,6 +536,14 @@ console.log("xxx");
                         'class' => 'form form-horizontal'
                     ]); 
                 ?>
+
+                    <input type="hidden" id="ip_address_server" name="ip_address_server" value="<?= $pengaturan_sistem->ip_address_server; ?>">
+                    <input type="hidden" id="port_ws_server" name="port_ws_server" value="<?= $pengaturan_sistem->port_ws_server; ?>">
+                    <input type="hidden" id="flag_alarm_register_tag" name="flag_alarm_register_tag" value="<?= $pengaturan_sistem->flag_alarm_register_tag; ?>">
+                    <input type="hidden" id="deras_status_default" name="deras_status_default" value="<?= $pengaturan_sistem->deras_status_default; ?>">
+                    <input type="hidden" id="deras_description" name="deras_description" value="<?= $pengaturan_sistem->deras_description; ?>">
+                    <input type="hidden" id="deras_category_default" name="deras_category_default" value="<?= $pengaturan_sistem->deras_category_default; ?>">
+                    <input type="hidden" id="protocol_ws_server" name="protocol_ws_server" value="<?= $pengaturan_sistem->protocol_ws_server; ?>">
 
                     <input type="hidden" name="tipe_transaksi" id="tipe_transaksi" value="6">
                     <input type="hidden" name="status_transaksi" id="status_transaksi" value="1">
@@ -1238,6 +1341,53 @@ console.log("xxx");
             $('.message').fadeOut();
             $('#data_processing').html('');
 
+            // add validasi untuk update data di deras server
+
+            var ip_address = $('#ip_address_server').val();
+            var port_ws_server = $('#port_ws_server').val();
+            var protocol_ws_server = $('#protocol_ws_server').val();
+
+            if (ip_address == '') {
+                swal({
+                    title: "Error",
+                    text: "IP Address tidak boleh kosong!",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay!",
+                    closeOnConfirm: true
+                });
+                return false;
+            }
+
+            if (port_ws_server == '') {
+                swal({
+                    title: "Error",
+                    text: "Port WebSocket Server tidak boleh kosong, silahkan cek pengaturan sistem!",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay!",
+                    closeOnConfirm: true
+                });
+                return false;
+            }
+
+            if (protocol_ws_server == '') {
+                swal({
+                    title: "Error",
+                    text: "Protocol WebSocket Server tidak boleh kosong, silahkan cek pengaturan sistem!",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Okay!",
+                    closeOnConfirm: true
+                });
+                return false;
+            }
+
+            // add validasi untuk update data di deras server
+
             var total_aset_checklist = $('#total_aset_checklist').html();
 
             if (total_aset_checklist == 0) {  
@@ -1254,6 +1404,23 @@ console.log("xxx");
 
                 return false;
             
+            }
+
+            var hasil = await updateFlagAlarmDeras();
+
+            if (!hasil) {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal update flag alarm di deras server!',
+                    showCancelButton: false,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Okay!'
+                });
+
+                return false;
+
             }
 
             var form_perbaikan = $('#form_perbaikan_add');

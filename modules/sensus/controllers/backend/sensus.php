@@ -30,7 +30,7 @@ class sensus extends Admin
 	 */
 	public function index($offset = 0)
 	{
-		$this->is_allowed('registrasi_aset_list');
+		$this->is_allowed('sensus_list');
 
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');

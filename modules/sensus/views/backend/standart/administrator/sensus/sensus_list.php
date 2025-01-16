@@ -126,6 +126,7 @@
                                  <th style="text-align: center" data-field="id_area" data-sort="1" data-primary-key="0"> <?= cclang('Area') ?></th>
                                  <th style="text-align: center" data-field="id_gedung" data-sort="1" data-primary-key="0"> <?= cclang('Gedung') ?></th>
                                  <th style="text-align: center" data-field="id_ruangan" data-sort="1" data-primary-key="0"> <?= cclang('Ruangan') ?></th>
+                                 <th style="text-align: center" data-field="status_transaksi" data-sort="1" data-primary-key="0"> <?= cclang('Status Sensus') ?></th>
                                  <th style="text-align: center">Action</th>
                               </tr>
                            </thead>
@@ -144,7 +145,7 @@
    </div>
 </section>
 <script>
-   var module_name = "tb_master_transaksi"
+   var module_name = "sensus";
    var use_ajax_crud = false
 </script>
 <script src="<?= BASE_ASSET ?>js/filter.js"></script>
