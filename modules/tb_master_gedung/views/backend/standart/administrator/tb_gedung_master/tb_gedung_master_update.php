@@ -227,7 +227,7 @@
                 },
                 function(isConfirm) {
                     if (isConfirm) {
-                        window.location.href = ADMIN_BASE_URL + '/tb_master_area';
+                        window.location.href = ADMIN_BASE_URL + '/tb_master_gedung';
                     }
                 });
 
