@@ -286,7 +286,9 @@
                                     <option value=""></option>
                                     <option value="hw">hw</option>
                                     <option value="rc">rc</option>
+                                    <option value="prieds">prieds</option>
                                     <option value="other">other</option>
+
                                 </select>
                                 <small class="info help-block">
 
