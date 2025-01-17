@@ -341,7 +341,7 @@ jQuery(document).ready(domo);
                         <input type="hidden" name="ip_address_server" id="ip_address_server" value="<?php echo $pengaturan_sistem->ip_address_server ?>">
                         <input type="hidden" name="protocol_ws_server" id="protocol_ws_server" value="<?php echo $pengaturan_sistem->protocol_ws_server ?>">
                         <input type="hidden" name="port_ws_server" id="port_ws_server" value="<?php echo $pengaturan_sistem->port_ws_server ?>">
-                  </div>
+                     </div>
 
                            <?php
                            // Pastikan $tb_master_transaksi sudah di-load sebelumnya
