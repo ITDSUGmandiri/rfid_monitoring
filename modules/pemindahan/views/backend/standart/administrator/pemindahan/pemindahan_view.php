@@ -4,6 +4,106 @@ var is_wss_on = false;
 var dataArrayAset = [];
 var tidCountForPartial = {}; // Objek untuk menghitung frekuensi pembacaan TID
 
+async function updateFlagAlarm() {
+
+var ip_address = $('#ip_address_server').val();
+var port_ws_server = $('#port_ws_server').val();
+var protocol_ws_server = $('#protocol_ws_server').val();
+
+// Kumpulan semua promises
+var promises = [];
+
+$("#your_table_id tbody tr").each(function (index, tr) {
+
+   let cell_kode_tid = $(tr).find('td:eq(5)');
+   let kode_tid = cell_kode_tid.text().trim();
+   let kode_epc = $(tr).find('td:eq(6)').data('kode_epc')?.trim();
+
+   var single_rfid_tag = kode_tid;
+   var single_kode_epc = kode_epc;
+
+   console.log('Updating flag alarm for tag:', single_rfid_tag, 'with EPC:', single_kode_epc);
+
+   // Masukkan operasi WebSocket ke dalam sebuah Promise
+   var promise = new Promise((resolve, reject) => {
+
+      const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
+      console.log('Connecting to WebSocket server...');
+
+      socket.addEventListener('open', function () {
+
+         var status = 1;
+         var flag_alarm = 1;
+         var description = 'DEMO-RFID';
+         var category = 0;
+
+         socket.send(JSON.stringify({
+            event: "db-storage-update-rfid-list",
+            value: {
+               tid: single_rfid_tag,
+               epc: single_kode_epc,
+               status: status,
+               description: description,
+               flag_alarm: flag_alarm,
+               category: category
+            }
+         }));
+
+      });
+
+      socket.addEventListener('message', function (event) {
+
+         try {
+            var parsedData = JSON.parse(event.data);
+            console.log('Event received: ', parsedData);
+
+            if (parsedData.event === 'response-db-storage-update-rfid-list') {
+               if (parsedData.message === 'success') {
+                  console.log('Flag alarm updated successfully for tag:', single_rfid_tag);
+                  resolve(true);
+               } else {
+                  console.log('Failed to update flag alarm:', parsedData.message);
+                  reject(parsedData.message);
+               }
+            } else if (parsedData.event === 'error') {
+               console.log('Error received:', parsedData.message);
+               reject(parsedData.message);
+            }
+         } catch (err) {
+            console.error('Failed to parse message:', event.data);
+            reject(err);
+         } finally {
+            socket.close();
+         }
+
+      });
+
+      socket.addEventListener('close', function () {
+         console.log('WebSocket connection closed for tag:', single_rfid_tag);
+      });
+
+      socket.addEventListener('error', function (error) {
+         console.error('WebSocket error:', error);
+         reject(error);
+      });
+
+   });
+
+   promises.push(promise);
+   
+});
+
+// Tunggu semua promises selesai
+try {
+   await Promise.all(promises);
+   console.log('All WebSocket operations completed successfully.');
+   return true;
+} catch (err) {
+   console.error('One or more WebSocket operations failed:', err);
+   return false;
+}
+
+}
 
 function domo(){
    $('*').bind('keydown', 'Ctrl+e', function() {
@@ -223,6 +323,7 @@ jQuery(document).ready(domo);
                                        <th style="text-align: center">Kode Aset</th>
                                        <th style="text-align: center">Kode NUP</th>
                                        <th style="text-align: center">Kode Tag</th>
+                                       <th style="text-align: center">Kode Epc</th>
                                     </tr>   
                                     </thead>
                                        <tbody id="tbody_tb_detail_transaksi">   
@@ -237,6 +338,7 @@ jQuery(document).ready(domo);
                                              <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($tb_detail_transaksi->kode_aset); ?></span></td>
                                              <td style="text-align: center"><span class="list_group-nup"><?= _ent($tb_detail_transaksi->nup); ?></span></td>
                                              <td style="text-align: center"><span class="list_group-kode_tid"><?= _ent($tb_detail_transaksi->kode_tid); ?></span></td>
+                                             <td style="text-align: center" data-kode_epc="<?= _ent($tb_detail_transaksi->kode_epc); ?>"><span class="list_group-kode_tid"><?= _ent($tb_detail_transaksi->kode_tid); ?></span></td>
                                           </tr>
                                        <?php endforeach; ?>
 
@@ -499,8 +601,8 @@ $(document).on('click', '#btn_batal', function(e) {
 });
 
 // Menambahkan event listener untuk tombol submit di modal
-$(document).on('click', '#submit_selesai', function(e) {
-    e.preventDefault();
+$(document).on('click', '#submit_selesai', async function(e) {
+e.preventDefault();
     
     // Ambil keterangan yang diinputkan
     const keterangan = $('#keterangan_selesai').val().trim();
@@ -522,6 +624,27 @@ $(document).on('click', '#submit_selesai', function(e) {
         alert('ID transaksi tidak ditemukan!');
         return;
     }
+
+    // update data di server
+
+    var hasil = await updateFlagAlarm();
+
+    if (!hasil) {
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Gagal update flag alarm di server!',
+        showCancelButton: false,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Okay!'
+    });
+
+    return false;
+
+    }
+
+    // update data di server 
 
    const formData = new FormData();
    formData.append('keterangan_selesai', keterangan);
@@ -574,7 +697,7 @@ $(document).on('click', '#submit_selesai', function(e) {
 
 
 // Menambahkan event listener untuk tombol submit di modal
-$(document).on('click', '#submit_batal', function(e) {
+$(document).on('click', '#submit_batal', async function(e) {
     e.preventDefault();
     
     // Ambil keterangan yang diinputkan
@@ -597,6 +720,27 @@ $(document).on('click', '#submit_batal', function(e) {
         alert('ID transaksi tidak ditemukan!');
         return;
     }
+
+    // update data di server 
+
+    var hasil = await updateFlagAlarm();
+
+    if (!hasil) {
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Gagal update flag alarm di server!',
+        showCancelButton: false,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Okay!'
+    });
+
+    return false;
+
+    }
+
+    // update data di server 
 
    const formData = new FormData();
    formData.append('keterangan_batal', keterangan);
