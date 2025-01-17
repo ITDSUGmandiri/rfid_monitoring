@@ -304,8 +304,9 @@ class Model_peminjaman extends MY_Model {
     }
 
     function getDetailTransaksiById($id){
-        $this->db->select('*');
-        $this->db->from('tb_detail_transaksi');
+        $this->db->select('a.*, b.kode_epc');
+        $this->db->from('tb_detail_transaksi a');
+        $this->db->join('tb_master_tag_rfid b', 'a.id_aset = b.id_aset', 'JOIN');
         $this->db->where('id_transaksi', $id);
         return $this->db->get()->result();
     }
