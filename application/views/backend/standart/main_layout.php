@@ -280,6 +280,12 @@
     });
 
     $(document).ready(function() {
+      new DataTable('#masterdata');
+    });
+
+
+
+    $(document).ready(function() {
 
       // Setup - add a text input to each footer cell
       $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
