@@ -103,13 +103,18 @@ class Model_pemindahan extends MY_Model {
     }
 
     public function join_avaiable() {
-        $this->db->select('tb_master_type_transaksi.tipe_transaksi,tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.ruangan,tb_master_transaksi.*,tb_master_type_transaksi.tipe_transaksi as tb_master_type_transaksi_tipe_transaksi,tb_master_type_transaksi.tipe_transaksi as tipe_transaksi,tb_master_area.area as tb_master_area_area,tb_master_area.area as area,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung,tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,tb_master_ruangan.ruangan as ruangan');
+        $this->db->select('tb_master_type_transaksi.tipe_transaksi,tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.ruangan,tb_master_transaksi.*,tb_master_type_transaksi.tipe_transaksi as tb_master_type_transaksi_tipe_transaksi,tb_master_type_transaksi.tipe_transaksi as tipe_transaksi,
+        tb_master_area.area as tb_master_area_area,tb_master_area.area as area,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung,tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,tb_master_ruangan.ruangan as ruangan,
+        tb_master_area2.area as tb_master_area_area2, tb_master_gedung2.gedung as tb_master_gedung_gedung2, tb_master_ruangan2.ruangan as tb_master_ruangan_ruangan2');
         // $this->db->select('tb_detail_transaksi.id as detail_id, tb_detail_transaksi.kode_tid, tb_detail_transaksi.id_aset, tb_detail_transaksi.kode_aset, tb_detail_transaksi.nup, tb_detail_transaksi.nama_aset, tb_detail_transaksi.status, tb_detail_transaksi.id_kondisi, tb_detail_transaksi.flag_transaksi');
         // $this->db->join('tb_detail_transaksi', 'tb_detail_transaksi.id_transaksi = tb_master_transaksi.id', 'INNER');
         $this->db->join('tb_master_type_transaksi', 'tb_master_type_transaksi.id = tb_master_transaksi.tipe_transaksi', 'LEFT');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_transaksi.id_area', 'LEFT');
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_transaksi.id_gedung', 'LEFT');
         $this->db->join('tb_master_ruangan', 'tb_master_ruangan.id = tb_master_transaksi.id_ruangan', 'LEFT');
+        $this->db->join('tb_master_area as tb_master_area2', 'tb_master_area2.id = tb_master_transaksi.id_area2', 'LEFT');
+        $this->db->join('tb_master_gedung as tb_master_gedung2', 'tb_master_gedung2.id = tb_master_transaksi.id_gedung2', 'LEFT');
+        $this->db->join('tb_master_ruangan as tb_master_ruangan2', 'tb_master_ruangan2.id = tb_master_transaksi.id_ruangan2', 'LEFT');
         return $this;
     }
 
@@ -129,14 +134,14 @@ class Model_pemindahan extends MY_Model {
 
     public function get_all_aset($filter_data) {
 
-        if ($filter_data['id_area'] != '') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-        }
-        if ($filter_data['id_gedung'] != '') {
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-        }
+        // if ($filter_data['id_area'] != '') {
+        //     $this->db->where('a.id_area', $filter_data['id_area']);
+        // }
+        // if ($filter_data['id_gedung'] != '') {
+        //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+        // }
         if ($filter_data['id_ruangan'] != '') {
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         }
 
         $this->db->select('a.*');
@@ -160,23 +165,22 @@ class Model_pemindahan extends MY_Model {
     public function get_content($limit, $start, $order, $dir, $select_all, $filter_data){
 
         if ($select_all == '1') {
-            $this->db->where('a.id_area', $filter_data['id_area']);
-            $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+            // $this->db->where('a.id_area', $filter_data['id_area']);
+            // $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         } else {
             
-            if ($filter_data['id_area'] != '') {
-                $this->db->where('a.id_area', $filter_data['id_area']);
-            }
-            if ($filter_data['id_gedung'] != '') {
-                $this->db->where('a.id_gedung', $filter_data['id_gedung']);
-            }
+            // if ($filter_data['id_area'] != '') {
+            //     $this->db->where('a.id_area', $filter_data['id_area']);
+            // }
+            // if ($filter_data['id_gedung'] != '') {
+            //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            // }
             if ($filter_data['id_ruangan'] != '') {
-                $this->db->where('a.id_lokasi', $filter_data['id_ruangan']);
+                $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
             }
 
         }
-        
 
         $this->db->select('a.*, b.kode_epc');
         $this->db->from('tb_master_aset a');

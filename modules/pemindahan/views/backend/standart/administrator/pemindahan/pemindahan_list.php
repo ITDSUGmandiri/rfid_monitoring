@@ -126,7 +126,10 @@ jQuery(document).ready(domo);
                            <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th> -->
                            <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area Asal') ?></th>
                            <th style="text-align: center" data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Asal') ?></th>
-                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th>                           <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
+                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th>   
+                           <th style="text-align: center" data-field="id_area2"data-sort="1" data-primary-key="0"> <?= cclang('Area Tujuan') ?></th>
+                           <th style="text-align: center" data-field="id_gedung2"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Tujuan') ?></th>
+                           <th style="text-align: center" data-field="id_ruangan2"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Tujuan') ?></th>                           <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
                            <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Status Pemindahan') ?></th>
                            <th style="text-align: center">Action</th>                        
                         </tr>

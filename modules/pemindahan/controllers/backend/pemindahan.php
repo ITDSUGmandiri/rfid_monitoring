@@ -711,6 +711,32 @@ class pemindahan extends Admin
 		$this->response($results);
 	}
 
+	public function ajax_id_gedung2($id = null)
+	{
+		if (!$this->is_allowed('pemindahan_list', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+			]);
+			exit;
+		}
+		$results = db_get_all_data('tb_master_gedung', ['id_area2' => $id]);
+		$this->response($results);
+	}
+
+	public function ajax_id_ruangan2($id = null)
+	{
+		if (!$this->is_allowed('pemindahan_list', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+			]);
+			exit;
+		}
+		$results = db_get_all_data('tb_master_ruangan', ['id_gedung2' => $id]);
+		$this->response($results);
+	}
+
 	public function check_unique_data()
 	{
 		$uniqueData = $this->input->get('uniqueData');
