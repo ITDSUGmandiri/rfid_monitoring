@@ -176,6 +176,7 @@ class Model_pemindahan extends MY_Model {
             }
 
         }
+        
 
         $this->db->select('a.*, b.kode_epc');
         $this->db->from('tb_master_aset a');
