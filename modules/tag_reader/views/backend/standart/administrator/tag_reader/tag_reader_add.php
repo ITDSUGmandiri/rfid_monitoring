@@ -46,7 +46,7 @@
                                     ?>
 
                                     <?php foreach (db_get_all_data('tb_master_ruangan', $conditions) as $row): ?>
-                                        <option value="<?= $row->id_room ?>"><?= $row->name_room; ?></option>
+                                        <option value="<?= $row->id ?>"><?= $row->ruangan; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
