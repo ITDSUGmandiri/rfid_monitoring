@@ -23,6 +23,17 @@
          <td style="text-align: center"><?php if ($tb_master_transaksi->id_ruangan) {
             echo $tb_master_transaksi->tb_master_ruangan_ruangan;
         } ?></td>
+        <td style="text-align: center"><?php if ($tb_master_transaksi->id_area2) {
+            echo $tb_master_transaksi->tb_master_area_area2;
+        } ?></td>
+         
+         <td style="text-align: center"><?php if ($tb_master_transaksi->id_gedung2) {
+            echo $tb_master_transaksi->tb_master_gedung_gedung2;
+        } ?></td>
+         
+         <td style="text-align: center"><?php if ($tb_master_transaksi->id_ruangan2) {
+            echo $tb_master_transaksi->tb_master_ruangan_ruangan2;
+        } ?></td>
 
         <!-- Status Transaksi -->
         <td style="text-align: center">

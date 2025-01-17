@@ -509,6 +509,7 @@ class peminjaman extends Admin
 			// Update status aset menjadi 1 dan set borrow menjadi 0
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
+				'status' => 2,  // Aset sudah kembali
 				'borrow' => 1   // Aset dipinjam sudah di approve
 			]);
 		}
@@ -667,15 +668,37 @@ class peminjaman extends Admin
 
 		// Perbarui status aset terkait dengan peminjaman
 		foreach ($detail_aset as $aset) {
-			// Update status aset menjadi 1 dan set borrow menjadi 0
+			// Dapatkan status aset saat ini
+			$this->db->select('status');
+			$this->db->from('tb_master_aset');
 			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', [
-				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0 ,  // Aset tidak dipinjam lagi
-				'id_peminjam' => 0, // Id Peminjam Kosong
-				'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
-				'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
-			]);
+			$current_status = $this->db->get()->row()->status;
+
+			// Tentukan pembaruan berdasarkan status saat ini
+			if ($current_status == 4) {
+				// Jika status saat ini adalah 4, hanya update borrow menjadi 0
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'borrow' => 0,  // Aset tidak dipinjam lagi
+					'id_peminjam' => 0, // Id Peminjam Kosong
+					'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong
+					'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
+				]);
+
+				log_message('info', 'Status aset tidak diubah karena status saat ini 4. Borrow diperbarui untuk ID Aset: ' . $aset->id_aset);
+			} else {
+				// Jika status saat ini bukan 4, update status menjadi 1 dan borrow menjadi 0
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'status' => 1,  // Aset sudah kembali
+					'borrow' => 0,  // Aset tidak dipinjam lagi
+					'id_peminjam' => 0, // Id Peminjam Kosong
+					'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong
+					'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
+				]);
+
+				log_message('info', 'Status aset diperbarui menjadi 1 dan borrow diubah untuk ID Aset: ' . $aset->id_aset);
+			}
 		}
 
 		// Selesaikan transaksi
