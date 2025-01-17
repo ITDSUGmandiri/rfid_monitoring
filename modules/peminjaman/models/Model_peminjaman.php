@@ -178,8 +178,9 @@ class Model_peminjaman extends MY_Model {
 
         }
 
-        $this->db->select('a.*');
+        $this->db->select('a.*, b.kode_epc');
         $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('status = 1');
         $this->db->order_by($order, $dir);
@@ -191,8 +192,9 @@ class Model_peminjaman extends MY_Model {
     }
 
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
-        $this->db->select('a.*');
+        $this->db->select('a.*, b.kode_epc');
         $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('status = 1');
         $this->db->like('a.nama_aset', $search);
@@ -205,6 +207,7 @@ class Model_peminjaman extends MY_Model {
 
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('status = 1');
         $this->db->like('a.nama_aset', $search);

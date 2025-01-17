@@ -338,7 +338,7 @@ jQuery(document).ready(domo);
                                              <td style="text-align: center"><span class="list_group-kode_aset"><?= _ent($tb_detail_transaksi->kode_aset); ?></span></td>
                                              <td style="text-align: center"><span class="list_group-nup"><?= _ent($tb_detail_transaksi->nup); ?></span></td>
                                              <td style="text-align: center"><span class="list_group-kode_tid"><?= _ent($tb_detail_transaksi->kode_tid); ?></span></td>
-                                             <td style="text-align: center" data-kode_epc="<?= _ent($tb_detail_transaksi->kode_epc); ?>"><span class="list_group-kode_tid"><?= _ent($tb_detail_transaksi->kode_tid); ?></span></td>
+                                             <td style="text-align: center" data-kode_epc="<?= _ent($tb_detail_transaksi->kode_epc); ?>"><span class="list_group-kode_epc"><?= _ent($tb_detail_transaksi->kode_epc); ?></span></td>
                                           </tr>
                                        <?php endforeach; ?>
 
