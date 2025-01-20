@@ -373,8 +373,8 @@
                                     <th data-field="kode_tid" data-primary-key="0"> Tanggal</th>
                                     <th data-field="kode_aset" data-primary-key="0"> Waktu</th>
                                     <th data-field="nama_aset" data-primary-key="0"> Ruangan Awal</th>
-
                                     <th data-field="nama_aset" data-primary-key="0"> Ruangan Tujuan</th>
+                                    <th data-field="nama_aset" data-primary-key="0"> Tipe Transaksi</th>
                                     <th data-field="nama_aset" data-primary-key="0"> Keterangan</th>
                                 </tr>
                             </thead>
@@ -384,8 +384,8 @@
                                         <td><span class="list_group-kode_tid"><?= _ent($tb_master_aset->tglawal); ?></span></td>
                                         <td><span class="list_group-kode_aset"><?= _ent($tb_master_aset->waktuawal); ?></span></td>
                                         <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangawal); ?></span></td>
-
                                         <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangtujuan); ?></span></td>
+                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->tipe_transaksi); ?></span></td>
                                         <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ket_transaksi); ?></span></td>
 
                                     </tr>

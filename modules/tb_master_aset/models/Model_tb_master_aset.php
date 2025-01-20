@@ -106,11 +106,21 @@ class Model_tb_master_aset extends MY_Model
     public function get_aset()
     {
         $query = $this->db->query(
-            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status WHERE kode_tid != '' ORDER BY kode_tid ASC LIMIT 500 OFFSET 0"
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status ORDER BY a.kode_tid ASC LIMIT 500 OFFSET 0"
         );
 
         return $query->result();
     }
+
+    public function get_asetkategori($id_kategori)
+    {
+        $query = $this->db->query(
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status WHERE a.kategori = $id_kategori ORDER BY a.kode_tid ASC LIMIT 500 OFFSET 0"
+        );
+
+        return $query->result();
+    }
+
 
     public function get_detail_edit($id)
     {
@@ -159,7 +169,7 @@ class Model_tb_master_aset extends MY_Model
 
 
         $query = $this->db->query(
-            "SELECT a.kode_tid, a.lokasi_terakhir, a.tipe_moving,DATE(m.tgl_input) as tglawal, DATE_FORMAT(m.tgl_input,'%H:%i:%s') as waktuawal,r.ruangan as ruangtujuan, x.ruangan as ruangawal,m.id_ruangan, m.ket_transaksi FROM tb_master_aset a JOIN tb_detail_transaksi d ON d.kode_tid = a.kode_tid JOIN tb_master_transaksi m ON m.id = d.id_transaksi JOIN tb_master_ruangan r ON r.id = m.id_ruangan JOIN tb_master_ruangan x ON x.id = a.lokasi_terakhir WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
+            "SELECT a.kode_tid, a.tipe_moving,DATE(m.tgl_input) as tglawal, DATE_FORMAT(m.tgl_input,'%H:%i:%s') as waktuawal,r.ruangan as ruangtujuan, x.ruangan as ruangawal,m.id_ruangan, m.ket_transaksi, mt.tipe_transaksi FROM tb_master_aset a JOIN tb_detail_transaksi d ON d.kode_tid = a.kode_tid JOIN tb_master_transaksi m ON m.id = d.id_transaksi JOIN tb_master_ruangan r ON r.id = m.id_ruangan JOIN tb_master_ruangan x ON x.id = a.lokasi_terakhir JOIN tb_master_type_transaksi mt ON mt.id = m.tipe_transaksi WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
         );
 
         return $query->result();
