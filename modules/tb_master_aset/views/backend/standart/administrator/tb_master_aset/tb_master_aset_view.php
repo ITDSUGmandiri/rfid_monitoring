@@ -265,7 +265,7 @@
                             <?php } else { ?>
                                 <img id="myImg" src="https://media.istockphoto.com/id/1138179183/id/vektor/tidak-ada-tanda-gambar-yang-tersedia.jpg?s=170667a&w=0&k=20&c=tKN6Y_eDwEKdopmJIIYyX-Slv4mH8zoW_Qm7pXv2DQw=" class="product-image">
 
-                            <? } ?>
+                            <?php } ?>
                         </div>
                         <!-- <div class="col-12 product-image-thumbs">
                         <div class="product-image-thumb active"><img src="<?= base_url('asset'); ?>/image/lukisan01.jpeg" alt="Product Image"></div>
