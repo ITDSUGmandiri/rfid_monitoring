@@ -135,7 +135,11 @@ class Model_tb_master_aset extends MY_Model
     {
         // JOIN tb_master_pegawai p ON p.id = a.id_pegawai
         $query = $this->db->query(
-            "SELECT a.*, s.ket_status, s.id, k.ket_kategori, r.ruangan FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status JOIN tb_master_ruangan r ON r.id = a.id_lokasi JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
+            "SELECT a.*, s.ket_status, s.id, k.ket_kategori, r.ruangan as ruangasal, rr.ruangan as ruangaktual FROM tb_master_aset a 
+JOIN tb_master_status s ON s.id = a.status 
+JOIN tb_master_ruangan r ON  r.id = a.id_lokasi
+JOIN tb_master_ruangan rr ON  rr.id = a.lokasi_moving 
+JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
         );
 
         return $query->result();

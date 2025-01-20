@@ -255,13 +255,17 @@
                     <div class="col-12 col-sm-5">
                         <h3 class="d-inline-block d-sm-none"><?= $value->nama_aset; ?> <?= $value->merk; ?> <?= $value->tipe; ?></h3>
                         <div class="col-12">
-                            <?php if ($value->nama_aset === 1) { ?>
-                                <img id="myImg" src="<?= base_url('uploads'); ?>/Seni/<?= $value->image_uri ?>" class="product-image" alt="Product Image">
+                            <?php if ($value->kategori == '1' && $value->image_uri != '') { ?>
+                                <img id="myImg" src="<?= base_url('uploads'); ?>/Seni/<?= $value->image_uri ?>" class="product-image">
+
+                            <?php } else if ($value->kategori == '2' && $value->image_uri != '') { ?>
+
+                                <img id="myImg" src="<?= base_url('uploads'); ?>/Elektronik/<?= $value->image_uri ?>" class="product-image">
 
                             <?php } else { ?>
-                                <img id="myImg" src="<?= base_url('uploads'); ?>/Elektronik/<?= $value->image_uri ?>" class="product-image" alt="Product Image">
+                                <img id="myImg" src="https://media.istockphoto.com/id/1138179183/id/vektor/tidak-ada-tanda-gambar-yang-tersedia.jpg?s=170667a&w=0&k=20&c=tKN6Y_eDwEKdopmJIIYyX-Slv4mH8zoW_Qm7pXv2DQw=" class="product-image">
 
-                            <?php } ?>
+                            <? } ?>
                         </div>
                         <!-- <div class="col-12 product-image-thumbs">
                         <div class="product-image-thumb active"><img src="<?= base_url('asset'); ?>/image/lukisan01.jpeg" alt="Product Image"></div>
@@ -305,8 +309,12 @@
 
                                     </tr>
                                     <tr>
-                                        <th>Lokasi Aset:</th>
-                                        <td><?= $value->ruangan; ?></td>
+                                        <th>Lokasi Asal:</th>
+                                        <td><?= $value->ruangasal; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lokasi Saat Ini:</th>
+                                        <td><?= $value->ruangaktual; ?></td>
                                     </tr>
                                     <tr>
                                         <th>Penanggung Jawab:</th>
