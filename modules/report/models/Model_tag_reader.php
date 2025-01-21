@@ -121,6 +121,37 @@ class Model_tag_reader extends MY_Model
 
         return $this;
     }
+
+    public function getDataLaporan($r, $tglawal, $tglakhir)
+    {
+
+        $query = $this->db->query(
+            $r === '99' ?
+                "SELECT a.nama_aset, a.nup, a.kode_aset,a.kode_tid,x.kategori,  a.merk, a.tipe,a.nilai_perolehan, DATE(a.tgl_perolehan) AS tglperolehan,DATE(a.tgl_inventarisasi) AS tglsensus, s.status, r.ruangan, k.kondisi FROM tb_master_aset a 
+JOIN tb_master_status s ON s.id = a.status
+JOIN tb_master_ruangan r ON r.id = a.lokasi_terakhir
+JOIN tb_master_kondisi k ON k.id = a.kondisi 
+JOIN tb_master_kategori x ON x.id = a.kategori 
+WHERE DATE(a.tgl_inventarisasi) BETWEEN '$tglawal' AND '$tglakhir'" : "SELECT a.nama_aset, a.nup, a.kode_aset,a.kode_tid,x.kategori,  a.merk, a.tipe,a.nilai_perolehan, DATE(a.tgl_perolehan) AS tglperolehan,DATE(a.tgl_inventarisasi) AS tglsensus, s.status, r.ruangan, k.kondisi FROM tb_master_aset a 
+JOIN tb_master_status s ON s.id = a.status
+JOIN tb_master_ruangan r ON r.id = a.lokasi_terakhir
+JOIN tb_master_kondisi k ON k.id = a.kondisi 
+JOIN tb_master_kategori x ON x.id = a.kategori 
+WHERE a.lokasi_terakhir = $r AND DATE(a.tgl_inventarisasi) BETWEEN '$tglawal' AND '$tglakhir'"
+
+        );
+
+        return $query->result();
+    }
+
+    public function get_detail_area($id)
+    {
+        $query = $this->db->query(
+            "SELECT r.ruangan,s.area, s.ket_area, g.gedung, g.ket_gedung FROM tb_master_ruangan r JOIN tb_master_area s ON s.id = r.id_area JOIN tb_master_gedung g ON g.id = r.id_gedung WHERE r.id = $id"
+        );
+
+        return $query->result();
+    }
 }
 
 /* End of file Model_tag_reader.php */

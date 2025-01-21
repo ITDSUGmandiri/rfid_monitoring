@@ -1,9 +1,30 @@
  <style>
     .bagianprint {
        overflow: scroll;
-       margin-top: 50px;
        border-style: inset;
        padding: 50px;
+       height: 750px;
+    }
+
+    .text-align-container {
+       text-align: center;
+       font-weight: bold;
+       text-decoration: underline;
+       /* Atur teks di tengah */
+    }
+
+    .label-container {
+       display: flex;
+       flex-direction: column;
+       /* Susun ke bawah */
+       font-weight: 200;
+       gap: 1px;
+       /* Jarak antar teks */
+    }
+
+    .text-align-container h3 {
+       display: inline;
+       /* Jadikan elemen dalam satu baris */
     }
 
     table {
@@ -12,8 +33,16 @@
        width: 100%;
     }
 
-    td,
+    td {
+       font-size: 14px;
+       border: 1px solid #dddddd;
+       text-align: center;
+       padding: 8px;
+
+    }
+
     th {
+       font-size: 16px;
        border: 1px solid #dddddd;
        text-align: center;
        padding: 8px;
@@ -35,7 +64,27 @@
     .createPDF {
        font-size: 14px;
     }
+
+    .loading {
+       display: none;
+       /* Tersembunyi secara default */
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: rgba(221, 215, 215, 0.7);
+       z-index: 10;
+       text-align: center;
+       line-height: 100px;
+       /* Sesuaikan dengan tinggi kontainer */
+       font-size: 20px;
+       color: #333;
+    }
  </style>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
  <section class="content-header">
     <h1>
        Data Laporan<small><?= cclang('list_all'); ?></small>
@@ -73,11 +122,10 @@
                       <h5 class="widget-user-desc"><?= cclang('list_all', 'Pergerakan Data Aset'); ?></h5>
                    </div>
 
-                   <form name="form_tag_reader" id="form_tag_reader" action="report/ambildata">
-                      <!-- /.widget-user -->
-                      <div class="row">
-                         <div class="col-md-8">
-                            <!-- <div class="col-sm-2 padd-left-0 ">
+                   <!-- /.widget-user -->
+                   <div class="row">
+                      <div class="col-md-8">
+                         <!-- <div class="col-sm-2 padd-left-0 ">
                               <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email">
                                  <option value="delete">Delete</option>
                               </select>
@@ -86,244 +134,316 @@
                               <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
                            </div> -->
 
-                            <div class="col-sm-3 padd-left-0 ">
-                               <select type="text" class="form-control chosen chosen-select" name="jenlap" id="field">
-                                  <option value="0">--Pilih Laporan--</option>
-                                  <option value="1">Laporan Sensus</option>
-                                  <option value="2">Laporan Perbaikan</option>
+                         <div class="col-sm-3 padd-left-0 ">
+                            <select type="text" class="form-control chosen chosen-select" name="jenlap" id="jenlap" required>
+                               <option value="">--Pilih Laporan--</option>
+                               <option value="1">Laporan Sensus</option>
+                               <!-- <option value="2">Laporan Perbaikan</option>
                                   <option value="3">Laporan Peminjaman</option>
-                               </select>
-                            </div>
-                            <div class="col-sm-3 padd-left-0 ">
-                               <select class="form-control chosen chosen-select-deselect" name="area_id" id="area_id" data-placeholder="Select Area">
-                                  <option value="0">Pilih Ruangan</option>
-                                  <?php
-                                    $conditions = [];
-                                    ?>
+                                  <option value="4">Laporan Transaksi</option> -->
 
-                                  <?php foreach (db_get_all_data('tb_master_ruangan', $conditions) as $row): ?>
-                                     <option value="<?= $row->id ?>"><?= $row->ruangan; ?></option>
-                                  <?php endforeach; ?>
-                               </select>
-                            </div>
-                            <div class="col-sm-2 padd-left-0 ">
-                               <input type="text" name="detreng" class="form-control" placeholder="Pilih Rentang Tanggal">
-                            </div>
-                            <div class="col-sm-2 padd-left-0 ">
-                               <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
-                                  Load Data
-                               </button>
-                            </div>
-                            <div class="col-sm-1 padd-left-0 ">
-                               <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/ambildata'); ?>" title="<?= cclang('reset_filter'); ?>">
-                                  <i class="fa fa-undo"></i>
-                               </a>
-                            </div>
-                            <div class="col-sm-1 padd-left-0  ">
-                               <button class="btn btn-danger" class="html2PdfConverter" onclick="createPDF()">Download PDF </button>
-                            </div>
+                            </select>
                          </div>
-                         <div class="col-md-4">
-                            <div class="dataTables_paginate paging_simple_numbers pull-right" id="example2_paginate">
-                               <div class="table-pagination"><?= $pagination; ?></div>
-                            </div>
+                         <div class="col-sm-3 padd-left-0 ">
+                            <select class="form-control chosen chosen-select-deselect" name="room_id" id="ruangan" data-placeholder="Select Area" required>
+                               <option value="">Pilih Ruangan</option>
+                               <option value="99">Semua Ruangan</option>
+
+                               <?php
+                                 $conditions = [];
+                                 ?>
+
+                               <?php foreach (db_get_all_data('tb_master_ruangan', $conditions) as $row): ?>
+                                  <option value="<?= $row->id ?>"><?= $row->ruangan; ?></option>
+                               <?php endforeach; ?>
+                            </select>
+                         </div>
+                         <div class="col-sm-2 padd-left-0 ">
+                            <input type="text" id="daterange" name="detreng" class="form-control" placeholder="Pilih Rentang Tanggal">
+                         </div>
+                         <div class="col-sm-2 padd-left-0 ">
+                            <button type="submit" class="btn btn-flat" name="submit" id="btnload" value="Apply" title="<?= cclang('filter_search'); ?>">
+                               Load Data
+                            </button>
+                         </div>
+                         <!-- <div class="col-sm-1 padd-left-0 ">
+                            <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/ambildata'); ?>" title="<?= cclang('reset_filter'); ?>">
+                               <i class="fa fa-undo"></i>
+                            </a>
+                         </div> -->
+
+                         <div class="col-sm-1 padd-left-0  ">
+                            <button class="btn btn-danger" class="html2PdfConverter" onclick="createPDF()">Download PDF </button>
                          </div>
                       </div>
-                      <div class="table-responsive">
-                         <div class="bagianprint" id="element-to-print">
+                      <div class="col-md-4">
+                         <div class="dataTables_paginate paging_simple_numbers pull-right" id="example2_paginate">
+                            <div class="table-pagination"><?= $pagination; ?></div>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="table-responsive" style="margin-top: 50px;">
+                      <i>*ini adalah area review laporan</i>
 
+                      <div class="bagianprint" id="element-to-print">
+                         <div class="loading">Sedang memuat data...</div> <!-- Overlay loading -->
 
-                            <!-- Sample Table -->
-                            <form class="form">
+                         <!-- Sample Table -->
+                         <form class="form">
 
-                               <h2><img src="<?= base_url('asset/img/icon/sekneglogodb.png') ?>" width="20%" /></h2>
-                               <h3><strong>Laporan Aset</strong></h3>
-                               <p>Area&emsp;&emsp;&emsp;&emsp;:</br>
-                                  Kategori&emsp;&emsp;&nbsp;&nbsp;:</br>
-                                  Satuan Kerja&ensp;:</br>Periode&emsp;&emsp;&ensp;&nbsp;:</h5>
-
-
-                               <table>
-                                  <tbody>
-                                     <tr>
-                                        <th colspan="4">Nomor</th>
-                                        <th colspan="3">Spesifikasi Barang</th>
-                                        <th rowspan="2">Tgl Perolehan</th>
-                                        <th rowspan="2">Tgl Inventarisasi</th>
-                                        <th rowspan="2">Lokasi Asal</th>
-                                        <th rowspan="2">Kondisi</th>
-                                        <th rowspan="2">Status</th>
-                                        <th colspan="2">Jumlah</th>
-                                        <th rowspan="2">Keterangan</th>
-
-                                     </tr>
-                                     <tr>
-                                        <th>No.</th>
-                                        <th>Kode Aset.</th>
-                                        <th>NUP.</th>
-                                        <th>Kode RFID.</th>
-                                        <th>Nama Aset</th>
-                                        <th>Merk/Type</th>
-                                        <th>Kategori</th>
-                                        <th>Aset</th>
-                                        <th>Harga</th>
-
-
-                                     </tr>
-                                     <tr>
-                                        <td>6</td>
-                                        <td>Giovanni Rovelli</td>
-                                        <td>Italy</td>
-                                     </tr>
-                                  </tbody>
-                               </table>
-
-                            </form>
-                            <!-- Sample Progressbar -->
-                            <div>
-                               <div class="progress">
-                                  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                     <span class="sr-only">70% Complete</span>
-                                  </div>
-                               </div>
-
-
-                               <p>Dicetak&emsp;&emsp;: <?= date('Y-m-d H:i:s'); ?></br>
-                                  PIC&emsp;&emsp;&emsp;&nbsp;&nbsp;: <?= $this->session->userdata('full_name') ?></br>
-                               </p>
-
+                            <h2><img src="<?= base_url('asset/img/icon/sekneglogodb.png') ?>" width="20%" /></h2>
+                            <hr />
+                            <div class="text-align-container">
+                               <h3 style="display: inline; font-weight:bold" id="judullaporan"><strong>
+                                     *Judul Laporan*
+                                  </strong></h3>
+                               <h3 style="display: inline; font-weight:bold" id="tahun"><strong></strong></h3>
                             </div>
-                            <br><br>
-                            <table>
-                               <tr>
-                                  <td style="width: 50%;">
-                                     <p>Mengetahui,</br>Kepala Bagian Bidang...<br><br><br><br><br><strong style=" text-decoration: underline; ">Nama Perorangan</strong><br>NIP:0000000001</p>
-                                  </td>
+                            <div class="label-container" style="margin-top: 30px;">
+                               <label style="font-size: 16px;">Satuan Kerja&ensp;:&nbsp;<span>Sekretariat Negara</span>
+                               </label>
+                               <label style="font-size: 16px;">Periode&emsp;&emsp;&ensp;&nbsp;:&nbsp;<span id="periode"></span>
+                               </label>
+                               <!-- <label style="font-size: 16px;">Kategori&emsp;&emsp;&nbsp;&nbsp;:&nbsp;<span><i>*kategori aset</i></span>
+                               </label> -->
+                               <label style="font-size: 16px;">Area&emsp;&emsp;&emsp;&emsp;&nbsp;:&nbsp;
 
-                                  <td style="width: 50%;">
-                                     <p>Penanggung Jawab Aset<br><br><br><br><br><br><strong style=" text-decoration: underline; ">Nama Perorangan</strong><br>NIP:0000000001</p>
-                                  </td>
-                               </tr>
+                                  <span id="area">
+
+
+                                  </span>
+
+                               </label>
+                               <label style="font-size: 16px;">Ruangan&emsp;&emsp;&nbsp;:&nbsp;
+                                  <span id="ruangans">
+
+                                  </span>
+
+                               </label>
+                            </div>
+
+
+                            <table id="bl">
+                               <thead>
+                                  <tr>
+                                     <th colspan="4">Nomor</th>
+                                     <th colspan="3">Spesifikasi Barang</th>
+                                     <th rowspan="2">Tgl Perolehan</th>
+                                     <th rowspan="2">Tgl Inventarisasi</th>
+                                     <th rowspan="2">Lokasi Asal</th>
+                                     <th rowspan="2">Kondisi</th>
+                                     <th rowspan="2">Status</th>
+                                     <th rowspan="2">Nilai Aset</th>
+                                     <th rowspan="2">Keterangan</th>
+
+                                  </tr>
+                                  <tr>
+                                     <th>No.</th>
+                                     <th>Kode Aset.</th>
+                                     <th>NUP.</th>
+                                     <th>Kode RFID.</th>
+                                     <th>Nama Aset</th>
+                                     <th>Merk/Type</th>
+                                     <th>Kategori</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                               </tbody>
                             </table>
+
+                         </form>
+                         <!-- Sample Progressbar -->
+                         <div>
+                            <div class="progress">
+
+                            </div>
+
+
+                            <p style="font-size: 16px;">Dicetak&emsp;&emsp;: <?= date('d-m-Y H:i:s'); ?></br>
+                               Admin&emsp;&emsp;&nbsp;&nbsp;: <?= $this->session->userdata('username'); ?></br>
+                            </p>
+
                          </div>
+                         <br><br>
+                         <table>
+                            <tr>
+                               <td style="width: 50%;">
+                                  <p>Mengetahui,</br>Kepala Bagian Bidang...<br><br><br><br><br><strong style=" text-decoration: underline; ">Nama Perorangan</strong><br>NIP:0000000001</p>
+                               </td>
+
+                               <td style="width: 50%;">
+                                  <p>Penanggung Jawab Aset<br><br><br><br><br><br><strong style=" text-decoration: underline; ">Nama Perorangan</strong><br>NIP:0000000001</p>
+                               </td>
+                            </tr>
+                         </table>
                       </div>
+                   </div>
                 </div>
                 <hr>
 
              </div>
-             </form>
           </div>
        </div>
     </div>
  </section>
+ <script>
+    function createPDF() {
+       const {
+          jsPDF
+       } = window.jspdf;
+
+       // Ambil elemen HTML berdasarkan ID
+       const content = document.getElementById('element-to-print');
+
+
+       // Konversi elemen HTML menjadi gambar menggunakan html2canvas
+       html2canvas(content).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF();
+
+          // Tentukan dimensi gambar dalam PDF
+          const imgWidth = 190; // Lebar gambar dalam mm
+          const pageHeight = pdf.internal.pageSize.height; // Tinggi halaman PDF dalam mm
+          const imgHeight = (canvas.height * imgWidth) / canvas.width; // Skala tinggi berdasarkan lebar
+
+          let position = 10; // Posisi awal Y dalam PDF
+
+          // Jika gambar lebih tinggi dari halaman PDF, tambahkan halaman baru
+          pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+
+          // Simpan PDF
+          pdf.save('laporan_aset' + $("#jenlap").val() + $("#daterange").val() + '.pdf');
+       });
+    }
+ </script>
 
  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+
  <script>
-    $('input[name="detreng"]').daterangepicker();
-    $(document).ready(function() {
+    function formatTanggal(tanggal) {
+       const [year, month, day] = tanggal.split('-');
+       return `${day}/${month}/${year}`;
+    }
 
-       "use strict";
+    $("#btnload").click(function(e) {
+
+       var ruangan = document.getElementById('ruangan');
+       var laporan = document.getElementById('jenlap');
+
+       if (ruangan.value === '' || laporan.value === '') { //validasi pilihan ruangan dan jenis laporan
+          alert('Harap pilih salah satu opsi ruangan dan jenis laporan!');
+          e.preventDefault(); // Mencegah pengiriman formulir
+       } else {
+          e.preventDefault();
+          const selectedID = $("#jenlap").val(); // Ambil nilai ID yang dipilih
+          const selectedRoom = $("#ruangan").val(); // Ambil nilai ID yang dipilih
+
+          let daterangeValue = $("#daterange").val();
+
+          var $contentDiv = $('#element-to-print'); // Target area
+          var $loading = $contentDiv.find('.loading'); // Elemen loading
+
+          // Tampilkan loading
+          $loading.show();
+
+          // Pisahkan tanggal awal dan akhir
+          let [startDatex, endDatex] = daterangeValue.split("-");
+          let startYear = moment(startDatex, "MM/DD/YYYY").year();
+          let endYear = moment(endDatex, "MM/DD/YYYY").year();
 
 
 
-       if (use_ajax_crud == false) {
+          const final = startYear === endYear ? startYear : startYear + "-" + endYear;
+          $('#tahun').text(`Tahun ${final}`);
+          $('#periode').text(`${endDatex}`);
 
-          $(document).on('click', 'a.remove-data', function() {
 
-             var url = $(this).attr('data-href');
+          if (selectedID == 1) {
+             $('#judullaporan').text("Laporan Inventarisasi Aset (Sensus)");
+          } else {
+             // Jika tidak ada ID yang dipilih, tampilkan pesan default
+             $('#judullaporan').text("Laporan Aset");
+          }
+          const bodylaporan = $("#bl tbody");
+          let no = 1; // Mulai dari nomor 1
 
-             swal({
-                   title: "<?= cclang('are_you_sure'); ?>",
-                   text: "<?= cclang('data_to_be_deleted_can_not_be_restored'); ?>",
-                   type: "warning",
-                   showCancelButton: true,
-                   confirmButtonColor: "#DD6B55",
-                   confirmButtonText: "<?= cclang('yes_delete_it'); ?>",
-                   cancelButtonText: "<?= cclang('no_cancel_plx'); ?>",
-                   closeOnConfirm: true,
-                   closeOnCancel: true
-                },
-                function(isConfirm) {
-                   if (isConfirm) {
-                      document.location.href = url;
-                   }
-                });
 
-             return false;
+          $.ajax({
+             url: ADMIN_BASE_URL + '/report/ambildata', // Ganti dengan URL controller Anda
+             type: 'POST',
+             dataType: 'json', // Minta respons dalam format JSON
+             data: {
+                jenlap: selectedID,
+                room_id: selectedRoom,
+                detreng: $("#daterange").val()
+             }, // Kirim data ke controller
+             success: function(response) {
+                $loading.hide();
+
+                if (response.area.length === 0) {
+                   $('#area').text("Semua Area");
+                   $('#ruangans').text("Semua Ruangan");
+                } else {
+                   response.area.forEach((item, index) => {
+                      $('#area').text(item.area + '/' + item.gedung);
+                      $('#ruangans').text(item.ruangan);
+                   });
+                }
+
+                if (Array.isArray(response.list_aset)) {
+                   // Hanya akses .length jika data adalah array
+                   bodylaporan.empty();
+                   console.log("ko", response.list_aset)
+                   // Loop melalui data dan tambahkan baris ke tabel
+                   response.list_aset.forEach((item, index) => {
+                      const row = `
+            <tr>
+             <td>${no}</td>
+                <td>${item.kode_aset}</td>
+                <td>${item.nup}</td>
+                <td>${item.kode_tid}</td>
+               <td>${item.nama_aset}</td>
+               <td>${item.merk}/${item.tipe}</td>
+               <td>${item.kategori}</td>
+               <td>${formatTanggal(item.tglperolehan)}</td>
+               <td>${formatTanggal(item.tglsensus)}</td>
+               <td>${item.ruangan}</td>
+               <td>${item.kondisi}</td>
+               <td>${item.status}</td>
+               <td>${item.nilai_perolehan}</td>
+                                        <td></td>
+
+            </tr>
+        `;
+                      bodylaporan.append(row);
+                      no++;
+                   });
+
+                } else if (typeof data === 'object') {
+                   // Jika data adalah objek
+                   console.log('Data received is an object:', data);
+                   // Lakukan sesuatu dengan objek
+                } else {
+                   console.error('Data format is not correct!');
+                }
+
+
+
+                // Bisa lakukan sesuatu dengan response, misalnya tampilkan pesan atau perbarui elemen lain
+             },
+             error: function(xhr, status, error) {
+                $loading.hide();
+                console.log("Error: " + error);
+             }
           });
        }
 
+    });
 
-
-       $(document).on('click', '#apply', function() {
-
-          var bulk = $('#bulk');
-          var serialize_bulk = $('#form_tag_reader').serialize();
-
-          if (bulk.val() == 'delete') {
-             swal({
-                   title: "<?= cclang('are_you_sure'); ?>",
-                   text: "<?= cclang('data_to_be_deleted_can_not_be_restored'); ?>",
-                   type: "warning",
-                   showCancelButton: true,
-                   confirmButtonColor: "#DD6B55",
-                   confirmButtonText: "<?= cclang('yes_delete_it'); ?>",
-                   cancelButtonText: "<?= cclang('no_cancel_plx'); ?>",
-                   closeOnConfirm: true,
-                   closeOnCancel: true
-                },
-                function(isConfirm) {
-                   if (isConfirm) {
-                      document.location.href = ADMIN_BASE_URL + '/tag_reader/delete?' + serialize_bulk;
-                   }
-                });
-
-             return false;
-
-          } else if (bulk.val() == '') {
-             swal({
-                title: "Upss",
-                text: "<?= cclang('please_choose_bulk_action_first'); ?>",
-                type: "warning",
-                showCancelButton: false,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Okay!",
-                closeOnConfirm: true,
-                closeOnCancel: true
-             });
-
-             return false;
-          }
-
-          return false;
-
-       }); /*end appliy click*/
-
-
-       //check all
-       var checkAll = $('#check_all');
-       var checkboxes = $('input.check');
-
-       checkAll.on('ifChecked ifUnchecked', function(event) {
-          if (event.type == 'ifChecked') {
-             checkboxes.iCheck('check');
-          } else {
-             checkboxes.iCheck('uncheck');
-          }
-       });
-
-       checkboxes.on('ifChanged', function(event) {
-          if (checkboxes.filter(':checked').length == checkboxes.length) {
-             checkAll.prop('checked', 'checked');
-          } else {
-             checkAll.removeProp('checked');
-          }
-          checkAll.iCheck('update');
-       });
-       initSortableAjax('tag_reader', $('table.dataTable'));
-    }); /*end doc ready*/
+    //untuk load libary calendar
+    $('input[name="detreng"]').daterangepicker();
  </script>
