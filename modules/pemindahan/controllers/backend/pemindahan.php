@@ -68,8 +68,10 @@ class pemindahan extends Admin
 	{
 		$this->is_allowed('pemindahan_add');
 
+		$this->data['selectpemindahan'] = $this->model_pemindahan->getSubTran();
 		$this->data['pengaturan_sistem'] = $this->model_pemindahan->getPengaturanSistem();
-		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+		$this->data['tb_master_asets'] = $this->model_pemindahan->get_aset();
+
 
 		$this->template->title('Pemindahan Aset');
 		$this->render('backend/standart/administrator/pemindahan/pemindahan_add', $this->data);
@@ -84,7 +86,10 @@ class pemindahan extends Admin
             2 => 'nama_aset',
             3 => 'kode_aset',
             4 => 'nup',
-			5 => 'kode_tid'
+			5 => 'kode_tid',
+			6 => 'posisi_awal',
+			7 => 'posisi_saatini',
+			8 => 'kode_epc'
         );
 
         $limit = $this->input->post('length');
@@ -118,7 +123,7 @@ class pemindahan extends Admin
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'" data-kode-epc="'.$row->kode_epc.'">';
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'" data-kode-epc="'.$row->kode_epc.'"data-posisi-awal="'.$row->posisi_awal.'"data-posisi-saatini="'.$row->posisi_saatini.'">';
 				$nestedData['auto_number'] = $autoNumber;
 				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
@@ -126,6 +131,9 @@ class pemindahan extends Admin
                 $nestedData['kode_aset'] = $row->kode_aset;
                 $nestedData['nup'] = $row->nup;
                 $nestedData['kode_tid'] = $row->kode_tid;
+                $nestedData['posisi_awal'] = $row->posisi_awal;
+                $nestedData['posisi_saatini'] = $row->posisi_saatini;
+                $nestedData['kode_epc'] = $row->kode_epc;
                 $data[] = $nestedData;
             }
         }
@@ -158,6 +166,7 @@ class pemindahan extends Admin
 		}
 
 		$this->form_validation->set_rules('tipe_transaksi', 'Tipe Transaksi', 'trim|required');
+		$this->form_validation->set_rules('id_sub_transaksi', 'Sub Transaksi', 'trim|required');
 		$this->form_validation->set_rules('status_transaksi', 'Status Transaksi', 'trim|required');
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
@@ -174,6 +183,7 @@ class pemindahan extends Admin
 			$save_data_master_transaksi = [
 				'kode_transaksi' => $this->input->post('kode_transaksi'),
 				'tipe_transaksi' => $this->input->post('tipe_transaksi'),
+				'id_sub_transaksi' => $this->input->post('id_sub_transaksi'),
 				'status_transaksi' => $this->input->post('status_transaksi'),
 				'tgl_input' => date('Y-m-d H:i:s'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
