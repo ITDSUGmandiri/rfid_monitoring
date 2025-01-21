@@ -196,6 +196,7 @@
             var kode_aset = $(elem).data("kode-aset");
             var nup = $(elem).data("nup");
             var kode_tid = $(elem).data("kode-tid");
+            var kode_epc = $(elem).data("kode-epc");
 
             // Cek apakah kode_tid sudah ada di dataArrayAset
             var tidExists = dataArrayAset.some(function(item) {
@@ -209,15 +210,15 @@
                     kode_aset: kode_aset,
                     nup: nup, 
                     nama_aset: nama_aset,
-                    kode_tid: kode_tid
+                    kode_tid: kode_tid,
+                    kode_epc: kode_epc
                 });
             }
 
             string_id = string_id + "~" + id;
 
             let rows = $("#your_table_id tbody tr");
-            const found = $(`#your_table_id tbody tr td[id='asset_tid_${kode_tid}']`).length > 0;
-            // let found = false;
+            let found = false;
 
             for (let j = 0; j < rows.length; j++) {
                 // Cari kolom dengan id yang sama dengan tid
@@ -264,7 +265,7 @@
         if (string_id == "") {
                 swal({
                     title: "Perhatian !",
-                    text: "Pilih / Ceklis dulu data yang ingin dipindahkan !!",
+                    text: "Pilih / Ceklis dulu data yang ingin diperbaiki !!",
                     type: "warning"
                 });
             return false;
@@ -283,10 +284,10 @@
     async function getAllAset() {
         
         // dataArrayAset = [];
-        var string_id = "";
-        var no = 1;
-        var count = 0;
         var rowCount = $('#your_table_id tbody tr').length;
+        var no = rowCount + 1;
+        var count = 0;
+        var string_id = "";
 
         try {
             const response = await $.ajax({
@@ -303,9 +304,10 @@
             if (response.success) {
 
                 for (const item of response.data) {
+                    count++;
 
                     // Cek apakah kode_tid sudah ada dalam array
-                    const tidExists = dataArrayAset.some(data => data.kode_tid === item.kode_tid);
+                    let tidExists = dataArrayAset.some(data => data.kode_tid === item.kode_tid);
                     
                     if (!tidExists) {
                         // Menambahkan data ke array jika kode_tid belum ada
@@ -315,19 +317,14 @@
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid,
+                            kode_epc: item.kode_epc
                         });
                     }
 
-                    string_id += `~${item.id_aset}`;
+                    string_id = string_id + "~" + item.id_aset;
 
-                    // Periksa apakah data sudah ada di tabel
                     let rows = $("#your_table_id tbody tr");
-                    const found = $(`#your_table_id tbody tr td[id='asset_tid_${item.kode_tid}']`).length > 0;
-
-                    // string_id = string_id + "~" + item.id_aset;
-
-                    // let rows = $("#your_table_id tbody tr");
-                    // let found = false;
+                    let found = false;
 
                     for (let j = 0; j < rows.length; j++) {
                         // Cari kolom dengan id yang sama dengan tid
@@ -342,7 +339,6 @@
                     }
 
                     if (!found) {
-                        count++;
                         // tampilkan data di table hasil pencarian
                         await new Promise(resolve => {
                             $('#your_table_id tbody').append(`
@@ -364,9 +360,9 @@
                     }
 
                 }
-                const totalRows = rowCount + count; // Total baris setelah penambahan
-                $('#total_rfid_tag').html(totalRows);
-                $('#total_aset_checklist').html(totalRows);
+
+                $('#total_rfid_tag').html(count+rowCount);
+                $('#total_aset_checklist').html(count+rowCount);
                 $('#string_id').val(string_id);
                 $('#data_array_aset').val(JSON.stringify(dataArrayAset));
 
