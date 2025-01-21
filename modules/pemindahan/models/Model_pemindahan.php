@@ -269,9 +269,9 @@ class Model_pemindahan extends MY_Model {
                     $master_aset = $query->row_array(); // Ambil hasil sebagai array
             
                     // Jika data ditemukan di tb_master_aset, ambil nilai id_area, id_gedung, dan id_ruangan
-                    $id_area = isset($master_aset['a.id_area']) ? $master_aset['a.id_area'] : $data['id_area']; // fallback ke nilai default jika tidak ada
-                    $id_gedung = isset($master_aset['a.id_gedung']) ? $master_aset['a.id_gedung'] : $data['id_gedung'];
-                    $id_ruangan = isset($master_aset['a.id_lokasi']) ? $master_aset['a.id_lokasi'] : $data['id_lokasi'];
+                    $id_area = isset($master_aset['id_area']) ? $master_aset['id_area'] : $data['id_area']; // fallback ke nilai default jika tidak ada
+                    $id_gedung = isset($master_aset['id_gedung']) ? $master_aset['id_gedung'] : $data['id_gedung'];
+                    $id_ruangan = isset($master_aset['id_lokasi']) ? $master_aset['id_lokasi'] : $data['id_lokasi'];
                     
                     $data_detail = array(
                         'id_transaksi' => $id_transaksi,
@@ -282,9 +282,9 @@ class Model_pemindahan extends MY_Model {
                         'id_aset' => $data['id'],
                         'kode_aset' => $data['kode_aset'],
                         'nup' => $data['nup'],
-                        'id_area' => $data['id_area'],
-                        'id_gedung' => $data['id_gedung'],
-                        'id_ruangan' => $data['id_lokasi']
+                        'id_area' => $id_area,
+                        'id_gedung' => $id_gedung,
+                        'id_ruangan' => $id_ruangan
                     );
                     
                     // Insert ke tabel detail transaksi
