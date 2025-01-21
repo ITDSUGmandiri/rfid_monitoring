@@ -2449,6 +2449,7 @@
 
     //ketika milih kategori
     $(document).ready(function() {
+        console.log("nanti dihapus log ini");
         var tableregister = $('#register').DataTable();
 
         $('#selectkategori').change(function() {

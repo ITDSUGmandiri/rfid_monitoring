@@ -127,13 +127,13 @@ class Tag_reader extends Admin
 		$this->form_validation->set_rules('reader_mode', 'Mode', 'trim|required');
 
 
-		$this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
+		// $this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
 
 
 		$this->form_validation->set_rules('reader_updated', 'Updated', 'trim|required');
 
 
-		$this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
+		// $this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
 
 
 		$this->form_validation->set_rules('reader_created', 'Created', 'trim|required');
@@ -172,9 +172,13 @@ class Tag_reader extends Admin
 				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'reader_updatedby' => $this->input->post('reader_updatedby'),
+				'reader_updatedby' =>
+				$this->session->userdata('username'),
+
 				'reader_updated' => $this->input->post('reader_updated'),
-				'reader_createdby' => $this->input->post('reader_createdby'),
+				'reader_createdby' =>
+				$this->session->userdata('username'),
+
 				'reader_created' => $this->input->post('reader_created'),
 				'reader_family' => $this->input->post('reader_family'),
 				'connecting' => $this->input->post('connecting'),
@@ -301,13 +305,13 @@ class Tag_reader extends Admin
 		$this->form_validation->set_rules('reader_mode', 'Mode', 'trim|required');
 
 
-		$this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
+		// $this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
 
 
 		$this->form_validation->set_rules('reader_updated', 'Updated', 'trim|required');
 
 
-		$this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
+		// $this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
 
 
 		$this->form_validation->set_rules('reader_created', 'Created', 'trim|required');
@@ -345,9 +349,10 @@ class Tag_reader extends Admin
 				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'reader_updatedby' => $this->input->post('reader_updatedby'),
+				'reader_updatedby' => $this->session->userdata('username'),
 				'reader_updated' => $this->input->post('reader_updated'),
-				'reader_createdby' => $this->input->post('reader_createdby'),
+				'reader_createdby' =>
+				$this->session->userdata('username'),
 				'reader_created' => $this->input->post('reader_created'),
 				'reader_family' => $this->input->post('reader_family'),
 				'connecting' => $this->input->post('connecting'),
