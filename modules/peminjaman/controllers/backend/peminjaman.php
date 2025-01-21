@@ -84,7 +84,8 @@ class peminjaman extends Admin
             2 => 'nama_aset',
             3 => 'kode_aset',
             4 => 'nup',
-			5 => 'kode_tid'
+			5 => 'kode_tid',
+			6 => 'kode_epc'
         );
 
         $limit = $this->input->post('length');
@@ -118,7 +119,7 @@ class peminjaman extends Admin
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'">';
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'" data-kode-epc="'.$row->kode_epc.'">';
 				$nestedData['auto_number'] = $autoNumber;
 				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
@@ -126,6 +127,7 @@ class peminjaman extends Admin
                 $nestedData['kode_aset'] = $row->kode_aset;
                 $nestedData['nup'] = $row->nup;
                 $nestedData['kode_tid'] = $row->kode_tid;
+                $nestedData['kode_epc'] = $row->kode_epc;
                 $data[] = $nestedData;
             }
         }

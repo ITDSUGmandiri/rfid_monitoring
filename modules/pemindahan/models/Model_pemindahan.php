@@ -144,8 +144,11 @@ class Model_pemindahan extends MY_Model {
             $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         }
 
-        $this->db->select('a.*');
+        $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
         $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->join('tb_master_ruangan c', 'c.id = a.id_lokasi', 'JOIN');
+        $this->db->join('tb_master_ruangan d', 'd.id = a.lokasi_moving', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('a.status = 1');
         return $this->db->get()->result();
@@ -182,9 +185,11 @@ class Model_pemindahan extends MY_Model {
 
         }
 
-        $this->db->select('a.*, b.kode_epc');
+        $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
         $this->db->from('tb_master_aset a');
         $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->join('tb_master_ruangan c', 'c.id = a.id_lokasi', 'JOIN');
+        $this->db->join('tb_master_ruangan d', 'd.id = a.lokasi_moving', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('a.status = 1');
         $this->db->order_by($order, $dir);
@@ -196,9 +201,11 @@ class Model_pemindahan extends MY_Model {
     }
 
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
-        $this->db->select('a.*, b.kode_epc');
+        $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
         $this->db->from('tb_master_aset a');
         $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->join('tb_master_ruangan c', 'c.id = a.id_lokasi', 'JOIN');
+        $this->db->join('tb_master_ruangan d', 'd.id = a.lokasi_moving', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('a.status = 1');
         $this->db->like('a.nama_aset', $search);
@@ -217,6 +224,17 @@ class Model_pemindahan extends MY_Model {
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
+    }
+
+    public function get_aset(){
+        $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
+        $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->join('tb_master_ruangan c', 'c.id = a.id_lokasi', 'JOIN');
+        $this->db->join('tb_master_ruangan d', 'd.id = a.lokasi_moving', 'JOIN');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $query = $this->db->get();
+        return $query->result();
     }
 
     public function saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $array_data_aset){
@@ -242,6 +260,18 @@ class Model_pemindahan extends MY_Model {
                 
                 // Loop untuk setiap data linked
                 foreach($array_data_aset as $data) {
+
+                    // Ambil data dari tb_master_aset berdasarkan id_aset
+                    $this->db->select('a.id_area, a.id_gedung, a.id_lokasi');
+                    $this->db->from('tb_master_aset a');
+                    $this->db->where('id_aset', $data['id']);
+                    $query = $this->db->get();
+                    $master_aset = $query->row_array(); // Ambil hasil sebagai array
+            
+                    // Jika data ditemukan di tb_master_aset, ambil nilai id_area, id_gedung, dan id_ruangan
+                    $id_area = isset($master_aset['a.id_area']) ? $master_aset['a.id_area'] : $data['id_area']; // fallback ke nilai default jika tidak ada
+                    $id_gedung = isset($master_aset['a.id_gedung']) ? $master_aset['a.id_gedung'] : $data['id_gedung'];
+                    $id_ruangan = isset($master_aset['a.id_lokasi']) ? $master_aset['a.id_lokasi'] : $data['id_lokasi'];
                     
                     $data_detail = array(
                         'id_transaksi' => $id_transaksi,
@@ -252,27 +282,52 @@ class Model_pemindahan extends MY_Model {
                         'id_aset' => $data['id'],
                         'kode_aset' => $data['kode_aset'],
                         'nup' => $data['nup'],
-                        'id_area' => $save_data_master_transaksi['id_area'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung'],
-                        'id_ruangan' => $save_data_master_transaksi['id_ruangan']
+                        'id_area' => $data['id_area'],
+                        'id_gedung' => $data['id_gedung'],
+                        'id_ruangan' => $data['id_lokasi']
                     );
                     
                     // Insert ke tabel detail transaksi
                     $this->db->insert('tb_detail_transaksi', $data_detail);
-
-                    // update field kode_rfid, id_area, id _gedung, id_ruangan, id_kondisi, status ke master aset
-                    $this->db->where('id_aset', $data['id']);
-                    $this->db->update('tb_master_aset', array(
-                        // 'kode_tid' => $data['aset']['tid'],
-                        'id_area' => $save_data_master_transaksi['id_area2'],
-                        'id_gedung' => $save_data_master_transaksi['id_gedung2'],
-                        'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
-                        'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
-                        'borrow' => 1,
-                        
-                    )); 
                     
+                    // Menentukan apakah sub_transaksi == 1, jika iya hanya update lokasi_moving
+                    $update_data = array();
+    
+                    if($save_data_master_transaksi['sub_transaksi'] == 1) {
+                        // Jika sub_transaksi == 1, hanya update lokasi_moving
+                        $update_data = array(
+                            'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                            'borrow' => 1,
+                        );
+                    } else {
+                        // Jika sub_transaksi != 1, update sesuai dengan data yang ada
+                        $update_data = array(
+                            'id_area' => $save_data_master_transaksi['id_area2'],
+                            'id_gedung' => $save_data_master_transaksi['id_gedung2'],
+                            'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
+                            'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                            'borrow' => 1,
+                        );
+                    }
+    
+                    // Update ke tb_master_aset sesuai kondisi
+                    $this->db->where('id_aset', $data['id']);
+                    $this->db->update('tb_master_aset', $update_data);
                 }
+
+                //     // update field kode_rfid, id_area, id _gedung, id_ruangan, id_kondisi, status ke master aset
+                //     $this->db->where('id_aset', $data['id']);
+                //     $this->db->update('tb_master_aset', array(
+                //         // 'kode_tid' => $data['aset']['tid'],
+                //         'id_area' => $save_data_master_transaksi['id_area2'],
+                //         'id_gedung' => $save_data_master_transaksi['id_gedung2'],
+                //         'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
+                //         'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                //         'borrow' => 1,
+                        
+                //     )); 
+                    
+                // }
 
             }
 
@@ -297,6 +352,14 @@ class Model_pemindahan extends MY_Model {
             return FALSE;
         }
 
+    }
+
+    function getSubTran(){
+        $this->db->select('*');
+        $this->db->from('tb_master_sub_transaksi');
+        $this->db->where('id_type_transaksi', 5);
+        return $this->db->get()->result();
+    
     }
 
     function getTransaksiById($id){

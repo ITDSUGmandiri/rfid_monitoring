@@ -46,6 +46,7 @@
 
 <script src="<?= BASE_ASSET; ?>js/loadingoverlay.min.js"></script>
 
+
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
 
@@ -196,6 +197,8 @@
             var nup = $(elem).data("nup");
             var kode_tid = $(elem).data("kode-tid");
             var kode_epc = $(elem).data("kode-epc");
+            var posisi_awal = $(elem).data("posisi-awal");
+            var posisi_saatini = $(elem).data("posisi-saatini");
 
             // Cek apakah kode_tid sudah ada di dataArrayAset
             var tidExists = dataArrayAset.some(function(item) {
@@ -210,15 +213,17 @@
                     nup: nup, 
                     nama_aset: nama_aset,
                     kode_tid: kode_tid,
-                    kode_epc: kode_epc
-
+                    kode_epc: kode_epc,
+                    posisi_awal: posisi_awal,
+                    posisi_saatini: posisi_saatini,
                 });
             }
 
             string_id = string_id + "~" + id;
 
             let rows = $("#your_table_id tbody tr");
-            let found = false;
+            const found = $(`#your_table_id tbody tr td[id='asset_tid_${kode_tid}']`).length > 0;
+            // let found = false;
 
             for (let j = 0; j < rows.length; j++) {
                 // Cari kolom dengan id yang sama dengan tid
@@ -245,6 +250,9 @@
                             <td id="asset_code" style="text-align: left">${kode_aset}</td>
                             <td id="asset_nup" style="text-align: center">${nup}</td>
                             <td id="${kode_tid}" style="text-align: center">${kode_tid}</td>
+                            <td id="${kode_epc}" style="text-align: center">${kode_epc}</td>
+                            <td id="asset_id_lokasi" style="text-align: center">${posisi_awal}</td>
+                            <td id="asset_lokasi_moving" style="text-align: center">${posisi_saatini}</td>
                             <td style="text-align: center">
                                 <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                             </td>
@@ -284,10 +292,10 @@
     async function getAllAset() {
         
         // dataArrayAset = [];
-        var rowCount = $('#your_table_id tbody tr').length;
-        var no = rowCount + 1;
-        var count = 0;
         var string_id = "";
+        var no = 1;
+        var count = 0;
+        var rowCount = $('#your_table_id tbody tr').length;
 
         try {
             const response = await $.ajax({
@@ -304,10 +312,9 @@
             if (response.success) {
 
                 for (const item of response.data) {
-                    count++;
 
                     // Cek apakah kode_tid sudah ada dalam array
-                    let tidExists = dataArrayAset.some(data => data.kode_tid === item.kode_tid);
+                    const tidExists = dataArrayAset.some(data => data.kode_tid === item.kode_tid);
                     
                     if (!tidExists) {
                         // Menambahkan data ke array jika kode_tid belum ada
@@ -317,14 +324,22 @@
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid,
-                            kode_epc: item.kode_epc
+                            kode_epc: item.kode_epc,
+                            posisi_awal: item.posisi_awal,
+                            posisi_saatini: item.posisi_saatini,
                         });
                     }
 
-                    string_id = string_id + "~" + item.id_aset;
+                    string_id += `~${item.id_aset}`;
 
+                    // Periksa apakah data sudah ada di tabel
                     let rows = $("#your_table_id tbody tr");
-                    let found = false;
+                    const found = $(`#your_table_id tbody tr td[id='asset_tid_${item.kode_tid}']`).length > 0;
+
+                    // string_id = string_id + "~" + item.id_aset;
+
+                    // let rows = $("#your_table_id tbody tr");
+                    // let found = false;
 
                     for (let j = 0; j < rows.length; j++) {
                         // Cari kolom dengan id yang sama dengan tid
@@ -339,6 +354,7 @@
                     }
 
                     if (!found) {
+                        count++;
                         // tampilkan data di table hasil pencarian
                         await new Promise(resolve => {
                             $('#your_table_id tbody').append(`
@@ -349,6 +365,9 @@
                                     <td id="asset_code" style="text-align: left">${item.kode_aset}</td>
                                     <td id="asset_nup" style="text-align: center">${item.nup}</td>
                                     <td id="asset_tid_${item.kode_tid}" style="text-align: center">${item.kode_tid}</td>
+                                    <td id="asset_tid_${item.kode_epc}" style="text-align: center">${item.kode_epc}</td>
+                                    <td id="asset_id_lokasi" style="text-align: center">${item.posisi_awal}</td>
+                                    <td id="asset_lokasi_moving" style="text-align: center">${item.posisi_saatini}</td>
                                         <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" data-original-title="Hapus Semua Data" onclick="removeRow(this)"></i>
                                     </td>
                                 </tr>
@@ -360,9 +379,9 @@
                     }
 
                 }
-
-                $('#total_rfid_tag').html(count+rowCount);
-                $('#total_aset_checklist').html(count+rowCount);
+                const totalRows = rowCount + count; // Total baris setelah penambahan
+                $('#total_rfid_tag').html(totalRows);
+                $('#total_aset_checklist').html(totalRows);
                 $('#string_id').val(string_id);
                 $('#data_array_aset').val(JSON.stringify(dataArrayAset));
 
@@ -462,6 +481,9 @@
                             nup: item.nup,
                             nama_aset: item.nama_aset,
                             kode_tid: item.kode_tid,
+                            kode_epc: item.kode_epc,
+                            posisi_awal: item.posisi_awal,
+                            posisi_saatini: item.posisi_saatini,
                         });
                     }
 
@@ -551,6 +573,20 @@
                     <input type="hidden" name="nama_pegawai_input" id="nama_pegawai_input" value="0">
                     <input type="hidden" name="id_pegawai" id="id_pegawai" value="0">
                     <input type="hidden" name="nama_pegawai" id="nama_pegawai" value="0">
+                        
+                    <div class="form-group group-id_sub_transaksi ">
+                        <label for="id_sub_transaksi" class="col-sm-2 control-label">Tipe Pemindahan
+                            </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_sub_transaksi" id="id_sub_transaksi" data-placeholder="Pilih Tipe Pemindahan">
+                                <option value=""></option>
+                                <?php foreach ($selectpemindahan as $row): ?>
+                                <option value="<?= $row->id ?>"><?= $row->sub_transaksi; ?></option>
+                                <?php endforeach; ?>                                 </select>
+                            <small class="info help-block">
+                                </small>
+                        </div>
+                    </div>
 
                     <div class="form-group group-tgl_awal_transaksi ">
                         <label for="tgl_awal_transaksi" class="col-sm-2 control-label">Tgl Pemindahan<i class="required">*</i>
@@ -578,13 +614,13 @@
                 $user_groups = $this->model_group->get_user_group_ids();
                 ?>
 
-                <h3 style="text-decoration: underline;">Isi Data Area</h3>
+                <h3 style="text-decoration: underline;">Filter Area</h3>
                 
                     <!-- <section> -->
                     <fieldset>
                         
                         <div class="form-group group-id_area ">
-                            <label for="id_area" class="col-sm-2 control-label">Area Asal
+                            <label for="id_area" class="col-sm-2 control-label">Area
                                 </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_area" id="id_area" data-placeholder="Pilih Area">
@@ -598,7 +634,7 @@
                         </div>
 
                         <div class="form-group group-id_gedung ">
-                            <label for="id_gedung" class="col-sm-2 control-label">Gedung Asal</label>
+                            <label for="id_gedung" class="col-sm-2 control-label">Gedung</label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_gedung" id="id_gedung" data-placeholder="Pilih Gedung">
                                     <option value=""></option>
@@ -609,7 +645,7 @@
                         </div>
 
                         <div class="form-group group-id_ruangan ">
-                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan Asal
+                            <label for="id_ruangan" class="col-sm-2 control-label">Ruangan
                                 </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select-deselect" name="id_ruangan" id="id_ruangan" data-placeholder="Pilih Ruangan">
@@ -622,46 +658,6 @@
 
                     <!-- </section> -->
                     </fieldset>
-                
-                    <!-- <section> -->
-                    <fieldset>
-                        
-                        <div class="form-group group-id_area2 ">
-                            <label for="id_area2" class="col-sm-2 control-label">Area Tujuan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_area2" id="id_area2" data-placeholder="Pilih Area">
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('tb_master_area') as $row): ?>
-                                    <option value="<?= $row->id ?>"><?= $row->area; ?></option>
-                                    <?php endforeach; ?>                                 </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_gedung2 ">
-                            <label for="id_gedung2" class="col-sm-2 control-label">Gedung Tujuan</label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_gedung2" id="id_gedung2" data-placeholder="Pilih Gedung">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group group-id_ruangan2 ">
-                            <label for="id_ruangan2" class="col-sm-2 control-label">Ruangan Tujuan
-                                </label>
-                            <div class="col-sm-8">
-                                <select class="form-control chosen chosen-select-deselect" name="id_ruangan2" id="id_ruangan2" data-placeholder="Pilih Ruangan">
-                                    <option value=""></option>
-                                                                    </select>
-                                <small class="info help-block">
-                                    </small>
-                            </div>
-                        </div>
 
                     <!-- </section> -->
                     </fieldset>
@@ -687,6 +683,9 @@
                                                 <th style="text-align: center">Kode Aset</th>
                                                 <th style="text-align: center">Kode NUP</th>
                                                 <th style="text-align: center">Kode Tag</th>
+                                                <th style="text-align: center">Kode Epc</th>
+                                                <th style="text-align: center">Ruangan Seharusnya</th>
+                                                <th style="text-align: center">Ruangan Saat Ini</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -746,6 +745,9 @@
                                         <th style="text-align: center" data-field="kode_aset"data-sort="1" data-primary-key="0"> <?= cclang('Kode Aset') ?></th>
                                         <th style="text-align: center" data-field="nup"data-sort="1" data-primary-key="0"> <?= cclang('Kode NUP') ?></th>
                                         <th style="text-align: center" data-field="kode_tid"data-sort="1" data-primary-key="0"> <?= cclang('Kode Tag') ?></th>
+                                        <th style="text-align: center" data-field="kode_epc"data-sort="1" data-primary-key="0"> <?= cclang('Kode Epc') ?></th>
+                                        <th style="text-align: center" data-field="posisi_awal"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Seharusnya') ?></th>
+                                        <th style="text-align: center" data-field="posisi_saatini"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Saat Ini') ?></th>
                                         
                                         <th style="text-align: center; vertical-align: middle;">
                                             <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
@@ -767,6 +769,47 @@
 
                             </div>
 
+                        </div>
+                    </div>
+                
+                <h3 style="text-decoration: underline;">Isi Data Area Tujuan</h3>
+                <!-- <section> -->
+                <fieldset>
+                    
+                    <div class="form-group group-id_area2 ">
+                        <label for="id_area2" class="col-sm-2 control-label">Area Tujuan
+                            </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_area2" id="id_area2" data-placeholder="Pilih Area">
+                                <option value=""></option>
+                                <?php foreach (db_get_all_data('tb_master_area') as $row): ?>
+                                <option value="<?= $row->id ?>"><?= $row->area; ?></option>
+                                <?php endforeach; ?>                                 </select>
+                            <small class="info help-block">
+                                </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group group-id_gedung2 ">
+                        <label for="id_gedung2" class="col-sm-2 control-label">Gedung Tujuan</label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_gedung2" id="id_gedung2" data-placeholder="Pilih Gedung">
+                                <option value=""></option>
+                                                                </select>
+                            <small class="info help-block">
+                                </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group group-id_ruangan2 ">
+                        <label for="id_ruangan2" class="col-sm-2 control-label">Ruangan Tujuan
+                            </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="id_ruangan2" id="id_ruangan2" data-placeholder="Pilih Ruangan">
+                                <option value=""></option>
+                                                                </select>
+                            <small class="info help-block">
+                                </small>
                         </div>
                     </div>
 
@@ -904,6 +947,9 @@
                 { data: "kode_aset", className: "dt-left", orderable: true, searchable: true },
                 { data: "nup", className: "dt-center", orderable: true, searchable: true },
                 { data: "kode_tid", className: "dt-center", orderable: true, searchable: true },
+                { data: "kode_epc", className: "dt-center", orderable: true, searchable: true },
+                { data: "posisi_awal", className: "dt-center", orderable: true, searchable: true },
+                { data: "posisi_saatini", className: "dt-center", orderable: true, searchable: true },
             ],
             "createdRow": function (row, data, dataIndex) {
                 // Paksa semua kolom angka menjadi rata tengah
@@ -1385,22 +1431,22 @@
             $('#data_processing').html('');
 
             // Cek apakah Area Asal dan Area Tujuan sama
-            var areaAsal = $('#id_area').val();
-            var areaTujuan = $('#id_area2').val();
+            var areaAsal = $('#id_ruangan').val();
+            var areaTujuan = $('#id_ruangan2').val();
 
-            if (areaAsal === areaTujuan) {
-                swal({
-                    title: "Error",
-                    text: "Area asal tidak boleh sama dengan area tujuan!",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Okay!",
-                    closeOnConfirm: true
-                });
+            // if (areaAsal === areaTujuan) {
+            //     swal({
+            //         title: "Error",
+            //         text: "Ruangan asal tidak boleh sama dengan Ruangan tujuan!",
+            //         type: "error",
+            //         showCancelButton: false,
+            //         confirmButtonColor: "#DD6B55",
+            //         confirmButtonText: "Okay!",
+            //         closeOnConfirm: true
+            //     });
 
-                return false; // Mencegah proses lebih lanjut jika validasi gagal
-            }
+            //     return false; // Mencegah proses lebih lanjut jika validasi gagal
+            // }
 
             // add validasi untuk update data di server
 
@@ -1467,22 +1513,22 @@
 
             }
 
-            var hasil = await updateFlagAlarm();
+            // var hasil = await updateFlagAlarm();
 
-            if (!hasil) {
+            // if (!hasil) {
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Gagal update flag alarm di server!',
-                    showCancelButton: false,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Okay!'
-                });
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Error',
+            //         text: 'Gagal update flag alarm di server!',
+            //         showCancelButton: false,
+            //         confirmButtonColor: '#DD6B55',
+            //         confirmButtonText: 'Okay!'
+            //     });
 
-                return false;
+            //     return false;
 
-            }
+            // }
 
             var form_pemindahan = $('#form_pemindahan_add');
             var data_post = form_pemindahan.serializeArray();
@@ -1623,7 +1669,7 @@
                 $.LoadingOverlay('hide')
             });
 
-    });
+        });
 
     $('#id_gedung').change(function(event) {
         var val = $(this).val();

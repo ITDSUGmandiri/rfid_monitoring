@@ -141,8 +141,9 @@ class Model_peminjaman extends MY_Model {
             $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
         }
 
-        $this->db->select('a.*');
+        $this->db->select('a.*, b.kode_epc');
         $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('status = 1');
         return $this->db->get()->result();

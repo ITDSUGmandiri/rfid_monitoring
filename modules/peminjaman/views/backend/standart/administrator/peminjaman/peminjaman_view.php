@@ -959,7 +959,7 @@ $(document).on('click', '#submit_batal', async function(e) {
 
    // update data di server
 
-   var hasil = await updateFlagAlarm();
+   var hasil = await updateFlagAlarm2();
 
    if (!hasil) {
 
