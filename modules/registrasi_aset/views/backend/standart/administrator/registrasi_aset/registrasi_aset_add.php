@@ -3,7 +3,6 @@
 
 <script src="<?= BASE_ASSET; ?>js/loadingoverlay.min.js"></script>
 
-
 <section class="content-header">
     <h1>
         Register Aset<small><?= cclang('new', ['Register Aset']); ?></small>
@@ -531,6 +530,37 @@
 
 </section>
 
+<style>
+    .table thead th {
+        border-bottom: 1px solid #dee2e6 !important;
+        /* Pakai !important agar override */
+        border-top: none !important;
+        /* Hilangkan border atas */
+    }
+
+    .table tbody td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di baris data */
+    }
+
+    .table tfoot td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di footer */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    .table tfoot td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    #asetTable tbody td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+</style>
+
 <!-- 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -541,7 +571,6 @@
     var module_name = "registrasi_aset";
     var use_ajax_crud = false;
 </script>
-
 
 <script>
     $(document).ready(function() {

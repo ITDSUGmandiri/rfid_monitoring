@@ -15,7 +15,7 @@ class registrasi_aset extends Admin
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('model_tb_master_aset');
+		$this->load->model('tb_master_aset/model_tb_master_aset');
 		$this->load->model('model_registrasi_aset');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);
@@ -606,8 +606,12 @@ class registrasi_aset extends Admin
 
 	public function delete_all_tag()
 	{
-		// Hapus semua data dari tabel tb_master_tag_rfid
 		$this->db->empty_table('tb_master_tag_rfid');
+		$this->db->empty_table('tb_master_transaksi');
+		$this->db->empty_table('tb_asset_moving');
+		$this->db->empty_table('tag_temp_table');
+		$this->db->query("UPDATE tb_master_aset SET borrow = 0, STATUS = 1, tipe_moving = 0, kode_tid = NULL");
+		// UPDATE tb_master_tag_rfid SET status_tag = 'Y', id_aset = NULL
 
 		// Format response
 		$response = [
