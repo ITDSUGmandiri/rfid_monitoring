@@ -73,11 +73,11 @@
                             <div class="col-sm-8">
                                 <div class="col-md-3 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="setfor" value="1"> IN </label>
+                                        <input type="radio" class="flat-red" name="setfor" value="in"> IN </label>
                                 </div>
                                 <div class="col-md-3 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="setfor" value="7"> Out </label>
+                                        <input type="radio" class="flat-red" name="setfor" value="out"> Out </label>
                                 </div>
                                 </select>
                                 <div class="row-fluid clear-both">
