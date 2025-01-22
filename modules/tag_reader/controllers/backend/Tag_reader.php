@@ -162,7 +162,7 @@ class Tag_reader extends Admin
 			$save_data = [
 				'room_id' => $this->input->post('room_id'),
 				'reader_name' => $this->input->post('reader_name'),
-				'setfor' => $this->input->post('setfor'),
+				'reader_angle' => $this->input->post('setfor'),
 				'reader_serialnumber' => $this->input->post('reader_serialnumber'),
 				'reader_type' => $this->input->post('reader_type'),
 				'reader_ip' => $this->input->post('reader_ip'),
