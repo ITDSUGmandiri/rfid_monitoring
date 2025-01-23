@@ -97,6 +97,7 @@ class pemindahan extends Admin
         $order = $columns[$this->input->post('order')[0]['column']];
         $dir = $this->input->post('order')[0]['dir'];
 
+        $id_sub_transaksi = $this->input->post('id_sub_transaksi');
         $id_area = $this->input->post('id_area');
         $id_gedung = $this->input->post('id_gedung');
         $id_ruangan = $this->input->post('id_ruangan');
@@ -111,13 +112,36 @@ class pemindahan extends Admin
         $totalData = $this->model_pemindahan->count_all_content();
         $totalFiltered = $totalData;
 
-        if(empty($this->input->post('search')['value'])) {
-            $contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
-        } else {
-            $search = $this->input->post('search')['value'];
-            $contents =  $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
-            $totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
-        }
+		if ($id_sub_transaksi == "2") {
+			// Gunakan query untuk id_sub_transaksi = 2
+			if (empty($this->input->post('search')['value'])) {
+				$contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
+			} else {
+				$search = $this->input->post('search')['value'];
+				$contents = $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+				$totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
+			}
+		} elseif ($id_sub_transaksi == "1") {
+			// Gunakan query baru untuk id_sub_transaksi = 1
+			if (empty($this->input->post('search')['value'])) {
+				$contents = $this->model_pemindahan->get_content2($limit, $start, $order, $dir, $select_all, $filter_data);
+			} else {
+				$search = $this->input->post('search')['value'];
+				$contents = $this->model_pemindahan->content_search2($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+				$totalFiltered = $this->model_pemindahan->content_search_count2($search, $select_all, $filter_data);
+			}
+		} else {
+			// Default query jika id_sub_transaksi tidak sesuai
+			$contents = array();
+		}
+
+        // if(empty($this->input->post('search')['value'])) {
+        //     $contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
+        // } else {
+        //     $search = $this->input->post('search')['value'];
+        //     $contents =  $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+        //     $totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
+        // }
 
         $data = array();
         if(!empty($contents)) {
