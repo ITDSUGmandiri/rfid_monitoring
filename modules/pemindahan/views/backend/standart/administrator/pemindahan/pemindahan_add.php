@@ -1520,22 +1520,22 @@
 
             }
 
-            // var hasil = await updateFlagAlarm();
+            var hasil = await updateFlagAlarm();
 
-            // if (!hasil) {
+            if (!hasil) {
 
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Error',
-            //         text: 'Gagal update flag alarm di server!',
-            //         showCancelButton: false,
-            //         confirmButtonColor: '#DD6B55',
-            //         confirmButtonText: 'Okay!'
-            //     });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal update flag alarm di server!',
+                    showCancelButton: false,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Okay!'
+                });
 
-            //     return false;
+                return false;
 
-            // }
+            }
 
             var form_pemindahan = $('#form_pemindahan_add');
             var data_post = form_pemindahan.serializeArray();

@@ -346,6 +346,7 @@ class Model_pemindahan extends MY_Model {
                     // echo "id_gedung: " . $id_gedung3 . "\n";
                     // echo "id_ruangan: " . $id_ruangan3 . "\n";
                     // echo "array_data_aset: " . $data_detail . "\n";
+                    // echo "save_data_master_transaksi: " . $save_data_master_transaksi['id_sub_transaksi'] . "\n";
                     // echo "</pre>";
                     // exit;
                     
@@ -369,7 +370,7 @@ class Model_pemindahan extends MY_Model {
                     // Menentukan apakah sub_transaksi == 1, jika iya hanya update lokasi_moving
                     $update_data = array();
     
-                    if($save_data_master_transaksi['sub_transaksi'] == 1) {
+                    if($save_data_master_transaksi['id_sub_transaksi'] == 1) {
                         // Jika sub_transaksi == 1, hanya update lokasi_moving
                         $update_data = array(
                             'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],

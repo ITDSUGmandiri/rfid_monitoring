@@ -566,8 +566,13 @@ class pemindahan extends Admin
 	{
 		// Ambil detail aset berdasarkan ID perbaikan
 		$this->load->model('model_pemindahan');
+		$master_transaksi = $this->model_pemindahan->getTransaksiById($id);
 		$detail_aset = $this->model_pemindahan->getDetailTransaksiById($id);
 
+		// Debugging $master_transaksi
+		if (!$master_transaksi) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
 		// Debugging $detail_aset
 		if (!$detail_aset) {
 			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
@@ -616,21 +621,46 @@ class pemindahan extends Admin
 			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
 			'ket_transaksi2' => $keterangan_batal,  // Simpan keterangan batal
 			'image_uri' => $file_name		//menyimpan informasi nama foto
-		]);
+		]);;
 
 		// Perbarui status aset terkait dengan perbaikan
 		foreach ($detail_aset as $aset) {
-			// Update status aset menjadi 1 dan set borrow menjadi 0
-			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', [
-				'id_area' => $aset->id_area,
-                'id_gedung' => $aset->id_gedung,
-                'id_lokasi' => $aset->id_ruangan,
-				'lokasi_moving' => $aset->id_ruangan,
-				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
-			]);
+			// Periksa id_sub_transaksi
+			if ($master_transaksi->id_sub_transaksi == 2) {
+				// Update hanya lokasi_moving dari id_ruangan di master_transaksi
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'lokasi_moving' => $master_transaksi->id_ruangan,
+					'status' => 1,  // Aset sudah kembali
+					'borrow' => 0   // Aset tidak dipinjam lagi
+				]);
+			} else {
+				// Update seluruh lokasi dan status
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'id_area' => $aset->id_area,
+					'id_gedung' => $aset->id_gedung,
+					'id_lokasi' => $aset->id_ruangan,
+					'lokasi_moving' => $aset->id_ruangan,
+					'status' => 1,  // Aset sudah kembali
+					'borrow' => 0   // Aset tidak dipinjam lagi
+				]);
+			}
 		}
+
+		// // Perbarui status aset terkait dengan perbaikan
+		// foreach ($detail_aset as $aset) {
+		// 	// Update status aset menjadi 1 dan set borrow menjadi 0
+		// 	$this->db->where('id_aset', $aset->id_aset);
+		// 	$this->db->update('tb_master_aset', [
+		// 		'id_area' => $aset->id_area,
+        //         'id_gedung' => $aset->id_gedung,
+        //         'id_lokasi' => $aset->id_ruangan,
+		// 		'lokasi_moving' => $aset->id_ruangan,
+		// 		'status' => 1,  // Aset sudah kembali
+		// 		'borrow' => 0   // Aset tidak dipinjam lagi
+		// 	]);
+		// }
 
 		// Selesaikan transaksi
 		$this->db->trans_complete();
