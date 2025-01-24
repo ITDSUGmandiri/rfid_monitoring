@@ -159,9 +159,14 @@
         $('#total_aset_checklist').html(0);
         $('#string_id').val('');
         $('#data_array_aset').val('');
+        dataArrayAset = [];
     }   
 
-    function removeRow(row) {
+    function removeRow(row, tid) {
+        var index = dataArrayAset.findIndex(x => x.kode_tid === tid);
+        if (index > -1) {
+            dataArrayAset.splice(index, 1);
+        }
         var rowCount = $('#your_table_id tbody tr').length;
         $(row).closest('tr').remove();
         fixingNumbering();

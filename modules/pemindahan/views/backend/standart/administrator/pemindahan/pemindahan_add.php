@@ -159,9 +159,15 @@
         $('#total_aset_checklist').html(0);
         $('#string_id').val('');
         $('#data_array_aset').val('');
+
+        dataArrayAset = [];
     }   
 
-    function removeRow(row) {
+    function removeRow(row, tid) {
+        var index = dataArrayAset.findIndex(x => x.kode_tid === tid);
+        if (index > -1) {
+            dataArrayAset.splice(index, 1);
+        }
         var rowCount = $('#your_table_id tbody tr').length;
         $(row).closest('tr').remove();
         fixingNumbering();
@@ -922,6 +928,7 @@
                 url: url,
                 type: "POST",
                 data: function(d) {
+                    d.id_sub_transaksi = $('#id_sub_transaksi').val();
                     d.id_area = $('#id_area').val();
                     d.id_gedung = $('#id_gedung').val(); 
                     d.id_ruangan = $('#id_ruangan').val();
@@ -964,7 +971,7 @@
             // table.ajax.reload(null,false); //reload datatable ajax 
         }
 
-        $('#id_area, #id_gedung, #id_ruangan').change(function() {
+        $('#id_sub_transaksi, #id_area, #id_gedung, #id_ruangan').change(function() {
             reload_datatables();
         });
 
@@ -1513,22 +1520,22 @@
 
             }
 
-            // var hasil = await updateFlagAlarm();
+            var hasil = await updateFlagAlarm();
 
-            // if (!hasil) {
+            if (!hasil) {
 
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Error',
-            //         text: 'Gagal update flag alarm di server!',
-            //         showCancelButton: false,
-            //         confirmButtonColor: '#DD6B55',
-            //         confirmButtonText: 'Okay!'
-            //     });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal update flag alarm di server!',
+                    showCancelButton: false,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Okay!'
+                });
 
-            //     return false;
+                return false;
 
-            // }
+            }
 
             var form_pemindahan = $('#form_pemindahan_add');
             var data_post = form_pemindahan.serializeArray();

@@ -1,4 +1,7 @@
 <?php
+
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_pemindahan extends MY_Model {
@@ -200,6 +203,42 @@ class Model_pemindahan extends MY_Model {
         
     }
 
+
+    public function get_content2($limit, $start, $order, $dir, $select_all, $filter_data){
+
+        if ($select_all == '1') {
+            // $this->db->where('a.id_area', $filter_data['id_area']);
+            // $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+        } else {
+            
+            // if ($filter_data['id_area'] != '') {
+            //     $this->db->where('a.id_area', $filter_data['id_area']);
+            // }
+            // if ($filter_data['id_gedung'] != '') {
+            //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
+            // }
+            // if ($filter_data['id_ruangan'] != '') {
+            //     $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+            // }
+
+        }
+
+        $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
+        $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->join('tb_master_ruangan c', 'c.id = a.id_lokasi', 'JOIN');
+        $this->db->join('tb_master_ruangan d', 'd.id = a.lokasi_moving', 'JOIN');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status in (1,4)');
+        $this->db->order_by($order, $dir);
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+        // echo $this->db->last_query();
+        return $query->result();
+        
+    }
+
     public function content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data){
         $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
         $this->db->from('tb_master_aset a');
@@ -216,11 +255,37 @@ class Model_pemindahan extends MY_Model {
         return $query->result();
     }
 
+    public function content_search2($limit, $start, $search, $order, $dir, $select_all, $filter_data){
+        $this->db->select('a.*, b.kode_epc, c.ruangan as posisi_awal, d.ruangan as posisi_saatini');
+        $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->join('tb_master_ruangan c', 'c.id = a.id_lokasi', 'JOIN');
+        $this->db->join('tb_master_ruangan d', 'd.id = a.lokasi_moving', 'JOIN');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status in (1,4)');
+        $this->db->like('a.nama_aset', $search);
+        $this->db->or_like('a.kode_aset', $search);
+        $this->db->order_by($order, $dir);
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function content_search_count($search, $select_all, $filter_data){
         $this->db->from('tb_master_aset a');
         $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
         $this->db->where('a.status = 1');
+        $this->db->like('a.nama_aset', $search);
+        $this->db->or_like('a.kode_aset', $search);
+        return $this->db->count_all_results();
+    }
+
+    public function content_search_count2($search, $select_all, $filter_data){
+        $this->db->from('tb_master_aset a');
+        $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
+        $this->db->where('a.kode_tid IS NOT NULL');
+        $this->db->where('a.status in (1,4)');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
@@ -264,14 +329,26 @@ class Model_pemindahan extends MY_Model {
                     // Ambil data dari tb_master_aset berdasarkan id_aset
                     $this->db->select('a.id_area, a.id_gedung, a.id_lokasi');
                     $this->db->from('tb_master_aset a');
-                    $this->db->where('id_aset', $data['id']);
+                    $this->db->where('a.id_aset', $data['id']);
                     $query = $this->db->get();
                     $master_aset = $query->row_array(); // Ambil hasil sebagai array
             
                     // Jika data ditemukan di tb_master_aset, ambil nilai id_area, id_gedung, dan id_ruangan
-                    $id_area = isset($master_aset['id_area']) ? $master_aset['id_area'] : $data['id_area']; // fallback ke nilai default jika tidak ada
-                    $id_gedung = isset($master_aset['id_gedung']) ? $master_aset['id_gedung'] : $data['id_gedung'];
-                    $id_ruangan = isset($master_aset['id_lokasi']) ? $master_aset['id_lokasi'] : $data['id_lokasi'];
+                    $id_area3 = isset($master_aset['id_area']) ? $master_aset['id_area'] : ''; // fallback ke nilai default jika tidak ada
+                    $id_gedung3 = isset($master_aset['id_gedung']) ? $master_aset['id_gedung'] : '';
+                    $id_ruangan3 = isset($master_aset['id_lokasi']) ? $master_aset['id_lokasi'] : '';
+                     
+                    // // Tambahkan debug
+                    // echo "<pre>";
+                    // echo "Debugging Data:\n";
+                    // echo "id_aset: " . $data['id'] . "\n";
+                    // echo "id_area: " . $id_area3 . "\n";
+                    // echo "id_gedung: " . $id_gedung3 . "\n";
+                    // echo "id_ruangan: " . $id_ruangan3 . "\n";
+                    // echo "array_data_aset: " . $data_detail . "\n";
+                    // echo "save_data_master_transaksi: " . $save_data_master_transaksi['id_sub_transaksi'] . "\n";
+                    // echo "</pre>";
+                    // exit;
                     
                     $data_detail = array(
                         'id_transaksi' => $id_transaksi,
@@ -282,9 +359,9 @@ class Model_pemindahan extends MY_Model {
                         'id_aset' => $data['id'],
                         'kode_aset' => $data['kode_aset'],
                         'nup' => $data['nup'],
-                        'id_area' => $id_area,
-                        'id_gedung' => $id_gedung,
-                        'id_ruangan' => $id_ruangan
+                        'id_area' => $id_area3,
+                        'id_gedung' => $id_gedung3,
+                        'id_ruangan' => $id_ruangan3
                     );
                     
                     // Insert ke tabel detail transaksi
@@ -293,7 +370,7 @@ class Model_pemindahan extends MY_Model {
                     // Menentukan apakah sub_transaksi == 1, jika iya hanya update lokasi_moving
                     $update_data = array();
     
-                    if($save_data_master_transaksi['sub_transaksi'] == 1) {
+                    if($save_data_master_transaksi['id_sub_transaksi'] == 1) {
                         // Jika sub_transaksi == 1, hanya update lokasi_moving
                         $update_data = array(
                             'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
