@@ -109,8 +109,19 @@ class pemindahan extends Admin
 		$filter_data['id_gedung'] = $id_gedung;
 		$filter_data['id_ruangan'] = $id_ruangan;
 
-        $totalData = $this->model_pemindahan->count_all_content();
-        $totalFiltered = $totalData;
+        // $totalData = $this->model_pemindahan->count_all_content();
+        // $totalFiltered = $totalData;
+
+		if ($id_sub_transaksi == "2") {
+			$totalData = $this->model_pemindahan->count_all_content();
+        	$totalFiltered = $totalData;
+		} elseif ($id_sub_transaksi == "1") {
+			$totalData = $this->model_pemindahan->count_all_content2();
+        	$totalFiltered = $totalData;
+		} else {
+			$totalData = $this->model_pemindahan->count_all_content();
+        	$totalFiltered = $totalData;
+		}
 
 		if ($id_sub_transaksi == "2") {
 			// Gunakan query untuk id_sub_transaksi = 2
