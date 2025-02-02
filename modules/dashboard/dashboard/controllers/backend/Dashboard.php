@@ -69,7 +69,7 @@ class Dashboard extends Admin
 				$data_json = $this->db->query($query_mut)->result();
 				break;
 			case "moving":
-				$query_mov = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup,x.nama_lokasi_terakhir, x.status, x.id_lokasi AS asal, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 4 AND x.borrow != 1 AND x.kode_tid !=''";
+				$query_mov = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup,x.nama_lokasi_terakhir, x.status,x.tipe_moving, x.id_lokasi AS asal, y.id, y.ruangan FROM tb_master_aset x JOIN tb_master_ruangan y ON y.id = x.id_lokasi WHERE x.status = 4 AND x.borrow != 1 AND x.kode_tid !=''";
 				$data_json = $this->db->query($query_mov)->result();
 				break;
 			case "maintenance":
@@ -220,7 +220,7 @@ class Dashboard extends Admin
 
 		//status chart
 		$querycateg = "
-		SELECT case when (a.status = 4 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 0) then 'Available' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Legal Moving' else 'Ilegal Moving' end as key_status, case when (a.status = 1 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 0) then '#7fffd4' when a.status = 2 then '#ffa500' when a.status = 3 then '#faebd7' when a.status = 4 and a.tipe_moving = 1 then '#ffff00' else '#ff4500' end as color, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
+		SELECT case when (a.status = 4 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 0) then 'Aset Tersedia' when a.status = 2 then 'Peminjaman' when a.status = 3 then 'Perbaikan' when a.status = 4 and a.tipe_moving = 1 then 'Pergerakan Legal' else 'Pergerakan Ilegal' end as key_status, case when (a.status = 1 AND a.borrow = 1) OR (a.status = 1 AND a.borrow = 0) then '#266317' when a.status = 2 then '#1b304a' when a.status = 3 then '#c2860e' when a.status = 4 and a.tipe_moving = 1 then '#939c91' else '#ff4500' end as color, count(a.kode_aset) as total FROM tb_master_aset a INNER JOIN tb_master_status c ON a.status = c.id AND a.kode_tid != '' GROUP BY key_status ORDER BY key_status ASC";
 		$data_status = $this->db->query($querycateg)->result();
 
 		//status room
