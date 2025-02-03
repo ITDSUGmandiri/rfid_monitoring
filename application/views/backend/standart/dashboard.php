@@ -113,7 +113,7 @@ $CI = &get_instance();
   }
 
   .bg-legal {
-    color: black;
+    color: white;
     background-color: #939c91 !important;
   }
 
@@ -289,7 +289,7 @@ $CI = &get_instance();
                           </path>
                         </svg> -->
                     </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='perpindahan' style="cursor:pointer; color:white;">click for detail</a>
+                    <a id='perpindahan' style="cursor:pointer;">click for detail</a>
 
                   </div>
                 </div>
@@ -623,6 +623,8 @@ $CI = &get_instance();
         $('#perp').addClass('blink-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
+        $('#perp').removeClass('blink-ilegal');
+
       }
       if (data.ilegal == 0 && data.legal == 0) {
         $('#perp').removeClass('bg-ilegal');
@@ -854,9 +856,9 @@ $CI = &get_instance();
         datasets: [{
           data: [],
           backgroundColor: [
-
             '#0d1d4a',
             '#916306',
+            '#939c91',
           ],
         }, ],
         labels: [],

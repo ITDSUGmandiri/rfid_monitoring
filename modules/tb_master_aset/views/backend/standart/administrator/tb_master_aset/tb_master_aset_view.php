@@ -343,7 +343,7 @@
                                     <th data-field="kode_tid" data-primary-key="0"> Tanggal</th>
                                     <th data-field="kode_aset" data-primary-key="0"> Waktu</th>
                                     <th data-field="nama_aset" data-primary-key="0"> Ruangan</th>
-                                    <th data-field="nama_aset" data-primary-key="0"> Keterangan</th>
+                                    <!-- <th data-field="nama_aset" data-primary-key="0"> Keterangan</th> -->
                                     <th data-field="id_area" data-primary-key="0"> Status</th>
                                 </tr>
                             </thead>
@@ -355,7 +355,7 @@
                                         <td><span class="list_group-kode_tid"><?= _ent($tb_master_aset->tanggal); ?></span></td>
                                         <td><span class="list_group-kode_aset"><?= _ent($tb_master_aset->waktugerak); ?></span></td>
                                         <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangan); ?></span></td>
-                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->tipe_moving) === 0 ? 'Legal Moving' : 'Ilegal Moving' ?></span></td>
+                                        <!-- <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->tipe_moving) === 0 ? 'Legal Moving' : 'Ilegal Moving' ?></span></td> -->
 
                                         <td><span class="list_group-id_area"><?= _ent($tb_master_aset->status_moving); ?></span></td>
 
