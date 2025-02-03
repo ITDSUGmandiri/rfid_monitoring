@@ -556,7 +556,8 @@ class pemindahan extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
+				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0   // Aset tidak ada izin moving
 			]);
 		}
 
@@ -643,7 +644,8 @@ class pemindahan extends Admin
 				$this->db->update('tb_master_aset', [
 					'lokasi_moving' => $master_transaksi->id_ruangan,
 					'status' => 1,  // Aset sudah kembali
-					'borrow' => 0   // Aset tidak dipinjam lagi
+					'borrow' => 0,   // Aset tidak dipinjam lagi
+					'tipe_moving' => 0   // Aset tidak ada izin moving
 				]);
 			} else {
 				// Update seluruh lokasi dan status
@@ -654,7 +656,8 @@ class pemindahan extends Admin
 					'id_lokasi' => $aset->id_ruangan,
 					'lokasi_moving' => $aset->id_ruangan,
 					'status' => 1,  // Aset sudah kembali
-					'borrow' => 0   // Aset tidak dipinjam lagi
+					'borrow' => 0,   // Aset tidak dipinjam lagi
+					'tipe_moving' => 0   // Aset tidak ada izin moving
 				]);
 			}
 		}

@@ -264,6 +264,7 @@ class Model_perbaikan extends MY_Model {
                         // 'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
                         'status' => 3,
                         'borrow' => 1,
+                        'tipe_moving' => 1  // Aset ada izin moving
                         
                     )); 
                     
