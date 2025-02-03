@@ -265,7 +265,7 @@
                             <?php } else { ?>
                                 <img id="myImg" src="https://media.istockphoto.com/id/1138179183/id/vektor/tidak-ada-tanda-gambar-yang-tersedia.jpg?s=170667a&w=0&k=20&c=tKN6Y_eDwEKdopmJIIYyX-Slv4mH8zoW_Qm7pXv2DQw=" class="product-image">
 
-                            <? } ?>
+                            <?php } ?>
                         </div>
                         <!-- <div class="col-12 product-image-thumbs">
                         <div class="product-image-thumb active"><img src="<?= base_url('asset'); ?>/image/lukisan01.jpeg" alt="Product Image"></div>
@@ -343,7 +343,7 @@
                                     <th data-field="kode_tid" data-primary-key="0"> Tanggal</th>
                                     <th data-field="kode_aset" data-primary-key="0"> Waktu</th>
                                     <th data-field="nama_aset" data-primary-key="0"> Ruangan</th>
-                                    <th data-field="nama_aset" data-primary-key="0"> Keterangan</th>
+                                    <!-- <th data-field="nama_aset" data-primary-key="0"> Keterangan</th> -->
                                     <th data-field="id_area" data-primary-key="0"> Status</th>
                                 </tr>
                             </thead>
@@ -355,7 +355,7 @@
                                         <td><span class="list_group-kode_tid"><?= _ent($tb_master_aset->tanggal); ?></span></td>
                                         <td><span class="list_group-kode_aset"><?= _ent($tb_master_aset->waktugerak); ?></span></td>
                                         <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangan); ?></span></td>
-                                        <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->tipe_moving) === 0 ? 'Legal Moving' : 'Ilegal Moving' ?></span></td>
+                                        <!-- <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->tipe_moving) === 0 ? 'Legal Moving' : 'Ilegal Moving' ?></span></td> -->
 
                                         <td><span class="list_group-id_area"><?= _ent($tb_master_aset->status_moving); ?></span></td>
 
