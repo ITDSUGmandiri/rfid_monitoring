@@ -142,7 +142,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->select('a.*');
         $this->db->from('tb_master_aset a');
         $this->db->where('a.kode_tid IS NOT NULL');
-        $this->db->where('a.status = 1');
+        $this->db->where('a.status in (1,4)');
         return $this->db->get()->result();
     }
 
@@ -180,7 +180,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->from('tb_master_aset a');
         $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
-        $this->db->where('a.status = 1');
+        $this->db->where('a.status in (1,4)');
         $this->db->order_by($order, $dir);
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -194,7 +194,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->from('tb_master_aset a');
         $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
-        $this->db->where('a.status = 1');
+        $this->db->where('a.status in (1,4)');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         $this->db->order_by($order, $dir);
@@ -207,7 +207,7 @@ class Model_perbaikan extends MY_Model {
         $this->db->from('tb_master_aset a');
         $this->db->join('tb_master_tag_rfid b', 'b.id_aset = a.id_aset', 'JOIN');
         $this->db->where('a.kode_tid IS NOT NULL');
-        $this->db->where('a.status = 1');
+        $this->db->where('a.status in (1,4)');
         $this->db->like('a.nama_aset', $search);
         $this->db->or_like('a.kode_aset', $search);
         return $this->db->count_all_results();
@@ -264,6 +264,7 @@ class Model_perbaikan extends MY_Model {
                         // 'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
                         'status' => 3,
                         'borrow' => 1,
+                        'tipe_moving' => 1  // Aset ada izin moving
                         
                     )); 
                     

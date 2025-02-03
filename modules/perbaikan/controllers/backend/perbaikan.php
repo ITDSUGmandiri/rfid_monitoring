@@ -505,7 +505,8 @@ class perbaikan extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
+				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0   // Aset tidak ada izin moving
 			]);
 		}
 
@@ -584,7 +585,8 @@ class perbaikan extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
+				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0   // Aset tidak ada izin moving
 			]);
 		}
 

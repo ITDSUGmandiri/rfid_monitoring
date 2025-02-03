@@ -135,6 +135,15 @@ class Model_pemindahan extends MY_Model {
         
     }
 
+    public function count_all_content2(){
+
+        $this->db->from('tb_master_aset');
+        $this->db->where('kode_tid IS NOT NULL');
+        $this->db->where('status in (1,4)');
+        return $this->db->count_all_results();
+        
+    }
+
     public function get_all_aset($filter_data) {
 
         // if ($filter_data['id_area'] != '') {
@@ -374,7 +383,8 @@ class Model_pemindahan extends MY_Model {
                         // Jika sub_transaksi == 1, hanya update lokasi_moving
                         $update_data = array(
                             'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
-                            'borrow' => 1,
+                            'borrow' => 2,
+                            'tipe_moving' => 1   // Aset ada izin moving
                         );
                     } else {
                         // Jika sub_transaksi != 1, update sesuai dengan data yang ada
@@ -383,7 +393,8 @@ class Model_pemindahan extends MY_Model {
                             'id_gedung' => $save_data_master_transaksi['id_gedung2'],
                             'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
                             'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
-                            'borrow' => 1,
+                            'borrow' => 2,
+                            'tipe_moving' => 1   // Aset ada izin moving
                         );
                     }
     

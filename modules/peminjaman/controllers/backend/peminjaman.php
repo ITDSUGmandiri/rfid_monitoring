@@ -512,7 +512,8 @@ class peminjaman extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 2,  // Aset sudah kembali
-				'borrow' => 1   // Aset dipinjam sudah di approve
+				'borrow' => 1,   // Aset dipinjam sudah di approve
+				'tipe_moving' => 1   // Aset ada izin moving
 			]);
 		}
 
@@ -593,6 +594,7 @@ class peminjaman extends Admin
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
 				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0,   // Aset tidak ada izin moving
 				'id_peminjam' => 0, // Id Peminjam Kosong
 				'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
 				'tgl_pengembalian' => "0000-00-00 00:00:00",
@@ -682,6 +684,7 @@ class peminjaman extends Admin
 				$this->db->where('id_aset', $aset->id_aset);
 				$this->db->update('tb_master_aset', [
 					'borrow' => 0,  // Aset tidak dipinjam lagi
+					'tipe_moving' => 0,   // Aset tidak ada izin moving
 					'id_peminjam' => 0, // Id Peminjam Kosong
 					'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong
 					'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
@@ -694,6 +697,7 @@ class peminjaman extends Admin
 				$this->db->update('tb_master_aset', [
 					'status' => 1,  // Aset sudah kembali
 					'borrow' => 0,  // Aset tidak dipinjam lagi
+					'tipe_moving' => 0,   // Aset tidak ada izin moving
 					'id_peminjam' => 0, // Id Peminjam Kosong
 					'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong
 					'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
