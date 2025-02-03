@@ -1,0 +1,912 @@
+{
+"type": "post",
+"url": "/tb_master_aset/add",
+"title": "Add Tb master aset.",
+"version": "0.1.0",
+"name": "Addtb_master_aset",
+"group": "tb_master_aset",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb master aset unique access-key.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb master aset Cant be Accessed permission name : api_tb_master_aset_add"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_tid",
+  "description": "<p>Mandatory kode_tid of Tb master asets Input Kode Tid Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_aset",
+  "description": "<p>Mandatory kode_aset of Tb master asets Input Kode Aset Max Length : 255..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nup",
+  "description": "<p>Mandatory nup of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kategori",
+  "description": "<p>Mandatory kategori of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Merk",
+  "description": "<p>Mandatory merk of Tb master asets Input Merk Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe",
+  "description": "<p>Mandatory tipe of Tb master asets Input Tipe Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kondisi",
+  "description": "<p>Mandatory kondisi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Status",
+  "description": "<p>Mandatory status of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Borrow",
+  "description": "<p>Mandatory borrow of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe_moving",
+  "description": "<p>Mandatory tipe_moving of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_aset",
+  "description": "<p>Mandatory nama_aset of Tb master asets Input Nama Aset Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_area",
+  "description": "<p>Mandatory id_area of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_gedung",
+  "description": "<p>Mandatory id_gedung of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_lokasi",
+  "description": "<p>Mandatory id_lokasi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_perolehan",
+  "description": "<p>Mandatory tgl_perolehan of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nilai_perolehan",
+  "description": "<p>Mandatory nilai_perolehan of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_inventarisasi",
+  "description": "<p>Mandatory tgl_inventarisasi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_peminjaman",
+  "description": "<p>Mandatory tgl_peminjaman of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_pengembalian",
+  "description": "<p>Mandatory tgl_pengembalian of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Flag_inventarisasi",
+  "description": "<p>Mandatory flag_inventarisasi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_peminjam",
+  "description": "<p>Mandatory id_peminjam of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi_moving",
+  "description": "<p>Mandatory lokasi_moving of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi_terakhir",
+  "description": "<p>Mandatory lokasi_terakhir of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_lokasi_terakhir",
+  "description": "<p>Mandatory nama_lokasi_terakhir of Tb master asets Input Nama Lokasi Terakhir Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_pegawai",
+  "description": "<p>Mandatory id_pegawai of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Image_uri",
+  "description": "<p>Mandatory image_uri of Tb master asets Input Image Uri Max Length : 255..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_transaksi",
+  "description": "<p>Mandatory id_transaksi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "No_batch_sensus",
+  "description": "<p>Mandatory no_batch_sensus of Tb master asets Input No Batch Sensus Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Keterangan",
+  "description": "<p>Mandatory keterangan of Tb master asets Input Keterangan Max Length : 255..</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb_master_aset.php",
+"groupTitle": "Tb master aset"
+},
+{
+"type": "get",
+"url": "/tb_master_aset/all",
+"title": "Get all Tb master asets.",
+"version": "0.1.0",
+"name": "Alltb_master_aset",
+"group": "tb_master_aset",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb master asets unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb master asets unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "{} Cant be Accessed permission name : api_Tb master aset_all"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+
+
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Field",
+"defaultValue": "All Field",
+"description": "<p>Optional field of Tb master asets.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Start",
+"defaultValue": "0",
+"description": "<p>Optional start index of Tb master asets.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Limit",
+"defaultValue": "10",
+"description": "<p>Optional limit data of Tb master asets.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_field",
+"defaultValue": "id_aset",
+"description": "<p>Sort data by this field. id_aset, kode_tid, kode_aset, nup, kategori, merk, tipe, kondisi, status, borrow, tipe_moving, nama_aset, id_area, id_gedung, id_lokasi, tgl_perolehan, nilai_perolehan, tgl_inventarisasi, tgl_peminjaman, tgl_pengembalian, flag_inventarisasi, id_peminjam, lokasi_moving, lokasi_terakhir, nama_lokasi_terakhir, id_pegawai, image_uri, id_transaksi, no_batch_sensus, keterangan</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Sort_order",
+"defaultValue": "DESC",
+"description": "<p>Sort data order this field ASC or DESC.</p>"
+},
+{
+"group": "Parameter",
+"type": "String",
+"optional": true,
+"field": "Filters",
+"defaultValue": "",
+"description": "<p>filters[0][lg] = <code>AND</code>, <code>OR</code><br>filters[0][co][0][fl] = <code>id_aset</code><br>filters[0][co][0][op] = <code>equal</code>, <code>not_equal</code>, <code>greather</code>, <code>greather_equal</code>, <code>smaller_equal</code>, <code>smaller</code>, <code>is_null</code>, <code>not_null</code>, <code>where_in</code>, <code>where_not_in</code>, <code>like</code><br>filters[0][co][0][vl] = 1<br>filters[0][co][0][lg] = <code>OR</code>, <code>AND</code><br><br><br><span class=\"label \">Note</span> : if use like operator you need append <code>%your term%</code> on vl<br>for <code>BETWEEN</code> or <code>IN</code> you can use val1, val2, ..etc</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb master aset.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "NoDataTb master aset",
+"description": "<p>Tb master aset data is nothing.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb master aset.php",
+"groupTitle": "Tb master aset"
+},
+{
+"type": "post",
+"url": "/tb_master_aset/delete",
+"title": "Delete Tb master aset.",
+"version": "0.1.0",
+"name": "Deletetb_master_aset",
+"group": "tb_master_aset",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb master asets unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb master asets unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb master aset Cant be Accessed permission name : api_Tb master aset_delete"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb master asets .</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb master aset.php",
+"groupTitle": "Tb master aset"
+},
+{
+"type": "get",
+"url": "/tb_master_aset/detail",
+"title": "Detail Tb master aset.",
+"version": "0.1.0",
+"name": "Detailtb_master_aset",
+"group": "tb_master_aset",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb master asets unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb master asets unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb master aset Cant be Accessed permission name : api_Tb master aset_detail"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+{
+"group": "Parameter",
+"type": "Integer",
+"optional": false,
+"field": "Id",
+"description": "<p>Mandatory id of Tb master asets.</p>"
+}
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "Array",
+"optional": false,
+"field": "Data",
+"description": "<p>data of Tb master aset.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "Tb master asetNotFound",
+"description": "<p>Tb master aset data is not found.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb master aset.php",
+"groupTitle": "Tb master aset"
+},
+{
+"type": "post",
+"url": "/tb_master_aset/update",
+"title": "Update Tb master aset.",
+"version": "0.1.0",
+"name": "Updatetb_master_aset",
+"group": "tb_master_aset",
+"header": {
+"fields": {
+"Header": [
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Api-Key",
+"description": "<p>Tb master asets unique access-key.</p>"
+},
+{
+"group": "Header",
+"type": "String",
+"optional": false,
+"field": "X-Token",
+"description": "<p>Tb master asets unique token.</p>"
+}
+]
+}
+},
+"permission": [
+{
+"name": "Tb master aset Cant be Accessed permission name : api_Tb master aset_update"
+}
+],
+"parameter": {
+"fields": {
+"Parameter": [
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_tid",
+  "description": "<p>Mandatory kode_tid of Tb master asets Input Kode Tid Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kode_aset",
+  "description": "<p>Mandatory kode_aset of Tb master asets Input Kode Aset Max Length : 255..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nup",
+  "description": "<p>Mandatory nup of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kategori",
+  "description": "<p>Mandatory kategori of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Merk",
+  "description": "<p>Mandatory merk of Tb master asets Input Merk Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe",
+  "description": "<p>Mandatory tipe of Tb master asets Input Tipe Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Kondisi",
+  "description": "<p>Mandatory kondisi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Status",
+  "description": "<p>Mandatory status of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Borrow",
+  "description": "<p>Mandatory borrow of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tipe_moving",
+  "description": "<p>Mandatory tipe_moving of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_aset",
+  "description": "<p>Mandatory nama_aset of Tb master asets Input Nama Aset Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_area",
+  "description": "<p>Mandatory id_area of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_gedung",
+  "description": "<p>Mandatory id_gedung of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_lokasi",
+  "description": "<p>Mandatory id_lokasi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_perolehan",
+  "description": "<p>Mandatory tgl_perolehan of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nilai_perolehan",
+  "description": "<p>Mandatory nilai_perolehan of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_inventarisasi",
+  "description": "<p>Mandatory tgl_inventarisasi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_peminjaman",
+  "description": "<p>Mandatory tgl_peminjaman of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Tgl_pengembalian",
+  "description": "<p>Mandatory tgl_pengembalian of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Flag_inventarisasi",
+  "description": "<p>Mandatory flag_inventarisasi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_peminjam",
+  "description": "<p>Mandatory id_peminjam of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi_moving",
+  "description": "<p>Mandatory lokasi_moving of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Lokasi_terakhir",
+  "description": "<p>Mandatory lokasi_terakhir of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Nama_lokasi_terakhir",
+  "description": "<p>Mandatory nama_lokasi_terakhir of Tb master asets Input Nama Lokasi Terakhir Max Length : 100..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_pegawai",
+  "description": "<p>Mandatory id_pegawai of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Image_uri",
+  "description": "<p>Mandatory image_uri of Tb master asets Input Image Uri Max Length : 255..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Id_transaksi",
+  "description": "<p>Mandatory id_transaksi of Tb master asets .</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "No_batch_sensus",
+  "description": "<p>Mandatory no_batch_sensus of Tb master asets Input No Batch Sensus Max Length : 50..</p>"
+  },
+  {
+  "group": "Parameter",
+  "type": "String",
+  "optional": false,
+  "field": "Keterangan",
+  "description": "<p>Mandatory keterangan of Tb master asets Input Keterangan Max Length : 255..</p>"
+  }
+]
+}
+},
+"success": {
+"fields": {
+"Success 200": [
+{
+"group": "Success 200",
+"type": "Boolean",
+"optional": false,
+"field": "Status",
+"description": "<p>status response api.</p>"
+},
+{
+"group": "Success 200",
+"type": "String",
+"optional": false,
+"field": "Message",
+"description": "<p>message response api.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Success-Response:",
+"content": "HTTP/1.1 200 OK",
+"type": "json"
+}
+]
+},
+"error": {
+"fields": {
+"Error 4xx": [
+{
+"group": "Error 4xx",
+"optional": false,
+"field": "ValidationError",
+"description": "<p>Error validation.</p>"
+}
+]
+},
+"examples": [
+{
+"title": "Error-Response:",
+"content": "HTTP/1.1 403 Not Acceptable",
+"type": "json"
+}
+]
+},
+"filename": "application/controllers/api/Tb master aset.php",
+"groupTitle": "Tb master aset"
+}

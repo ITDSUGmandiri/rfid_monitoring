@@ -915,7 +915,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 3000);
+    setInterval(newLibraraian, 1000);
 
     $(document).ready(function() {
 
