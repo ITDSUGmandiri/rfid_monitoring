@@ -350,8 +350,6 @@
                             <tbody id="tbody_tb_master_aset">
                                 <?php foreach ($history as $tb_master_aset): ?>
                                     <tr>
-
-
                                         <td><span class="list_group-kode_tid"><?= _ent($tb_master_aset->tanggal); ?></span></td>
                                         <td><span class="list_group-kode_aset"><?= _ent($tb_master_aset->waktugerak); ?></span></td>
                                         <td><span class="list_group-nama_aset"><?= _ent($tb_master_aset->ruangan); ?></span></td>
