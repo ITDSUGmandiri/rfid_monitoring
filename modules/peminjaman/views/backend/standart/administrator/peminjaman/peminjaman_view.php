@@ -26,9 +26,11 @@ $("#your_table_id tbody tr").each(function (index, tr) {
 
    // Masukkan operasi WebSocket ke dalam sebuah Promise
    var promise = new Promise((resolve, reject) => {
-
+   try{
       const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
       console.log('Connecting to WebSocket server...');
+
+      let isConnected = false;
 
       socket.addEventListener('open', function () {
 
@@ -64,14 +66,17 @@ $("#your_table_id tbody tr").each(function (index, tr) {
                } else {
                   console.log('Failed to update flag alarm:', parsedData.message);
                   reject(parsedData.message);
+                  resolve(false); // Lewatkan jika gagal
                }
             } else if (parsedData.event === 'error') {
                console.log('Error received:', parsedData.message);
-               reject(parsedData.message);
+               // reject(parsedData.message);
+               resolve(false); // Lewatkan jika gagal
             }
          } catch (err) {
             console.error('Failed to parse message:', event.data);
-            reject(err);
+            // reject(err);
+            resolve(false); // Lewatkan jika gagal
          } finally {
             socket.close();
          }
@@ -87,6 +92,16 @@ $("#your_table_id tbody tr").each(function (index, tr) {
          reject(error);
       });
 
+      setTimeout(() => {
+         if (!isConnected) {
+            console.error('WebSocket failed to connect for tag:', single_rfid_tag);
+            resolve(false); // Lewatkan jika koneksi gagal
+         }
+      }, 5000);
+      } catch (error) {
+      console.error('Unexpected error:', error);
+      resolve(false);
+      }
    });
 
    promises.push(promise);
@@ -95,14 +110,13 @@ $("#your_table_id tbody tr").each(function (index, tr) {
 
 // Tunggu semua promises selesai
 try {
-   await Promise.all(promises);
-   console.log('All WebSocket operations completed successfully.');
-   return true;
+    var results = await Promise.all(promises);
+    console.log('Update results:', results);
+    return results;
 } catch (err) {
-   console.error('One or more WebSocket operations failed:', err);
-   return false;
+    console.error('One or more WebSocket operations failed:', err);
+    return false;
 }
-
 }
 
 async function updateFlagAlarm2() {
@@ -127,9 +141,11 @@ $("#your_table_id tbody tr").each(function (index, tr) {
 
    // Masukkan operasi WebSocket ke dalam sebuah Promise
    var promise = new Promise((resolve, reject) => {
-
+   try{
       const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
       console.log('Connecting to WebSocket server...');
+
+      let isConnected = false;
 
       socket.addEventListener('open', function () {
 
@@ -165,14 +181,17 @@ $("#your_table_id tbody tr").each(function (index, tr) {
                } else {
                   console.log('Failed to update flag alarm:', parsedData.message);
                   reject(parsedData.message);
+                  resolve(false); // Lewatkan jika gagal
                }
             } else if (parsedData.event === 'error') {
                console.log('Error received:', parsedData.message);
-               reject(parsedData.message);
+               // reject(parsedData.message);
+               resolve(false); // Lewatkan jika gagal
             }
          } catch (err) {
             console.error('Failed to parse message:', event.data);
-            reject(err);
+            // reject(err);
+            resolve(false); // Lewatkan jika gagal
          } finally {
             socket.close();
          }
@@ -188,6 +207,16 @@ $("#your_table_id tbody tr").each(function (index, tr) {
          reject(error);
       });
 
+      setTimeout(() => {
+         if (!isConnected) {
+            console.error('WebSocket failed to connect for tag:', single_rfid_tag);
+            resolve(false); // Lewatkan jika koneksi gagal
+         }
+      }, 5000);
+      } catch (error) {
+      console.error('Unexpected error:', error);
+      resolve(false);
+      }
    });
 
    promises.push(promise);
@@ -196,14 +225,13 @@ $("#your_table_id tbody tr").each(function (index, tr) {
 
 // Tunggu semua promises selesai
 try {
-   await Promise.all(promises);
-   console.log('All WebSocket operations completed successfully.');
-   return true;
+    var results = await Promise.all(promises);
+    console.log('Update results:', results);
+    return results;
 } catch (err) {
-   console.error('One or more WebSocket operations failed:', err);
-   return false;
+    console.error('One or more WebSocket operations failed:', err);
+    return false;
 }
-
 }
 
 function domo(){

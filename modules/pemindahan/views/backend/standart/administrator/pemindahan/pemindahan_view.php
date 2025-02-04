@@ -26,9 +26,11 @@ $("#your_table_id tbody tr").each(function (index, tr) {
 
    // Masukkan operasi WebSocket ke dalam sebuah Promise
    var promise = new Promise((resolve, reject) => {
-
+   try{
       const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
       console.log('Connecting to WebSocket server...');
+
+      let isConnected = false;
 
       socket.addEventListener('open', function () {
 
@@ -64,14 +66,17 @@ $("#your_table_id tbody tr").each(function (index, tr) {
                } else {
                   console.log('Failed to update flag alarm:', parsedData.message);
                   reject(parsedData.message);
+                  resolve(false); // Lewatkan jika gagal
                }
             } else if (parsedData.event === 'error') {
                console.log('Error received:', parsedData.message);
-               reject(parsedData.message);
+               // reject(parsedData.message);
+               resolve(false); // Lewatkan jika gagal
             }
          } catch (err) {
             console.error('Failed to parse message:', event.data);
-            reject(err);
+            // reject(err);
+            resolve(false); // Lewatkan jika gagal
          } finally {
             socket.close();
          }
@@ -87,6 +92,16 @@ $("#your_table_id tbody tr").each(function (index, tr) {
          reject(error);
       });
 
+      setTimeout(() => {
+         if (!isConnected) {
+            console.error('WebSocket failed to connect for tag:', single_rfid_tag);
+            resolve(false); // Lewatkan jika koneksi gagal
+         }
+      }, 5000);
+      } catch (error) {
+      console.error('Unexpected error:', error);
+      resolve(false);
+      }
    });
 
    promises.push(promise);
@@ -95,15 +110,115 @@ $("#your_table_id tbody tr").each(function (index, tr) {
 
 // Tunggu semua promises selesai
 try {
-   await Promise.all(promises);
-   console.log('All WebSocket operations completed successfully.');
-   return true;
+    var results = await Promise.all(promises);
+    console.log('Update results:', results);
+    return results;
 } catch (err) {
-   console.error('One or more WebSocket operations failed:', err);
-   return false;
+    console.error('One or more WebSocket operations failed:', err);
+    return false;
+}
 }
 
-}
+// async function updateFlagAlarm() {
+
+// var ip_address = $('#ip_address_server').val();
+// var port_ws_server = $('#port_ws_server').val();
+// var protocol_ws_server = $('#protocol_ws_server').val();
+
+// // Kumpulan semua promises
+// var promises = [];
+
+// $("#your_table_id tbody tr").each(function (index, tr) {
+
+//    let cell_kode_tid = $(tr).find('td:eq(5)');
+//    let kode_tid = cell_kode_tid.text().trim();
+//    let kode_epc = $(tr).find('td:eq(6)').data('kode_epc')?.trim();
+
+//    var single_rfid_tag = kode_tid;
+//    var single_kode_epc = kode_epc;
+
+//    console.log('Updating flag alarm for tag:', single_rfid_tag, 'with EPC:', single_kode_epc);
+
+//    // Masukkan operasi WebSocket ke dalam sebuah Promise
+//    var promise = new Promise((resolve, reject) => {
+
+//       const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':' + port_ws_server);
+//       console.log('Connecting to WebSocket server...');
+
+//       socket.addEventListener('open', function () {
+
+//          var status = 1;
+//          var flag_alarm = 1;
+//          var description = 'DEMO-RFID';
+//          var category = 0;
+
+//          socket.send(JSON.stringify({
+//             event: "db-storage-update-rfid-list",
+//             value: {
+//                tid: single_rfid_tag,
+//                epc: single_kode_epc,
+//                status: status,
+//                description: description,
+//                flag_alarm: flag_alarm,
+//                category: category
+//             }
+//          }));
+
+//       });
+
+//       socket.addEventListener('message', function (event) {
+
+//          try {
+//             var parsedData = JSON.parse(event.data);
+//             console.log('Event received: ', parsedData);
+
+//             if (parsedData.event === 'response-db-storage-update-rfid-list') {
+//                if (parsedData.message === 'success') {
+//                   console.log('Flag alarm updated successfully for tag:', single_rfid_tag);
+//                   resolve(true);
+//                } else {
+//                   console.log('Failed to update flag alarm:', parsedData.message);
+//                   reject(parsedData.message);
+//                }
+//             } else if (parsedData.event === 'error') {
+//                console.log('Error received:', parsedData.message);
+//                reject(parsedData.message);
+//             }
+//          } catch (err) {
+//             console.error('Failed to parse message:', event.data);
+//             reject(err);
+//          } finally {
+//             socket.close();
+//          }
+
+//       });
+
+//       socket.addEventListener('close', function () {
+//          console.log('WebSocket connection closed for tag:', single_rfid_tag);
+//       });
+
+//       socket.addEventListener('error', function (error) {
+//          console.error('WebSocket error:', error);
+//          reject(error);
+//       });
+
+//    });
+
+//    promises.push(promise);
+   
+// });
+
+// // Tunggu semua promises selesai
+// try {
+//    await Promise.all(promises);
+//    console.log('All WebSocket operations completed successfully.');
+//    return true;
+// } catch (err) {
+//    console.error('One or more WebSocket operations failed:', err);
+//    return false;
+// }
+
+// }
 
 function domo(){
    $('*').bind('keydown', 'Ctrl+e', function() {
