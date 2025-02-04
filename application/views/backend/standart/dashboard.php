@@ -157,7 +157,7 @@ $CI = &get_instance();
     padding: 5px;
     border-radius: 5px;
     position: absolute;
-    left: 50%;
+    left: 60%;
     transform: translateX(-50%);
     white-space: nowrap;
     opacity: 1;
