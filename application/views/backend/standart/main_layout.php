@@ -318,9 +318,12 @@
       });
 
       var table = $('#tabledetail').DataTable({
+        "order": [
+          [1, 'desc']
+        ],
         paging: false,
         scrollCollapse: true,
-        scrollY: '200px',
+        scrollY: '250px',
         bInfo: true,
         orderCellsTop: true,
         fixedHeader: true,
@@ -355,6 +358,9 @@
       });
 
       var table = $('#tabledetailevent').DataTable({
+        "order": [
+          [1, 'desc']
+        ],
         paging: false,
         scrollCollapse: true,
         scrollY: '200px',
