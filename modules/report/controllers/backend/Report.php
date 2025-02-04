@@ -62,6 +62,34 @@ class Report extends Admin
 		$this->render('backend/standart/administrator/laporan/tag_reader_list', $this->data);
 	}
 
+
+	public function ambildata()
+	{
+
+
+		$jl = $this->input->post('jenlap');
+		$room = $this->input->post('room_id');
+		$date = $this->input->post('detreng');
+
+
+		$dates = explode(' - ', $date);
+		$start_date = $dates[0]; // Tanggal mulai (start_date)
+		$date = new DateTime($start_date);
+		$tglawal = $date->format('Y-m-d');
+
+		$end_date = $dates[1];
+		$dates = new DateTime($end_date);
+		$tglakhir = $dates->format('Y-m-d');
+
+		$this->data['list_aset'] = array();
+
+		$this->data['list_aset'] = $this->model_tag_reader->getDataLaporan($room, $tglawal, $tglakhir);
+		$this->data['area'] = $this->model_tag_reader->get_detail_area($room);
+
+		echo json_encode($this->data);
+		exit();
+	}
+
 	/**
 	 * Add new tag_readers
 	 *
