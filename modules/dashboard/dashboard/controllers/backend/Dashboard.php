@@ -228,11 +228,13 @@ class Dashboard extends Admin
 case 
 when (status = 1 AND borrow = 1  AND kode_tid != '' ) then count(a.lokasi_moving) 
 when (status = 4 AND borrow = 1  AND kode_tid != '') then  count(a.id_lokasi) 
-when (status = 1 AND borrow = 0  AND kode_tid != '') then  count(a.lokasi_moving) end as total, c.ruangan 
+when (status = 1 AND borrow = 0  AND kode_tid != '' OR status = 4 AND borrow = 2  AND kode_tid != '') then  count(a.lokasi_moving) end as total, c.ruangan 
 FROM tb_master_aset a JOIN tb_master_ruangan c 
 ON ((a.status = 1 AND a.borrow = 1  AND a.kode_tid != '' ) AND c.id = a.id_lokasi)
 OR ((a.status = 4 AND a.borrow = 1  AND a.kode_tid != '') AND c.id = a.id_lokasi)
 OR ((a.status = 1 AND a.borrow = 0  AND a.kode_tid != '') AND c.id = a.lokasi_moving)
+OR ((a.status = 4 AND a.borrow = 2  AND a.kode_tid != '') AND c.id = a.lokasi_moving)
+
 GROUP BY c.ruangan";
 		$data_ruangan = $this->db->query($querycateg)->result();
 
