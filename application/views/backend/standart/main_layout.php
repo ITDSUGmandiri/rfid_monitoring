@@ -342,6 +342,49 @@
       });
 
       var table = $('#tabledetail').DataTable({
+        "order": [
+          [1, 'desc']
+        ],
+        paging: false,
+        scrollCollapse: true,
+        scrollY: '250px',
+        bInfo: true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        bPaginate: false,
+        searching: false,
+      });
+
+
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      DataTable.ext.errMode = 'none';
+
+      // Setup - add a text input to each footer cell
+      $('#tabledetailevent thead tr').clone(true).appendTo('#tabledetailevent thead');
+      $('#tabledetailevent thead tr:eq(1) th').each(function(i) {
+
+        var title = $(this).text();
+        if (title != 'Action') {
+          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+          $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+              table
+                .column(i)
+                .search(this.value)
+                .draw();
+            }
+          });
+        }
+      });
+
+      var table = $('#tabledetailevent').DataTable({
+        "order": [
+          [1, 'desc']
+        ],
         paging: false,
         scrollCollapse: true,
         scrollY: '200px',
@@ -351,6 +394,8 @@
         bPaginate: false,
         searching: false,
       });
+
+
     });
   </script>
 </body>
