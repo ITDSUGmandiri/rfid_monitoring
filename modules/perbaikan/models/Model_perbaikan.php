@@ -52,6 +52,7 @@ class Model_perbaikan extends MY_Model {
 
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 6');
+        $this->db->order_by('id', 'DESC');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -93,6 +94,7 @@ class Model_perbaikan extends MY_Model {
         
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 6');
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         
         $this->sortable();

@@ -55,6 +55,7 @@ class Model_pemindahan extends MY_Model {
 
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->order_by('id', 'DESC');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -96,6 +97,7 @@ class Model_pemindahan extends MY_Model {
         
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         
         $this->sortable();
@@ -227,9 +229,9 @@ class Model_pemindahan extends MY_Model {
             // if ($filter_data['id_gedung'] != '') {
             //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
             // }
-            // if ($filter_data['id_ruangan'] != '') {
-            //     $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
-            // }
+            if ($filter_data['id_ruangan'] != '') {
+                $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+            }
 
         }
 
