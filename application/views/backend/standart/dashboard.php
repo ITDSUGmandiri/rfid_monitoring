@@ -157,7 +157,7 @@ $CI = &get_instance();
     padding: 5px;
     border-radius: 5px;
     position: absolute;
-    left: 50%;
+    left: 60%;
     transform: translateX(-50%);
     white-space: nowrap;
     opacity: 1;
@@ -815,7 +815,7 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 3000);
+    }, 2000);
 
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
