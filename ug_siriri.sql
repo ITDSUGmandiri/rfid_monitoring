@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         38.47.91.245
--- Server version:               8.0.40-0ubuntu0.20.04.1 - (Ubuntu)
--- Server OS:                    Linux
+-- Host:                         127.0.0.1
+-- Server version:               8.0.30 - MySQL Community Server - GPL
+-- Server OS:                    Win64
 -- HeidiSQL Version:             12.0.0.6468
 -- --------------------------------------------------------
 
@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table sekneg_aset_system.aauth_groups
+-- Dumping structure for table ug_siriri.aauth_groups
 CREATE TABLE IF NOT EXISTS `aauth_groups` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `aauth_groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_groups: ~5 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_groups: ~5 rows (approximately)
 DELETE FROM `aauth_groups`;
 INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 	(1, 'Admin', 'Superadmin Group'),
@@ -31,26 +31,26 @@ INSERT INTO `aauth_groups` (`id`, `name`, `definition`) VALUES
 	(4, 'Member', 'Member Access Group'),
 	(18, 'Programmer', 'Developer Group');
 
--- Dumping structure for table sekneg_aset_system.aauth_group_to_group
+-- Dumping structure for table ug_siriri.aauth_group_to_group
 CREATE TABLE IF NOT EXISTS `aauth_group_to_group` (
   `group_id` int unsigned NOT NULL,
   `subgroup_id` int unsigned NOT NULL,
   PRIMARY KEY (`group_id`,`subgroup_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_group_to_group: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_group_to_group: ~0 rows (approximately)
 DELETE FROM `aauth_group_to_group`;
 
--- Dumping structure for table sekneg_aset_system.aauth_login_attempts
+-- Dumping structure for table ug_siriri.aauth_login_attempts
 CREATE TABLE IF NOT EXISTS `aauth_login_attempts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(39) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2282 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2299 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_login_attempts: ~6 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_login_attempts: ~6 rows (approximately)
 DELETE FROM `aauth_login_attempts`;
 INSERT INTO `aauth_login_attempts` (`id`, `ip_address`, `timestamp`, `login_attempts`) VALUES
 	(1218, '172.70.189.166', '2024-11-06 15:56:28', 1),
@@ -60,15 +60,15 @@ INSERT INTO `aauth_login_attempts` (`id`, `ip_address`, `timestamp`, `login_atte
 	(1565, '::1', '2024-12-18 14:26:40', 56),
 	(1640, '::1', '2024-12-23 08:47:17', 3);
 
--- Dumping structure for table sekneg_aset_system.aauth_perms
+-- Dumping structure for table ug_siriri.aauth_perms
 CREATE TABLE IF NOT EXISTS `aauth_perms` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `definition` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=502 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=507 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_perms: ~337 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_perms: ~337 rows (approximately)
 DELETE FROM `aauth_perms`;
 INSERT INTO `aauth_perms` (`id`, `name`, `definition`) VALUES
 	(1, 'menu_dashboard', NULL),
@@ -407,15 +407,20 @@ INSERT INTO `aauth_perms` (`id`, `name`, `definition`) VALUES
 	(498, 'registrasi_aset_delete', 'Delete data on deras app service'),
 	(499, 'menu_registrasi_tag_rfid', ''),
 	(500, 'menu_registrasi_aset', ''),
-	(501, 'menu_master_reader', '');
+	(501, 'menu_master_reader', ''),
+	(502, 'api_tb_master_aset_all', ''),
+	(503, 'api_tb_master_aset_detail', ''),
+	(504, 'api_tb_master_aset_add', ''),
+	(505, 'api_tb_master_aset_update', ''),
+	(506, 'api_tb_master_aset_delete', '');
 
--- Dumping structure for table sekneg_aset_system.aauth_perm_to_group
+-- Dumping structure for table ug_siriri.aauth_perm_to_group
 CREATE TABLE IF NOT EXISTS `aauth_perm_to_group` (
   `perm_id` int NOT NULL,
   `group_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_perm_to_group: ~46 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_perm_to_group: ~46 rows (approximately)
 DELETE FROM `aauth_perm_to_group`;
 INSERT INTO `aauth_perm_to_group` (`perm_id`, `group_id`) VALUES
 	(186, 0),
@@ -465,17 +470,17 @@ INSERT INTO `aauth_perm_to_group` (`perm_id`, `group_id`) VALUES
 	(501, 1),
 	(501, 1);
 
--- Dumping structure for table sekneg_aset_system.aauth_perm_to_user
+-- Dumping structure for table ug_siriri.aauth_perm_to_user
 CREATE TABLE IF NOT EXISTS `aauth_perm_to_user` (
   `perm_id` int unsigned NOT NULL,
   `user_id` int unsigned NOT NULL,
   PRIMARY KEY (`user_id`,`perm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_perm_to_user: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_perm_to_user: ~0 rows (approximately)
 DELETE FROM `aauth_perm_to_user`;
 
--- Dumping structure for table sekneg_aset_system.aauth_pms
+-- Dumping structure for table ug_siriri.aauth_pms
 CREATE TABLE IF NOT EXISTS `aauth_pms` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `sender_id` int unsigned NOT NULL,
@@ -489,10 +494,10 @@ CREATE TABLE IF NOT EXISTS `aauth_pms` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_pms: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_pms: ~0 rows (approximately)
 DELETE FROM `aauth_pms`;
 
--- Dumping structure for table sekneg_aset_system.aauth_user
+-- Dumping structure for table ug_siriri.aauth_user
 CREATE TABLE IF NOT EXISTS `aauth_user` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -500,10 +505,10 @@ CREATE TABLE IF NOT EXISTS `aauth_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_user: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_user: ~0 rows (approximately)
 DELETE FROM `aauth_user`;
 
--- Dumping structure for table sekneg_aset_system.aauth_users
+-- Dumping structure for table ug_siriri.aauth_users
 CREATE TABLE IF NOT EXISTS `aauth_users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
@@ -526,23 +531,23 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_users: ~5 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_users: ~5 rows (approximately)
 DELETE FROM `aauth_users`;
 INSERT INTO `aauth_users` (`id`, `email`, `oauth_uid`, `oauth_provider`, `pass`, `username`, `full_name`, `avatar`, `banned`, `last_login`, `last_activity`, `date_created`, `forgot_exp`, `remember_time`, `remember_exp`, `verification_code`, `top_secret`, `ip_address`) VALUES
-	(1, 'admin@gmail.com', 1, NULL, '0098f77459b6d78055fb8a02879ea004f1a49f18468a6ddc69a9c57327b957f4', 'administrator', 'Administrator', '20241108091405-setkab01.jpeg', 0, '2025-01-24 18:48:54', '2025-01-24 18:48:54', '2024-05-21 05:44:44', NULL, '2024-10-27 00:00:00', '5HfWD7Gjzn4Tdtyc', NULL, NULL, '192.168.1.195'),
+	(1, 'admin@gmail.com', 1, NULL, '0098f77459b6d78055fb8a02879ea004f1a49f18468a6ddc69a9c57327b957f4', 'administrator', 'Administrator', '20241108091405-setkab01.jpeg', 0, '2025-01-30 14:47:54', '2025-01-30 14:47:54', '2024-05-21 05:44:44', NULL, '2024-10-27 00:00:00', '5HfWD7Gjzn4Tdtyc', NULL, NULL, '192.168.2.244'),
 	(3, 'usersatu@gmail.com', 4, NULL, '4b1fbcf811f49742fac555ff6ecb931ebf35a396cc933877acbd13fe369f1793', 'usersatu', 'User Satu', '20241204094816-iconars.png', 0, '2024-12-05 16:41:14', '2024-12-05 16:41:14', '2024-12-04 09:48:16', NULL, '2024-10-27 00:00:00', '5HfWD7Gjzn4Tdtyc', NULL, NULL, '::1'),
 	(7, 'sinar@gmail.com', 4, NULL, 'e5a899a3b41a51b027b56708567a5a13f75473a233d4575539a70ac6128c4e81', 'sinar', 'sinta arinta', '20241212145134-nadia.png', 0, '2025-01-13 09:27:45', '2025-01-13 09:27:45', '2024-12-12 14:51:34', NULL, NULL, NULL, NULL, NULL, '::1'),
 	(8, 'aji@ugmandiri.co.id', 0, NULL, '7ef0004d5a659b7ec70c3736489f8638a63fafab11a7cd5699100562e65baeac', 'aji', 'aji', '', 0, '2024-12-13 14:55:50', '2024-12-13 14:55:50', '2024-12-13 14:52:03', NULL, NULL, NULL, NULL, NULL, '::1'),
-	(10, 'sm4rtschool@gmail.com', 1, NULL, '5b93385d4073497b54d2cfd1794e3a8c3ab119a209d31fc314fa2ebb03c5bbaa', 'sm4rtschool', 'Ridwan Sapoetra', '20241231101448-iconpegawai.png', 0, '2025-01-22 16:29:32', '2025-01-22 16:29:32', '2024-12-31 10:14:48', NULL, NULL, NULL, NULL, NULL, '::1');
+	(10, 'sm4rtschool@gmail.com', 1, NULL, '5b93385d4073497b54d2cfd1794e3a8c3ab119a209d31fc314fa2ebb03c5bbaa', 'sm4rtschool', 'Ridwan Sapoetra', '20241231101448-iconpegawai.png', 0, '2025-02-04 15:47:48', '2025-02-04 15:47:48', '2024-12-31 10:14:48', NULL, NULL, NULL, NULL, NULL, '::1');
 
--- Dumping structure for table sekneg_aset_system.aauth_user_to_group
+-- Dumping structure for table ug_siriri.aauth_user_to_group
 CREATE TABLE IF NOT EXISTS `aauth_user_to_group` (
   `user_id` int unsigned NOT NULL,
   `group_id` int unsigned NOT NULL,
   PRIMARY KEY (`user_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_user_to_group: ~21 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_user_to_group: ~21 rows (approximately)
 DELETE FROM `aauth_user_to_group`;
 INSERT INTO `aauth_user_to_group` (`user_id`, `group_id`) VALUES
 	(1, 1),
@@ -567,7 +572,7 @@ INSERT INTO `aauth_user_to_group` (`user_id`, `group_id`) VALUES
 	(10, 4),
 	(10, 18);
 
--- Dumping structure for table sekneg_aset_system.aauth_user_variables
+-- Dumping structure for table ug_siriri.aauth_user_variables
 CREATE TABLE IF NOT EXISTS `aauth_user_variables` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
@@ -576,10 +581,10 @@ CREATE TABLE IF NOT EXISTS `aauth_user_variables` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.aauth_user_variables: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_user_variables: ~0 rows (approximately)
 DELETE FROM `aauth_user_variables`;
 
--- Dumping structure for table sekneg_aset_system.blog
+-- Dumping structure for table ug_siriri.blog
 CREATE TABLE IF NOT EXISTS `blog` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
@@ -596,12 +601,12 @@ CREATE TABLE IF NOT EXISTS `blog` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.blog: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.blog: ~0 rows (approximately)
 DELETE FROM `blog`;
 INSERT INTO `blog` (`id`, `title`, `slug`, `content`, `image`, `tags`, `category`, `status`, `author`, `viewers`, `created_at`, `updated_at`) VALUES
 	(1, 'Hello Wellcome To Cicool Builder', 'Hello-Wellcome-To-Ciool-Builder', 'greetings from our team I hope to be happy! ', 'wellcome.jpg', 'greetings', '1', 'publish', 'admin', 0, '2024-05-21 05:44:44', '0000-00-00 00:00:00');
 
--- Dumping structure for table sekneg_aset_system.blog_category
+-- Dumping structure for table ug_siriri.blog_category
 CREATE TABLE IF NOT EXISTS `blog_category` (
   `category_id` int unsigned NOT NULL AUTO_INCREMENT,
   `category_name` varchar(200) NOT NULL,
@@ -609,13 +614,13 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.blog_category: ~2 rows (approximately)
+-- Dumping data for table ug_siriri.blog_category: ~2 rows (approximately)
 DELETE FROM `blog_category`;
 INSERT INTO `blog_category` (`category_id`, `category_name`, `category_desc`) VALUES
 	(1, 'Technology', ''),
 	(2, 'Lifestyle', '');
 
--- Dumping structure for table sekneg_aset_system.captcha
+-- Dumping structure for table ug_siriri.captcha
 CREATE TABLE IF NOT EXISTS `captcha` (
   `captcha_id` int unsigned NOT NULL AUTO_INCREMENT,
   `captcha_time` int DEFAULT NULL,
@@ -624,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `captcha` (
   PRIMARY KEY (`captcha_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.captcha: ~61 rows (approximately)
+-- Dumping data for table ug_siriri.captcha: ~60 rows (approximately)
 DELETE FROM `captcha`;
 INSERT INTO `captcha` (`captcha_id`, `captcha_time`, `ip_address`, `word`) VALUES
 	(1, NULL, '::1', NULL),
@@ -688,7 +693,7 @@ INSERT INTO `captcha` (`captcha_id`, `captcha_time`, `ip_address`, `word`) VALUE
 	(59, NULL, '::1', NULL),
 	(62, NULL, '::1', NULL);
 
--- Dumping structure for table sekneg_aset_system.cc_options
+-- Dumping structure for table ug_siriri.cc_options
 CREATE TABLE IF NOT EXISTS `cc_options` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `option_name` varchar(200) NOT NULL,
@@ -696,7 +701,7 @@ CREATE TABLE IF NOT EXISTS `cc_options` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.cc_options: ~21 rows (approximately)
+-- Dumping data for table ug_siriri.cc_options: ~21 rows (approximately)
 DELETE FROM `cc_options`;
 INSERT INTO `cc_options` (`id`, `option_name`, `option_value`) VALUES
 	(1, 'favicon', 'default.png'),
@@ -721,7 +726,7 @@ INSERT INTO `cc_options` (`id`, `option_name`, `option_value`) VALUES
 	(20, 'google_secret', ''),
 	(21, 'chat_fb_key', '8ae6728ddb0695aef98e7ef9e9f418be');
 
--- Dumping structure for table sekneg_aset_system.cc_session
+-- Dumping structure for table ug_siriri.cc_session
 CREATE TABLE IF NOT EXISTS `cc_session` (
   `id` int NOT NULL,
   `ip_address` varchar(45) NOT NULL,
@@ -729,10 +734,10 @@ CREATE TABLE IF NOT EXISTS `cc_session` (
   `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.cc_session: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.cc_session: ~0 rows (approximately)
 DELETE FROM `cc_session`;
 
--- Dumping structure for table sekneg_aset_system.chat
+-- Dumping structure for table ug_siriri.chat
 CREATE TABLE IF NOT EXISTS `chat` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `chat_uid` varchar(100) NOT NULL,
@@ -744,10 +749,10 @@ CREATE TABLE IF NOT EXISTS `chat` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.chat: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.chat: ~0 rows (approximately)
 DELETE FROM `chat`;
 
--- Dumping structure for table sekneg_aset_system.chat_contact
+-- Dumping structure for table ug_siriri.chat_contact
 CREATE TABLE IF NOT EXISTS `chat_contact` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -755,10 +760,10 @@ CREATE TABLE IF NOT EXISTS `chat_contact` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.chat_contact: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.chat_contact: ~0 rows (approximately)
 DELETE FROM `chat_contact`;
 
--- Dumping structure for table sekneg_aset_system.chat_message
+-- Dumping structure for table ug_siriri.chat_message
 CREATE TABLE IF NOT EXISTS `chat_message` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `message_user_id` int NOT NULL,
@@ -770,10 +775,10 @@ CREATE TABLE IF NOT EXISTS `chat_message` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.chat_message: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.chat_message: ~0 rows (approximately)
 DELETE FROM `chat_message`;
 
--- Dumping structure for table sekneg_aset_system.config
+-- Dumping structure for table ug_siriri.config
 CREATE TABLE IF NOT EXISTS `config` (
   `id_config` int unsigned NOT NULL AUTO_INCREMENT,
   `kode` varchar(50) DEFAULT NULL,
@@ -786,12 +791,12 @@ CREATE TABLE IF NOT EXISTS `config` (
   PRIMARY KEY (`id_config`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.config: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.config: ~0 rows (approximately)
 DELETE FROM `config`;
 INSERT INTO `config` (`id_config`, `kode`, `config_name`, `variable`, `value`, `is_active`, `owner`, `keterangan`) VALUES
-	(1, NULL, 'Interval memproses data', 'interval_request', 3000, 1, 'web', NULL);
+	(1, NULL, 'Interval memproses data', 'interval_request', 5000, 1, 'web', NULL);
 
--- Dumping structure for table sekneg_aset_system.crud
+-- Dumping structure for table ug_siriri.crud
 CREATE TABLE IF NOT EXISTS `crud` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `crud_modal` varchar(20) DEFAULT NULL,
@@ -813,7 +818,7 @@ CREATE TABLE IF NOT EXISTS `crud` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud: ~15 rows (approximately)
+-- Dumping data for table ug_siriri.crud: ~13 rows (approximately)
 DELETE FROM `crud`;
 INSERT INTO `crud` (`id`, `crud_modal`, `title`, `subject`, `table_name`, `sort_by`, `sort_field`, `javascript`, `style`, `javascript_setting_detail`, `javascript_setting_update`, `javascript_setting_create`, `javascript_setting_list`, `primary_key`, `page_read`, `page_create`, `page_update`) VALUES
 	(22, '', 'Tb Pegawai Master', 'Tb Pegawai Master', 'tb_master_pegawai', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'id', 'yes', 'yes', 'yes'),
@@ -830,7 +835,7 @@ INSERT INTO `crud` (`id`, `crud_modal`, `title`, `subject`, `table_name`, `sort_
 	(52, '', 'Librarian', 'Librarian', 'tag_librarian', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'librarian_id', 'yes', 'yes', 'yes'),
 	(53, '', 'Master Aset', 'Master Aset', 'tb_master_aset', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'id_aset', 'yes', 'yes', 'yes');
 
--- Dumping structure for table sekneg_aset_system.crud_action
+-- Dumping structure for table ug_siriri.crud_action
 CREATE TABLE IF NOT EXISTS `crud_action` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `sort_order` int DEFAULT NULL,
@@ -842,10 +847,10 @@ CREATE TABLE IF NOT EXISTS `crud_action` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_action: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.crud_action: ~0 rows (approximately)
 DELETE FROM `crud_action`;
 
--- Dumping structure for table sekneg_aset_system.crud_custom_option
+-- Dumping structure for table ug_siriri.crud_custom_option
 CREATE TABLE IF NOT EXISTS `crud_custom_option` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `crud_field_id` int NOT NULL,
@@ -855,7 +860,7 @@ CREATE TABLE IF NOT EXISTS `crud_custom_option` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1832 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_custom_option: ~131 rows (approximately)
+-- Dumping data for table ug_siriri.crud_custom_option: ~131 rows (approximately)
 DELETE FROM `crud_custom_option`;
 INSERT INTO `crud_custom_option` (`id`, `crud_field_id`, `crud_id`, `option_value`, `option_label`) VALUES
 	(206, 391, 8, 'AVAILABLE', 'AVAILABLE'),
@@ -990,7 +995,7 @@ INSERT INTO `crud_custom_option` (`id`, `crud_field_id`, `crud_id`, `option_valu
 	(1830, 4756, 48, 'Y', 'Y'),
 	(1831, 4756, 48, 'N', 'N');
 
--- Dumping structure for table sekneg_aset_system.crud_field
+-- Dumping structure for table ug_siriri.crud_field
 CREATE TABLE IF NOT EXISTS `crud_field` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `crud_id` int NOT NULL,
@@ -1012,7 +1017,7 @@ CREATE TABLE IF NOT EXISTS `crud_field` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5422 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_field: ~603 rows (approximately)
+-- Dumping data for table ug_siriri.crud_field: ~629 rows (approximately)
 DELETE FROM `crud_field`;
 INSERT INTO `crud_field` (`id`, `crud_id`, `field_name`, `field_label`, `input_type`, `help_block`, `placeholder`, `auto_generate_help_block`, `wrapper_class`, `show_column`, `show_add_form`, `show_update_form`, `show_detail_page`, `sort`, `relation_table`, `relation_value`, `relation_label`) VALUES
 	(1, 1, 'building_id', 'building_id', 'number', '', '', 'yes', NULL, '', '', '', 'yes', 1, '', '', ''),
@@ -1645,7 +1650,7 @@ INSERT INTO `crud_field` (`id`, `crud_id`, `field_name`, `field_label`, `input_t
 	(5420, 45, 'ket_area', 'ket_area', 'input', '', '', '', NULL, 'yes', 'yes', 'yes', 'yes', 6, '', '', ''),
 	(5421, 45, 'image_uri', 'image_uri', 'input', '', '', '', NULL, '', 'yes', 'yes', 'yes', 7, '', '', '');
 
--- Dumping structure for table sekneg_aset_system.crud_field_condition
+-- Dumping structure for table ug_siriri.crud_field_condition
 CREATE TABLE IF NOT EXISTS `crud_field_condition` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `crud_field_id` int NOT NULL,
@@ -1657,10 +1662,10 @@ CREATE TABLE IF NOT EXISTS `crud_field_condition` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_field_condition: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.crud_field_condition: ~0 rows (approximately)
 DELETE FROM `crud_field_condition`;
 
--- Dumping structure for table sekneg_aset_system.crud_field_configuration
+-- Dumping structure for table ug_siriri.crud_field_configuration
 CREATE TABLE IF NOT EXISTS `crud_field_configuration` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `crud_field_id` int NOT NULL,
@@ -1671,13 +1676,13 @@ CREATE TABLE IF NOT EXISTS `crud_field_configuration` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_field_configuration: ~2 rows (approximately)
+-- Dumping data for table ug_siriri.crud_field_configuration: ~2 rows (approximately)
 DELETE FROM `crud_field_configuration`;
 INSERT INTO `crud_field_configuration` (`id`, `crud_field_id`, `crud_id`, `group_config`, `config_name`, `config_value`) VALUES
 	(45, 5209, 50, 'stepper', 'title', 'Form Register'),
 	(46, 5219, 50, 'stepper', 'title', 'Pilih Area');
 
--- Dumping structure for table sekneg_aset_system.crud_field_validation
+-- Dumping structure for table ug_siriri.crud_field_validation
 CREATE TABLE IF NOT EXISTS `crud_field_validation` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `crud_field_id` int NOT NULL,
@@ -1687,7 +1692,7 @@ CREATE TABLE IF NOT EXISTS `crud_field_validation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5426 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_field_validation: ~751 rows (approximately)
+-- Dumping data for table ug_siriri.crud_field_validation: ~757 rows (approximately)
 DELETE FROM `crud_field_validation`;
 INSERT INTO `crud_field_validation` (`id`, `crud_field_id`, `crud_id`, `validation_name`, `validation_value`) VALUES
 	(1, 2, 1, 'required', ''),
@@ -2448,7 +2453,7 @@ INSERT INTO `crud_field_validation` (`id`, `crud_field_id`, `crud_id`, `validati
 	(5424, 5418, 45, 'required', ''),
 	(5425, 5418, 45, 'max_length', '200');
 
--- Dumping structure for table sekneg_aset_system.crud_function
+-- Dumping structure for table ug_siriri.crud_function
 CREATE TABLE IF NOT EXISTS `crud_function` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(200) NOT NULL,
@@ -2458,10 +2463,10 @@ CREATE TABLE IF NOT EXISTS `crud_function` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_function: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.crud_function: ~0 rows (approximately)
 DELETE FROM `crud_function`;
 
--- Dumping structure for table sekneg_aset_system.crud_input_chained
+-- Dumping structure for table ug_siriri.crud_input_chained
 CREATE TABLE IF NOT EXISTS `crud_input_chained` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `chain_field` varchar(250) DEFAULT NULL,
@@ -2471,7 +2476,7 @@ CREATE TABLE IF NOT EXISTS `crud_input_chained` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_input_chained: ~4 rows (approximately)
+-- Dumping data for table ug_siriri.crud_input_chained: ~4 rows (approximately)
 DELETE FROM `crud_input_chained`;
 INSERT INTO `crud_input_chained` (`id`, `chain_field`, `chain_field_eq`, `crud_field_id`, `crud_id`) VALUES
 	(13, 'id', '', 3730, 5),
@@ -2479,7 +2484,7 @@ INSERT INTO `crud_input_chained` (`id`, `chain_field`, `chain_field_eq`, `crud_f
 	(88, 'id_area', 'id_area', 5220, 50),
 	(89, 'id_gedung', 'id_gedung', 5221, 50);
 
--- Dumping structure for table sekneg_aset_system.crud_input_type
+-- Dumping structure for table ug_siriri.crud_input_type
 CREATE TABLE IF NOT EXISTS `crud_input_type` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(200) NOT NULL,
@@ -2489,7 +2494,7 @@ CREATE TABLE IF NOT EXISTS `crud_input_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_input_type: ~108 rows (approximately)
+-- Dumping data for table ug_siriri.crud_input_type: ~108 rows (approximately)
 DELETE FROM `crud_input_type`;
 INSERT INTO `crud_input_type` (`id`, `type`, `relation`, `custom_value`, `validation_group`) VALUES
 	(1, 'input', '0', 0, 'input'),
@@ -2601,7 +2606,7 @@ INSERT INTO `crud_input_type` (`id`, `type`, `relation`, `custom_value`, `valida
 	(107, 'custom_select', '0', 1, 'custom_select'),
 	(108, 'chained', '1', 0, 'chained');
 
--- Dumping structure for table sekneg_aset_system.crud_input_validation
+-- Dumping structure for table ug_siriri.crud_input_validation
 CREATE TABLE IF NOT EXISTS `crud_input_validation` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `validation` varchar(200) NOT NULL,
@@ -2613,7 +2618,7 @@ CREATE TABLE IF NOT EXISTS `crud_input_validation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.crud_input_validation: ~37 rows (approximately)
+-- Dumping data for table ug_siriri.crud_input_validation: ~37 rows (approximately)
 DELETE FROM `crud_input_validation`;
 INSERT INTO `crud_input_validation` (`id`, `validation`, `input_able`, `group_input`, `input_placeholder`, `call_back`, `input_validation`) VALUES
 	(1, 'required', 'no', 'input, file, number, text, datetime, select, password, email, editor, date, yes_no, time, year, select_multiple, options, checkboxes, true_false, address_map, custom_option, custom_checkbox, custom_select_multiple, custom_select, file_multiple, chained', '', '', ''),
@@ -2654,7 +2659,7 @@ INSERT INTO `crud_input_validation` (`id`, `validation`, `input_able`, `group_in
 	(36, 'in_list', 'yes', 'input, text, number, select, options', '', 'no', 'callback_valid_multiple_value'),
 	(37, 'valid_ip', 'no', 'input, text', '', 'no', '');
 
--- Dumping structure for table sekneg_aset_system.dashboard
+-- Dumping structure for table ug_siriri.dashboard
 CREATE TABLE IF NOT EXISTS `dashboard` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
@@ -2663,12 +2668,12 @@ CREATE TABLE IF NOT EXISTS `dashboard` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.dashboard: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.dashboard: ~0 rows (approximately)
 DELETE FROM `dashboard`;
 INSERT INTO `dashboard` (`id`, `title`, `slug`, `created_at`) VALUES
 	(1, 'Reza', '1-Reza', '2024-05-28 21:45:52');
 
--- Dumping structure for table sekneg_aset_system.form
+-- Dumping structure for table ug_siriri.form
 CREATE TABLE IF NOT EXISTS `form` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
@@ -2677,10 +2682,10 @@ CREATE TABLE IF NOT EXISTS `form` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.form: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.form: ~0 rows (approximately)
 DELETE FROM `form`;
 
--- Dumping structure for table sekneg_aset_system.form_custom_attribute
+-- Dumping structure for table ug_siriri.form_custom_attribute
 CREATE TABLE IF NOT EXISTS `form_custom_attribute` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `form_field_id` int NOT NULL,
@@ -2690,10 +2695,10 @@ CREATE TABLE IF NOT EXISTS `form_custom_attribute` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.form_custom_attribute: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.form_custom_attribute: ~0 rows (approximately)
 DELETE FROM `form_custom_attribute`;
 
--- Dumping structure for table sekneg_aset_system.form_custom_option
+-- Dumping structure for table ug_siriri.form_custom_option
 CREATE TABLE IF NOT EXISTS `form_custom_option` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `form_field_id` int NOT NULL,
@@ -2703,10 +2708,10 @@ CREATE TABLE IF NOT EXISTS `form_custom_option` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.form_custom_option: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.form_custom_option: ~0 rows (approximately)
 DELETE FROM `form_custom_option`;
 
--- Dumping structure for table sekneg_aset_system.form_field
+-- Dumping structure for table ug_siriri.form_field
 CREATE TABLE IF NOT EXISTS `form_field` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `form_id` int NOT NULL,
@@ -2727,10 +2732,10 @@ CREATE TABLE IF NOT EXISTS `form_field` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.form_field: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.form_field: ~0 rows (approximately)
 DELETE FROM `form_field`;
 
--- Dumping structure for table sekneg_aset_system.form_field_validation
+-- Dumping structure for table ug_siriri.form_field_validation
 CREATE TABLE IF NOT EXISTS `form_field_validation` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `form_field_id` int NOT NULL,
@@ -2740,10 +2745,10 @@ CREATE TABLE IF NOT EXISTS `form_field_validation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.form_field_validation: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.form_field_validation: ~0 rows (approximately)
 DELETE FROM `form_field_validation`;
 
--- Dumping structure for table sekneg_aset_system.keys
+-- Dumping structure for table ug_siriri.keys
 CREATE TABLE IF NOT EXISTS `keys` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -2756,12 +2761,12 @@ CREATE TABLE IF NOT EXISTS `keys` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.keys: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.keys: ~0 rows (approximately)
 DELETE FROM `keys`;
 INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
 	(1, 0, '31F95C96EBC0E56702586B638FB6CCE0', 0, 0, 0, NULL, '2024-05-20 22:44:44');
 
--- Dumping structure for table sekneg_aset_system.menu
+-- Dumping structure for table ug_siriri.menu
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(200) DEFAULT NULL,
@@ -2777,7 +2782,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.menu: ~50 rows (approximately)
+-- Dumping data for table ug_siriri.menu: ~50 rows (approximately)
 DELETE FROM `menu`;
 INSERT INTO `menu` (`id`, `label`, `type`, `icon_color`, `link`, `sort`, `parent`, `icon`, `menu_type_id`, `active`, `access`) VALUES
 	(1, 'MAIN NAVIGATION', 'label', 'default', '{admin_url}/dashboard', 1, 1, '', 1, 1, 0),
@@ -2831,7 +2836,7 @@ INSERT INTO `menu` (`id`, `label`, `type`, `icon_color`, `link`, `sort`, `parent
 	(97, 'Inventarisasi', 'menu', 'default', '#', 13, 0, 'fa-pencil-square-o', 1, 1, 0),
 	(99, 'Master Reader', 'menu', 'default', '{admin_url}/tag_reader', 9, 50, '', 1, 1, 0);
 
--- Dumping structure for table sekneg_aset_system.menu_type
+-- Dumping structure for table ug_siriri.menu_type
 CREATE TABLE IF NOT EXISTS `menu_type` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -2839,23 +2844,23 @@ CREATE TABLE IF NOT EXISTS `menu_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.menu_type: ~2 rows (approximately)
+-- Dumping data for table ug_siriri.menu_type: ~2 rows (approximately)
 DELETE FROM `menu_type`;
 INSERT INTO `menu_type` (`id`, `name`, `definition`) VALUES
 	(1, 'side menu', NULL),
 	(2, 'top menu', NULL);
 
--- Dumping structure for table sekneg_aset_system.migrations
+-- Dumping structure for table ug_siriri.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `version` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.migrations: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.migrations: ~0 rows (approximately)
 DELETE FROM `migrations`;
 INSERT INTO `migrations` (`version`) VALUES
 	(20230123115357);
 
--- Dumping structure for table sekneg_aset_system.notification
+-- Dumping structure for table ug_siriri.notification
 CREATE TABLE IF NOT EXISTS `notification` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) DEFAULT NULL,
@@ -2867,10 +2872,10 @@ CREATE TABLE IF NOT EXISTS `notification` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.notification: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.notification: ~0 rows (approximately)
 DELETE FROM `notification`;
 
--- Dumping structure for table sekneg_aset_system.page
+-- Dumping structure for table ug_siriri.page
 CREATE TABLE IF NOT EXISTS `page` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
@@ -2885,10 +2890,10 @@ CREATE TABLE IF NOT EXISTS `page` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.page: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.page: ~0 rows (approximately)
 DELETE FROM `page`;
 
--- Dumping structure for table sekneg_aset_system.page_block_element
+-- Dumping structure for table ug_siriri.page_block_element
 CREATE TABLE IF NOT EXISTS `page_block_element` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `group_name` varchar(200) NOT NULL,
@@ -2899,15 +2904,19 @@ CREATE TABLE IF NOT EXISTS `page_block_element` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.page_block_element: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.page_block_element: ~0 rows (approximately)
 DELETE FROM `page_block_element`;
 
--- Dumping structure for table sekneg_aset_system.pengaturan_sistem
+-- Dumping structure for table ug_siriri.pengaturan_sistem
 CREATE TABLE IF NOT EXISTS `pengaturan_sistem` (
   `is_system_on` tinyint unsigned NOT NULL AUTO_INCREMENT,
-  `ip_address_server` varchar(50) NOT NULL DEFAULT '0',
+  `ip_address_server` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'localhost',
   `protocol_ws_server` char(3) NOT NULL DEFAULT 'ws',
   `port_ws_server` char(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '3030',
+  `validation_ip_address_server` varchar(50) NOT NULL DEFAULT 'localhost',
+  `validation_protocol_ws_server` char(3) NOT NULL DEFAULT 'ws',
+  `validation_port_ws_server` char(4) NOT NULL DEFAULT '8080',
+  `validation_auto_reconnect` smallint NOT NULL DEFAULT '5000',
   `flag_moving_in` tinyint(1) NOT NULL DEFAULT '1',
   `flag_moving_out` tinyint(1) NOT NULL DEFAULT '4',
   `timeout_duration` smallint NOT NULL DEFAULT '2000',
@@ -2924,12 +2933,12 @@ CREATE TABLE IF NOT EXISTS `pengaturan_sistem` (
   PRIMARY KEY (`is_system_on`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.pengaturan_sistem: ~1 rows (approximately)
+-- Dumping data for table ug_siriri.pengaturan_sistem: ~1 rows (approximately)
 DELETE FROM `pengaturan_sistem`;
-INSERT INTO `pengaturan_sistem` (`is_system_on`, `ip_address_server`, `protocol_ws_server`, `port_ws_server`, `flag_moving_in`, `flag_moving_out`, `timeout_duration`, `is_web_play_buzzer`, `deras_status_default`, `deras_description`, `deras_category_default`, `flag_alarm_register_tag`, `flag_status_available`, `flag_status_not_available`, `flag_kondisi_baik`, `flag_sensus_normal`, `flag_sensus_anomali`) VALUES
-	(1, '192.168.3.78', 'ws', '3030', 1, 4, 2000, 1, 1, 'DEMO-RFID', 0, 1, 1, 5, 1, 1, 2);
+INSERT INTO `pengaturan_sistem` (`is_system_on`, `ip_address_server`, `protocol_ws_server`, `port_ws_server`, `validation_ip_address_server`, `validation_protocol_ws_server`, `validation_port_ws_server`, `validation_auto_reconnect`, `flag_moving_in`, `flag_moving_out`, `timeout_duration`, `is_web_play_buzzer`, `deras_status_default`, `deras_description`, `deras_category_default`, `flag_alarm_register_tag`, `flag_status_available`, `flag_status_not_available`, `flag_kondisi_baik`, `flag_sensus_normal`, `flag_sensus_anomali`) VALUES
+	(1, '192.168.86.100', 'ws', '3030', 'localhost', 'ws', '8080', 5000, 1, 4, 2000, 1, 1, 'DEMO-RFID', 0, 1, 1, 5, 1, 1, 2);
 
--- Dumping structure for table sekneg_aset_system.reminder
+-- Dumping structure for table ug_siriri.reminder
 CREATE TABLE IF NOT EXISTS `reminder` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `receipent_custom_query` text,
@@ -2946,10 +2955,10 @@ CREATE TABLE IF NOT EXISTS `reminder` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.reminder: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.reminder: ~0 rows (approximately)
 DELETE FROM `reminder`;
 
--- Dumping structure for table sekneg_aset_system.reminder_condition
+-- Dumping structure for table ug_siriri.reminder_condition
 CREATE TABLE IF NOT EXISTS `reminder_condition` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `cond_type` varchar(200) DEFAULT NULL,
@@ -2964,10 +2973,10 @@ CREATE TABLE IF NOT EXISTS `reminder_condition` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.reminder_condition: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.reminder_condition: ~0 rows (approximately)
 DELETE FROM `reminder_condition`;
 
--- Dumping structure for table sekneg_aset_system.reminder_cron
+-- Dumping structure for table ug_siriri.reminder_cron
 CREATE TABLE IF NOT EXISTS `reminder_cron` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `reminder_id` int NOT NULL,
@@ -2979,10 +2988,10 @@ CREATE TABLE IF NOT EXISTS `reminder_cron` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.reminder_cron: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.reminder_cron: ~0 rows (approximately)
 DELETE FROM `reminder_cron`;
 
--- Dumping structure for table sekneg_aset_system.rest
+-- Dumping structure for table ug_siriri.rest
 CREATE TABLE IF NOT EXISTS `rest` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `subject` varchar(200) NOT NULL,
@@ -2991,18 +3000,19 @@ CREATE TABLE IF NOT EXISTS `rest` (
   `x_api_key` varchar(20) DEFAULT NULL,
   `x_token` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.rest: ~5 rows (approximately)
+-- Dumping data for table ug_siriri.rest: ~5 rows (approximately)
 DELETE FROM `rest`;
 INSERT INTO `rest` (`id`, `subject`, `table_name`, `primary_key`, `x_api_key`, `x_token`) VALUES
 	(6, 'Api Location', 'tag_location', 'location_id', 'no', 'no'),
 	(10, 'API Reader', 'tag_reader', 'reader_id', 'no', 'yes'),
 	(12, 'API Room', 'tb_room_master', 'id_room', 'no', 'no'),
 	(13, 'API Asset Master', 'tb_asset_master', 'id', 'no', 'no'),
-	(14, 'API Temp Table', 'tag_temp_table', 'id_temp_table', 'no', 'no');
+	(14, 'API Temp Table', 'tag_temp_table', 'id_temp_table', 'no', 'no'),
+	(15, 'Tb Master Aset', 'tb_master_aset', 'id_aset', 'no', 'no');
 
--- Dumping structure for table sekneg_aset_system.rest_field
+-- Dumping structure for table ug_siriri.rest_field
 CREATE TABLE IF NOT EXISTS `rest_field` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `rest_id` int NOT NULL,
@@ -3017,9 +3027,9 @@ CREATE TABLE IF NOT EXISTS `rest_field` (
   `relation_value` varchar(200) DEFAULT NULL,
   `relation_label` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=535 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=565 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.rest_field: ~68 rows (approximately)
+-- Dumping data for table ug_siriri.rest_field: ~98 rows (approximately)
 DELETE FROM `rest_field`;
 INSERT INTO `rest_field` (`id`, `rest_id`, `field_name`, `field_label`, `input_type`, `show_column`, `show_add_api`, `show_update_api`, `show_detail_api`, `relation_table`, `relation_value`, `relation_label`) VALUES
 	(235, 6, 'location_id', NULL, 'input', 'yes', '', '', 'yes', '', '', ''),
@@ -3089,9 +3099,39 @@ INSERT INTO `rest_field` (`id`, `rest_id`, `field_name`, `field_label`, `input_t
 	(531, 14, 'waktu', NULL, 'input', 'yes', '', '', 'yes', '', '', ''),
 	(532, 14, 'output', NULL, 'input', 'yes', '', '', 'yes', '', '', ''),
 	(533, 14, 'kategori_pergerakan', NULL, 'input', 'yes', '', '', 'yes', '', '', ''),
-	(534, 14, 'keterangan_pergerakan', NULL, 'input', 'yes', '', '', 'yes', '', '', '');
+	(534, 14, 'keterangan_pergerakan', NULL, 'input', 'yes', '', '', 'yes', '', '', ''),
+	(535, 15, 'id_aset', NULL, 'input', 'yes', '', '', 'yes', '', '', ''),
+	(536, 15, 'kode_tid', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(537, 15, 'kode_aset', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(538, 15, 'nup', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(539, 15, 'kategori', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(540, 15, 'merk', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(541, 15, 'tipe', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(542, 15, 'kondisi', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(543, 15, 'status', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(544, 15, 'borrow', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(545, 15, 'tipe_moving', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(546, 15, 'nama_aset', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(547, 15, 'id_area', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(548, 15, 'id_gedung', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(549, 15, 'id_lokasi', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(550, 15, 'tgl_perolehan', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(551, 15, 'nilai_perolehan', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(552, 15, 'tgl_inventarisasi', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(553, 15, 'tgl_peminjaman', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(554, 15, 'tgl_pengembalian', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(555, 15, 'flag_inventarisasi', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(556, 15, 'id_peminjam', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(557, 15, 'lokasi_moving', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(558, 15, 'lokasi_terakhir', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(559, 15, 'nama_lokasi_terakhir', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(560, 15, 'id_pegawai', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(561, 15, 'image_uri', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(562, 15, 'id_transaksi', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(563, 15, 'no_batch_sensus', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', ''),
+	(564, 15, 'keterangan', NULL, 'input', 'yes', 'yes', 'yes', 'yes', '', '', '');
 
--- Dumping structure for table sekneg_aset_system.rest_field_validation
+-- Dumping structure for table ug_siriri.rest_field_validation
 CREATE TABLE IF NOT EXISTS `rest_field_validation` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `rest_field_id` int NOT NULL,
@@ -3099,9 +3139,9 @@ CREATE TABLE IF NOT EXISTS `rest_field_validation` (
   `validation_name` varchar(200) NOT NULL,
   `validation_value` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=664 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=702 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.rest_field_validation: ~82 rows (approximately)
+-- Dumping data for table ug_siriri.rest_field_validation: ~120 rows (approximately)
 DELETE FROM `rest_field_validation`;
 INSERT INTO `rest_field_validation` (`id`, `rest_field_id`, `rest_id`, `validation_name`, `validation_value`) VALUES
 	(285, 236, 6, 'required', ''),
@@ -3185,9 +3225,47 @@ INSERT INTO `rest_field_validation` (`id`, `rest_field_id`, `rest_id`, `validati
 	(660, 532, 14, 'required', ''),
 	(661, 533, 14, 'required', ''),
 	(662, 534, 14, 'required', ''),
-	(663, 534, 14, 'max_length', '100');
+	(663, 534, 14, 'max_length', '100'),
+	(664, 536, 15, 'required', ''),
+	(665, 536, 15, 'max_length', '50'),
+	(666, 537, 15, 'required', ''),
+	(667, 537, 15, 'max_length', '255'),
+	(668, 538, 15, 'required', ''),
+	(669, 539, 15, 'required', ''),
+	(670, 540, 15, 'required', ''),
+	(671, 540, 15, 'max_length', '100'),
+	(672, 541, 15, 'required', ''),
+	(673, 541, 15, 'max_length', '100'),
+	(674, 542, 15, 'required', ''),
+	(675, 543, 15, 'required', ''),
+	(676, 544, 15, 'required', ''),
+	(677, 545, 15, 'required', ''),
+	(678, 546, 15, 'required', ''),
+	(679, 546, 15, 'max_length', '100'),
+	(680, 547, 15, 'required', ''),
+	(681, 548, 15, 'required', ''),
+	(682, 549, 15, 'required', ''),
+	(683, 550, 15, 'required', ''),
+	(684, 551, 15, 'required', ''),
+	(685, 552, 15, 'required', ''),
+	(686, 553, 15, 'required', ''),
+	(687, 554, 15, 'required', ''),
+	(688, 555, 15, 'required', ''),
+	(689, 556, 15, 'required', ''),
+	(690, 557, 15, 'required', ''),
+	(691, 558, 15, 'required', ''),
+	(692, 559, 15, 'required', ''),
+	(693, 559, 15, 'max_length', '100'),
+	(694, 560, 15, 'required', ''),
+	(695, 561, 15, 'required', ''),
+	(696, 561, 15, 'max_length', '255'),
+	(697, 562, 15, 'required', ''),
+	(698, 563, 15, 'required', ''),
+	(699, 563, 15, 'max_length', '50'),
+	(700, 564, 15, 'required', ''),
+	(701, 564, 15, 'max_length', '255');
 
--- Dumping structure for table sekneg_aset_system.rest_input_type
+-- Dumping structure for table ug_siriri.rest_input_type
 CREATE TABLE IF NOT EXISTS `rest_input_type` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(200) NOT NULL,
@@ -3196,7 +3274,7 @@ CREATE TABLE IF NOT EXISTS `rest_input_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.rest_input_type: ~16 rows (approximately)
+-- Dumping data for table ug_siriri.rest_input_type: ~16 rows (approximately)
 DELETE FROM `rest_input_type`;
 INSERT INTO `rest_input_type` (`id`, `type`, `relation`, `validation_group`) VALUES
 	(1, 'input', '0', 'input'),
@@ -3216,7 +3294,7 @@ INSERT INTO `rest_input_type` (`id`, `type`, `relation`, `validation_group`) VAL
 	(15, 'file', '0', 'file'),
 	(16, 'select', '1', 'select');
 
--- Dumping structure for table sekneg_aset_system.sound
+-- Dumping structure for table ug_siriri.sound
 CREATE TABLE IF NOT EXISTS `sound` (
   `id_sound` int unsigned NOT NULL AUTO_INCREMENT,
   `nama_sound` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -3229,10 +3307,10 @@ CREATE TABLE IF NOT EXISTS `sound` (
   PRIMARY KEY (`id_sound`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table sekneg_aset_system.sound: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.sound: ~0 rows (approximately)
 DELETE FROM `sound`;
 
--- Dumping structure for table sekneg_aset_system.tag_anomaly
+-- Dumping structure for table ug_siriri.tag_anomaly
 CREATE TABLE IF NOT EXISTS `tag_anomaly` (
   `anomaly_id` int NOT NULL AUTO_INCREMENT,
   `rfid_id` int NOT NULL,
@@ -3246,10 +3324,10 @@ CREATE TABLE IF NOT EXISTS `tag_anomaly` (
   PRIMARY KEY (`anomaly_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_anomaly: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_anomaly: ~0 rows (approximately)
 DELETE FROM `tag_anomaly`;
 
--- Dumping structure for table sekneg_aset_system.tag_borrow
+-- Dumping structure for table ug_siriri.tag_borrow
 CREATE TABLE IF NOT EXISTS `tag_borrow` (
   `borrow_id` int NOT NULL AUTO_INCREMENT,
   `rfid_id` int DEFAULT NULL,
@@ -3266,10 +3344,10 @@ CREATE TABLE IF NOT EXISTS `tag_borrow` (
   PRIMARY KEY (`borrow_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_borrow: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_borrow: ~0 rows (approximately)
 DELETE FROM `tag_borrow`;
 
--- Dumping structure for table sekneg_aset_system.tag_broken
+-- Dumping structure for table ug_siriri.tag_broken
 CREATE TABLE IF NOT EXISTS `tag_broken` (
   `broken_id` int NOT NULL AUTO_INCREMENT,
   `rfid_id` int DEFAULT NULL,
@@ -3281,10 +3359,10 @@ CREATE TABLE IF NOT EXISTS `tag_broken` (
   PRIMARY KEY (`broken_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_broken: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_broken: ~0 rows (approximately)
 DELETE FROM `tag_broken`;
 
--- Dumping structure for table sekneg_aset_system.tag_building
+-- Dumping structure for table ug_siriri.tag_building
 CREATE TABLE IF NOT EXISTS `tag_building` (
   `building_id` int NOT NULL AUTO_INCREMENT,
   `building_name` varchar(255) DEFAULT NULL,
@@ -3296,37 +3374,37 @@ CREATE TABLE IF NOT EXISTS `tag_building` (
   PRIMARY KEY (`building_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table sekneg_aset_system.tag_building: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_building: ~0 rows (approximately)
 DELETE FROM `tag_building`;
 
--- Dumping structure for table sekneg_aset_system.tag_label
+-- Dumping structure for table ug_siriri.tag_label
 CREATE TABLE IF NOT EXISTS `tag_label` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_label: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_label: ~0 rows (approximately)
 DELETE FROM `tag_label`;
 
--- Dumping structure for table sekneg_aset_system.tag_librarian
+-- Dumping structure for table ug_siriri.tag_librarian
 CREATE TABLE IF NOT EXISTS `tag_librarian` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_librarian: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_librarian: ~0 rows (approximately)
 DELETE FROM `tag_librarian`;
 
--- Dumping structure for table sekneg_aset_system.tag_location
+-- Dumping structure for table ug_siriri.tag_location
 CREATE TABLE IF NOT EXISTS `tag_location` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_location: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_location: ~0 rows (approximately)
 DELETE FROM `tag_location`;
 
--- Dumping structure for table sekneg_aset_system.tag_location_log
+-- Dumping structure for table ug_siriri.tag_location_log
 CREATE TABLE IF NOT EXISTS `tag_location_log` (
   `log_id` int NOT NULL AUTO_INCREMENT,
   `rfid_id` int DEFAULT NULL,
@@ -3339,10 +3417,10 @@ CREATE TABLE IF NOT EXISTS `tag_location_log` (
   KEY `librarian_id` (`librarian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_location_log: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_location_log: ~0 rows (approximately)
 DELETE FROM `tag_location_log`;
 
--- Dumping structure for table sekneg_aset_system.tag_reader
+-- Dumping structure for table ug_siriri.tag_reader
 CREATE TABLE IF NOT EXISTS `tag_reader` (
   `reader_id` int NOT NULL AUTO_INCREMENT,
   `room_id` int DEFAULT NULL,
@@ -3373,28 +3451,28 @@ CREATE TABLE IF NOT EXISTS `tag_reader` (
   KEY `Gedung_ID` (`room_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sekneg_aset_system.tag_reader: ~8 rows (approximately)
+-- Dumping data for table ug_siriri.tag_reader: ~8 rows (approximately)
 DELETE FROM `tag_reader`;
 INSERT INTO `tag_reader` (`reader_id`, `room_id`, `reader_name`, `setfor`, `reader_serialnumber`, `reader_type`, `reader_ip`, `reader_port`, `reader_com`, `reader_baudrate`, `reader_power`, `reader_interval`, `reader_mode`, `reader_updatedby`, `reader_updated`, `reader_createdby`, `reader_created`, `reader_family`, `connecting`, `reader_model`, `reader_identity`, `reader_antena`, `reader_angle`, `reader_gate`, `alias_antenna`) VALUES
-	(1, 4, 'R. Konservasi In', 1, '34242422', 'tcp', '192.168.1.200', '2022', 'COM1', '38400', 25, '2000', 'answer', 'sm4rtschool', '0000-00-00 00:00:00', 'sm4rtschool', '0000-00-00 00:00:00', 'prieds', 9, 'integrated', 1, 'double', 'in', 'pintu depan', 'rkin'),
+	(1, 4, 'R. Konservasi In', 1, '34242422', 'tcp', '192.168.1.200', '2022', 'COM1', '38400', 25, '2000', 'answer', 'sm4rtschool', '0000-00-00 00:00:00', 'sm4rtschool', '0000-00-00 00:00:00', 'prieds', 9, 'integrated', 1, 'double', 'in', 'pintu depan', 'FRONTGATE'),
 	(2, 4, 'R. Konservasi Out', 7, '23232342', 'tcp', '192.168.1.91', '6000', 'COM1', '19200', 25, '5000', 'answer', 'sm4rtschool', '0000-00-00 00:00:00', 'sm4rtschool', '0000-00-00 00:00:00', 'prieds', 9, 'integrated', 1, 'double', 'out', 'pintu depan', 'rkout'),
 	(3, 2, 'R. Pers Out', 7, '23232342', 'tcp', '192.168.1.90', '6000', 'COM1', '19200', 25, '5000', 'answer', '0', '0000-00-00 00:00:00', '0', '0000-00-00 00:00:00', 'prieds', 0, 'integrated', 1, 'double', 'out', 'pintu depan', 'bpout'),
 	(4, 2, 'R. Pers In', 1, '23232342', 'tcp', '192.168.1.92', '6000', 'COM1', '19200', 25, '5000', 'answer', 'sm4rtschool', '0000-00-00 00:00:00', 'sm4rtschool', '0000-00-00 00:00:00', 'prieds', 9, 'integrated', 1, 'double', 'in', 'pintu depan', 'bpin'),
 	(5, 3, 'R. Kepresidenan In', 1, '23232342', 'tcp', '192.168.1.92', '6000', 'COM1', '19200', 25, '5000', 'answer', '0', '0000-00-00 00:00:00', '0', '0000-00-00 00:00:00', 'prieds', 9, 'integrated', 1, 'double', 'in', 'Pintu Kaca', 'rpin'),
 	(6, 3, 'R. Kepresidenan Out', 7, '23232342', 'tcp', '192.168.1.92', '6000', 'COM1', '19200', 25, '5000', 'answer', '0', '0000-00-00 00:00:00', '0', '0000-00-00 00:00:00', 'prieds', 9, 'integrated', 1, 'double', 'out', 'Pintu Kaca', 'rpout'),
 	(7, 5, 'R. Veteran In', 1, 'veteran_in', 'tcp', '192.168.1.200', '6000', 'COM1', '57600', 25, '1000', 'answer', 'sm4rtschool', '2025-01-14 21:18:00', 'sm4rtschool', '2025-01-14 21:18:00', 'prieds', 9, 'integrated', 1, 'double', 'in', 'Gate Veteran', 'vin'),
-	(8, 5, 'R. Veteran Out', 7, 'veteran_ou', 'tcp', '192.168.1.200', '2022', 'COM1', '57600', 25, '1000', 'answer', 'sm4rtschool', '2025-01-14 21:20:00', 'sm4rtschool', '2025-01-14 21:20:00', 'prieds', 0, 'integrated', 0, 'double', 'out', 'Gate Veteran', 'vout');
+	(8, 5, 'R. Veteran Out', 7, 'veteran_ou', 'tcp', '192.168.1.200', '2022', 'COM1', '57600', 25, '1000', 'answer', 'sm4rtschool', '2025-01-14 21:20:00', 'sm4rtschool', '2025-01-14 21:20:00', 'prieds', 0, 'integrated', 1, 'double', 'out', 'Gate Veteran', 'vout');
 
--- Dumping structure for table sekneg_aset_system.tag_rfid
+-- Dumping structure for table ug_siriri.tag_rfid
 CREATE TABLE IF NOT EXISTS `tag_rfid` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tag_rfid: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tag_rfid: ~0 rows (approximately)
 DELETE FROM `tag_rfid`;
 
--- Dumping structure for table sekneg_aset_system.tag_temp_table
+-- Dumping structure for table ug_siriri.tag_temp_table
 CREATE TABLE IF NOT EXISTS `tag_temp_table` (
   `id_temp_table` int NOT NULL AUTO_INCREMENT,
   `lokasi_terakhir_id` int DEFAULT NULL,
@@ -3412,127 +3490,99 @@ CREATE TABLE IF NOT EXISTS `tag_temp_table` (
   `kategori_pergerakan` enum('normal','anomali') CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
   `keterangan_pergerakan` varchar(100) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
   PRIMARY KEY (`id_temp_table`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1149 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
--- Dumping data for table sekneg_aset_system.tag_temp_table: ~114 rows (approximately)
+-- Dumping data for table ug_siriri.tag_temp_table: ~76 rows (approximately)
 DELETE FROM `tag_temp_table`;
 INSERT INTO `tag_temp_table` (`id_temp_table`, `lokasi_terakhir_id`, `nama_lokasi_terakhir`, `is_legal_moving`, `room_id`, `room_name`, `reader_id`, `reader_antena`, `reader_angle`, `reader_gate`, `rfid_tag_number`, `waktu`, `output`, `kategori_pergerakan`, `keterangan_pergerakan`) VALUES
-	(1035, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:05:12', 1, 'normal', 'normal'),
-	(1036, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:06:23', 4, 'normal', 'normal!'),
-	(1037, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:06:52', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1038, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:09:34', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1039, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:11:58', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1040, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:12:22', 1, 'normal', 'normal!'),
-	(1041, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:15:18', 1, 'normal', 'normal'),
-	(1042, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:15:34', 4, 'normal', 'normal!'),
-	(1043, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:15:38', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1044, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 07:16:03', 1, 'normal', 'normal!'),
-	(1045, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 09:29:57', 4, 'normal', 'normal!'),
-	(1046, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 09:30:31', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1047, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-22 09:30:31', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1048, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:43:55', 4, 'normal', 'moving beda ruangan'),
-	(1049, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:43:59', 1, 'normal', 'normal!'),
-	(1050, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:45:03', 1, 'normal', 'normal'),
-	(1051, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:47:04', 1, 'normal', 'normal'),
-	(1052, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:47:07', 4, 'normal', 'normal!'),
-	(1053, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:47:22', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1054, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:47:22', 1, 'normal', 'normal!'),
-	(1055, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:47:33', 1, 'normal', 'normal'),
-	(1056, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:54:22', 1, 'normal', 'normal'),
-	(1057, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:54:25', 4, 'normal', 'normal!'),
-	(1058, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:54:45', 4, 'normal', 'moving beda ruangan'),
-	(1059, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:54:45', 1, 'normal', 'moving beda ruangan'),
-	(1060, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:56:46', 4, 'normal', 'moving beda ruangan'),
-	(1061, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:57:04', 1, 'normal', 'normal'),
-	(1062, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:57:04', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1063, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:58:22', 1, 'anomali', 'moving beda ruangan, tidak terbaca oleh reader bagian luar'),
-	(1064, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:58:26', 4, 'anomali', 'moving beda ruangan, tapi tidak terbaca oleh reader bagian luar pada ruangan sebelumnya'),
-	(1065, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:58:44', 4, 'normal', 'moving beda ruangan'),
-	(1066, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 10:58:47', 1, 'normal', 'normal!'),
-	(1067, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:09:39', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1068, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:09:39', 1, 'normal', 'normal'),
-	(1069, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:11:19', 4, 'normal', 'normal!'),
-	(1070, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:12:09', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1071, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:12:09', 1, 'normal', 'normal'),
-	(1072, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:14:51', 1, 'normal', 'normal'),
-	(1073, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-23 11:14:51', 4, 'normal', 'normal!'),
-	(1074, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:04:31', 1, 'normal', 'normal'),
-	(1075, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:04:37', 1, 'normal', 'normal'),
-	(1076, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:04:37', 4, 'normal', 'normal!'),
-	(1077, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:06:03', 4, 'normal', 'moving beda ruangan'),
-	(1078, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:06:08', 1, 'normal', 'normal!'),
-	(1079, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:07:26', 1, 'normal', 'normal'),
-	(1080, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:07:27', 4, 'normal', 'normal!'),
-	(1081, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:07:48', 4, 'normal', 'moving beda ruangan'),
-	(1082, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:12:26', 4, 'normal', 'moving beda ruangan'),
-	(1083, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 02:12:32', 1, 'normal', 'normal!'),
-	(1084, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 03:39:09', 4, 'anomali', 'moving beda ruangan, tapi tidak terbaca oleh reader bagian luar pada ruangan sebelumnya'),
-	(1085, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 03:39:33', 4, 'normal', 'moving beda ruangan'),
-	(1086, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-24 03:39:46', 1, 'normal', 'moving beda ruangan'),
-	(1087, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:47:53', 1, 'normal', 'moving beda ruangan'),
-	(1088, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:47:59', 1, 'normal', 'normal'),
-	(1089, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:48:09', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1090, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:49:40', 1, 'normal', 'normal'),
-	(1091, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:49:45', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1092, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:50:18', 4, 'normal', 'moving beda ruangan'),
-	(1093, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:50:21', 1, 'normal', 'normal!'),
-	(1094, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:54:54', 1, 'normal', 'normal'),
-	(1095, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:55:07', 4, 'normal', 'normal!'),
-	(1096, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:55:33', 4, 'anomali', 'moving beda ruangan, tapi tidak terbaca oleh reader bagian luar pada ruangan sebelumnya'),
-	(1097, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 03:55:51', 1, 'normal', 'normal'),
-	(1098, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-24 03:59:05', 1, 'normal', 'moving beda ruangan'),
-	(1099, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-24 03:59:09', 4, 'normal', 'normal!'),
-	(1100, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-24 04:00:31', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1101, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-24 04:00:33', 1, 'normal', 'normal!'),
-	(1102, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 04:32:00', 1, 'normal', 'normal'),
-	(1103, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 04:32:03', 1, 'normal', 'normal'),
-	(1104, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 04:32:09', 4, 'normal', 'normal!'),
-	(1105, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 04:32:16', 4, 'normal', 'normal!'),
-	(1106, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 04:32:31', 4, 'anomali', 'moving beda ruangan, tapi tidak terbaca oleh reader bagian luar pada ruangan sebelumnya'),
-	(1107, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 04:32:34', 1, 'normal', 'normal'),
-	(1108, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 10:43:28', 1, 'normal', 'normal'),
-	(1109, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 10:43:33', 4, 'normal', 'normal!'),
-	(1110, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 10:45:54', 4, 'normal', 'moving beda ruangan'),
-	(1111, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 10:45:59', 1, 'normal', 'normal!'),
-	(1112, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001422C2080B49', '2025-01-24 11:13:35', 0, NULL, NULL),
-	(1113, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:14:30', 1, 'normal', 'normal'),
-	(1114, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:14:54', 4, 'normal', 'normal!'),
-	(1115, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001422C2080B49', '2025-01-24 11:16:29', 0, NULL, NULL),
-	(1116, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:18:03', 1, 'normal', 'normal!'),
-	(1117, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:18:30', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1118, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:18:39', 1, 'normal', 'normal'),
-	(1119, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:19:40', 4, 'anomali', 'moving beda ruangan, tapi tidak terbaca oleh reader bagian luar pada ruangan sebelumnya'),
-	(1120, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:19:49', 1, 'normal', 'normal!'),
-	(1121, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:26:23', 1, 'normal', 'normal'),
-	(1122, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:26:28', 4, 'normal', 'normal!'),
-	(1123, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:26:52', 1, 'normal', 'moving beda ruangan'),
-	(1124, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:26:55', 4, 'normal', 'normal!'),
-	(1125, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:31:06', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1126, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:31:51', 1, 'normal', 'normal!'),
-	(1127, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:31:53', 4, 'normal', 'normal!'),
-	(1128, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:32:06', 4, 'normal', 'moving beda ruangan'),
-	(1129, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:32:10', 1, 'normal', 'normal!'),
-	(1130, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:48:01', 1, 'normal', 'normal'),
-	(1131, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:48:05', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1132, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:48:11', 4, 'normal', 'moving beda ruangan'),
-	(1133, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:48:15', 1, 'normal', 'normal'),
-	(1134, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:49:01', 4, 'normal', 'normal!'),
-	(1135, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-24 11:49:11', 1, 'normal', 'normal!'),
-	(1136, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:49:22', 4, 'anomali', 'moving beda ruangan, tapi tidak terbaca oleh reader bagian luar pada ruangan sebelumnya'),
-	(1137, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-24 11:49:46', 1, 'normal', 'normal!'),
-	(1138, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:50:34', 1, 'anomali', 'moving beda ruangan, tidak terbaca oleh reader bagian luar'),
-	(1139, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:50:47', 4, 'normal', 'normal!'),
-	(1140, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-24 11:51:04', 1, 'normal', 'moving beda ruangan'),
-	(1141, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-24 11:51:15', 4, 'normal', 'normal!'),
-	(1142, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-24 11:52:32', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1143, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-24 11:52:39', 1, 'normal', 'normal!'),
-	(1144, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 11:52:49', 1, 'anomali', 'moving beda ruangan, tidak terbaca oleh reader bagian luar'),
-	(1145, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 12:31:16', 1, 'normal', 'normal'),
-	(1146, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 12:31:27', 4, 'normal', 'normal!'),
-	(1147, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 12:31:41', 4, 'normal', 'terbaca oleh reader bagian luar, lokasi terakhir masih keluar di ruangan yang sama'),
-	(1148, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-24 12:31:46', 1, 'normal', 'normal!');
+	(1, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200003B0C1EE0B49', '2025-01-30 02:15:28', 0, NULL, NULL),
+	(2, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200003B0C1EE0B49', '2025-01-30 02:15:28', 0, NULL, NULL),
+	(3, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200005B2C2160B49', '2025-01-30 02:19:26', 0, NULL, NULL),
+	(4, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200005B2C2160B49', '2025-01-30 02:19:26', 0, NULL, NULL),
+	(5, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001352C21F0B49', '2025-01-30 02:23:14', 0, NULL, NULL),
+	(6, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001035C2030B49', '2025-01-30 02:23:31', 0, NULL, NULL),
+	(7, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001150C2020B49', '2025-01-30 02:23:31', 0, NULL, NULL),
+	(8, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000020AF3EB0B65', '2025-01-30 02:25:42', 0, NULL, NULL),
+	(9, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001147C21C0B49', '2025-01-30 02:25:58', 0, NULL, NULL),
+	(10, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-30 02:26:14', 0, NULL, NULL),
+	(11, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000000FC2010B49', '2025-01-30 02:26:25', 0, NULL, NULL),
+	(12, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020000357C2060B49', '2025-01-30 02:26:25', 0, NULL, NULL),
+	(13, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001035C2030B49', '2025-01-30 02:30:44', 0, NULL, NULL),
+	(14, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-30 02:30:48', 0, NULL, NULL),
+	(15, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-30 02:30:53', 0, NULL, NULL),
+	(16, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 02:31:05', 0, NULL, NULL),
+	(17, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-30 02:31:09', 0, NULL, NULL),
+	(18, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200003B0C1EE0B49', '2025-01-30 02:31:12', 0, NULL, NULL),
+	(19, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020001150C2020B49', '2025-01-30 02:31:41', 0, NULL, NULL),
+	(20, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020000357C2060B49', '2025-01-30 02:31:41', 0, NULL, NULL),
+	(21, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020001147C21C0B49', '2025-01-30 02:31:41', 0, NULL, NULL),
+	(22, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200005B2C2160B49', '2025-01-30 02:31:41', 0, NULL, NULL),
+	(23, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020000357C2060B49', '2025-01-30 02:32:47', 0, NULL, NULL),
+	(24, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E28011702000000FC2010B49', '2025-01-30 02:35:13', 0, NULL, NULL),
+	(25, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E28011702000000FC2010B49', '2025-01-30 02:37:30', 0, NULL, NULL),
+	(26, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200005B2C2160B49', '2025-01-30 02:37:30', 0, NULL, NULL),
+	(27, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001147C21C0B49', '2025-01-30 02:37:30', 0, NULL, NULL),
+	(28, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001150C2020B49', '2025-01-30 02:37:30', 0, NULL, NULL),
+	(29, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020000357C2060B49', '2025-01-30 02:37:30', 0, NULL, NULL),
+	(30, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020001150C2020B49', '2025-01-30 02:38:25', 0, NULL, NULL),
+	(31, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020001147C21C0B49', '2025-01-30 02:38:25', 0, NULL, NULL),
+	(32, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E28011702000000FC2010B49', '2025-01-30 02:38:25', 0, NULL, NULL),
+	(33, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E280117020000357C2060B49', '2025-01-30 02:38:25', 0, NULL, NULL),
+	(34, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200005B2C2160B49', '2025-01-30 02:38:25', 0, NULL, NULL),
+	(35, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:26:33', 0, NULL, NULL),
+	(36, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:26:33', 0, NULL, NULL),
+	(37, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:27:21', 0, NULL, NULL),
+	(38, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020000357C2060B49', '2025-01-30 07:27:37', 0, NULL, NULL),
+	(39, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:27:57', 0, NULL, NULL),
+	(40, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001147C21C0B49', '2025-01-30 07:28:15', 0, NULL, NULL),
+	(41, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200005B2C2160B49', '2025-01-30 07:28:15', 0, NULL, NULL),
+	(42, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020000357C2060B49', '2025-01-30 07:28:15', 0, NULL, NULL),
+	(43, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-01-30 07:28:15', 0, NULL, NULL),
+	(44, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E28011702000000FC2010B49', '2025-01-30 07:28:15', 0, NULL, NULL),
+	(45, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:30:12', 0, NULL, NULL),
+	(46, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:31:42', 0, NULL, NULL),
+	(47, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:32:28', 0, NULL, NULL),
+	(48, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:32:40', 0, NULL, NULL),
+	(49, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:33:22', 0, NULL, NULL),
+	(50, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 07:59:51', 0, NULL, NULL),
+	(51, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001035C2030B49', '2025-01-30 08:02:29', 0, NULL, NULL),
+	(52, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-30 08:02:35', 0, NULL, NULL),
+	(53, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-30 08:02:35', 0, NULL, NULL),
+	(54, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001035C2030B49', '2025-01-30 08:03:26', 0, NULL, NULL),
+	(55, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-01-30 08:03:26', 0, NULL, NULL),
+	(56, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200003B0C1EE0B49', '2025-01-30 08:03:32', 0, NULL, NULL),
+	(57, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001352C21F0B49', '2025-01-30 08:03:32', 0, NULL, NULL),
+	(58, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 08:12:18', 0, NULL, NULL),
+	(59, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 09:02:12', 0, NULL, NULL),
+	(60, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-01-30 09:02:12', 0, NULL, NULL),
+	(61, 5, 'Gerbang Veteran', 1, 5, 'Gerbang Veteran', 7, 'double', 'in', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-30 09:04:35', 0, NULL, NULL),
+	(62, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2801170200004C06FDC0B62', '2025-01-30 09:04:35', 0, NULL, NULL),
+	(63, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001352C21F0B49', '2025-01-30 09:06:27', 0, NULL, NULL),
+	(64, 4, 'Ruangan Konservasi Seni', 0, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200003B0C1EE0B49', '2025-01-31 06:41:12', 0, NULL, NULL),
+	(65, 4, 'Ruangan Konservasi Seni', 0, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200003B0C1EE0B49', '2025-01-31 06:43:20', 0, NULL, NULL),
+	(72, 2, 'Ruangan Biro Pers', 0, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-02-03 05:01:38', 0, NULL, NULL),
+	(73, 2, 'Ruangan Biro Pers', 0, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280117020001035C2030B49', '2025-02-03 05:01:58', 0, NULL, NULL),
+	(74, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E28011702000000FC2010B49', '2025-02-04 07:12:21', 0, NULL, NULL),
+	(75, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E28011702000000FC2010B49', '2025-02-04 07:13:23', 0, NULL, NULL),
+	(76, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 07:25:08', 0, NULL, NULL),
+	(77, 2, 'Ruangan Biro Pers', NULL, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E28011702000020AF3EB0B65', '2025-02-04 07:25:58', 0, NULL, NULL),
+	(78, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E28011702000000FC2010B49', '2025-02-04 07:26:50', 0, NULL, NULL),
+	(79, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020000357C2060B49', '2025-02-04 07:27:13', 0, NULL, NULL),
+	(80, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280116020007590AE460A5E', '2025-02-04 07:27:46', 0, NULL, NULL),
+	(81, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 07:56:24', 0, NULL, NULL),
+	(82, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 07:58:36', 0, NULL, NULL),
+	(83, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 08:09:45', 0, NULL, NULL),
+	(84, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 08:18:05', 0, NULL, NULL),
+	(85, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 08:27:16', 0, NULL, NULL),
+	(86, 2, 'Ruangan Biro Pers', NULL, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 08:38:18', 0, NULL, NULL),
+	(87, 5, 'Gerbang Veteran', NULL, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280117020001150C2020B49', '2025-02-04 08:39:08', 0, NULL, NULL),
+	(88, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280117020001150C2020B49', '2025-02-04 08:40:14', 0, NULL, NULL),
+	(89, 2, 'Ruangan Biro Pers', NULL, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-02-04 08:41:14', 0, NULL, NULL),
+	(90, 4, 'Ruangan Konservasi Seni', NULL, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-02-04 08:42:19', 0, NULL, NULL),
+	(91, 2, 'Ruangan Biro Pers', NULL, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E2801170200004C06FDC0B62', '2025-02-04 08:46:06', 0, NULL, NULL),
+	(92, 4, 'Ruangan Konservasi Seni', 1, 4, 'Ruangan Konservasi Seni', 2, 'double', 'out', 'pintu depan', 'E2801170200005B2C2160B49', '2025-02-04 09:09:44', 0, NULL, NULL);
 
--- Dumping structure for table sekneg_aset_system.tag_temp_table_process
+-- Dumping structure for table ug_siriri.tag_temp_table_process
 CREATE TABLE IF NOT EXISTS `tag_temp_table_process` (
   `id_temp_table` int NOT NULL AUTO_INCREMENT,
   `lokasi_terakhir_id` int DEFAULT NULL,
@@ -3550,12 +3600,12 @@ CREATE TABLE IF NOT EXISTS `tag_temp_table_process` (
   `kategori_pergerakan` enum('normal','anomali') CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
   `keterangan_pergerakan` varchar(100) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
   PRIMARY KEY (`id_temp_table`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table sekneg_aset_system.tag_temp_table_process: ~114 rows (approximately)
+-- Dumping data for table ug_siriri.tag_temp_table_process: ~0 rows (approximately)
 DELETE FROM `tag_temp_table_process`;
 
--- Dumping structure for table sekneg_aset_system.tb_asset_moving
+-- Dumping structure for table ug_siriri.tb_asset_moving
 CREATE TABLE IF NOT EXISTS `tb_asset_moving` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tanggal` date NOT NULL,
@@ -3567,130 +3617,189 @@ CREATE TABLE IF NOT EXISTS `tb_asset_moving` (
   `lokasi_terakhir_id` int DEFAULT NULL,
   `lokasi_terakhir` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1612 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_asset_moving: ~117 rows (approximately)
+-- Dumping data for table ug_siriri.tb_asset_moving: ~166 rows (approximately)
 DELETE FROM `tb_asset_moving`;
 INSERT INTO `tb_asset_moving` (`id`, `tanggal`, `waktu`, `reader_id`, `room_id`, `tag_code`, `status_moving`, `lokasi_terakhir_id`, `lokasi_terakhir`) VALUES
-	(1495, '2025-01-22', '2025-01-22 14:05:21', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1496, '2025-01-22', '2025-01-22 14:05:23', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1497, '2025-01-22', '2025-01-22 14:06:24', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1498, '2025-01-22', '2025-01-22 14:06:53', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1499, '2025-01-22', '2025-01-22 14:06:55', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1500, '2025-01-22', '2025-01-22 14:09:36', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1501, '2025-01-22', '2025-01-22 14:11:58', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1502, '2025-01-22', '2025-01-22 14:12:23', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1503, '2025-01-22', '2025-01-22 14:15:18', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1504, '2025-01-22', '2025-01-22 14:15:34', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1505, '2025-01-22', '2025-01-22 14:15:39', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1506, '2025-01-22', '2025-01-22 14:16:03', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1507, '2025-01-22', '2025-01-22 16:29:58', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1508, '2025-01-22', '2025-01-22 16:30:30', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1509, '2025-01-22', '2025-01-22 16:30:30', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1510, '2025-01-23', '2025-01-23 17:43:56', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1511, '2025-01-23', '2025-01-23 17:44:01', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1512, '2025-01-23', '2025-01-23 17:45:06', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1513, '2025-01-23', '2025-01-23 17:47:07', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1514, '2025-01-23', '2025-01-23 17:47:12', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1515, '2025-01-23', '2025-01-23 17:47:27', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1516, '2025-01-23', '2025-01-23 17:47:28', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1517, '2025-01-23', '2025-01-23 17:47:37', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1518, '2025-01-23', '2025-01-23 17:54:27', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1519, '2025-01-23', '2025-01-23 17:54:27', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1520, '2025-01-23', '2025-01-23 17:54:47', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1521, '2025-01-23', '2025-01-23 17:54:47', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1522, '2025-01-23', '2025-01-23 17:56:47', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1523, '2025-01-23', '2025-01-23 17:57:07', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1524, '2025-01-23', '2025-01-23 17:57:07', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1525, '2025-01-23', '2025-01-23 17:58:27', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1526, '2025-01-23', '2025-01-23 17:58:27', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1527, '2025-01-23', '2025-01-23 17:58:47', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1528, '2025-01-23', '2025-01-23 17:58:52', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1529, '2025-01-23', '2025-01-23 18:10:01', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1530, '2025-01-23', '2025-01-23 18:10:01', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1531, '2025-01-23', '2025-01-23 18:11:21', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1532, '2025-01-23', '2025-01-23 18:12:11', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1533, '2025-01-23', '2025-01-23 18:12:11', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1534, '2025-01-23', '2025-01-23 18:14:56', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1535, '2025-01-23', '2025-01-23 18:14:56', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1536, '2025-01-24', '2025-01-24 09:04:32', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1537, '2025-01-24', '2025-01-24 09:04:45', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1538, '2025-01-24', '2025-01-24 09:04:45', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1539, '2025-01-24', '2025-01-24 09:06:07', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1540, '2025-01-24', '2025-01-24 09:06:12', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1541, '2025-01-24', '2025-01-24 09:07:31', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1542, '2025-01-24', '2025-01-24 09:07:31', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1543, '2025-01-24', '2025-01-24 09:07:51', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1544, '2025-01-24', '2025-01-24 09:12:28', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1545, '2025-01-24', '2025-01-24 09:12:34', 4, 2, 'E280117020001150C2020B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1546, '2025-01-24', '2025-01-24 10:39:13', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1547, '2025-01-24', '2025-01-24 10:39:36', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1548, '2025-01-24', '2025-01-24 10:39:49', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1549, '2025-01-24', '2025-01-24 10:47:54', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1550, '2025-01-24', '2025-01-24 10:48:00', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1551, '2025-01-24', '2025-01-24 10:48:13', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1552, '2025-01-24', '2025-01-24 10:49:44', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1553, '2025-01-24', '2025-01-24 10:49:51', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1554, '2025-01-24', '2025-01-24 10:49:56', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1555, '2025-01-24', '2025-01-24 10:50:22', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1556, '2025-01-24', '2025-01-24 10:50:24', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1557, '2025-01-24', '2025-01-24 10:54:56', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1558, '2025-01-24', '2025-01-24 10:55:12', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1559, '2025-01-24', '2025-01-24 10:55:15', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1560, '2025-01-24', '2025-01-24 10:55:36', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1561, '2025-01-24', '2025-01-24 10:55:54', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1562, '2025-01-24', '2025-01-24 10:59:06', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1563, '2025-01-24', '2025-01-24 10:59:12', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1564, '2025-01-24', '2025-01-24 11:00:32', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
-	(1565, '2025-01-24', '2025-01-24 11:00:41', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
-	(1566, '2025-01-24', '2025-01-24 11:32:02', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1567, '2025-01-24', '2025-01-24 11:32:04', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1568, '2025-01-24', '2025-01-24 11:32:11', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1569, '2025-01-24', '2025-01-24 11:32:18', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1570, '2025-01-24', '2025-01-24 11:32:34', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1571, '2025-01-24', '2025-01-24 11:32:38', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1572, '2025-01-24', '2025-01-24 17:43:40', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1573, '2025-01-24', '2025-01-24 17:43:40', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1574, '2025-01-24', '2025-01-24 17:45:57', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1575, '2025-01-24', '2025-01-24 17:46:00', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1576, '2025-01-24', '2025-01-24 18:14:57', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1577, '2025-01-24', '2025-01-24 18:14:58', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1578, '2025-01-24', '2025-01-24 18:18:52', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1579, '2025-01-24', '2025-01-24 18:18:53', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1580, '2025-01-24', '2025-01-24 18:18:54', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1581, '2025-01-24', '2025-01-24 18:18:55', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1582, '2025-01-24', '2025-01-24 18:19:41', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
-	(1583, '2025-01-24', '2025-01-24 18:19:50', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
-	(1584, '2025-01-24', '2025-01-24 18:26:41', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
-	(1585, '2025-01-24', '2025-01-24 18:26:42', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
-	(1586, '2025-01-24', '2025-01-24 18:26:53', 7, 5, 'E28011702000020AF3EB0B65', 'In', 5, 'Gerbang Veteran'),
-	(1587, '2025-01-24', '2025-01-24 18:26:56', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
-	(1588, '2025-01-24', '2025-01-24 18:31:08', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
-	(1589, '2025-01-24', '2025-01-24 18:31:53', 7, 5, 'E28011702000020AF3EB0B65', 'In', 5, 'Gerbang Veteran'),
-	(1590, '2025-01-24', '2025-01-24 18:31:56', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
-	(1591, '2025-01-24', '2025-01-24 18:32:08', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
-	(1592, '2025-01-24', '2025-01-24 18:32:11', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
-	(1593, '2025-01-24', '2025-01-24 18:48:05', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
-	(1594, '2025-01-24', '2025-01-24 18:48:08', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
-	(1595, '2025-01-24', '2025-01-24 18:48:14', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
-	(1596, '2025-01-24', '2025-01-24 18:48:17', 7, 5, 'E28011702000020AF3EB0B65', 'In', 5, 'Gerbang Veteran'),
-	(1597, '2025-01-24', '2025-01-24 18:49:02', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
-	(1598, '2025-01-24', '2025-01-24 18:49:14', 7, 5, 'E28011702000020AF3EB0B65', 'In', 5, 'Gerbang Veteran'),
-	(1599, '2025-01-24', '2025-01-24 18:49:23', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
-	(1600, '2025-01-24', '2025-01-24 18:49:50', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
-	(1601, '2025-01-24', '2025-01-24 18:50:38', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1602, '2025-01-24', '2025-01-24 18:50:50', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1603, '2025-01-24', '2025-01-24 18:51:05', 7, 5, 'E2801170200004C06FDC0B62', 'In', 5, 'Gerbang Veteran'),
-	(1604, '2025-01-24', '2025-01-24 18:51:17', 8, 0, 'E2801170200004C06FDC0B62', 'Out', 5, 'Gerbang Veteran'),
-	(1605, '2025-01-24', '2025-01-24 18:52:35', 8, 0, 'E2801170200004C06FDC0B62', 'Out', 5, 'Gerbang Veteran'),
-	(1606, '2025-01-24', '2025-01-24 18:52:41', 7, 5, 'E2801170200004C06FDC0B62', 'In', 5, 'Gerbang Veteran'),
-	(1607, '2025-01-24', '2025-01-24 18:52:53', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1608, '2025-01-24', '2025-01-24 19:31:17', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
-	(1609, '2025-01-24', '2025-01-24 19:31:29', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1610, '2025-01-24', '2025-01-24 19:31:44', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
-	(1611, '2025-01-24', '2025-01-24 19:31:47', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers');
+	(1, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(2, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(3, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(4, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(5, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(6, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(7, '2025-01-30', '2025-01-30 02:15:28', 7, 5, 'E2801170200003B0C1EE0B49', 'In', 5, 'Gerbang Veteran'),
+	(8, '2025-01-30', '2025-01-30 02:15:28', 8, 0, 'E2801170200003B0C1EE0B49', 'Out', 5, 'Gerbang Veteran'),
+	(9, '2025-01-30', '2025-01-30 02:19:26', 7, 5, 'E2801170200005B2C2160B49', 'In', 5, 'Gerbang Veteran'),
+	(10, '2025-01-30', '2025-01-30 02:19:26', 8, 0, 'E2801170200005B2C2160B49', 'Out', 5, 'Gerbang Veteran'),
+	(11, '2025-01-30', '2025-01-30 02:23:14', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(12, '2025-01-30', '2025-01-30 02:23:31', 8, 0, 'E280117020001035C2030B49', 'Out', 5, 'Gerbang Veteran'),
+	(13, '2025-01-30', '2025-01-30 02:23:31', 8, 0, 'E280117020001150C2020B49', 'Out', 5, 'Gerbang Veteran'),
+	(14, '2025-01-30', '2025-01-30 02:25:42', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
+	(15, '2025-01-30', '2025-01-30 02:25:58', 8, 0, 'E280117020001147C21C0B49', 'Out', 5, 'Gerbang Veteran'),
+	(16, '2025-01-30', '2025-01-30 02:26:14', 8, 0, 'E2801170200004C06FDC0B62', 'Out', 5, 'Gerbang Veteran'),
+	(17, '2025-01-30', '2025-01-30 02:26:25', 8, 0, 'E28011702000000FC2010B49', 'Out', 5, 'Gerbang Veteran'),
+	(18, '2025-01-30', '2025-01-30 02:26:25', 8, 0, 'E280117020000357C2060B49', 'Out', 5, 'Gerbang Veteran'),
+	(19, '2025-01-30', '2025-01-30 02:30:44', 4, 2, 'E280117020001035C2030B49', 'In', 2, 'Ruangan Biro Pers'),
+	(20, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(21, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(22, '2025-01-30', '2025-01-30 02:31:05', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(23, '2025-01-30', '2025-01-30 02:31:09', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(24, '2025-01-30', '2025-01-30 02:31:12', 4, 2, 'E2801170200003B0C1EE0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(25, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E280117020001150C2020B49', 'In', 5, 'Gerbang Veteran'),
+	(26, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E280117020000357C2060B49', 'In', 5, 'Gerbang Veteran'),
+	(27, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E280117020001147C21C0B49', 'In', 5, 'Gerbang Veteran'),
+	(28, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E2801170200005B2C2160B49', 'In', 5, 'Gerbang Veteran'),
+	(29, '2025-01-30', '2025-01-30 02:32:47', 7, 5, 'E280117020000357C2060B49', 'In', 5, 'Gerbang Veteran'),
+	(30, '2025-01-30', '2025-01-30 02:35:13', 7, 5, 'E28011702000000FC2010B49', 'In', 5, 'Gerbang Veteran'),
+	(31, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E28011702000000FC2010B49', 'Out', 5, 'Gerbang Veteran'),
+	(32, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E2801170200005B2C2160B49', 'Out', 5, 'Gerbang Veteran'),
+	(33, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E280117020001147C21C0B49', 'Out', 5, 'Gerbang Veteran'),
+	(34, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E280117020001150C2020B49', 'Out', 5, 'Gerbang Veteran'),
+	(35, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E280117020000357C2060B49', 'Out', 5, 'Gerbang Veteran'),
+	(36, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E280117020001150C2020B49', 'In', 5, 'Gerbang Veteran'),
+	(37, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E280117020001147C21C0B49', 'In', 5, 'Gerbang Veteran'),
+	(38, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E28011702000000FC2010B49', 'In', 5, 'Gerbang Veteran'),
+	(39, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E280117020000357C2060B49', 'In', 5, 'Gerbang Veteran'),
+	(40, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E2801170200005B2C2160B49', 'In', 5, 'Gerbang Veteran'),
+	(41, '2025-01-30', '2025-01-30 07:26:33', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(42, '2025-01-30', '2025-01-30 07:26:33', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(43, '2025-01-30', '2025-01-30 07:27:37', 1, 4, 'E280117020000357C2060B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(44, '2025-01-30', '2025-01-30 07:27:57', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(45, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E280117020001147C21C0B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(46, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E2801170200005B2C2160B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(47, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E280117020000357C2060B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(48, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(49, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E28011702000000FC2010B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(50, '2025-01-30', '2025-01-30 07:30:12', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(51, '2025-01-30', '2025-01-30 07:32:40', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(52, '2025-01-30', '2025-01-30 07:59:51', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(53, '2025-01-30', '2025-01-30 08:02:29', 3, 0, 'E280117020001035C2030B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(54, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(55, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(56, '2025-01-30', '2025-01-30 08:03:26', 3, 0, 'E280117020001035C2030B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(57, '2025-01-30', '2025-01-30 08:03:26', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(58, '2025-01-30', '2025-01-30 08:03:32', 3, 0, 'E2801170200003B0C1EE0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(59, '2025-01-30', '2025-01-30 08:03:32', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(60, '2025-01-30', '2025-01-30 09:02:12', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
+	(61, '2025-01-30', '2025-01-30 09:02:12', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(62, '2025-01-30', '2025-01-30 09:04:35', 7, 5, 'E2801170200004C06FDC0B62', 'In', 5, 'Gerbang Veteran'),
+	(63, '2025-01-30', '2025-01-30 09:04:35', 8, 0, 'E2801170200004C06FDC0B62', 'Out', 5, 'Gerbang Veteran'),
+	(64, '2025-01-30', '2025-01-30 09:06:27', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(65, '2025-01-31', '2025-01-31 06:41:12', 1, 4, 'E2801170200003B0C1EE0B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(66, '2025-01-31', '2025-01-31 06:43:20', 1, 4, 'E2801170200003B0C1EE0B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(67, '2025-01-30', '2025-01-30 07:27:21', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
+	(68, '2025-01-30', '2025-01-30 07:31:42', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(69, '2025-01-30', '2025-01-30 02:25:42', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
+	(70, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(71, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(72, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(73, '2025-01-30', '2025-01-30 08:03:26', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(74, '2025-01-30', '2025-01-30 02:25:42', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
+	(75, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(76, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(77, '2025-01-30', '2025-01-30 02:25:42', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
+	(78, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(79, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(80, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(81, '2025-01-30', '2025-01-30 08:03:26', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(82, '2025-01-30', '2025-01-30 02:15:28', 7, 5, 'E2801170200003B0C1EE0B49', 'In', 5, 'Gerbang Veteran'),
+	(83, '2025-01-30', '2025-01-30 02:15:28', 8, 0, 'E2801170200003B0C1EE0B49', 'Out', 5, 'Gerbang Veteran'),
+	(84, '2025-01-30', '2025-01-30 02:19:26', 7, 5, 'E2801170200005B2C2160B49', 'In', 5, 'Gerbang Veteran'),
+	(85, '2025-01-30', '2025-01-30 02:19:26', 8, 0, 'E2801170200005B2C2160B49', 'Out', 5, 'Gerbang Veteran'),
+	(86, '2025-01-30', '2025-01-30 02:23:14', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(87, '2025-01-30', '2025-01-30 02:23:31', 8, 0, 'E280117020001035C2030B49', 'Out', 5, 'Gerbang Veteran'),
+	(88, '2025-01-30', '2025-01-30 02:23:31', 8, 0, 'E280117020001150C2020B49', 'Out', 5, 'Gerbang Veteran'),
+	(89, '2025-01-30', '2025-01-30 02:25:42', 8, 0, 'E28011702000020AF3EB0B65', 'Out', 5, 'Gerbang Veteran'),
+	(90, '2025-01-30', '2025-01-30 02:25:58', 8, 0, 'E280117020001147C21C0B49', 'Out', 5, 'Gerbang Veteran'),
+	(91, '2025-01-30', '2025-01-30 02:26:14', 8, 0, 'E2801170200004C06FDC0B62', 'Out', 5, 'Gerbang Veteran'),
+	(92, '2025-01-30', '2025-01-30 02:26:25', 8, 0, 'E28011702000000FC2010B49', 'Out', 5, 'Gerbang Veteran'),
+	(93, '2025-01-30', '2025-01-30 02:26:25', 8, 0, 'E280117020000357C2060B49', 'Out', 5, 'Gerbang Veteran'),
+	(94, '2025-01-30', '2025-01-30 02:30:44', 4, 2, 'E280117020001035C2030B49', 'In', 2, 'Ruangan Biro Pers'),
+	(95, '2025-01-30', '2025-01-30 02:30:48', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(96, '2025-01-30', '2025-01-30 02:30:53', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(97, '2025-01-30', '2025-01-30 02:31:05', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(98, '2025-01-30', '2025-01-30 02:31:09', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(99, '2025-01-30', '2025-01-30 02:31:12', 4, 2, 'E2801170200003B0C1EE0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(100, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E280117020001150C2020B49', 'In', 5, 'Gerbang Veteran'),
+	(101, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E280117020000357C2060B49', 'In', 5, 'Gerbang Veteran'),
+	(102, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E280117020001147C21C0B49', 'In', 5, 'Gerbang Veteran'),
+	(103, '2025-01-30', '2025-01-30 02:31:41', 7, 5, 'E2801170200005B2C2160B49', 'In', 5, 'Gerbang Veteran'),
+	(104, '2025-01-30', '2025-01-30 02:32:47', 7, 5, 'E280117020000357C2060B49', 'In', 5, 'Gerbang Veteran'),
+	(105, '2025-01-30', '2025-01-30 02:35:13', 7, 5, 'E28011702000000FC2010B49', 'In', 5, 'Gerbang Veteran'),
+	(106, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E28011702000000FC2010B49', 'Out', 5, 'Gerbang Veteran'),
+	(107, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E2801170200005B2C2160B49', 'Out', 5, 'Gerbang Veteran'),
+	(108, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E280117020001147C21C0B49', 'Out', 5, 'Gerbang Veteran'),
+	(109, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E280117020001150C2020B49', 'Out', 5, 'Gerbang Veteran'),
+	(110, '2025-01-30', '2025-01-30 02:37:30', 8, 0, 'E280117020000357C2060B49', 'Out', 5, 'Gerbang Veteran'),
+	(111, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E280117020001150C2020B49', 'In', 5, 'Gerbang Veteran'),
+	(112, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E280117020001147C21C0B49', 'In', 5, 'Gerbang Veteran'),
+	(113, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E28011702000000FC2010B49', 'In', 5, 'Gerbang Veteran'),
+	(114, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E280117020000357C2060B49', 'In', 5, 'Gerbang Veteran'),
+	(115, '2025-01-30', '2025-01-30 02:38:25', 7, 5, 'E2801170200005B2C2160B49', 'In', 5, 'Gerbang Veteran'),
+	(116, '2025-01-30', '2025-01-30 07:26:33', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(117, '2025-01-30', '2025-01-30 07:26:33', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(118, '2025-01-30', '2025-01-30 07:27:21', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
+	(119, '2025-01-30', '2025-01-30 07:27:37', 1, 4, 'E280117020000357C2060B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(120, '2025-01-30', '2025-01-30 07:27:57', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(121, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E280117020001147C21C0B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(122, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E2801170200005B2C2160B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(123, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E280117020000357C2060B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(124, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(125, '2025-01-30', '2025-01-30 07:28:15', 1, 4, 'E28011702000000FC2010B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(126, '2025-01-30', '2025-01-30 07:30:12', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(127, '2025-01-30', '2025-01-30 07:31:42', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(128, '2025-01-30', '2025-01-30 07:32:28', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(129, '2025-01-30', '2025-01-30 07:32:40', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(130, '2025-01-30', '2025-01-30 07:33:22', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(131, '2025-01-30', '2025-01-30 07:59:51', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(132, '2025-01-30', '2025-01-30 08:02:29', 3, 0, 'E280117020001035C2030B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(133, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(134, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(135, '2025-01-30', '2025-01-30 08:03:26', 3, 0, 'E280117020001035C2030B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(136, '2025-01-30', '2025-01-30 08:03:26', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(137, '2025-01-30', '2025-01-30 08:03:32', 3, 0, 'E2801170200003B0C1EE0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(138, '2025-01-30', '2025-01-30 08:03:32', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(139, '2025-01-30', '2025-01-30 08:12:18', 4, 2, 'E2801170200004C06FDC0B62', 'In', 2, 'Ruangan Biro Pers'),
+	(140, '2025-01-30', '2025-01-30 09:02:12', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
+	(141, '2025-01-30', '2025-01-30 09:02:12', 2, 0, 'E2801170200004C06FDC0B62', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(142, '2025-01-30', '2025-01-30 09:04:35', 7, 5, 'E2801170200004C06FDC0B62', 'In', 5, 'Gerbang Veteran'),
+	(143, '2025-01-30', '2025-01-30 09:04:35', 8, 0, 'E2801170200004C06FDC0B62', 'Out', 5, 'Gerbang Veteran'),
+	(144, '2025-01-30', '2025-01-30 09:06:27', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(145, '2025-01-31', '2025-01-31 06:41:12', 1, 4, 'E2801170200003B0C1EE0B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(146, '2025-01-31', '2025-01-31 06:43:20', 1, 4, 'E2801170200003B0C1EE0B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(147, '2025-01-30', '2025-01-30 02:23:14', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(148, '2025-01-30', '2025-01-30 02:31:09', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(149, '2025-01-30', '2025-01-30 02:23:14', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(150, '2025-01-30', '2025-01-30 02:31:09', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(151, '2025-01-30', '2025-01-30 08:02:35', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(152, '2025-01-30', '2025-01-30 08:03:32', 3, 0, 'E280117020001352C21F0B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(153, '2025-01-30', '2025-01-30 09:06:27', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(154, '2025-01-30', '2025-01-30 02:23:14', 8, 0, 'E280117020001352C21F0B49', 'Out', 5, 'Gerbang Veteran'),
+	(155, '2025-01-30', '2025-01-30 02:31:09', 4, 2, 'E280117020001352C21F0B49', 'In', 2, 'Ruangan Biro Pers'),
+	(156, '2025-02-03', '2025-02-03 05:01:38', 4, 2, 'E28011702000020AF3EB0B65', 'In', 2, 'Ruangan Biro Pers'),
+	(157, '2025-02-03', '2025-02-03 05:01:58', 4, 2, 'E280117020001035C2030B49', 'In', 2, 'Ruangan Biro Pers'),
+	(158, '2025-02-04', '2025-02-04 07:12:21', 2, 0, 'E28011702000000FC2010B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(159, '2025-02-04', '2025-02-04 07:13:23', 1, 4, 'E28011702000000FC2010B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(160, '2025-02-04', '2025-02-04 07:25:08', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(161, '2025-02-04', '2025-02-04 07:25:58', 3, 0, 'E28011702000020AF3EB0B65', 'Out', 2, 'Ruangan Biro Pers'),
+	(162, '2025-02-04', '2025-02-04 07:26:50', 2, 0, 'E28011702000000FC2010B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(163, '2025-02-04', '2025-02-04 07:27:13', 2, 0, 'E280117020000357C2060B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(164, '2025-02-04', '2025-02-04 07:27:46', 2, 0, 'E280116020007590AE460A5E', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(165, '2025-02-04', '2025-02-04 07:56:24', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(166, '2025-02-04', '2025-02-04 07:58:36', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(167, '2025-02-04', '2025-02-04 08:09:45', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(168, '2025-02-04', '2025-02-04 08:18:05', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(169, '2025-02-04', '2025-02-04 15:29:29', 2, 0, 'E280117020001150C2020B49', 'Out', 4, 'Ruangan Konservasi Seni'),
+	(170, '2025-02-04', '2025-02-04 15:38:20', 3, 0, 'E280117020001150C2020B49', 'Out', 2, 'Ruangan Biro Pers'),
+	(171, '2025-02-04', '2025-02-04 15:39:10', 8, 0, 'E280117020001150C2020B49', 'Out', 5, 'Gerbang Veteran'),
+	(172, '2025-02-04', '2025-02-04 15:40:15', 1, 4, 'E280117020001150C2020B49', 'In', 4, 'Ruangan Konservasi Seni'),
+	(173, '2025-02-04', '2025-02-04 15:41:15', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(174, '2025-02-04', '2025-02-04 15:42:20', 1, 4, 'E2801170200004C06FDC0B62', 'In', 4, 'Ruangan Konservasi Seni'),
+	(175, '2025-02-04', '2025-02-04 15:46:11', 3, 0, 'E2801170200004C06FDC0B62', 'Out', 2, 'Ruangan Biro Pers'),
+	(176, '2025-02-04', '2025-02-04 16:09:48', 2, 0, 'E2801170200005B2C2160B49', 'Out', 4, 'Ruangan Konservasi Seni');
 
--- Dumping structure for table sekneg_aset_system.tb_category_aset
+-- Dumping structure for table ug_siriri.tb_category_aset
 CREATE TABLE IF NOT EXISTS `tb_category_aset` (
   `id_kategori` int NOT NULL AUTO_INCREMENT,
   `kode_kategori` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
@@ -3698,13 +3807,13 @@ CREATE TABLE IF NOT EXISTS `tb_category_aset` (
   PRIMARY KEY (`id_kategori`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_category_aset: ~2 rows (approximately)
+-- Dumping data for table ug_siriri.tb_category_aset: ~2 rows (approximately)
 DELETE FROM `tb_category_aset`;
 INSERT INTO `tb_category_aset` (`id_kategori`, `kode_kategori`, `nama_kategori`) VALUES
 	(1, 'S01', 'Seni'),
 	(2, 'E01', 'Elektronik');
 
--- Dumping structure for table sekneg_aset_system.tb_detail_transaksi
+-- Dumping structure for table ug_siriri.tb_detail_transaksi
 CREATE TABLE IF NOT EXISTS `tb_detail_transaksi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_transaksi` int NOT NULL,
@@ -3723,9 +3832,9 @@ CREATE TABLE IF NOT EXISTS `tb_detail_transaksi` (
   PRIMARY KEY (`id`),
   KEY `FK_tb_detail_transaksi_tb_master_transaksi` (`id_transaksi`),
   CONSTRAINT `FK_tb_detail_transaksi_tb_master_transaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `tb_master_transaksi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=366 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=371 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_detail_transaksi: ~30 rows (approximately)
+-- Dumping data for table ug_siriri.tb_detail_transaksi: ~31 rows (approximately)
 DELETE FROM `tb_detail_transaksi`;
 INSERT INTO `tb_detail_transaksi` (`id`, `id_transaksi`, `kode_transaksi`, `kode_tid`, `id_aset`, `kode_aset`, `nup`, `nama_aset`, `id_area`, `id_gedung`, `id_ruangan`, `status`, `id_kondisi`, `flag_transaksi`) VALUES
 	(336, 191, '', 'E28011702000000FC2010B49', 1, '6010303001', '1', 'Sejauh Bangau Terbang (uk.140x110)(Ampas kopi)', NULL, NULL, NULL, 1, 1, 0),
@@ -3757,9 +3866,14 @@ INSERT INTO `tb_detail_transaksi` (`id`, `id_transaksi`, `kode_transaksi`, `kode
 	(362, 243, '', 'E280117020001150C2020B49', 6, '6010303001', '6', 'Sketsa Kuda Terbang (uk.30x32)', 3, 4, 4, 1, 1, 1),
 	(363, 243, '', 'E280117020000357C2060B49', 10, '6010303001', '10', 'Lukisan gambar Ka\'bah', 3, 4, 4, 1, 1, 1),
 	(364, 243, '', 'E2801170200004C06FDC0B62', 198, '3060101036', '50', 'Televic Microphone 40cm', 3, 4, 4, 1, 1, 1),
-	(365, 244, '', 'E28011702000020AF3EB0B65', 153, '3050206020', '3', 'Gopro HERO 5-Black', 3, 2, 2, NULL, NULL, 0);
+	(365, 244, '', 'E28011702000020AF3EB0B65', 153, '3050206020', '3', 'Gopro HERO 5-Black', 3, 2, 2, NULL, NULL, 0),
+	(366, 245, '', 'E2801170200004C06FDC0B62', 198, '3060101036', '50', 'Televic Microphone 40cm', 3, 2, 2, NULL, NULL, 0),
+	(367, 246, '', 'E2801170200004C06FDC0B62', 198, '3060101036', '50', 'Televic Microphone 40cm', 3, 2, 2, NULL, NULL, 0),
+	(368, 247, '', 'E280117020001150C2020B49', 6, '6010303001', '6', 'Sketsa Kuda Terbang (uk.30x32)', 3, 4, 4, NULL, NULL, 0),
+	(369, 248, '', 'E2801170200004C06FDC0B62', 198, '3060101036', '50', 'Televic Microphone 40cm', 3, 2, 2, NULL, NULL, 0),
+	(370, 249, '', 'E2801170200005B2C2160B49', 3, '6010303001', '3', 'Capung diatas Rumpun Padi (uk.99x79) Foto', 3, 4, 4, NULL, NULL, 0);
 
--- Dumping structure for table sekneg_aset_system.tb_log_act
+-- Dumping structure for table ug_siriri.tb_log_act
 CREATE TABLE IF NOT EXISTS `tb_log_act` (
   `id` int NOT NULL AUTO_INCREMENT,
   `log_id` varchar(30) NOT NULL,
@@ -3769,9 +3883,9 @@ CREATE TABLE IF NOT EXISTS `tb_log_act` (
   `date` date NOT NULL,
   `time` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1187 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1208 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_log_act: ~1.186 rows (approximately)
+-- Dumping data for table ug_siriri.tb_log_act: ~1.191 rows (approximately)
 DELETE FROM `tb_log_act`;
 INSERT INTO `tb_log_act` (`id`, `log_id`, `act_id`, `keterangan`, `user`, `date`, `time`) VALUES
 	(1, 'ACT3617am6994', 0, 'Login', '1', '2024-12-18', '08:36:17'),
@@ -4959,9 +5073,30 @@ INSERT INTO `tb_log_act` (`id`, `log_id`, `act_id`, `keterangan`, `user`, `date`
 	(1183, 'ACT5424pm7253', 0, 'Login', '1', '2025-01-24', '02:54:24'),
 	(1184, 'ACT1453pm1564', 0, 'Login', '1', '2025-01-24', '04:14:53'),
 	(1185, 'ACT4454pm5027', 0, 'Login', '1', '2025-01-24', '05:44:54'),
-	(1186, 'ACT4854pm4695', 0, 'Login', '1', '2025-01-24', '06:48:54');
+	(1186, 'ACT4854pm4695', 0, 'Login', '1', '2025-01-24', '06:48:54'),
+	(1187, 'ACT2413am6847', 0, 'Login', '10', '2025-01-30', '08:24:13'),
+	(1188, 'ACT5930am4306', 0, 'Login', '10', '2025-01-30', '08:59:30'),
+	(1189, 'ACT5600pm2766', 0, 'Login', '10', '2025-01-30', '01:56:00'),
+	(1190, 'ACT0033pm8751', 0, 'Login', '10', '2025-01-30', '02:00:33'),
+	(1191, 'ACT0118pm5158', 0, 'Logout', '10', '2025-01-30', '02:01:18'),
+	(1192, 'ACT3044pm9858', 0, 'Login', '10', '2025-01-30', '02:30:44'),
+	(1193, 'ACT4159pm7450', 0, 'Login', '1', '2025-01-30', '02:41:59'),
+	(1194, 'ACT4221pm8159', 0, 'Login', '10', '2025-01-30', '02:42:21'),
+	(1195, 'ACT4242pm4465', 0, 'Login', '10', '2025-01-30', '02:42:42'),
+	(1196, 'ACT4754pm1511', 0, 'Login', '1', '2025-01-30', '02:47:54'),
+	(1197, 'ACT4826pm6502', 0, 'Login', '10', '2025-01-31', '01:48:26'),
+	(1198, 'ACT5046pm8792', 0, 'Login', '10', '2025-01-31', '01:50:46'),
+	(1199, 'ACT5252pm4213', 0, 'Login', '10', '2025-01-31', '01:52:52'),
+	(1200, 'ACT2837pm8555', 0, 'Login', '10', '2025-02-01', '02:28:37'),
+	(1201, 'ACT1548am4009', 0, 'Login', '10', '2025-02-02', '12:15:48'),
+	(1202, 'ACT3718am9718', 0, 'Login', '10', '2025-02-03', '09:37:18'),
+	(1203, 'ACT4314am6928', 0, 'Login', '10', '2025-02-03', '09:43:14'),
+	(1204, 'ACT0527pm6793', 0, 'Logout', '10', '2025-02-03', '12:05:27'),
+	(1205, 'ACT4656pm8500', 0, 'Login', '10', '2025-02-03', '02:46:56'),
+	(1206, 'ACT0707pm9726', 0, 'Login', '10', '2025-02-04', '02:07:07'),
+	(1207, 'ACT4748pm3967', 0, 'Login', '10', '2025-02-04', '03:47:48');
 
--- Dumping structure for table sekneg_aset_system.tb_master_area
+-- Dumping structure for table ug_siriri.tb_master_area
 CREATE TABLE IF NOT EXISTS `tb_master_area` (
   `id` int NOT NULL AUTO_INCREMENT,
   `area` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -4970,7 +5105,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_area` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_area: ~4 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_area: ~4 rows (approximately)
 DELETE FROM `tb_master_area`;
 INSERT INTO `tb_master_area` (`id`, `area`, `ket_area`, `image_uri`) VALUES
 	(1, 'Istana Cipanas', 'Istana Cipanas Bogor', '1157026074_cipanasistana.jpg'),
@@ -4978,7 +5113,7 @@ INSERT INTO `tb_master_area` (`id`, `area`, `ket_area`, `image_uri`) VALUES
 	(3, 'Istana Jakarta', 'Istana Negara Jakarta', '1991712149_istanajakarta.jpg'),
 	(4, 'Istana Yogyakarta', 'Istana Kepresidenan Yogyakarta', '1743395369_istanajogja.jpg');
 
--- Dumping structure for table sekneg_aset_system.tb_master_aset
+-- Dumping structure for table ug_siriri.tb_master_aset
 CREATE TABLE IF NOT EXISTS `tb_master_aset` (
   `id_aset` int NOT NULL AUTO_INCREMENT,
   `kode_tid` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -5013,21 +5148,21 @@ CREATE TABLE IF NOT EXISTS `tb_master_aset` (
   PRIMARY KEY (`id_aset`)
 ) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_aset: ~250 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_aset: ~250 rows (approximately)
 DELETE FROM `tb_master_aset`;
 INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `kategori`, `merk`, `tipe`, `kondisi`, `status`, `borrow`, `tipe_moving`, `nama_aset`, `id_area`, `id_gedung`, `id_lokasi`, `tgl_perolehan`, `nilai_perolehan`, `tgl_inventarisasi`, `tgl_peminjaman`, `tgl_pengembalian`, `flag_inventarisasi`, `id_peminjam`, `lokasi_moving`, `lokasi_terakhir`, `nama_lokasi_terakhir`, `id_pegawai`, `image_uri`, `id_transaksi`, `no_batch_sensus`, `keterangan`) VALUES
-	(1, 'E28011702000000FC2010B49', '6010303001', 1, 1, '0', '0', 1, 1, 0, 0, 'Sejauh Bangau Terbang (uk.140x110)(Ampas kopi)', 3, 4, 4, '2010-12-31 00:00:00', 0, '2025-01-24 17:28:44', '2025-02-21 00:00:00', '2025-01-22 00:00:00', 1, 1, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
-	(2, 'E280117020001147C21C0B49', '6010303001', 2, 1, '0', '0', 1, 1, 0, 0, 'Bunga Anggrek (Repro uk.70x60)', 3, 4, 4, '2013-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 0, '', 0, '', 243, '-', ''),
-	(3, 'E2801170200005B2C2160B49', '6010303001', 3, 1, '0', '0', 1, 1, 0, 0, 'Capung diatas Rumpun Padi (uk.99x79) Foto', 3, 4, 4, '2012-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 0, 'Gerbang Veteran', 0, '', 243, '-', ''),
+	(1, 'E28011702000000FC2010B49', '6010303001', 1, 1, '0', '0', 1, 4, 0, 1, 'Sejauh Bangau Terbang (uk.140x110)(Ampas kopi)', 3, 4, 4, '2010-12-31 00:00:00', 0, '2025-01-24 17:28:44', '2025-02-21 00:00:00', '2025-01-22 00:00:00', 1, 1, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
+	(2, 'E280117020001147C21C0B49', '6010303001', 2, 1, '0', '0', 1, 1, 0, 1, 'Bunga Anggrek (Repro uk.70x60)', 3, 4, 4, '2013-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
+	(3, 'E2801170200005B2C2160B49', '6010303001', 3, 1, '0', '0', 1, 1, 1, 1, 'Capung diatas Rumpun Padi (uk.99x79) Foto', 4, 3, 3, '2012-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 3, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
 	(4, NULL, '6010303001', 4, 1, '0', '0', 1, 1, 0, 0, 'Tangkasi/Tarsius Spectrum (Repro, uk.40x50)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(5, NULL, '6010303001', 5, 1, '0', '0', 1, 1, 0, 0, 'Foto Heavent on Eart Central Java (uk.40x60)', 0, 0, 0, '2014-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(6, 'E280117020001150C2020B49', '6010303001', 6, 1, '0', '0', 1, 1, 0, 1, 'Sketsa Kuda Terbang (uk.30x32)', 3, 4, 4, '2001-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
+	(6, 'E280117020001150C2020B49', '6010303001', 6, 1, '0', '0', 1, 1, 0, 0, 'Sketsa Kuda Terbang (uk.30x32)', 3, 4, 4, '2001-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
 	(7, NULL, '6010303001', 7, 1, '0', '0', 1, 1, 0, 0, 'Piagam Doctor Honoris Causa (uk.74x28)', 3, 2, 2, '2001-12-31 00:00:00', 0, '2024-12-19 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 0, NULL, ''),
 	(8, NULL, '6010303001', 8, 1, '0', '0', 1, 1, 0, 0, 'Foto Memanggul Jeram (uk.100x78)', 0, 0, 0, '2012-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(9, NULL, '6010303001', 9, 1, '0', '0', 1, 1, 0, 0, 'Wanita Duduk Berkain Merah uk. 88 x 58', 0, 0, 0, '2001-01-01 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(10, 'E280117020000357C2060B49', '6010303001', 10, 1, '0', '0', 1, 1, 0, 0, 'Lukisan gambar Ka\'bah', 3, 4, 4, '2021-11-11 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 5, 'Gerbang Veteran', 0, '', 243, '-', ''),
+	(10, 'E280117020000357C2060B49', '6010303001', 10, 1, '0', '0', 1, 4, 0, 1, 'Lukisan gambar Ka\'bah', 3, 4, 4, '2021-11-11 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
 	(11, NULL, '6010303002', 1, 1, '0', '0', 1, 1, 0, 0, 'Hiasan Dinding motif burung (uk.50x50)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(12, NULL, '6010303002', 2, 1, '0', '0', 1, 1, 0, 0, 'Sungai dan Hutan Pinus (uk.30x45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
+	(12, 'E280116020007590AE460A5E', '6010303002', 2, 1, '0', '0', 1, 4, 0, 0, 'Sungai dan Hutan Pinus (uk.30x45)', 3, 4, 4, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 0, NULL, ''),
 	(13, NULL, '6010303002', 3, 1, '0', '0', 1, 1, 0, 0, 'Panen Padi (uk.40x40)', 3, 4, 4, '2014-12-31 00:00:00', 0, '2025-01-10 13:58:56', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 4, 4, 'Konservasi Seni', 0, '', 80, '-', ''),
 	(14, NULL, '6010303002', 4, 1, '0', '0', 1, 1, 0, 0, 'Pasar Ikan (uk,40x40)', 0, 0, 0, '2014-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(15, NULL, '6010303002', 5, 1, '0', '0', 1, 1, 0, 0, 'Penari Bali Kipas (Keramik uk.40x40)', 0, 0, 0, '2014-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5100,7 +5235,7 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(82, NULL, '6020102001', 59, 1, '0', '0', 1, 1, 0, 0, 'Tiga Angsa di Rawa (uk.120x175)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(83, NULL, '6020102001', 60, 1, '0', '0', 1, 1, 0, 0, 'Menggaru Sawah (uk.58x88)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(84, NULL, '6020102001', 61, 1, '0', '0', 1, 1, 0, 0, 'Banjir Jakarta (uk.22x18)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(85, NULL, '6020102001', 62, 1, '0', '0', 1, 1, 0, 0, 'Penari Bali ', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
+	(85, NULL, '6020102001', 62, 1, '0', '0', 1, 1, 0, 0, 'Penari Bali┬á', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(86, NULL, '6020102001', 63, 1, '0', '0', 1, 1, 0, 0, '8 Burung diatas Pohon Pisang2an (uk.134x200)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(87, NULL, '6020102001', 64, 1, '0', '0', 1, 1, 0, 0, 'Wanita Ghana Pergi ke Pasar (uk.68x53)', 0, 0, 0, '2005-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(88, NULL, '6020102001', 65, 1, '0', '0', 1, 1, 0, 0, 'Burung Bangau dan Jalak (uk.89x140)', 0, 0, 0, '2008-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5166,23 +5301,23 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(148, NULL, '6020102003', 33, 1, '0', '0', 1, 1, 0, 0, 'Mayjen TNI MT Haryono (CM.uk 60x45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(149, NULL, '6020102003', 34, 1, '0', '0', 1, 1, 0, 0, 'Letjen TNI Basuki Rahmat (CM.uk.60x45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(150, NULL, '6020102003', 35, 1, '0', '0', 1, 1, 0, 0, 'Dr. Setia BUDI (cm.UK60X45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(151, 'E2801170200003B0C1EE0B49', '3050206020', 1, 2, 'gopro', 'vusion', 1, 1, 0, 0, 'GoPro Vusion, Video Spherical 5.2K', 3, 2, 2, '2018-12-19 00:00:00', 0, '2025-01-24 17:26:27', '2025-01-21 00:00:00', '2025-01-21 00:00:00', 1, 2, 2, 4, 'Ruangan Konservasi Seni', 2, '', 242, '-', ''),
+	(151, 'E2801170200003B0C1EE0B49', '3050206020', 1, 2, 'gopro', 'vusion', 1, 1, 0, 0, 'GoPro Vusion, Video Spherical 5.2K', 3, 2, 2, '2018-12-19 00:00:00', 0, '2025-01-24 17:26:27', '2025-01-21 00:00:00', '2025-01-21 00:00:00', 1, 2, 4, 4, 'Ruangan Konservasi Seni', 2, '', 242, '-', ''),
 	(152, NULL, '3050206020', 2, 2, '0', '0', 1, 1, 0, 0, 'Sony PXW-Z280, 45121516-PKM-000593807', 3, 2, 2, '2018-12-17 00:00:00', 0, '2025-01-15 00:00:00', '2024-12-30 00:00:00', '2024-12-31 00:00:00', 1, 1, 2, 4, 'Ruang Konservasi Seni', 0, '', 96, '-', ''),
-	(153, 'E28011702000020AF3EB0B65', '3050206020', 3, 2, '0', '0', 1, 1, 0, 1, 'Gopro HERO 5-Black', 3, 2, 2, '2018-12-10 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 242, '-', ''),
+	(153, 'E28011702000020AF3EB0B65', '3050206020', 3, 2, '0', '0', 1, 4, 0, 1, 'Gopro HERO 5-Black', 3, 2, 2, '2018-12-10 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 242, '-', ''),
 	(154, NULL, '3050206020', 4, 0, '0', '0', 1, 1, 0, 0, 'Sony Camcorder NXCAM HXR-NX100 FULL HD', 3, 2, 2, '2019-10-30 00:00:00', 0, '2025-01-10 17:45:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 4, 'Konservasi Seni', 1, '2120616493_', 96, '-', ''),
 	(155, NULL, '3050206020', 5, 2, '0', '0', 1, 1, 0, 0, 'Sony Camcorder PXW-Z280', 3, 2, 2, '2019-11-08 00:00:00', 0, '2025-01-16 08:23:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 119, '-', ''),
 	(156, NULL, '3050206020', 6, 2, '0', '0', 1, 1, 0, 0, 'Sony Camcorder PXW-Z280', 0, 0, 0, '2019-11-08 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(157, 'E280117020001035C2030B49', '3050206020', 7, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme', 3, 2, 2, '2020-11-11 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 4, 'Ruangan Konservasi Seni', 1, '', 242, '-', ''),
+	(157, 'E280117020001035C2030B49', '3050206020', 7, 2, '0', '0', 1, 1, 0, 1, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme', 3, 2, 2, '2020-11-11 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 1, '', 242, '-', ''),
 	(158, NULL, '3050206020', 8, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme ', 0, 0, 0, '2020-11-11 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(159, NULL, '3050206020', 9, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme ', 3, 2, 2, '2020-11-11 00:00:00', 0, '2024-12-18 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 0, NULL, ''),
 	(160, NULL, '3050206020', 10, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme ', 3, 2, 2, '2020-11-11 00:00:00', 0, '2024-12-18 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 0, NULL, ''),
 	(161, NULL, '3050206020', 19, 2, '0', '0', 1, 1, 0, 0, 'Sony PXW X-200 XDCAM', 3, 2, 2, '2017-05-26 00:00:00', 0, '2025-01-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 3, 'Ruang Rapat', 0, '', 0, NULL, ''),
 	(162, NULL, '3050206020', 20, 2, '0', '0', 1, 1, 0, 0, 'Sony Profesional; PXW-X180 HD XD CAM', 0, 0, 0, '2017-12-11 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(163, NULL, '3050206020', 21, 2, '0', '0', 1, 1, 0, 0, 'Sony Profesional; PXW-X180 HD XD CAM', 0, 0, 0, '2017-12-11 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(164, 'E280117020001352C21F0B49', '3050206020', 22, 2, '0', '0', 1, 1, 0, 1, 'Gopro Hero 10 Black 2021 Action 23MP 5K', 3, 2, 2, '2021-12-02 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 242, '-', ''),
+	(164, 'E280117020001352C21F0B49', '3050206020', 22, 2, '0', '0', 1, 1, 0, 0, 'Gopro Hero 10 Black 2021 Action 23MP 5K', 3, 2, 2, '2021-12-02 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 242, '-', ''),
 	(165, NULL, '3050206020', 23, 2, '0', '0', 1, 1, 0, 0, 'Gopro Hero 10 Black 2021 Action 23MP 5K', 3, 2, 2, '2021-12-02 00:00:00', 0, '2025-01-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 0, NULL, ''),
-	(166, NULL, '3050206020', 24, 2, '0', '0', 1, 1, 0, 0, 'Sony  PXW-z280', 3, 2, 2, '2022-06-09 00:00:00', 0, '2025-01-21 19:31:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 187, '-', ''),
-	(167, NULL, '3050206020', 25, 2, '0', '0', 1, 1, 0, 0, 'Sony FX6 Full Frame Cinema (Body Only) + Lensa + Sony 128 GB  + Memory Card', 1, 1, 1, '2024-07-24 00:00:00', 0, '2025-01-16 08:35:46', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 1, 0, '', 0, '', 121, '-', ''),
+	(166, NULL, '3050206020', 24, 2, '0', '0', 1, 1, 0, 0, 'Sony┬á PXW-z280', 3, 2, 2, '2022-06-09 00:00:00', 0, '2025-01-21 19:31:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 187, '-', ''),
+	(167, NULL, '3050206020', 25, 2, '0', '0', 1, 1, 0, 0, 'Sony FX6 Full Frame Cinema (Body Only) + Lensa + Sony 128 GB┬á + Memory Card', 1, 1, 1, '2024-07-24 00:00:00', 0, '2025-01-16 08:35:46', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 1, 0, '', 0, '', 121, '-', ''),
 	(168, NULL, '3050206020', 26, 2, '0', '0', 1, 1, 0, 0, 'Sony PXW FX6 Full Frame + SmallRig + Strap', 3, 2, 2, '2024-08-31 00:00:00', 0, '2025-01-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 0, NULL, ''),
 	(169, NULL, '3050206020', 27, 2, '0', '0', 1, 1, 0, 0, 'Sony FX3+ Battery+Microphone+Lens', 0, 0, 0, '2024-08-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(170, NULL, '3050206020', 28, 2, '0', '0', 1, 1, 0, 0, 'Sony FX3+ Battery+Microphone+Lens', 0, 0, 0, '2024-08-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5213,7 +5348,7 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(195, NULL, '3060101036', 47, 2, '0', '0', 1, 1, 0, 0, 'Shure ULXD2/B87A', 0, 0, 0, '2016-11-24 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(196, NULL, '3060101036', 48, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 135-P G3', 0, 0, 0, '2018-12-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(197, NULL, '3060101036', 49, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 135-P G3', 3, 2, 2, '2018-12-10 00:00:00', 0, '2025-01-13 18:53:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 103, '-', ''),
-	(198, 'E2801170200004C06FDC0B62', '3060101036', 50, 2, '0', '0', 1, 1, 0, 1, 'Televic Microphone 40cm', 3, 4, 4, '2019-09-10 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 243, '-', ''),
+	(198, 'E2801170200004C06FDC0B62', '3060101036', 50, 2, '0', '0', 1, 3, 1, 1, 'Televic Microphone 40cm', 3, 4, 4, '2019-09-10 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 243, '-', ''),
 	(199, NULL, '3060101036', 51, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 100-ENG G3', 0, 0, 0, '2018-12-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(200, NULL, '3060101036', 52, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 100-ENG G3', 0, 0, 0, '2018-12-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(201, NULL, '3060101036', 53, 2, '0', '0', 1, 1, 0, 0, 'Televic Microphone Uk. 40cm', 0, 0, 0, '2019-09-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5264,10 +5399,10 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(246, NULL, '3060101037', 14, 2, '0', '0', 1, 1, 0, 0, 'Dudukan Mic (Custom), Besi P.12 cm, D. 1.5 cm', 0, 0, 0, '2021-04-13 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(247, NULL, '3060101037', 15, 2, '0', '0', 1, 1, 0, 0, 'Dudukan Mic (Custom), Besi P.12 cm, D. 1.5 cm', 0, 0, 0, '2021-09-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(248, NULL, '3060101037', 16, 2, '0', '0', 1, 1, 0, 0, 'Dudukan Mic (Custom), Besi P.12 cm, D. 1.5 cm', 0, 0, 0, '2021-09-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(249, NULL, '3060101037', 17, 2, '0', '0', 1, 1, 0, 0, 'Dudukan Mic (Custom)  P.12cm, D.1,5cm', 0, 0, 0, '2021-09-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
+	(249, NULL, '3060101037', 17, 2, '0', '0', 1, 1, 0, 0, 'Dudukan Mic (Custom)┬á P.12cm, D.1,5cm', 0, 0, 0, '2021-09-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(250, NULL, '3060101037', 18, 2, '0', '0', 1, 1, 0, 0, 'Vocal Microhone +dudukan', 0, 0, 0, '2022-10-04 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, '');
 
--- Dumping structure for table sekneg_aset_system.tb_master_dumy
+-- Dumping structure for table ug_siriri.tb_master_dumy
 CREATE TABLE IF NOT EXISTS `tb_master_dumy` (
   `id_aset` int NOT NULL AUTO_INCREMENT,
   `kode_tid` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -5297,10 +5432,10 @@ CREATE TABLE IF NOT EXISTS `tb_master_dumy` (
   PRIMARY KEY (`id_aset`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_dumy: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_dumy: ~0 rows (approximately)
 DELETE FROM `tb_master_dumy`;
 
--- Dumping structure for table sekneg_aset_system.tb_master_gedung
+-- Dumping structure for table ug_siriri.tb_master_gedung
 CREATE TABLE IF NOT EXISTS `tb_master_gedung` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_area` int NOT NULL,
@@ -5310,7 +5445,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_gedung` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_gedung: ~4 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_gedung: ~5 rows (approximately)
 DELETE FROM `tb_master_gedung`;
 INSERT INTO `tb_master_gedung` (`id`, `id_area`, `gedung`, `ket_gedung`, `image_uri`) VALUES
 	(1, 1, 'Galeri Cipanas', 'Galeri Lukisan Cipanas', '864557347_'),
@@ -5319,7 +5454,7 @@ INSERT INTO `tb_master_gedung` (`id`, `id_area`, `gedung`, `ket_gedung`, `image_
 	(4, 3, 'Konservasi Galeri Jakarta', 'Gedung Konservasi Galeri Jakarta', '1034552527_'),
 	(5, 3, 'Area Gerbang Veteran', 'Area Gerbang Veteran', '1667679871_bibury.england.jpg');
 
--- Dumping structure for table sekneg_aset_system.tb_master_kategori
+-- Dumping structure for table ug_siriri.tb_master_kategori
 CREATE TABLE IF NOT EXISTS `tb_master_kategori` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kategori` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -5327,13 +5462,13 @@ CREATE TABLE IF NOT EXISTS `tb_master_kategori` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_kategori: ~2 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_kategori: ~2 rows (approximately)
 DELETE FROM `tb_master_kategori`;
 INSERT INTO `tb_master_kategori` (`id`, `kategori`, `ket_kategori`) VALUES
 	(1, 'Seni', 'Barang Seni'),
 	(2, 'Pers Media', 'Barang Pers Media');
 
--- Dumping structure for table sekneg_aset_system.tb_master_kondisi
+-- Dumping structure for table ug_siriri.tb_master_kondisi
 CREATE TABLE IF NOT EXISTS `tb_master_kondisi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kondisi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -5341,7 +5476,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_kondisi` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_kondisi: ~4 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_kondisi: ~4 rows (approximately)
 DELETE FROM `tb_master_kondisi`;
 INSERT INTO `tb_master_kondisi` (`id`, `kondisi`, `ket_kondisi`) VALUES
 	(1, 'Baik', 'Baik'),
@@ -5349,7 +5484,7 @@ INSERT INTO `tb_master_kondisi` (`id`, `kondisi`, `ket_kondisi`) VALUES
 	(3, 'Rusak Berat', 'Rusak Berat'),
 	(4, 'Belum Tahu', 'Belum Diketahui');
 
--- Dumping structure for table sekneg_aset_system.tb_master_pegawai
+-- Dumping structure for table ug_siriri.tb_master_pegawai
 CREATE TABLE IF NOT EXISTS `tb_master_pegawai` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -5362,13 +5497,13 @@ CREATE TABLE IF NOT EXISTS `tb_master_pegawai` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_pegawai: ~1 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_pegawai: ~2 rows (approximately)
 DELETE FROM `tb_master_pegawai`;
 INSERT INTO `tb_master_pegawai` (`id`, `nip`, `nama`, `jabatan`, `email`, `telp`, `alamat`, `image_uri`) VALUES
 	(1, '3276081610910001', 'Ridwan Sapoetra', 'Asisten Manager', 'sm4rtschool@gmail.com', '082113332033', 'Depok', '1523908439_images.jpeg'),
 	(2, '12345678', 'Rima YuJem', 'Asisten Manager', 'riyu@gmail.com', '08128889923', 'Jakarta', '1126001705_nadia.png');
 
--- Dumping structure for table sekneg_aset_system.tb_master_ruangan
+-- Dumping structure for table ug_siriri.tb_master_ruangan
 CREATE TABLE IF NOT EXISTS `tb_master_ruangan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_area` int NOT NULL,
@@ -5379,7 +5514,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_ruangan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_ruangan: ~4 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_ruangan: ~5 rows (approximately)
 DELETE FROM `tb_master_ruangan`;
 INSERT INTO `tb_master_ruangan` (`id`, `id_area`, `id_gedung`, `ruangan`, `ket_ruangan`, `image_uri`) VALUES
 	(1, 1, 1, 'Ruangan Galeri Cipanas', 'Ruangan Galeri Cipanas', '1273687778_'),
@@ -5388,7 +5523,7 @@ INSERT INTO `tb_master_ruangan` (`id`, `id_area`, `id_gedung`, `ruangan`, `ket_r
 	(4, 3, 4, 'Ruangan Konservasi Seni', 'Ruangan Konservasi Seni Jakarta', '25020403_'),
 	(5, 3, 5, 'Gerbang Veteran', 'Gerbang Mobil Veteran', '928063992_bibury.england.jpg');
 
--- Dumping structure for table sekneg_aset_system.tb_master_status
+-- Dumping structure for table ug_siriri.tb_master_status
 CREATE TABLE IF NOT EXISTS `tb_master_status` (
   `id` int NOT NULL AUTO_INCREMENT,
   `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -5396,7 +5531,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_status: ~5 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_status: ~5 rows (approximately)
 DELETE FROM `tb_master_status`;
 INSERT INTO `tb_master_status` (`id`, `status`, `ket_status`) VALUES
 	(1, 'Available', 'Tersedia di Lokasi'),
@@ -5405,7 +5540,7 @@ INSERT INTO `tb_master_status` (`id`, `status`, `ket_status`) VALUES
 	(4, 'Moving', 'Moving'),
 	(5, 'Not Available', 'Tidak Tersedia');
 
--- Dumping structure for table sekneg_aset_system.tb_master_sub_transaksi
+-- Dumping structure for table ug_siriri.tb_master_sub_transaksi
 CREATE TABLE IF NOT EXISTS `tb_master_sub_transaksi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_type_transaksi` int NOT NULL,
@@ -5414,13 +5549,13 @@ CREATE TABLE IF NOT EXISTS `tb_master_sub_transaksi` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_sub_transaksi: ~2 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_sub_transaksi: ~2 rows (approximately)
 DELETE FROM `tb_master_sub_transaksi`;
 INSERT INTO `tb_master_sub_transaksi` (`id`, `id_type_transaksi`, `sub_transaksi`, `keterangan`) VALUES
 	(1, 5, 'Koreksi', 'Pemindahan Biasa'),
 	(2, 5, 'Mutasi', 'Pemindahan Mutasi\r\n');
 
--- Dumping structure for table sekneg_aset_system.tb_master_tag_rfid
+-- Dumping structure for table ug_siriri.tb_master_tag_rfid
 CREATE TABLE IF NOT EXISTS `tb_master_tag_rfid` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kode_tid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
@@ -5429,9 +5564,9 @@ CREATE TABLE IF NOT EXISTS `tb_master_tag_rfid` (
   `id_aset` int DEFAULT NULL,
   `kode_epc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_tag_rfid: ~12 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_tag_rfid: ~12 rows (approximately)
 DELETE FROM `tb_master_tag_rfid`;
 INSERT INTO `tb_master_tag_rfid` (`id`, `kode_tid`, `status_tag`, `type_tag`, `id_aset`, `kode_epc`) VALUES
 	(127, 'E2801170200005B2C2160B49', 'N', NULL, 3, 'B475B8317D544DB5C928154920AA92CE'),
@@ -5445,9 +5580,10 @@ INSERT INTO `tb_master_tag_rfid` (`id`, `kode_tid`, `status_tag`, `type_tag`, `i
 	(135, 'E2801170200004C06FDC0B62', 'N', NULL, 198, '1AFF0E0DA9414E81DF92123725B65B31'),
 	(136, 'E280117020001035C2030B49', 'N', NULL, 157, '45DA1829E907AD2AB69E6AFB52673633'),
 	(137, 'E28011702000059BC2170B49', 'Y', NULL, NULL, 'E1CD380EDCBFD2A3BD7A635EDA7EC66C'),
-	(138, 'E280117020001422C2080B49', 'Y', NULL, NULL, '453F331FE18507B33C522F0B5E8ABC46');
+	(138, 'E280117020001422C2080B49', 'Y', NULL, NULL, '453F331FE18507B33C522F0B5E8ABC46'),
+	(139, 'E280116020007590AE460A5E', 'N', NULL, 12, 'E280116020007590AE460A5E');
 
--- Dumping structure for table sekneg_aset_system.tb_master_transaksi
+-- Dumping structure for table ug_siriri.tb_master_transaksi
 CREATE TABLE IF NOT EXISTS `tb_master_transaksi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `kode_transaksi` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -5473,9 +5609,9 @@ CREATE TABLE IF NOT EXISTS `tb_master_transaksi` (
   `image_uri` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `image_uri2` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_transaksi: ~14 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_transaksi: ~15 rows (approximately)
 DELETE FROM `tb_master_transaksi`;
 INSERT INTO `tb_master_transaksi` (`id`, `kode_transaksi`, `tipe_transaksi`, `id_sub_transaksi`, `status_transaksi`, `tgl_input`, `tgl_awal_transaksi`, `tgl_akhir_transaksi`, `id_pegawai_input`, `nama_pegawai_input`, `id_pegawai`, `nama_pegawai`, `id_area`, `id_gedung`, `id_ruangan`, `id_area2`, `id_gedung2`, `id_ruangan2`, `ket_transaksi`, `ket_transaksi2`, `ket_transaksi3`, `image_uri`, `image_uri2`) VALUES
 	(191, NULL, 2, NULL, 1, '2025-01-22 13:59:33', '2025-01-22 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, NULL, NULL, NULL, 'Registrasi, Labeling, Sensus di Ruangan Konservasi', '', '', '', ''),
@@ -5491,9 +5627,14 @@ INSERT INTO `tb_master_transaksi` (`id`, `kode_transaksi`, `tipe_transaksi`, `id
 	(241, NULL, 5, 1, 4, '2025-01-24 14:59:48', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, 3, 2, 2, 'Coba', 'Tidak Jadi Pindah', '', '1737705753_sejarah-istana-merdeka-jakarta-lokasi-dan-fungsi-istana-1_169.jpeg', ''),
 	(242, NULL, 3, NULL, 1, '2025-01-24 17:26:27', '2025-01-24 00:00:00', NULL, 1, 'Administrator', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Sensus di biro pers', '', '', '', ''),
 	(243, NULL, 3, NULL, 1, '2025-01-24 17:28:43', '2025-01-24 00:00:00', NULL, 1, 'Administrator', 0, '0', 3, 4, 4, NULL, NULL, NULL, 'Sensus di konservasi', '', '', '', ''),
-	(244, NULL, 6, NULL, 4, '2025-01-24 18:47:48', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Testing', 'Batal', '', '1737719329_17377193200001328379191585378640.jpg', '');
+	(244, NULL, 6, NULL, 4, '2025-01-24 18:47:48', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Testing', 'Batal', '', '1737719329_17377193200001328379191585378640.jpg', ''),
+	(245, NULL, 6, NULL, 3, '2025-01-30 14:31:56', '2025-01-30 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Ijin ya mau di benerin dlu', 'ok nih', '', '1738222389_Screenshot 2023-03-05 123716.png', ''),
+	(246, NULL, 6, NULL, 3, '2025-01-30 15:13:07', '2025-01-30 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Perbaikan Televic', 'sa', '', '1738658598_Screenshot 2023-03-03 130555.png', ''),
+	(247, NULL, 6, NULL, 3, '2025-02-04 14:22:44', '2025-02-04 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, NULL, NULL, NULL, 'Lukisannya saya ijin pindahin dulu ya', 'ok', '', '1738658135_Screenshot 2023-03-09 095224.png', ''),
+	(248, NULL, 6, NULL, 1, '2025-02-04 15:51:25', '2025-02-04 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Demo perbaiki barang yang sedang moving illegal', '', '', '', ''),
+	(249, NULL, 5, 2, 1, '2025-02-04 15:59:36', '2025-02-04 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, 4, 3, 3, 'Ijin dipindah ke Galeri', '', '', '', '');
 
--- Dumping structure for table sekneg_aset_system.tb_master_type_transaksi
+-- Dumping structure for table ug_siriri.tb_master_type_transaksi
 CREATE TABLE IF NOT EXISTS `tb_master_type_transaksi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tipe_transaksi` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -5501,7 +5642,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_type_transaksi` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.tb_master_type_transaksi: ~6 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_type_transaksi: ~6 rows (approximately)
 DELETE FROM `tb_master_type_transaksi`;
 INSERT INTO `tb_master_type_transaksi` (`id`, `tipe_transaksi`, `ket_tipe_transaksi`) VALUES
 	(1, 'Register Tag Label', 'Register Tag Label Ke Master Stok Tag Label'),
@@ -5511,7 +5652,7 @@ INSERT INTO `tb_master_type_transaksi` (`id`, `tipe_transaksi`, `ket_tipe_transa
 	(5, 'Mutasi', 'Perpindahan Lokasi Aset'),
 	(6, 'Perbaikan', 'Perbaikan Aset');
 
--- Dumping structure for table sekneg_aset_system.widgeds
+-- Dumping structure for table ug_siriri.widgeds
 CREATE TABLE IF NOT EXISTS `widgeds` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
@@ -5527,7 +5668,7 @@ CREATE TABLE IF NOT EXISTS `widgeds` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table sekneg_aset_system.widgeds: ~0 rows (approximately)
+-- Dumping data for table ug_siriri.widgeds: ~0 rows (approximately)
 DELETE FROM `widgeds`;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
