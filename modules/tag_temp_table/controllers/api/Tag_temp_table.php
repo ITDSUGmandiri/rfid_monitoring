@@ -185,6 +185,8 @@ class Tag_temp_table extends API
 			];
 			
 			$save_tag_temp_table = $this->model_api_tag_temp_table->store($save_data);
+			$this->db->insert('tag_temp_table_process', $save_data);
+			// $save_tag_temp_table = $this->db->insert_id();
 
 			if ($save_tag_temp_table) {
 				$this->response([
