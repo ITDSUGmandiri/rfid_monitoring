@@ -90,6 +90,32 @@ class Report extends Admin
 		exit();
 	}
 
+	public function ambiltransaksi()
+	{
+
+
+		// $jl = $this->input->post('jenlap');
+		$tipe = $this->input->post('tipe');
+		$date = $this->input->post('detreng');
+
+
+		$dates = explode(' - ', $date);
+		$start_date = $dates[0]; // Tanggal mulai (start_date)
+		$date = new DateTime($start_date);
+		$tglawal = $date->format('Y-m-d');
+
+		$end_date = $dates[1];
+		$dates = new DateTime($end_date);
+		$tglakhir = $dates->format('Y-m-d');
+
+		$this->data['transaksi'] = array();
+
+		$this->data['transaksi'] = $this->model_tag_reader->getDataTransaksi($tipe, $tglawal, $tglakhir);
+
+		echo json_encode($this->data);
+		exit();
+	}
+
 	/**
 	 * Add new tag_readers
 	 *
