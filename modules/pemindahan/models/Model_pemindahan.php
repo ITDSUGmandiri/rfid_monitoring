@@ -107,6 +107,7 @@ class Model_pemindahan extends MY_Model {
         
         $this->join_avaiable()->filter_avaiable();
         $this->db->where($where, NULL, FALSE);
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         
         $this->sortable();
