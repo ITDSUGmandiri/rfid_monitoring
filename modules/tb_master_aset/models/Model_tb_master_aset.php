@@ -197,6 +197,11 @@ JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
     {
         $this->db->update('tb_master_aset', $data);
     }
+
+    public function importDataAset($data)
+    {
+        $this->db->insert_batch('tb_master_import', $data); // Sesuaikan dengan tabel Anda
+    }
 }
 
 /* End of file Model_tb_master_aset.php */
