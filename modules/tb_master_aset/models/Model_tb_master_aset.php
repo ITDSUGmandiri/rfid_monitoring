@@ -200,7 +200,7 @@ JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
 
     public function importDataAset($data)
     {
-        $this->db->insert_batch('users', $data); // Sesuaikan dengan tabel Anda
+        $this->db->insert_batch('tb_master_import', $data); // Sesuaikan dengan tabel Anda
     }
 }
 

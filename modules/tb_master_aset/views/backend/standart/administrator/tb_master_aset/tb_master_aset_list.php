@@ -25,6 +25,46 @@
 
    jQuery(document).ready(domo);
 </script>
+<style>
+   /* Style untuk modal */
+   .modal {
+      display: none;
+      /* Sembunyikan modal saat pertama kali */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      /* Background transparan */
+   }
+
+   /* Konten modal */
+   .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 50%;
+      text-align: center;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+   }
+
+   /* Tombol close */
+   .close {
+      color: red;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+   }
+
+   .close:hover {
+      color: darkred;
+   }
+</style>
+
 
 
 
@@ -47,31 +87,11 @@
                         <?php is_allowed('tb_master_aset_export', function () { ?>
                            <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf <?= cclang('tb_master_aset') ?> " href="<?= admin_site_url('/tb_master_aset/export_pdf?q=' . $this->input->get('q') . '&f=' . $this->input->get('f')); ?>"><i class="fa fa-file-pdf-o"></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Excel</button>
+                        <button class="btn btn-primary" id="openModalBtn">Upload Excel</button>
 
                      </div>
-                     <!-- Modal Upload -->
-                     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <h5 class="modal-title" id="uploadModalLabel">Upload File Excel</h5>
-                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                 <form id="uploadForm" enctype="multipart/form-data">
-                                    <div class="mb-3">
-                                       <label for="file" class="form-label">Pilih File Excel:</label>
-                                       <input type="file" name="file" id="file" class="form-control" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-success">Upload</button>
-                                 </form>
-                                 <div id="uploadResult" class="mt-3"></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="widget-user-image">
+
+                     <div class=" widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
@@ -86,59 +106,9 @@
                      <!-- /.widget-user -->
                      <div class="row">
                         <div class="col-md-8">
-                           <!-- <div class="col-sm-2 padd-left-0 ">
-                              <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email">
-                                 <option value="delete">Delete</option>
-                              </select>
-                           </div>
-                           <div class="col-sm-2 padd-left-0 ">
-                              <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                           </div>
-                           <div class="col-sm-3 padd-left-0  ">
-                              <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
-                           </div>
-                           <div class="col-sm-3 padd-left-0 ">
-                              <select type="text" class="form-control chosen chosen-select" name="f" id="field">
-                                 <option value=""><?= cclang('all'); ?></option>
-                                 <option <?= $this->input->get('f') == 'kode_tid' ? 'selected' : ''; ?> value="kode_tid">Kode Tid</option>
-                                 <option <?= $this->input->get('f') == 'kode_aset' ? 'selected' : ''; ?> value="kode_aset">Kode Aset</option>
-                                 <option <?= $this->input->get('f') == 'nup' ? 'selected' : ''; ?> value="nup">Nup</option>
-                                 <option <?= $this->input->get('f') == 'kategori' ? 'selected' : ''; ?> value="kategori">Kategori</option>
-                                 <option <?= $this->input->get('f') == 'merk' ? 'selected' : ''; ?> value="merk">Merk</option>
-                                 <option <?= $this->input->get('f') == 'tipe' ? 'selected' : ''; ?> value="tipe">Tipe</option>
-                                 <option <?= $this->input->get('f') == 'id_kondisi' ? 'selected' : ''; ?> value="id_kondisi">Id Kondisi</option>
-                                 <option <?= $this->input->get('f') == 'status' ? 'selected' : ''; ?> value="status">Status</option>
-                                 <option <?= $this->input->get('f') == 'tipe_moving' ? 'selected' : ''; ?> value="tipe_moving">Tipe Moving</option>
-                                 <option <?= $this->input->get('f') == 'nama_aset' ? 'selected' : ''; ?> value="nama_aset">Nama Aset</option>
-                                 <option <?= $this->input->get('f') == 'id_area' ? 'selected' : ''; ?> value="id_area">Id Area</option>
-                                 <option <?= $this->input->get('f') == 'id_gedung' ? 'selected' : ''; ?> value="id_gedung">Id Gedung</option>
-                                 <option <?= $this->input->get('f') == 'id_ruangan' ? 'selected' : ''; ?> value="id_ruangan">Id Ruangan</option>
-                                 <option <?= $this->input->get('f') == 'tgl_perolehan' ? 'selected' : ''; ?> value="tgl_perolehan">Tgl Perolehan</option>
-                                 <option <?= $this->input->get('f') == 'tgl_inventarisasi' ? 'selected' : ''; ?> value="tgl_inventarisasi">Tgl Inventarisasi</option>
-                                 <option <?= $this->input->get('f') == 'flag_inventarisasi' ? 'selected' : ''; ?> value="flag_inventarisasi">Flag Inventarisasi</option>
-                                 <option <?= $this->input->get('f') == 'tgl_peminjaman' ? 'selected' : ''; ?> value="tgl_peminjaman">Tgl Peminjaman</option>
-                                 <option <?= $this->input->get('f') == 'tgl_pengembalian' ? 'selected' : ''; ?> value="tgl_pengembalian">Tgl Pengembalian</option>
-                                 <option <?= $this->input->get('f') == 'tgl_mutasi' ? 'selected' : ''; ?> value="tgl_mutasi">Tgl Mutasi</option>
-                                 <option <?= $this->input->get('f') == 'id_lokasi_moving' ? 'selected' : ''; ?> value="id_lokasi_moving">Id Lokasi Moving</option>
-                                 <option <?= $this->input->get('f') == 'id_pegawai' ? 'selected' : ''; ?> value="id_pegawai">Id Pegawai</option>
-                              </select>
-                           </div>
-                           <div class="col-sm-1 padd-left-0 ">
-                              <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
-                                 Filter
-                              </button>
-                           </div>
-                           <div class="col-sm-1 padd-left-0 ">
-                              <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_aset'); ?>" title="<?= cclang('reset_filter'); ?>">
-                                 <i class="fa fa-undo"></i>
-                              </a>
-                           </div> -->
+
                         </div>
-                        <!-- <div class="col-md-4">
-                           <div class="dataTables_paginate paging_simple_numbers pull-right" id="example2_paginate">
-                              <div class="table-pagination"><?= $pagination; ?></div>
-                           </div>
-                        </div> -->
+
                      </div>
                      <div class="table-responsive">
 
@@ -168,12 +138,74 @@
       </div>
    </div>
 </section>
+<!-- Modal -->
+<div id="myModal" class="modal">
+   <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Import Data Aset (Bulk)</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+         <input type="file" name="file" id="file" required>
+         <br><br>
+         <button type="submit">Upload</button>
+      </form>
+      <div id="uploadResult"></div>
+   </div>
+</div>
 <script>
    var module_name = "tb_master_aset"
    var use_ajax_crud = false;
 </script>
-// <script src="<?= BASE_ASSET ?>js/filter.js"></script>
+<script src="<?= BASE_ASSET ?>js/filter.js"></script>
+<script>
+   // Ambil elemen modal dan tombol
+   var modal = document.getElementById("myModal");
+   var btn = document.getElementById("openModalBtn");
+   var span = document.getElementsByClassName("close")[0];
 
+   // Saat tombol diklik, modal muncul
+   btn.onclick = function() {
+      modal.style.display = "block";
+   }
+
+   // Saat tombol close diklik, modal disembunyikan
+   span.onclick = function() {
+      modal.style.display = "none";
+   }
+
+   // Klik di luar modal akan menutup modal
+   window.onclick = function(event) {
+      if (event.target == modal) {
+         modal.style.display = "none";
+      }
+   }
+
+   $(document).ready(function() {
+      $("#uploadForm").submit(function(e) {
+         e.preventDefault(); // Mencegah reload halaman
+
+         var formData = new FormData(this);
+         var url = BASE_URL + ADMIN_NAMESPACE_URL + '/tb_master_aset/upload';
+         console.log(url, "lop");
+
+         $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+               $("#uploadResult").html("<p class='text-info'>Mohon tunggu sedang Mengupload...</p>");
+            },
+            success: function(response) {
+               $("#uploadResult").html("<p class='text-success'>" + response + "</p>");
+            },
+            error: function() {
+               $("#uploadResult").html("<p class='text-danger'>Gagal mengupload!</p>");
+            }
+         });
+      });
+   });
+</script>
 
 <script>
    $(document).ready(function() {
