@@ -62,30 +62,25 @@ class Model_perbaikan extends MY_Model {
     {
         $iterasi = 1;
         $num = count($this->field_search);
-        $where = NULL;
+        $where = "tb_master_transaksi.tipe_transaksi = 6";
         $q = $this->scurity($q);
         $field = $this->scurity($field);
         $field = in_array($field, $this->field_search) ? $field : "";
 
-
         if (empty($field)) {
+            $where_conditions = [];
             foreach ($this->field_search as $field) {
-                $f_search = "tb_master_transaksi.".$field;
+                $f_search = "tb_master_transaksi." . $field;
                 if (strpos($field, '.')) {
                     $f_search = $field;
                 }
-
-                if ($iterasi == 1) {
-                    $where .= $f_search . " LIKE '%" . $q . "%' ";
-                } else {
-                    $where .= "OR " .$f_search . " LIKE '%" . $q . "%' ";
-                }
-                $iterasi++;
+                $where_conditions[] = $f_search . " LIKE '%" . $q . "%'";
             }
-
-            $where = '('.$where.')';
+            if (!empty($where_conditions)) {
+                $where .= " AND (" . implode(" OR ", $where_conditions) . ")";
+            }
         } else {
-            $where .= "(" . "tb_master_transaksi.".$field . " LIKE '%" . $q . "%' )";
+            $where .= " AND (tb_master_transaksi." . $field . " LIKE '%" . $q . "%')";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -93,8 +88,7 @@ class Model_perbaikan extends MY_Model {
         }
         
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where('tb_master_transaksi.tipe_transaksi = 6');
-        $this->db->order_by('id', 'DESC');
+        $this->db->where($where, NULL, FALSE);
         $this->db->limit($limit, $offset);
         
         $this->sortable();
