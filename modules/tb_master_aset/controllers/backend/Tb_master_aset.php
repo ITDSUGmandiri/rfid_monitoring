@@ -392,6 +392,7 @@ class Tb_master_aset extends Admin
 			$this->data['transaksi'] = $this->model_tb_master_aset->get_event($kode);
 		}
 
+
 		$this->template->title('Tb Master Aset Detail');
 		$this->render('backend/standart/administrator/tb_master_aset/tb_master_aset_view', $this->data);
 	}

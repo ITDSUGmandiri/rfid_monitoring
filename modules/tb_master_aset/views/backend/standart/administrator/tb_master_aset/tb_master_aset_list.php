@@ -25,15 +25,9 @@
 
    jQuery(document).ready(domo);
 </script>
-<!-- <section class="content-header">
-   <h1>
-      <?= cclang('tb_master_aset') ?><small><?= cclang('list_all'); ?></small>
-   </h1>
-   <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><?= cclang('tb_master_aset') ?></li>
-   </ol>
-</section> -->
+
+
+
 <!-- Main content -->
 <section class="content">
    <div class="row">
@@ -53,6 +47,29 @@
                         <?php is_allowed('tb_master_aset_export', function () { ?>
                            <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf <?= cclang('tb_master_aset') ?> " href="<?= admin_site_url('/tb_master_aset/export_pdf?q=' . $this->input->get('q') . '&f=' . $this->input->get('f')); ?>"><i class="fa fa-file-pdf-o"></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Excel</button>
+
+                     </div>
+                     <!-- Modal Upload -->
+                     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="uploadModalLabel">Upload File Excel</h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                 <form id="uploadForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                       <label for="file" class="form-label">Pilih File Excel:</label>
+                                       <input type="file" name="file" id="file" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Upload</button>
+                                 </form>
+                                 <div id="uploadResult" class="mt-3"></div>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">

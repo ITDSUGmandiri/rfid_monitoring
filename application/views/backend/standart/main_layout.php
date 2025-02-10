@@ -13,6 +13,7 @@
   <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
+
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -289,7 +290,13 @@
 
 
     $(document).ready(function() {
-      new DataTable('#masterdata');
+      // new DataTable('#masterdata');
+      new DataTable('#masterdata', {
+
+        order: [
+          [0, 'desc']
+        ] // Kolom kedua (index 1) diurutkan secara descending
+      });
     });
   </script>
 
