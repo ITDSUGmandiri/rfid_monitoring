@@ -67,7 +67,22 @@ class Model_perbaikan extends MY_Model {
         $field = $this->scurity($field);
         $field = in_array($field, $this->field_search) ? $field : "";
 
-        if (empty($field)) {
+        if ($field === "status_transaksi") {
+            switch (strtolower($q)) {
+                case "open":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 1";
+                    break;
+                case "progress":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 2";
+                    break;
+                case "complete":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 3";
+                    break;
+                case "batal":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 4";
+                    break;
+            }
+        } elseif (empty($field)) {
             $where_conditions = [];
             foreach ($this->field_search as $field) {
                 $f_search = "tb_master_transaksi." . $field;
@@ -97,6 +112,7 @@ class Model_perbaikan extends MY_Model {
 
         return $query->result();
     }
+
 
     public function join_avaiable() {
         $this->db->select('tb_master_type_transaksi.tipe_transaksi,tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.ruangan,tb_master_transaksi.*,tb_master_type_transaksi.tipe_transaksi as tb_master_type_transaksi_tipe_transaksi,tb_master_type_transaksi.tipe_transaksi as tipe_transaksi,tb_master_area.area as tb_master_area_area,tb_master_area.area as area,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung,tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,tb_master_ruangan.ruangan as ruangan');

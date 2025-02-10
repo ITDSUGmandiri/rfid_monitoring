@@ -83,9 +83,10 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                              <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe Transaksi</option>
-                              <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tgl Awal Transaksi</option>
-                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Ket Transaksi</option>
+                              <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe</option>
+                              <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' :''; ?> value="status_transaksi">Status Pemindahan</option>
+                              <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tanggal</option>
+                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Keterangan</option>
                               <option <?= $this->input->get('f') == 'id_area' ? 'selected' :''; ?> value="id_area">Area Asal</option>
                               <option <?= $this->input->get('f') == 'id_gedung' ? 'selected' :''; ?> value="id_gedung">Gedung Asal</option>
                               <option <?= $this->input->get('f') == 'id_ruangan' ? 'selected' :''; ?> value="id_ruangan">Ruangan Asal</option>
@@ -130,7 +131,7 @@ jQuery(document).ready(domo);
                            <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th>   
                            <th style="text-align: center" data-field="id_area2"data-sort="1" data-primary-key="0"> <?= cclang('Area Tujuan') ?></th>
                            <th style="text-align: center" data-field="id_gedung2"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Tujuan') ?></th>
-                           <th style="text-align: center" data-field="id_ruangan2"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Tujuan') ?></th>                           <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
+                           <th style="text-align: center" data-field="id_ruangan2"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Tujuan') ?></th>                           
                            <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Status Pemindahan') ?></th>
                            <th style="text-align: center">Action</th>                        
                         </tr>
