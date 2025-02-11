@@ -106,7 +106,7 @@ class Model_tb_master_aset extends MY_Model
     public function get_aset()
     {
         $query = $this->db->query(
-            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status ORDER BY a.kode_tid ASC LIMIT 500 OFFSET 0"
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status ORDER BY a.kode_tid DESC LIMIT 500 OFFSET 0"
         );
 
         return $query->result();
@@ -162,7 +162,7 @@ JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
 
 
         $query = $this->db->query(
-            "SELECT a.kode_tid, a.lokasi_terakhir, a.tipe_moving, m.tag_code, m.tanggal, DATE_FORMAT(m.waktu,'%H:%i:%s') as waktugerak,r.ruangan, m.room_id, m.status_moving FROM tb_master_aset a INNER JOIN tb_asset_moving m ON m.tag_code = a.kode_tid JOIN tb_master_ruangan r ON r.id = a.lokasi_terakhir WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
+            "SELECT  a.kode_tid, a.lokasi_terakhir, a.tipe_moving, m.tag_code, m.tanggal, DATE_FORMAT(m.waktu,'%H:%i:%s') as waktugerak,r.ruangan, m.room_id, m.status_moving FROM tb_master_aset a INNER JOIN tb_asset_moving m ON m.tag_code = a.kode_tid JOIN tb_master_ruangan r ON r.id = a.lokasi_terakhir WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
         );
 
         return $query->result();
@@ -196,6 +196,11 @@ JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
     public function reset_data_master($data)
     {
         $this->db->update('tb_master_aset', $data);
+    }
+
+    public function importDataAset($data)
+    {
+        $this->db->insert_batch('tb_master_import', $data); // Sesuaikan dengan tabel Anda
     }
 }
 

@@ -69,14 +69,14 @@
                      <!-- /.widget-user -->
                      <div class="row">
                         <div class="col-md-8">
-                           <!-- <div class="col-sm-2 padd-left-0 ">
+                           <div class="col-sm-2 padd-left-0 ">
                               <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email">
                                  <option value="delete">Delete</option>
                               </select>
-                           </div> -->
-                           <!-- <div class="col-sm-2 padd-left-0 ">
+                           </div>
+                           <div class="col-sm-2 padd-left-0 ">
                               <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                           </div> -->
+                           </div>
                            <div class="col-sm-3 padd-left-0  ">
                               <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
                            </div>
@@ -118,7 +118,7 @@
                                  <th style="text-align: center">
                                     <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                                  </th>
-                                 <!-- <th style="text-align: center" data-field="kode_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Kode') ?></th> -->
+                                 <th style="text-align: center" data-field="kode_transaksi" data-sort="1" data-primary-key="0"> <?= cclang('Kode') ?></th>
                                  <th style="text-align: center" data-field="tipe_transaksi" data-sort="1" data-primary-key="0"> <?= cclang('Tipe') ?></th>
                                  <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
                                  <th style="text-align: center" data-field="tgl_awal_transaksi" data-sort="1" data-primary-key="0"> <?= cclang('Tanggal') ?></th>
