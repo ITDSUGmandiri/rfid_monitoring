@@ -29,6 +29,7 @@ $CI = &get_instance();
 
   .c-dashboardInfo__title,
   .c-dashboardInfo__subInfo {
+    color: #6c6c6c;
     font-size: 1.18em;
   }
 
@@ -38,8 +39,9 @@ $CI = &get_instance();
 
   .c-dashboardInfo__count {
     font-weight: 600;
-    font-size: 3.5em;
+    font-size: 2.5em;
     line-height: 64px;
+    color: #323c43;
   }
 
   .c-dashboardInfo .wrap:after {
@@ -99,72 +101,29 @@ $CI = &get_instance();
   }
 
   .bg-totalaset {
-    background-color: rgb(255, 255, 255) !important;
+    background-color: #f0f8ff !important;
   }
 
   .bg-tersedia {
-    color: white;
-    background-color: #266317 !important;
+    background-color: #7fffd4 !important;
   }
 
   .bg-peminjaman {
-    color: white;
-    background-color: #1b304a !important;
+    background-color: #ffa500 !important;
   }
 
   .bg-legal {
-    color: white;
-    background-color: #939c91 !important;
-  }
-
-  @keyframes flash-bg {
-
-    0%,
-    100% {
-      background-color: #ff4500;
-    }
-
-    50% {
-      background-color: transparent;
-    }
-  }
-
-  .blink-ilegal {
-    color: white;
-    animation: flash-bg 0.8s infinite;
+    background-color: #ffff00 !important;
   }
 
   .bg-ilegal {
-    color: white;
     background-color: #ff4500 !important;
   }
 
   .bg-perbaikan {
-    color: white;
-    background-color: #c2860e !important;
+    background-color: #faebd7 !important;
   }
 
-  .tooltip-tr {
-    position: relative;
-    cursor: pointer;
-  }
-
-  .tooltip-tr::after {
-    content: attr(data-tooltip);
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 5px;
-    border-radius: 5px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    opacity: 1;
-    /* Selalu terlihat */
-    visibility: visible;
-    /* Pastikan terlihat */
-  }
 
 
   /* batas */
@@ -197,127 +156,125 @@ $CI = &get_instance();
 <section class="content">
   <div class="row">
 
-    <div class="box-body chart-responsive">
-
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-body" role="document">
-          <div class="modal-content">
-            <!-- Konten modal akan ditampilkan di sini -->
+    <div class="col-md-12">
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">DASHBOARD</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
           </div>
         </div>
-      </div>
-      <div class="row">
+        <div class="box-body chart-responsive">
 
-        <div class="col-md-12">
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">ACTIVITY ASSETS</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-body" role="document">
+              <div class="modal-content">
+                <!-- Konten modal akan ditampilkan di sini -->
               </div>
             </div>
-            <div class="box-body chart-responsive">
-              <!-- Modal -->
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <!-- Konten modal akan ditampilkan di sini -->
-                  </div>
-                </div>
-              </div>
-              <div class="row align-items-stretch">
-                <div class="c-dashboardInfo col-lg-2">
-                  <div id="ta12" class="wrap" style="padding-top: 20px;">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
-                      <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                          </path>
-                        </svg> -->
-                    </h4><span id='aset_teregister' class="mt-0 info-box-icon hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='aset_teregister' style="cursor:pointer;">click for detail</a>
-                  </div>
-                </div>
-
-                <div class="c-dashboardInfo col-lg-2">
-                  <div id="ta" class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset
-                      <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                          </path>
-                        </svg> -->
-                    </h4><span id='aset_total_pantau' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='aset_total_pantau' style="cursor:pointer;">click for detail</a>
-
-                  </div>
-                </div>
-                <div class="c-dashboardInfo col-lg-2">
-                  <div id="ava" class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Aset Tersedia
-                      <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                          </path>
-                        </svg> -->
-                    </h4><span id='avalaible' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='avalaible' style="cursor:pointer; color:white;">click for detail</a>
-
-                  </div>
-                </div>
-                <div class="c-dashboardInfo col-lg-2">
-                  <div id="pem" class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Peminjaman
-                      <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                          </path>
-                        </svg> -->
-                    </h4><span id='peminjaman' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='peminjaman' style="cursor:pointer;">click for detail</a>
-
-                  </div>
-                </div>
-                <div class="c-dashboardInfo col-lg-2">
-                  <div id="perp" class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perpindahan
-                      <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                          </path>
-                        </svg> -->
-                    </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='perpindahan' style="cursor:pointer;">click for detail</a>
-
-                  </div>
-                </div>
-                <div class="c-dashboardInfo col-lg-2">
-                  <div id="perb" class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perbaikan
-                      <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                          </path>
-                        </svg> -->
-                    </h4><span id='perbaikan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='perbaikan' style="cursor:pointer;">click for detail</a>
-
-                  </div>
-                </div>
-              </div>
-
-
-
-
-
-
-            </div>
-
           </div>
+          <div class="row">
 
-          <!-- <div class="col-md-12">
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <!-- <h3 class="box-title">PERGERAKAN ASET</h3> -->
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <!-- Konten modal akan ditampilkan di sini -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-stretch">
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ta12" class="wrap" style="padding-top: 20px;">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset <br><small>(12 bulan terakhir)</small>
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='aset_teregister' class="info-box-icon hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ta" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Aset
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='aset_total_pantau' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="ava" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Aset Tersedia
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='avalaible' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="pem" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Peminjaman
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='peminjaman' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="perp" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Pemindahan
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                    <div class="c-dashboardInfo col-lg-2">
+                      <div id="perb" class="wrap">
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perbaikan
+                          <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg> -->
+                        </h4><span id='perbaikan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+                </div>
+
+              </div>
+
+              <!-- <div class="col-md-12">
               <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">MONITORING READER</h3>
@@ -337,63 +294,65 @@ $CI = &get_instance();
                   <div id='librarian2'></div>
                 </div>
               </div> -->
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">STATUS ASET</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body chart-responsive">
-              <canvas id="myChartSIMAN"></canvas>
-
             </div>
 
           </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Status Aset</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <canvas id="myChartSIMAN"></canvas>
 
-        </div>
-        <div class="col-md-4">
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">ASET PADA RUANGAN</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+
               </div>
-            </div>
-            <div class="box-body chart-responsive">
-              <canvas id="myRoom"></canvas>
 
             </div>
+            <div class="col-md-4">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Aset Berdasarkan Ruangan</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <canvas id="myRoom"></canvas>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="col-md-4">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Kategori Aset</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body chart-responsive">
+                  <canvas id="myCategory" width="150px" height="150px"></canvas>
+                </div>
+
+              </div>
+
+            </div>
+
+
 
           </div>
-
         </div>
-        <div class="col-md-4">
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">KATEGORI ASET</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body chart-responsive">
-              <canvas id="myCategory" width="150px" height="150px"></canvas>
-            </div>
-
-          </div>
-
-        </div>
-
-
-
       </div>
     </div>
 
@@ -489,7 +448,6 @@ $CI = &get_instance();
       showModalWithPagination(endpoint, title, topic);
     });
 
-
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
     function showModalWithPagination(endpoint, title, topic) {
 
@@ -499,13 +457,13 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+          console.log("bbb", topic);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
-
-          var modalContent = '<div class="modal-header"> <span class="close-btn" id="closeModal">&times;</span><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
+          var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
-          modalContent += '<table class="table table-bordered dataTable responsive">';
+          modalContent += '<table class="table table-bordered table-striped dataTable responsive">';
 
           if (topic == 'avalaible') {
 
@@ -514,7 +472,7 @@ $CI = &get_instance();
           } else if (topic == 'borrow' || topic == 'mainten') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th></tr>';
           } else if (topic == 'moving') {
-            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Posisi Terakhir</th></tr>';
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Ruangan Eksisting</th></tr>';
 
 
           } else {
@@ -524,16 +482,9 @@ $CI = &get_instance();
           // Proses data dari respons JSON dan tambahkan ke dalam tabel
           // Misalnya, untuk setiap item dalam data, tambahkan baris baru ke tabel
           data.forEach(function(item, index) {
-            let rowClass = "";
-
-            // Tambahkan class berdasarkan kondisi
-            if (item.status == 4 && item.tipe_moving == 0) {
-              rowClass = "bg-red tooltip-tr";
-            }
-
             var no = index + 1;
             // Misalnya, tambahkan baris baru dengan data item ke dalam tabel
-            modalContent += `<tr data-tooltip="Pergerakan Ilegal!" class="${rowClass}">`;
+            modalContent += '<tr>';
             modalContent += '<td>' + no + '</td>';
             modalContent += '<td>' + item.kode_tid + '</td>'; // Misalnya, ambil field1 dari item
             modalContent += '<td>' + item.kode_aset + '</td>'; // Misalnya, ambil field2 dari item
@@ -565,7 +516,7 @@ $CI = &get_instance();
           modalContent += '</div>';
           // Tambahkan tombol pagination di bagian bawah modal jika diperlukan
           // Misalnya, Anda dapat menambahkan tombol Next dan Previous untuk pagination
-          modalContent += '<div class="modal-footer"><button id="closeBtn">Tutup</button>';
+          modalContent += '<div class="modal-footer">';
           // modalContent += '<button type="button" class="btn btn-secondary">Previous</button>';
           // modalContent += '<button type="button" class="btn btn-secondary">Next</button>';
           modalContent += '</div>';
@@ -574,17 +525,6 @@ $CI = &get_instance();
           $('#myModal').modal('show');
           $('.modal-content').html(modalContent);
 
-          var closeModal = document.getElementById("closeModal");
-          var closeBtn = document.getElementById("closeBtn");
-
-          closeModal.onclick = function() {
-            $('#myModal').modal('hide');
-          }
-
-          // Event listener untuk tombol tutup di footer
-          closeBtn.onclick = function() {
-            $('#myModal').modal('hide');
-          }
 
         },
         error: function(xhr, status, error) {
@@ -620,12 +560,11 @@ $CI = &get_instance();
       }
       $('#perpindahan').text(parseInt(data.ilegal) + parseInt(data.legal));
       if (data.ilegal > 0) {
-        $('#perp').addClass('blink-ilegal');
+        $('#perp').addClass('bg-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
-        $('#perp').removeClass('blink-ilegal');
-
       }
+      console.log(data.legal, data.ilegal);
       if (data.ilegal == 0 && data.legal == 0) {
         $('#perp').removeClass('bg-ilegal');
         $('#perp').removeClass('bg-legal');
@@ -750,7 +689,6 @@ $CI = &get_instance();
           // librarian(data);
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -797,7 +735,6 @@ $CI = &get_instance();
 
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -820,23 +757,27 @@ $CI = &get_instance();
 
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
     var dChart = new Chart(ctx2, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         datasets: [{
           data: [],
-          backgroundColor: [],
+          backgroundColor: [
+            '#7fffd4',
+            '#ff4500',
+            '#ffa500',
+            '#ffff00',
+            '#faebd7',
+          ],
         }, ],
         labels: [],
       },
       options: {
         legend: {
-          position: 'top',
+          position: 'bottom',
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20,
-            fontSize: 18,
-
+            padding: 20
           }
         },
         plugins: {
@@ -851,27 +792,25 @@ $CI = &get_instance();
 
     var ctx1 = document.getElementById('myRoom').getContext('2d');
     var myChart1 = new Chart(ctx1, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         datasets: [{
           data: [],
           backgroundColor: [
-            '#0d1d4a',
-            '#916306',
-            '#939c91',
+
+            '#7fffd4',
+            'rgb(54, 162, 235)',
           ],
         }, ],
         labels: [],
       },
       options: {
         legend: {
-          position: 'top',
+          position: 'bottom',
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20,
-            fontSize: 18,
-
+            padding: 20
           }
         },
         plugins: {
@@ -886,23 +825,22 @@ $CI = &get_instance();
 
     var ctx3 = document.getElementById('myCategory').getContext('2d');
     var myChart3 = new Chart(ctx3, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         datasets: [{
           data: [],
           backgroundColor: [
 
-            '#0d1d4a',
-            '#916306',
+            '#7fffd4',
+            'rgb(54, 162, 235)',
           ],
         }, ],
         labels: [],
       },
       options: {
         legend: {
-          position: 'top',
+          position: 'bottom',
           labels: {
-            fontSize: 18,
             fontColor: "black",
             boxWidth: 20,
             padding: 20
@@ -942,14 +880,14 @@ $CI = &get_instance();
           if (!meta.hidden) {
             meta.data.forEach(function(element, index) {
               // Draw the text in black, with the specified font
-              ctx.fillStyle = '#FFF';
+              ctx.fillStyle = '#000';
 
-              var fontSize = 16;
+              var fontSize = 14;
               var fontStyle = 'bold';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle);
 
               // Just naively convert to string for now
-              var dataString = dataset.data[index].toString() + ' Aset';
+              var dataString = dataset.data[index].toString();
 
               // Make sure alignment settings are correct
               ctx.textAlign = 'center';
@@ -964,7 +902,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 3000);
+    setInterval(newLibraraian, 5000);
 
     $(document).ready(function() {
 

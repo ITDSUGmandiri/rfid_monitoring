@@ -204,48 +204,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row">
 
-                            <div class="col-md-8">
-                                                                
-                                        <div class="col-sm-2 padd-left-0 " >
-                                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >                                
-                                                <option value="delete">Delete</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-sm-2 padd-left-0 ">
-                                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                                        </div>
-                                                    
-                                        <div class="col-sm-3 padd-left-0  " >
-                                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
-                                        </div>
-                                        
-                                        <div class="col-sm-3 padd-left-0 " >
-                                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
-                                                <option value=""><?= cclang('all'); ?></option>
-                                                <option <?= $this->input->get('f') == 'nama_aset' ? 'selected' : ''; ?> value="nama_aset">Nama Aset</option>
-                                                <option <?= $this->input->get('f') == 'kode_aset' ? 'selected' : ''; ?> value="kode_aset">Kode Aset</option>
-                                                <option <?= $this->input->get('f') == 'nup' ? 'selected' : ''; ?> value="nup">NUP</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="col-sm-1 padd-left-0 ">
-                                            <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
-                                            Filter
-                                            </button>
-                                        </div>
-                                        
-                                        <div class="col-sm-1 padd-left-0 ">
-                                            <a class="btn btn-default btn-flat" name="refresh" id="refresh" value="Apply" title="<?= cclang('reset_filter'); ?>">
-                                                <i class="fa fa-undo"></i>
-                                            </a>
-                                        </div>
-                                
-                            </div>
-
-                        </div> -->
 
                     <div class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">
@@ -2449,12 +2408,10 @@
 
     //ketika milih kategori
     $(document).ready(function() {
-        console.log("nanti dihapus log ini");
         var tableregister = $('#register').DataTable();
 
         $('#selectkategori').change(function() {
             var selectedValue = $(this).val(); // Ambil nilai yang dipilih
-            console.log("cc", selectedValue);
             // Periksa jika ada nilai yang dipilih
             if (selectedValue) {
                 $.ajax({

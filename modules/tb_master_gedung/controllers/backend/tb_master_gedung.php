@@ -33,6 +33,9 @@ class tb_master_gedung extends Admin
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
+
+
+
 		$this->data['tb_gedung_masters'] = $this->model_tb_gedung_master->get($filter, $field, $this->limit_page, $offset);
 		$this->data['tb_gedung_master_counts'] = $this->model_tb_gedung_master->count_all($filter, $field);
 

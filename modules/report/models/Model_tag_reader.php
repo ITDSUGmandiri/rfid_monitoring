@@ -144,6 +144,48 @@ WHERE a.lokasi_terakhir = $r AND DATE(a.tgl_inventarisasi) BETWEEN '$tglawal' AN
         return $query->result();
     }
 
+    public function getDataTransaksi($tipe, $tglawal, $tglakhir)
+    {
+        $this->db->select("
+        d.id, 
+        d.kode_aset, 
+        d.nup, 
+        m.ket_transaksi2, 
+        m.ket_transaksi, 
+        m.ket_transaksi3,
+        r.ruangan as ruangawal,
+        rt.ruangan as ruangtujuan,
+        m.status_transaksi as statusnya,
+        MIN(m.id) AS id, 
+        GROUP_CONCAT(d.kode_tid SEPARATOR '\n') AS rfid,
+        CONCAT('<ul>', GROUP_CONCAT(CONCAT('<li>', d.nama_aset, '</li>') SEPARATOR ''), '</ul>') AS asetnya,
+        GROUP_CONCAT(t.tipe_transaksi SEPARATOR '\n') AS tipe,
+        GROUP_CONCAT(DATE_FORMAT(m.tgl_input,'%d/%m/%Y') SEPARATOR '\n') AS tgl_trans,
+        GROUP_CONCAT(TIME(m.tgl_input) SEPARATOR '\n') AS time_trans,
+        GROUP_CONCAT(DATE_FORMAT(m.tgl_akhir_transaksi,'%d/%m/%Y') SEPARATOR '\n') AS tgl_akhir,
+        GROUP_CONCAT(TIME(m.tgl_akhir_transaksi) SEPARATOR '\n') AS waktu_akhir
+    ");
+
+        $this->db->from("tb_detail_transaksi d");
+        $this->db->join("tb_master_transaksi m", "d.id_transaksi = m.id");
+        $this->db->join("tb_master_type_transaksi t", "t.id = m.tipe_transaksi");
+        $this->db->join("tb_master_ruangan r", "r.id = m.id_ruangan", "left");
+        $this->db->join("tb_master_ruangan rt", "rt.id = m.id_ruangan2", "left");
+
+        // Gunakan kondisi untuk filtering
+        $this->db->where("DATE(m.tgl_input) >=", $tglawal);
+        $this->db->where("DATE(m.tgl_input) <=", $tglakhir);
+
+        if ($tipe !== '99') {
+            $this->db->where("m.tipe_transaksi", $tipe);
+        }
+
+        $this->db->group_by("d.id_transaksi");
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function get_detail_area($id)
     {
         $query = $this->db->query(
