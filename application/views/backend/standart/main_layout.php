@@ -13,6 +13,7 @@
   <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
+
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -287,32 +288,12 @@
 
 
     $(document).ready(function() {
+      // new DataTable('#masterdata');
+      new DataTable('#masterdata', {
 
-      // Setup - add a text input to each footer cell
-      $('#exampleas thead tr').clone(true).appendTo('#exampleas thead');
-      $('#exampleas thead tr:eq(1) th').each(function(i) {
-
-        var title = $(this).text();
-        if (title != 'Action') {
-          $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-
-          $('input', this).on('keyup change', function() {
-            if (table.column(i).search() !== this.value) {
-              table
-                .column(i)
-                .search(this.value)
-                .draw();
-            }
-          });
-        }
-      });
-
-      var table = $('#exampleas').DataTable({
-        bInfo: true,
-        orderCellsTop: true,
-        fixedHeader: true,
-        bPaginate: false,
-        searching: true,
+        order: [
+          [0, 'desc']
+        ] // Kolom kedua (index 1) diurutkan secara descending
       });
     });
   </script>
