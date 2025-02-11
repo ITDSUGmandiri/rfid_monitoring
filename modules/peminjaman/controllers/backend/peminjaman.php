@@ -596,8 +596,8 @@ class peminjaman extends Admin
 				'borrow' => 0,   // Aset tidak dipinjam lagi
 				'tipe_moving' => 0,   // Aset tidak ada izin moving
 				'id_peminjam' => 0, // Id Peminjam Kosong
-				'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
-				'tgl_pengembalian' => "0000-00-00 00:00:00",
+				// 'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
+				'tgl_pengembalian' => date('Y-m-d H:i:s'),
 			]);
 		}
 
