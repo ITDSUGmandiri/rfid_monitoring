@@ -55,6 +55,7 @@ class Model_pemindahan extends MY_Model {
 
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->order_by('id', 'DESC');
         $query = $this->db->get($this->table_name);
 
         return $query->num_rows();
@@ -64,30 +65,40 @@ class Model_pemindahan extends MY_Model {
     {
         $iterasi = 1;
         $num = count($this->field_search);
-        $where = NULL;
+        $where = "tb_master_transaksi.tipe_transaksi = 5";
         $q = $this->scurity($q);
         $field = $this->scurity($field);
         $field = in_array($field, $this->field_search) ? $field : "";
 
-
-        if (empty($field)) {
+        if ($field === "status_transaksi") {
+            switch (strtolower($q)) {
+                case "open":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 1";
+                    break;
+                case "progress":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 2";
+                    break;
+                case "complete":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 3";
+                    break;
+                case "batal":
+                    $where .= " AND tb_master_transaksi.status_transaksi = 4";
+                    break;
+            }
+        } elseif (empty($field)) {
+            $where_conditions = [];
             foreach ($this->field_search as $field) {
-                $f_search = "tb_master_transaksi.".$field;
+                $f_search = "tb_master_transaksi." . $field;
                 if (strpos($field, '.')) {
                     $f_search = $field;
                 }
-
-                if ($iterasi == 1) {
-                    $where .= $f_search . " LIKE '%" . $q . "%' ";
-                } else {
-                    $where .= "OR " .$f_search . " LIKE '%" . $q . "%' ";
-                }
-                $iterasi++;
+                $where_conditions[] = $f_search . " LIKE '%" . $q . "%'";
             }
-
-            $where = '('.$where.')';
+            if (!empty($where_conditions)) {
+                $where .= " AND (" . implode(" OR ", $where_conditions) . ")";
+            }
         } else {
-            $where .= "(" . "tb_master_transaksi.".$field . " LIKE '%" . $q . "%' )";
+            $where .= " AND (tb_master_transaksi." . $field . " LIKE '%" . $q . "%')";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -95,7 +106,8 @@ class Model_pemindahan extends MY_Model {
         }
         
         $this->join_avaiable()->filter_avaiable();
-        $this->db->where('tb_master_transaksi.tipe_transaksi = 5');
+        $this->db->where($where, NULL, FALSE);
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         
         $this->sortable();
@@ -104,7 +116,7 @@ class Model_pemindahan extends MY_Model {
 
         return $query->result();
     }
-
+    
     public function join_avaiable() {
         $this->db->select('tb_master_type_transaksi.tipe_transaksi,tb_master_area.area,tb_master_gedung.gedung,tb_master_ruangan.ruangan,tb_master_transaksi.*,tb_master_type_transaksi.tipe_transaksi as tb_master_type_transaksi_tipe_transaksi,tb_master_type_transaksi.tipe_transaksi as tipe_transaksi,
         tb_master_area.area as tb_master_area_area,tb_master_area.area as area,tb_master_gedung.gedung as tb_master_gedung_gedung,tb_master_gedung.gedung as gedung,tb_master_ruangan.ruangan as tb_master_ruangan_ruangan,tb_master_ruangan.ruangan as ruangan,
@@ -227,9 +239,9 @@ class Model_pemindahan extends MY_Model {
             // if ($filter_data['id_gedung'] != '') {
             //     $this->db->where('a.id_gedung', $filter_data['id_gedung']);
             // }
-            // if ($filter_data['id_ruangan'] != '') {
-            //     $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
-            // }
+            if ($filter_data['id_ruangan'] != '') {
+                $this->db->where('a.lokasi_moving', $filter_data['id_ruangan']);
+            }
 
         }
 
