@@ -465,7 +465,6 @@ $CI = &get_instance();
           topic = '';
           break;
         case 'aset_total_pantau':
-          // console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/total';
           title = 'TOTAL ASET';
           topic = '';
@@ -685,7 +684,6 @@ $CI = &get_instance();
       // Menggunakan ID div untuk memilih endpoint yang sesuai
       var endpoint = '';
 
-      // console.log('tape total');
       endpoint = BASE_URL + '/administrator/dashboard/abc/' + divId;
       title = 'ASET DI ' + roomName;
       topic = 'ruangan';
@@ -701,7 +699,6 @@ $CI = &get_instance();
 
       // Iterasi melalui setiap item dalam array 'librarian' di respons JSON
       data.librarian.forEach(function(item) {
-        // console.log(item);
         // Jika nama bangunan tidak sama dengan nama bangunan saat ini, tambahkan pemisah (div row)
         if (item.building_name !== current_building) {
           if (current_building !== '') {
