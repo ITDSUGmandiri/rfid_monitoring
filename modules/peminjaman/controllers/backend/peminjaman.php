@@ -598,6 +598,7 @@ class peminjaman extends Admin
 				'id_peminjam' => 0, // Id Peminjam Kosong
 				// 'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
 				'tgl_pengembalian' => date('Y-m-d H:i:s'),
+				
 			]);
 		}
 
