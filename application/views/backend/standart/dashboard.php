@@ -113,11 +113,54 @@ $CI = &get_instance();
   }
 
   .bg-legal {
-    background-color: #ffff00 !important;
+    color: white;
+    background-color: #939c91 !important;
+  }
+
+  /* blink ilegal */
+  @keyframes flash-bg {
+
+    0%,
+    100% {
+      background-color: #ff4500;
+    }
+
+    50% {
+      background-color: transparent;
+    }
+  }
+
+  .blink-ilegal {
+    color: white;
+    animation: flash-bg 0.8s infinite;
   }
 
   .bg-ilegal {
     background-color: #ff4500 !important;
+  }
+
+  /* blink overdue */
+
+  @keyframes flash-bgo {
+
+    0%,
+    100% {
+      background-color: #eba834;
+    }
+
+    50% {
+      background-color: transparent;
+    }
+  }
+
+  .blink-overdue {
+    color: white;
+    animation: flash-bgo 0.8s infinite;
+  }
+
+  .bg-overdue {
+    color: white;
+    background-color: #eba834 !important;
   }
 
   .bg-perbaikan {
@@ -552,17 +595,33 @@ $CI = &get_instance();
       } else {
         $('#ava').removeClass('bg-tersedia');
       }
+
       $('#peminjaman').text(data.peminjaman);
-      if (data.peminjaman > 0) {
+      if (data.peminjaman > 0 && data.pinjamlewathari == 0) {
         $('#pem').addClass('bg-peminjaman');
+      } else if (data.peminjaman > 0 && data.pinjamlewathari > 0) {
+        $('#pem').removeClass('bg-peminjaman');
+
+        $('#pem').addClass('blink-overdue');
+
       } else {
         $('#pem').removeClass('bg-peminjaman');
+        $('#pem').removeClass('blink-overdue');
+
       }
+
       $('#perpindahan').text(parseInt(data.ilegal) + parseInt(data.legal));
       if (data.ilegal > 0) {
         $('#perp').addClass('bg-ilegal');
       } else {
-        $('#perp').addClass('bg-legal');
+        $('#perp').addClass('bg-legal'); <<
+        << << < HEAD
+          ===
+          === =
+          // $('#perp').removeClass('blink-ilegal');
+
+          >>>
+          >>> > fc7254af0b12c6105d293deb09b2b2071f1d608c
       }
       console.log(data.legal, data.ilegal);
       if (data.ilegal == 0 && data.legal == 0) {
@@ -707,25 +766,25 @@ $CI = &get_instance();
     }
 
     // Panggil fungsi AJAX saat halaman dimuat
-    $.ajax({
-      url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
-      method: 'GET',
-      dataType: 'json',
-      success: function(data) {
-        // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
-        // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-        // dChart.update();
-        updateDashboard(data);
-        // librarian(data);
-        // readerradar(data);
-      },
-      error: function(xhr, status, error) {
-        console.error("Failed to fetch data:", error);
-      }
-    });
+    // $.ajax({
+    //   url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   success: function(data) {
+    //     // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
+    //     // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+    //     // dChart.update();
+    //     updateDashboard(data);
+    //     // librarian(data);
+    //     // readerradar(data);
+    //   },
+    //   error: function(xhr, status, error) {
+    //     console.error("Failed to fetch data:", error);
+    //   }
+    // });
 
 
-    window.setInterval(function() {
+    function updateStatus() {
       $.ajax({
         url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
         method: 'GET',
@@ -752,9 +811,10 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 3000);
+    }
 
-
+    // Jalankan setiap 5 detik
+    setInterval(updateStatus, 2000);
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
     var dChart = new Chart(ctx2, {
       type: 'pie',
