@@ -259,7 +259,7 @@
 
 
 
-
+  <!-- http://localhost/rfid_monitoring/administrator/manual_sensus/add -->
 
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
     
@@ -270,7 +270,12 @@
   <?php } ?>
 
 
+  <!-- <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'manual_sensus/add') { ?>
 
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+
+  <?php } ?> -->
 
   <script>
     $(document).ready(function() {

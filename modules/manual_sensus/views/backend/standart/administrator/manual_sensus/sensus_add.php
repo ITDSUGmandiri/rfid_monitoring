@@ -67,6 +67,17 @@
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<!-- <link href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css" rel="stylesheet" type="text/css" /> -->
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<!-- <script src="<?php echo base_url(); ?>assets/js/functions.js" type="text/javascript"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.select.min.js"></script>
+ <!-- <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script> -->
+
 <script type="text/javascript">
 
     var is_wss_on = false;
@@ -1575,9 +1586,22 @@
                     <h3 style="text-decoration: underline;">List Anomali Sensus</h3>
                 </div>
 
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12">
+                        
+                    <!-- <button class="btn btn-flat btn-success" id="btn_add_anomali">
+                        <i class="fa fa-plus"></i> Tambah Anomali
+                    </button> -->
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#databaseModal">Add</button>
+                    <!-- <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', [cclang('Anomali Sensus')]); ?>(Ctrl+a)" href="<?= admin_site_url('/manual_sensus/manual_sensus_add_anomali'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', [cclang('Anomali Sensus')]); ?></a> -->
+
+                    </div>
+                </div>
+
                 <fieldset id="containerHasilPencarianBulk">
 
-                    <div class="row" style="margin-top: 10px; margin-bottom: 20px">
+                    <div class="row" style="margin-bottom: 20px">
                         <div class="col-md-12">
 
                             <div class="table-responsive">
@@ -1778,6 +1802,105 @@
         /* Hilangkan border bawah */
     } */
 </style>
+
+    <div class="modal fade" id="databaseModal" tabindex="-1" role="dialog" aria-labelledby="databaseModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="databaseModalLabel">Form Add</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form name="form_database" id="form_database" method="post" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    <label for="ruangan_id">Ruangan</label>
+                                    <select class="form-control" id="ruangan_id" name="ruangan_id">
+                                    <!-- Add your select options here -->
+                                    </select>
+                                    <input type="hidden" class="form-control" id="room_name" name="room_name" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="reader_id">Reader</label>
+                                    <select class="form-control" id="reader_id" name="reader_id">
+                                    <!-- Add your select options here -->
+                                    </select>
+                                    <input type="hidden" class="form-control" id="reader_antena" name="reader_antena" value="">
+                                    <input type="hidden" class="form-control" id="reader_angle" name="reader_angle" value="">
+                                    <input type="hidden" class="form-control" id="reader_gate" name="reader_gate" value="">
+                                </div>
+
+
+
+                                <input type="hidden" class="form-control" id="rfid_tag_number" name="rfid_tag_number" value="">
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <table id="register" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                    <th style="text-align: center;"><input type="checkbox" id="selectAllCheckbox"></th>
+                                    <th>Aset</th>
+                                    <th>RFID Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($master_asets)): ?>
+                                    <?php foreach ($master_asets as $user): ?>
+                                        <tr>
+                                            <td style="text-align: center;" data-id="<?php echo $user->id_aset; ?>" data-nama-aset="<?php echo $user->nama_aset; ?>" data-kode-aset="<?php echo $user->kode_aset; ?>" data-kode-tid="<?php echo $user->kode_tid; ?>" data-nup="<?php echo $user->nup; ?>"><input type="checkbox" class="row-checkbox"></td>
+                                            <td id="nama_aset" key="nama_aset"><?php echo $user->nama_aset; ?></td>
+                                            <td id="kode_tid" key="kode_tid"><?php echo $user->kode_tid; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <tr>
+                                        <td colspan="3">Tidak ada data</td>
+                                    </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+
+                            <script type="text/javascript">
+                                document.getElementById('selectAllCheckbox').addEventListener('click', function() {
+                                    const checkboxes = document.querySelectorAll('.row-checkbox');
+                                    checkboxes.forEach(checkbox => {
+                                        checkbox.checked = this.checked;
+                                    });
+                                });
+
+                                // Event listener for DataTable pagination
+                                $('#register').on('draw.dt', function() {
+                                    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                                    const checkboxes = document.querySelectorAll('.row-checkbox');
+                                    const allCheckboxes = Array.from(checkboxes);
+                                    selectAllCheckbox.checked = allCheckboxes.every(checkbox => checkbox.checked);
+                                });
+                            </script>
+
+                        </div>
+                    </div>
+
+                </div> <!-- Modal Body -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="savebtn" type="button" class="btn btn-primary" id="saveDatabase">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1988,6 +2111,7 @@
                                             
                                         }
 
+                                        // inez
                                         await new Promise(resolve => {
                                             $('#your_table_id_bulk tbody').append(`
                                                 <tr>    
@@ -2150,6 +2274,132 @@
     var flag_sensus_anomali = $('#flag_sensus_anomali').val();
 
     $(document).ready(function() {
+
+        // console.log($.fn.dataTable); // Pastikan ini tidak undefined
+
+        if ($.fn.DataTable) {
+            console.log("DataTables berhasil dimuat!");
+        } else {
+            console.error("DataTables tidak ditemukan.");
+        }
+
+        // checked pagination
+        let myTable = $('#register').DataTable({
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0,
+            }],
+            select: {
+                style: 'none', // Menghapus fungsi multi select
+                selector: 'td:first-child',
+                headerCheckbox: 'select-page'
+            },
+            initComplete: function(settings, json) {
+                if (typeof settings.oInit === 'undefined') {
+                    console.error("Error: oInit is undefined");
+                }
+            }
+        });
+
+        // Nonaktifkan fungsi multi-select pada baris
+        // $('#register').on('click', 'tbody tr', function() {
+        //     $(this).toggleClass('selected');
+        // });
+
+        $('#MyTableCheckAllButton').click(function() {
+            if (myTable.rows({ selected: true }).count() > 0) {
+                myTable.rows().deselect();
+                $(this).prop('checked', false);
+            } else {
+                myTable.rows().select();
+                $(this).prop('checked', true);
+            }
+        });
+
+        myTable.on('select deselect', function(e, dt, type, indexes) {
+            if (type === 'row') {
+                if (dt.rows().count() === dt.rows({ selected: true }).count()) {
+                    $('#MyTableCheckAllButton').prop('checked', true);
+                } else {
+                    $('#MyTableCheckAllButton').prop('checked', false);
+                }
+            }
+        });
+
+        // console.log($.fn.DataTable.isDataTable('#register'));
+        // console.log(myTable.settings().init()); // Debug untuk memastikan DataTables sudah terload
+
+        // $('#MyTableCheckAllButton').click(function() {
+        
+        //     if (myTable.rows({
+        //         selected: true
+        //         }).count() > 0) {
+        //         myTable.rows().deselect();
+        //         return;
+        //     }
+
+        //     myTable.rows().select();
+
+        // });
+
+        // myTable.on('select deselect', function(e, dt, type, indexes) {
+        // if (type === 'row') {
+        //     // We may use dt instead of myTable to have the freshest data.
+        //     if (dt.rows().count() === dt.rows({
+        //         selected: myTable.rows('.selected').data().toArray().length != 0
+        //     }).count()) {
+        //     var uncek1 = myTable.rows('.selected').data().toArray().length
+
+        //     // Deselect all items button.
+        //     if (uncek1 < 1) {
+        //         $("#MyTableCheckAllButton").prop('checked', false);
+        //         $('#MyTableCheckAllButton').removeClass('far fa-minus-square');
+        //         $('#MyTableCheckAllButton').removeClass('fa-check-square');
+
+        //     } else {
+        //         $("#MyTableCheckAllButton").prop('checked', true);
+
+        //     }
+        //     // $('#MyTableCheckAllButton').addClass('far fa-check-square');
+        //     return;
+        //     }
+
+        //     if (dt.rows({
+        //         selected: myTable.rows('.selected').data().toArray().length != 0
+        //     }).count() === 0) {
+        //     var uncek2 = myTable.rows('.selected').data().toArray().length
+        //     // Deselect all items button.
+        //     console.log("vv", uncek2);
+
+        //     if (uncek2 === 0) {
+        //         $('#MyTableCheckAllButton').removeClass('fa-minus-square');
+        //         $('#MyTableCheckAllButton').removeClass('fa-check-square');
+
+        //     } else {
+        //         $('#MyTableCheckAllButton').addClass('far fa-square');
+
+        //     }
+        //     // Select all items button.
+        //     return;
+        //     }
+
+        //     var arrl = myTable.rows('.selected').data().toArray().length
+        //     // Deselect all items button.
+        //     if (arrl === 0) {
+        //     $('#MyTableCheckAllButton').removeClass('fa-square');
+        //     } else {
+        //     $('#MyTableCheckAllButton').removeClass('fa-check-square');
+        //     $('#MyTableCheckAllButton').addClass('far fa-minus-square');
+        //     }
+
+        //     // // Deselect some items button.
+        //     // $('#MyTableCheckAllButton').addClass('far fa-minus-square');
+        //     // $('#MyTableCheckAllButton').removeClass('fa-square');
+
+        // }
+        // });
+        // batas check pagination
 
         $('#metode_pencarian').val('bulk');
         $('#metode_pencarian_terakhir').val('bulk');
@@ -2842,6 +3092,127 @@
 
             return false;
         }); /*end btn save*/
+
+        $('#savebtn').click(async function(e) {
+
+            e.preventDefault();
+
+            // get master data kondisi
+
+            let arrayAllKondisi = [];
+
+            try {
+                const response = await $.ajax({
+                    url: ADMIN_BASE_URL + '/manual_sensus/get_all_kondisi',
+                    type: 'GET',
+                    dataType: 'json'
+                });
+
+                if (response.success) {
+                    arrayAllKondisi = response.data;
+                } else {
+                    console.error('Gagal mendapatkan data status:', response.message);
+                }
+            } catch (error) {
+                console.error('Error saat melakukan request:', error);
+            }
+
+            // get master data status
+
+            let arrayAllStatus = [];
+
+            try {
+                const response = await $.ajax({
+                    url: ADMIN_BASE_URL + '/manual_sensus/get_all_status',
+                    type: 'GET',
+                    dataType: 'json'
+                });
+
+                if (response.success) {
+                    arrayAllStatus = response.data;
+                } else {
+                    console.error('Gagal mendapatkan data status:', response.message);
+                }
+            } catch (error) {
+                console.error('Error saat melakukan request:', error);
+            }
+            
+            // Array untuk menyimpan data yang dipilih
+            var selectedData = [];
+            
+            // Loop melalui semua checkbox yang dicentang
+            $('.row-checkbox:checked').each(function() {
+                // Mengambil parent td dari checkbox
+                var td = $(this).parent('td');
+                
+                // Mengambil data attributes
+                var data = {
+                    id: td.data('id'),
+                    nama_aset: td.data('nama-aset'),
+                    kode_aset: td.data('kode-aset'),
+                    kode_tid: td.data('kode-tid'),
+                    nup: td.data('nup')
+                };
+                
+                // Menambahkan ke array
+                selectedData.push(data);
+            });
+
+            // Sekarang selectedData berisi array dari semua data yang dipilih
+            console.log(selectedData);
+            
+            // Contoh penggunaan data
+            selectedData.forEach(function(item) {
+
+                // console.log('ID Aset:', item.id);
+                // console.log('Nama Aset:', item.nama_aset);
+                // console.log('Kode Aset:', item.kode_aset);
+                // console.log('Kode TID:', item.kode_tid);
+                // console.log('NUP:', item.nup);
+
+                ceklis_sensus = 'Sudah';
+                hasil_pencarian = 'Wrong Room Tag';
+
+                let area = '-';
+                let gedung = '-';
+                let ruangan = '-';
+
+                // inez
+
+                let posisi_seharusnya = `Area: ${area}, Gedung: ${gedung}, Ruangan: ${ruangan}`;
+
+                $('#your_table_id_bulk tbody').append(`
+                    <tr>
+                        <td style="text-align: center">${$('#your_table_id_bulk tbody tr').length + 1}</td>
+                        <td class="asset_id" style="text-align: center">${item.id}</td>
+                        <td class="asset_name" style="text-align: left">${item.nama_aset}</td>
+                        <td class="asset_code" style="text-align: left">${item.kode_aset}</td>
+                        <td class="asset_nup" style="text-align: center">${item.nup}</td>
+                        <td class="asset_tid" style="text-align: center">${item.kode_tid}</td>
+                        
+                        <td id="asset_tid_wrong_room_${item.kode_tid}" style="text-align: center; background-color:rgb(234, 255, 0)" data-id="${item.id}" data-nama-aset="${item.nama_aset}" data-kode-aset="${item.kode_aset}" data-nup="${item.nup}" data-tid="${item.kode_tid}">${hasil_pencarian}</td>
+
+                        <td id="asset_ruangan" style="text-align: center">${posisi_seharusnya}</td>
+
+                        <td class="asset_condition" style="text-align: center;">
+                            <select class="asset_condition_dropdown" id="asset_condition_dropdown_${item.kode_tid}" style="margin: 0 auto;">
+                                ${arrayAllKondisi.map(kondisi => `<option value="${kondisi.id}">${kondisi.kondisi}</option>`).join('')}
+                            </select>
+                        </td>
+
+                        <td id="flag_sensus_${item.kode_tid}" style="text-align: center; background-color: #90EE90">
+                            <input type="checkbox" id="flag_sensus_check_${item.kode_tid}" name="flag_sensus_check_${item.kode_tid}" value="1" style="margin-right: 5px;" checked disabled>` + ceklis_sensus + `
+                        </td>
+
+                        <td style="text-align: center">
+                            <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" onclick="removeRowBulk(this)"></i>
+                        </td>
+                    </tr>
+                `);
+
+            });
+
+        });
 
     }); /*end doc ready*/
 </script>

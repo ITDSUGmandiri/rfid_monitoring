@@ -21,6 +21,7 @@
          $('#reset').trigger('click');
          return false;
       });
+
    }
 
    jQuery(document).ready(domo);

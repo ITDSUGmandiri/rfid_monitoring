@@ -427,6 +427,16 @@ class Model_manual_sensus extends MY_Model
         return $this->db->get()->row_array();
     }
 
+    public function get_dataaset()
+    {
+        $query = $this->db->query(
+            // "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status WHERE a.kode_tid != '' ORDER BY a.kode_tid DESC LIMIT 500 OFFSET 0"
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset FROM tb_master_aset a WHERE a.kode_tid IS NOT NULL ORDER BY a.kode_tid DESC LIMIT 500 OFFSET 0"
+        );
+
+        return $query->result();
+    }
+
 }
 
 /* End of file model_manual_sensus.php */

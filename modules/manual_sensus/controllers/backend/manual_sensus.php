@@ -133,8 +133,26 @@ class manual_sensus extends Admin
 		$this->data['pengaturan_sistem'] = $this->model_manual_sensus->getPengaturanSistem();
 		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
 
+		$this->data['master_asets'] = $this->model_manual_sensus->get_dataaset();
+
+		// echo '<pre>';
+		// print_r($this->data['master_asets']);
+		// echo '</pre>';
+		// exit();
+
 		$this->template->title('Sensus');
 		$this->render('backend/standart/administrator/manual_sensus/sensus_add', $this->data);
+	}
+
+	public function manual_sensus_add_anomali()
+	{
+		$this->is_allowed('sensus_add');
+
+		$this->data['pengaturan_sistem'] = $this->model_manual_sensus->getPengaturanSistem();
+		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+
+		$this->template->title('Sensus');
+		$this->render('backend/standart/administrator/manual_sensus/manual_sensus_add_anomali', $this->data);
 	}
 
 	/**
