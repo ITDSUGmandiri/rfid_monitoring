@@ -279,6 +279,7 @@ class Aauth
 				'id' => $row->id,
 				'username' => $row->username,
 				'email' => $row->email,
+				'full_name' => $row->full_name,
 				'loggedin' => TRUE
 			);
 

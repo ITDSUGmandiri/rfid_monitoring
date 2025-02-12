@@ -17,8 +17,8 @@
         <td><span class="list_group-reader_com"><?= _ent($tag_reader->reader_com); ?></span></td>
         <td><span class="list_group-reader_mode"><?= _ent($tag_reader->reader_mode); ?></span></td>
         <td><span class="list_group-reader_family"><?= _ent($tag_reader->reader_family); ?></span></td>
-        <td><span class="list_group-connecting"><?= _ent($tag_reader->connecting); ?></span></td>
-        <td><span class="list_group-reader_identity"><?= _ent($tag_reader->reader_identity); ?></span></td>
+        <!-- <td><span class="list_group-connecting"><?= _ent($tag_reader->connecting); ?></span></td> -->
+        <td><span class="list_group-reader_identity"><?= _ent($tag_reader->reader_identity) === '1' ? 'Legal' : 'Ilegal' ?></span></td>
         <td><span class="list_group-alias_antenna"><?= _ent($tag_reader->alias_antenna); ?></span></td>
         <td width="200">
 

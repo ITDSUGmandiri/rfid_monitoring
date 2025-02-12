@@ -46,7 +46,7 @@
                                     ?>
 
                                     <?php foreach (db_get_all_data('tb_master_ruangan', $conditions) as $row): ?>
-                                        <option value="<?= $row->id_room ?>"><?= $row->name_room; ?></option>
+                                        <option value="<?= $row->id ?>"><?= $row->ruangan; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="info help-block">
@@ -73,11 +73,11 @@
                             <div class="col-sm-8">
                                 <div class="col-md-3 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="setfor" value="1"> IN </label>
+                                        <input type="radio" class="flat-red" name="setfor" value="in"> IN </label>
                                 </div>
                                 <div class="col-md-3 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="setfor" value="7"> Out </label>
+                                        <input type="radio" class="flat-red" name="setfor" value="out"> Out </label>
                                 </div>
                                 </select>
                                 <div class="row-fluid clear-both">
@@ -230,7 +230,7 @@
                         </div>
 
 
-                        <div class="form-group group-reader_updatedby ">
+                        <!-- <div class="form-group group-reader_updatedby ">
                             <label for="reader_updatedby" class="col-sm-2 control-label">Update By <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
@@ -238,7 +238,7 @@
                                 <small class="info help-block">
                                 </small>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="form-group group-reader_updated ">
@@ -254,7 +254,7 @@
                         </div>
 
 
-                        <div class="form-group group-reader_createdby ">
+                        <!-- <div class="form-group group-reader_createdby ">
                             <label for="reader_createdby" class="col-sm-2 control-label">Created By <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
@@ -262,7 +262,7 @@
                                 <small class="info help-block">
                                 </small>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="form-group group-reader_created ">
@@ -286,7 +286,9 @@
                                     <option value=""></option>
                                     <option value="hw">hw</option>
                                     <option value="rc">rc</option>
+                                    <option value="prieds">prieds</option>
                                     <option value="other">other</option>
+
                                 </select>
                                 <small class="info help-block">
 
@@ -326,16 +328,20 @@
                         </div>
 
 
-                        <div class="form-group group-reader_identity ">
+                        <div class="form-group group-reader_identity  ">
                             <label for="reader_identity" class="col-sm-2 control-label">Reader Identity <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="reader_identity" id="reader_identity" placeholder="Reader Identity" value="<?= set_value('reader_identity'); ?>">
+                                <select class="form-control chosen chosen-select" name="reader_identity" id="reader_identity" data-placeholder="Select Reader Identity">
+                                    <option value=""></option>
+                                    <option <?= $tag_reader->reader_family == 1 ? 'selected' : ''; ?> value="1">Legal</option>
+                                    <option <?= $tag_reader->reader_family == 0 ? 'selected' : ''; ?> value="0">Ilegal</option>
+
+                                </select>
                                 <small class="info help-block">
                                     <b>Input Reader Identity</b> Max Length : 50.</small>
                             </div>
                         </div>
-
 
                         <div class="form-group group-reader_antena ">
                             <label for="reader_antena" class="col-sm-2 control-label">Antena <i class="required">*</i>

@@ -84,7 +84,8 @@ class peminjaman extends Admin
             2 => 'nama_aset',
             3 => 'kode_aset',
             4 => 'nup',
-			5 => 'kode_tid'
+			5 => 'kode_tid',
+			6 => 'kode_epc'
         );
 
         $limit = $this->input->post('length');
@@ -118,7 +119,7 @@ class peminjaman extends Admin
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'">';
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'" data-kode-epc="'.$row->kode_epc.'">';
 				$nestedData['auto_number'] = $autoNumber;
 				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
@@ -126,6 +127,7 @@ class peminjaman extends Admin
                 $nestedData['kode_aset'] = $row->kode_aset;
                 $nestedData['nup'] = $row->nup;
                 $nestedData['kode_tid'] = $row->kode_tid;
+                $nestedData['kode_epc'] = $row->kode_epc;
                 $data[] = $nestedData;
             }
         }
@@ -509,7 +511,9 @@ class peminjaman extends Admin
 			// Update status aset menjadi 1 dan set borrow menjadi 0
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
-				'borrow' => 1   // Aset dipinjam sudah di approve
+				'status' => 2,  // Aset sudah kembali
+				'borrow' => 1,   // Aset dipinjam sudah di approve
+				'tipe_moving' => 1   // Aset ada izin moving
 			]);
 		}
 
@@ -590,9 +594,10 @@ class peminjaman extends Admin
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
 				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0,   // Aset tidak ada izin moving
 				'id_peminjam' => 0, // Id Peminjam Kosong
-				'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
-				'tgl_pengembalian' => "0000-00-00 00:00:00",
+				// 'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
+				'tgl_pengembalian' => date('Y-m-d H:i:s'),
 			]);
 		}
 
@@ -667,15 +672,39 @@ class peminjaman extends Admin
 
 		// Perbarui status aset terkait dengan peminjaman
 		foreach ($detail_aset as $aset) {
-			// Update status aset menjadi 1 dan set borrow menjadi 0
+			// Dapatkan status aset saat ini
+			$this->db->select('status');
+			$this->db->from('tb_master_aset');
 			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', [
-				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0 ,  // Aset tidak dipinjam lagi
-				'id_peminjam' => 0, // Id Peminjam Kosong
-				'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong	
-				'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
-			]);
+			$current_status = $this->db->get()->row()->status;
+
+			// Tentukan pembaruan berdasarkan status saat ini
+			if ($current_status == 4) {
+				// Jika status saat ini adalah 4, hanya update borrow menjadi 0
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'borrow' => 0,  // Aset tidak dipinjam lagi
+					'tipe_moving' => 0,   // Aset tidak ada izin moving
+					'id_peminjam' => 0, // Id Peminjam Kosong
+					'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong
+					'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
+				]);
+
+				log_message('info', 'Status aset tidak diubah karena status saat ini 4. Borrow diperbarui untuk ID Aset: ' . $aset->id_aset);
+			} else {
+				// Jika status saat ini bukan 4, update status menjadi 1 dan borrow menjadi 0
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'status' => 1,  // Aset sudah kembali
+					'borrow' => 0,  // Aset tidak dipinjam lagi
+					'tipe_moving' => 0,   // Aset tidak ada izin moving
+					'id_peminjam' => 0, // Id Peminjam Kosong
+					'tgl_peminjaman' => "0000-00-00 00:00:00", // Tgl Peminjaman Kosong
+					'tgl_pengembalian' => "0000-00-00 00:00:00", // Tgl Pengembalian Kosong
+				]);
+
+				log_message('info', 'Status aset diperbarui menjadi 1 dan borrow diubah untuk ID Aset: ' . $aset->id_aset);
+			}
 		}
 
 		// Selesaikan transaksi

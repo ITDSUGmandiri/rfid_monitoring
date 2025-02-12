@@ -68,8 +68,10 @@ class pemindahan extends Admin
 	{
 		$this->is_allowed('pemindahan_add');
 
+		$this->data['selectpemindahan'] = $this->model_pemindahan->getSubTran();
 		$this->data['pengaturan_sistem'] = $this->model_pemindahan->getPengaturanSistem();
-		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+		$this->data['tb_master_asets'] = $this->model_pemindahan->get_aset();
+
 
 		$this->template->title('Pemindahan Aset');
 		$this->render('backend/standart/administrator/pemindahan/pemindahan_add', $this->data);
@@ -84,7 +86,10 @@ class pemindahan extends Admin
             2 => 'nama_aset',
             3 => 'kode_aset',
             4 => 'nup',
-			5 => 'kode_tid'
+			5 => 'kode_tid',
+			6 => 'posisi_awal',
+			7 => 'posisi_saatini',
+			8 => 'kode_epc'
         );
 
         $limit = $this->input->post('length');
@@ -92,6 +97,7 @@ class pemindahan extends Admin
         $order = $columns[$this->input->post('order')[0]['column']];
         $dir = $this->input->post('order')[0]['dir'];
 
+        $id_sub_transaksi = $this->input->post('id_sub_transaksi');
         $id_area = $this->input->post('id_area');
         $id_gedung = $this->input->post('id_gedung');
         $id_ruangan = $this->input->post('id_ruangan');
@@ -103,22 +109,56 @@ class pemindahan extends Admin
 		$filter_data['id_gedung'] = $id_gedung;
 		$filter_data['id_ruangan'] = $id_ruangan;
 
-        $totalData = $this->model_pemindahan->count_all_content();
-        $totalFiltered = $totalData;
+        // $totalData = $this->model_pemindahan->count_all_content();
+        // $totalFiltered = $totalData;
 
-        if(empty($this->input->post('search')['value'])) {
-            $contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
-        } else {
-            $search = $this->input->post('search')['value'];
-            $contents =  $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
-            $totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
-        }
+		if ($id_sub_transaksi == "2") {
+			$totalData = $this->model_pemindahan->count_all_content();
+        	$totalFiltered = $totalData;
+		} elseif ($id_sub_transaksi == "1") {
+			$totalData = $this->model_pemindahan->count_all_content2();
+        	$totalFiltered = $totalData;
+		} else {
+			$totalData = $this->model_pemindahan->count_all_content();
+        	$totalFiltered = $totalData;
+		}
+
+		if ($id_sub_transaksi == "2") {
+			// Gunakan query untuk id_sub_transaksi = 2
+			if (empty($this->input->post('search')['value'])) {
+				$contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
+			} else {
+				$search = $this->input->post('search')['value'];
+				$contents = $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+				$totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
+			}
+		} elseif ($id_sub_transaksi == "1") {
+			// Gunakan query baru untuk id_sub_transaksi = 1
+			if (empty($this->input->post('search')['value'])) {
+				$contents = $this->model_pemindahan->get_content2($limit, $start, $order, $dir, $select_all, $filter_data);
+			} else {
+				$search = $this->input->post('search')['value'];
+				$contents = $this->model_pemindahan->content_search2($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+				$totalFiltered = $this->model_pemindahan->content_search_count2($search, $select_all, $filter_data);
+			}
+		} else {
+			// Default query jika id_sub_transaksi tidak sesuai
+			$contents = array();
+		}
+
+        // if(empty($this->input->post('search')['value'])) {
+        //     $contents = $this->model_pemindahan->get_content($limit, $start, $order, $dir, $select_all, $filter_data);
+        // } else {
+        //     $search = $this->input->post('search')['value'];
+        //     $contents =  $this->model_pemindahan->content_search($limit, $start, $search, $order, $dir, $select_all, $filter_data);
+        //     $totalFiltered = $this->model_pemindahan->content_search_count($search, $select_all, $filter_data);
+        // }
 
         $data = array();
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'">';
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'" data-kode-epc="'.$row->kode_epc.'"data-posisi-awal="'.$row->posisi_awal.'"data-posisi-saatini="'.$row->posisi_saatini.'">';
 				$nestedData['auto_number'] = $autoNumber;
 				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
@@ -126,6 +166,9 @@ class pemindahan extends Admin
                 $nestedData['kode_aset'] = $row->kode_aset;
                 $nestedData['nup'] = $row->nup;
                 $nestedData['kode_tid'] = $row->kode_tid;
+                $nestedData['posisi_awal'] = $row->posisi_awal;
+                $nestedData['posisi_saatini'] = $row->posisi_saatini;
+                $nestedData['kode_epc'] = $row->kode_epc;
                 $data[] = $nestedData;
             }
         }
@@ -158,6 +201,7 @@ class pemindahan extends Admin
 		}
 
 		$this->form_validation->set_rules('tipe_transaksi', 'Tipe Transaksi', 'trim|required');
+		$this->form_validation->set_rules('id_sub_transaksi', 'Sub Transaksi', 'trim|required');
 		$this->form_validation->set_rules('status_transaksi', 'Status Transaksi', 'trim|required');
 		$this->form_validation->set_rules('tgl_awal_transaksi', 'Tgl Awal Transaksi', 'trim|required');
 		$this->form_validation->set_rules('ket_transaksi', 'Ket Transaksi', 'trim|required|max_length[500]');
@@ -174,6 +218,7 @@ class pemindahan extends Admin
 			$save_data_master_transaksi = [
 				'kode_transaksi' => $this->input->post('kode_transaksi'),
 				'tipe_transaksi' => $this->input->post('tipe_transaksi'),
+				'id_sub_transaksi' => $this->input->post('id_sub_transaksi'),
 				'status_transaksi' => $this->input->post('status_transaksi'),
 				'tgl_input' => date('Y-m-d H:i:s'),
 				'tgl_awal_transaksi' => $this->input->post('tgl_awal_transaksi'),
@@ -511,7 +556,8 @@ class pemindahan extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
+				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0   // Aset tidak ada izin moving
 			]);
 		}
 
@@ -532,8 +578,13 @@ class pemindahan extends Admin
 	{
 		// Ambil detail aset berdasarkan ID perbaikan
 		$this->load->model('model_pemindahan');
+		$master_transaksi = $this->model_pemindahan->getTransaksiById($id);
 		$detail_aset = $this->model_pemindahan->getDetailTransaksiById($id);
 
+		// Debugging $master_transaksi
+		if (!$master_transaksi) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
 		// Debugging $detail_aset
 		if (!$detail_aset) {
 			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
@@ -582,21 +633,48 @@ class pemindahan extends Admin
 			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
 			'ket_transaksi2' => $keterangan_batal,  // Simpan keterangan batal
 			'image_uri' => $file_name		//menyimpan informasi nama foto
-		]);
+		]);;
 
 		// Perbarui status aset terkait dengan perbaikan
 		foreach ($detail_aset as $aset) {
-			// Update status aset menjadi 1 dan set borrow menjadi 0
-			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', [
-				'id_area' => $aset->id_area,
-                'id_gedung' => $aset->id_gedung,
-                'id_lokasi' => $aset->id_ruangan,
-				'lokasi_moving' => $aset->id_ruangan,
-				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
-			]);
+			// Periksa id_sub_transaksi
+			if ($master_transaksi->id_sub_transaksi == 2) {
+				// Update hanya lokasi_moving dari id_ruangan di master_transaksi
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'lokasi_moving' => $master_transaksi->id_ruangan,
+					'status' => 1,  // Aset sudah kembali
+					'borrow' => 0,   // Aset tidak dipinjam lagi
+					'tipe_moving' => 0   // Aset tidak ada izin moving
+				]);
+			} else {
+				// Update seluruh lokasi dan status
+				$this->db->where('id_aset', $aset->id_aset);
+				$this->db->update('tb_master_aset', [
+					'id_area' => $aset->id_area,
+					'id_gedung' => $aset->id_gedung,
+					'id_lokasi' => $aset->id_ruangan,
+					'lokasi_moving' => $aset->id_ruangan,
+					'status' => 1,  // Aset sudah kembali
+					'borrow' => 0,   // Aset tidak dipinjam lagi
+					'tipe_moving' => 0   // Aset tidak ada izin moving
+				]);
+			}
 		}
+
+		// // Perbarui status aset terkait dengan perbaikan
+		// foreach ($detail_aset as $aset) {
+		// 	// Update status aset menjadi 1 dan set borrow menjadi 0
+		// 	$this->db->where('id_aset', $aset->id_aset);
+		// 	$this->db->update('tb_master_aset', [
+		// 		'id_area' => $aset->id_area,
+        //         'id_gedung' => $aset->id_gedung,
+        //         'id_lokasi' => $aset->id_ruangan,
+		// 		'lokasi_moving' => $aset->id_ruangan,
+		// 		'status' => 1,  // Aset sudah kembali
+		// 		'borrow' => 0   // Aset tidak dipinjam lagi
+		// 	]);
+		// }
 
 		// Selesaikan transaksi
 		$this->db->trans_complete();
@@ -708,6 +786,32 @@ class pemindahan extends Admin
 			exit;
 		}
 		$results = db_get_all_data('tb_master_ruangan', ['id_gedung' => $id]);
+		$this->response($results);
+	}
+
+	public function ajax_id_gedung2($id = null)
+	{
+		if (!$this->is_allowed('pemindahan_list', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+			]);
+			exit;
+		}
+		$results = db_get_all_data('tb_master_gedung', ['id_area2' => $id]);
+		$this->response($results);
+	}
+
+	public function ajax_id_ruangan2($id = null)
+	{
+		if (!$this->is_allowed('pemindahan_list', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+			]);
+			exit;
+		}
+		$results = db_get_all_data('tb_master_ruangan', ['id_gedung2' => $id]);
 		$this->response($results);
 	}
 

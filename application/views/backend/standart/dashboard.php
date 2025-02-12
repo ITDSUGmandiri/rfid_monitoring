@@ -243,7 +243,7 @@ $CI = &get_instance();
                     </div>
                     <div class="c-dashboardInfo col-lg-2">
                       <div id="perp" class="wrap">
-                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Perpindahan
+                        <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Pemindahan
                           <!-- <svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
                           <path fill="none" d="M0 0h24v24H0z"></path>
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
@@ -689,7 +689,6 @@ $CI = &get_instance();
           // librarian(data);
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -736,7 +735,6 @@ $CI = &get_instance();
 
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -763,7 +761,13 @@ $CI = &get_instance();
       data: {
         datasets: [{
           data: [],
-          backgroundColor: [],
+          backgroundColor: [
+            '#7fffd4',
+            '#ff4500',
+            '#ffa500',
+            '#ffff00',
+            '#faebd7',
+          ],
         }, ],
         labels: [],
       },
@@ -773,9 +777,7 @@ $CI = &get_instance();
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20,
-            fontSize: 18,
-
+            padding: 20
           }
         },
         plugins: {
@@ -808,9 +810,7 @@ $CI = &get_instance();
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20,
-            fontSize: 18,
-
+            padding: 20
           }
         },
         plugins: {
@@ -841,7 +841,6 @@ $CI = &get_instance();
         legend: {
           position: 'bottom',
           labels: {
-            fontSize: 18,
             fontColor: "black",
             boxWidth: 20,
             padding: 20
@@ -883,7 +882,7 @@ $CI = &get_instance();
               // Draw the text in black, with the specified font
               ctx.fillStyle = '#000';
 
-              var fontSize = 18;
+              var fontSize = 14;
               var fontStyle = 'bold';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle);
 
@@ -903,7 +902,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 3000);
+    setInterval(newLibraraian, 5000);
 
     $(document).ready(function() {
 

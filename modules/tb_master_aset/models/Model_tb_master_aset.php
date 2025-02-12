@@ -106,11 +106,21 @@ class Model_tb_master_aset extends MY_Model
     public function get_aset()
     {
         $query = $this->db->query(
-            "SELECT id_aset, kode_tid, kode_aset, nup, nama_aset FROM tb_master_aset WHERE kode_tid != '' ORDER BY kode_tid ASC LIMIT 500 OFFSET 0"
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status ORDER BY a.kode_tid DESC LIMIT 500 OFFSET 0"
         );
 
         return $query->result();
     }
+
+    public function get_asetkategori($id_kategori)
+    {
+        $query = $this->db->query(
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status WHERE a.kategori = $id_kategori ORDER BY a.kode_tid ASC LIMIT 500 OFFSET 0"
+        );
+
+        return $query->result();
+    }
+
 
     public function get_detail_edit($id)
     {
@@ -125,7 +135,11 @@ class Model_tb_master_aset extends MY_Model
     {
         // JOIN tb_master_pegawai p ON p.id = a.id_pegawai
         $query = $this->db->query(
-            "SELECT a.*, s.ket_status, s.id, k.ket_kategori, r.ruangan FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status JOIN tb_master_ruangan r ON r.id = a.id_lokasi JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
+            "SELECT a.*, s.ket_status, s.id, k.ket_kategori, r.ruangan as ruangasal, rr.ruangan as ruangaktual FROM tb_master_aset a 
+JOIN tb_master_status s ON s.id = a.status 
+JOIN tb_master_ruangan r ON  r.id = a.id_lokasi
+JOIN tb_master_ruangan rr ON  rr.id = a.lokasi_moving 
+JOIN tb_master_kategori k ON k.id = a.kategori WHERE id_aset = $id"
         );
 
         return $query->result();
@@ -148,7 +162,7 @@ class Model_tb_master_aset extends MY_Model
 
 
         $query = $this->db->query(
-            "SELECT a.kode_tid, a.lokasi_terakhir, a.tipe_moving, m.tag_code, m.tanggal, DATE_FORMAT(m.waktu,'%H:%i:%s') as waktugerak,r.ruangan, m.room_id, m.status_moving FROM tb_master_aset a INNER JOIN tb_asset_moving m ON m.tag_code = a.kode_tid JOIN tb_master_ruangan r ON r.id = a.lokasi_terakhir WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
+            "SELECT  a.kode_tid, a.lokasi_terakhir, a.tipe_moving, m.tag_code, m.tanggal, DATE_FORMAT(m.waktu,'%H:%i:%s') as waktugerak,r.ruangan, m.room_id, m.status_moving FROM tb_master_aset a INNER JOIN tb_asset_moving m ON m.tag_code = a.kode_tid JOIN tb_master_ruangan r ON r.id = a.lokasi_terakhir WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
         );
 
         return $query->result();
@@ -159,7 +173,7 @@ class Model_tb_master_aset extends MY_Model
 
 
         $query = $this->db->query(
-            "SELECT a.kode_tid, a.lokasi_terakhir, a.tipe_moving,DATE(m.tgl_input) as tglawal, DATE_FORMAT(m.tgl_input,'%H:%i:%s') as waktuawal,r.ruangan as ruangtujuan, x.ruangan as ruangawal,m.id_ruangan, m.ket_transaksi FROM tb_master_aset a JOIN tb_detail_transaksi d ON d.kode_tid = a.kode_tid JOIN tb_master_transaksi m ON m.id = d.id_transaksi JOIN tb_master_ruangan r ON r.id = m.id_ruangan JOIN tb_master_ruangan x ON x.id = a.lokasi_terakhir WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
+            "SELECT a.kode_tid, a.tipe_moving,DATE(m.tgl_input) as tglawal, DATE_FORMAT(m.tgl_input,'%H:%i:%s') as waktuawal,r.ruangan as ruangtujuan, x.ruangan as ruangawal,m.id_ruangan, m.ket_transaksi, mt.tipe_transaksi FROM tb_master_aset a JOIN tb_detail_transaksi d ON d.kode_tid = a.kode_tid JOIN tb_master_transaksi m ON m.id = d.id_transaksi JOIN tb_master_ruangan r ON r.id = m.id_ruangan JOIN tb_master_ruangan x ON x.id = a.lokasi_terakhir JOIN tb_master_type_transaksi mt ON mt.id = m.tipe_transaksi WHERE a.kode_tid = $id group by m.id ORDER by m.id DESC LIMIT 10"
         );
 
         return $query->result();
@@ -182,6 +196,11 @@ class Model_tb_master_aset extends MY_Model
     public function reset_data_master($data)
     {
         $this->db->update('tb_master_aset', $data);
+    }
+
+    public function importDataAset($data)
+    {
+        $this->db->insert_batch('tb_master_import', $data); // Sesuaikan dengan tabel Anda
     }
 }
 

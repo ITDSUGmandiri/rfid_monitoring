@@ -118,7 +118,7 @@ class perbaikan extends Admin
         if(!empty($contents)) {
             $autoNumber = $start + 1;
             foreach($contents as $row) {
-                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'">';
+                $nestedData['checkbox_id_master_aset'] = '<input type="checkbox" value="'.$row->id_aset.'" class="cekbok" data-id="'.$row->id_aset.'" data-kode-aset="'.$row->kode_aset.'" data-nup="'.$row->nup.'" data-nama-aset="'.$row->nama_aset.'" data-kode-tid="'.$row->kode_tid.'" data-kode-epc="'.$row->kode_epc.'">';
 				$nestedData['auto_number'] = $autoNumber;
 				$nestedData['id'] = $row->id_aset;
                 $autoNumber++;
@@ -505,7 +505,8 @@ class perbaikan extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
+				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0   // Aset tidak ada izin moving
 			]);
 		}
 
@@ -584,7 +585,8 @@ class perbaikan extends Admin
 			$this->db->where('id_aset', $aset->id_aset);
 			$this->db->update('tb_master_aset', [
 				'status' => 1,  // Aset sudah kembali
-				'borrow' => 0   // Aset tidak dipinjam lagi
+				'borrow' => 0,   // Aset tidak dipinjam lagi
+				'tipe_moving' => 0   // Aset tidak ada izin moving
 			]);
 		}
 

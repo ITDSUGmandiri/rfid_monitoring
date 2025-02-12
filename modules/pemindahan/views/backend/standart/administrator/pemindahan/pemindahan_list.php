@@ -27,11 +27,11 @@ jQuery(document).ready(domo);
 </script>
 <section class="content-header">
    <h1>
-      <?= cclang('tb_master_transaksi') ?><small><?= cclang('list_all'); ?></small>
+      <?= cclang('pemindahan') ?><small><?= cclang('list_all'); ?></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><?= cclang('tb_master_transaksi') ?></li>
+      <li class="active"><?= cclang('pemindahan') ?></li>
    </ol>
 </section>
 <!-- Main content -->
@@ -44,25 +44,25 @@ jQuery(document).ready(domo);
                <div class="box box-widget widget-user-2">
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('tb_master_transaksi_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', [cclang('tb_master_transaksi')]); ?>  (Ctrl+a)" href="<?=  admin_site_url('/pemindahan/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', [cclang('tb_master_transaksi')]); ?></a>
+                        <?php is_allowed('pemindahan_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', [cclang('pemindahan')]); ?>  (Ctrl+a)" href="<?=  admin_site_url('/pemindahan/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', [cclang('pemindahan')]); ?></a>
                         <?php }) ?>
-                        <?php is_allowed('tb_master_transaksi_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> <?= cclang('tb_master_transaksi') ?> " href="<?= admin_site_url('/pemindahan/export?q='.$this->input->get('q').'&f='.$this->input->get('f')); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('pemindahan_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> <?= cclang('pemindahan') ?> " href="<?= admin_site_url('/pemindahan/export?q='.$this->input->get('q').'&f='.$this->input->get('f')); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
-                                                <?php is_allowed('tb_master_transaksi_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf <?= cclang('tb_master_transaksi') ?> " href="<?= admin_site_url('/pemindahan/export_pdf?q='.$this->input->get('q').'&f='.$this->input->get('f')); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                                                <?php is_allowed('pemindahan_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf <?= cclang('pemindahan') ?> " href="<?= admin_site_url('/pemindahan/export_pdf?q='.$this->input->get('q').'&f='.$this->input->get('f')); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
                                              </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username"><?= cclang('tb_master_transaksi') ?></h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('tb_master_transaksi')]); ?>  <i class="label bg-yellow"><span class="total-rows"><?= $tb_master_transaksi_counts; ?></span>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username"><?= cclang('pemindahan') ?></h3>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', [cclang('pemindahan')]); ?>  <i class="label bg-yellow"><span class="total-rows"><?= $pemindahan_counts; ?></span>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_tb_master_transaksi" id="form_tb_master_transaksi" action="<?= admin_base_url('/pemindahan/index'); ?>">
+                  <form name="form_pemindahan" id="form_pemindahan" action="<?= admin_base_url('/pemindahan/index'); ?>">
                   
 
 
@@ -83,13 +83,16 @@ jQuery(document).ready(domo);
                         <div class="col-sm-3 padd-left-0 " >
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
-                              <!-- <option <?= $this->input->get('f') == 'kode_transaksi' ? 'selected' :''; ?> value="kode_transaksi">Kode Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' :''; ?> value="status_transaksi">Status Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tgl Awal Transaksi</option> -->
-                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Ket Transaksi</option>
-                              <!-- <option <?= $this->input->get('f') == 'id_pegawai_input' ? 'selected' :''; ?> value="id_pegawai_input">Id Pegawai Input</option
-                              <option <?= $this->input->get('f') == 'nama_pegawai_input' ? 'selected' :''; ?> value="nama_pegawai_input">Nama Pegawai Input</option> -->
+                              <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe</option>
+                              <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' :''; ?> value="status_transaksi">Status Pemindahan</option>
+                              <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tanggal</option>
+                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Keterangan</option>
+                              <option <?= $this->input->get('f') == 'id_area' ? 'selected' :''; ?> value="id_area">Area Asal</option>
+                              <option <?= $this->input->get('f') == 'id_gedung' ? 'selected' :''; ?> value="id_gedung">Gedung Asal</option>
+                              <option <?= $this->input->get('f') == 'id_ruangan' ? 'selected' :''; ?> value="id_ruangan">Ruangan Asal</option>
+                              <option <?= $this->input->get('f') == 'id_area2' ? 'selected' :''; ?> value="id_area">Area Tujuan</option>
+                              <option <?= $this->input->get('f') == 'id_gedung2' ? 'selected' :''; ?> value="id_gedung">Gedung Tujuan</option>
+                              <option <?= $this->input->get('f') == 'id_ruangan2' ? 'selected' :''; ?> value="id_ruangan">Ruangan Tujuan</option>
                            </select>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
@@ -98,7 +101,7 @@ jQuery(document).ready(domo);
                            </button>
                         </div>
                         <div class="col-sm-1 padd-left-0 ">
-                           <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/tb_master_transaksi');?>" title="<?= cclang('reset_filter'); ?>">
+                           <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= admin_base_url('/pemindahan');?>" title="<?= cclang('reset_filter'); ?>">
                            <i class="fa fa-undo"></i>
                            </a>
                         </div>
@@ -118,7 +121,6 @@ jQuery(document).ready(domo);
                            <th style="text-align: center">
                               <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <!-- <th style="text-align: center" data-field="kode_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Kode') ?></th> -->
                            <th style="text-align: center" data-field="tipe_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tipe') ?></th>
                            <th style="text-align: center" data-field="tgl_awal_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Tanggal') ?></th>
                            <th style="text-align: center" data-field="ket_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Keterangan') ?></th>
@@ -126,12 +128,15 @@ jQuery(document).ready(domo);
                            <th data-field="nama_pegawai_input"data-sort="1" data-primary-key="0"> <?= cclang('nama_pegawai_input') ?></th> -->
                            <th style="text-align: center" data-field="id_area"data-sort="1" data-primary-key="0"> <?= cclang('Area Asal') ?></th>
                            <th style="text-align: center" data-field="id_gedung"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Asal') ?></th>
-                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th>                           <!-- <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('status_transaksi') ?></th> -->
+                           <th style="text-align: center" data-field="id_ruangan"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Asal') ?></th>   
+                           <th style="text-align: center" data-field="id_area2"data-sort="1" data-primary-key="0"> <?= cclang('Area Tujuan') ?></th>
+                           <th style="text-align: center" data-field="id_gedung2"data-sort="1" data-primary-key="0"> <?= cclang('Gedung Tujuan') ?></th>
+                           <th style="text-align: center" data-field="id_ruangan2"data-sort="1" data-primary-key="0"> <?= cclang('Ruangan Tujuan') ?></th>                           
                            <th data-field="status_transaksi"data-sort="1" data-primary-key="0"> <?= cclang('Status Pemindahan') ?></th>
                            <th style="text-align: center">Action</th>                        
                         </tr>
                      </thead>
-                     <tbody id="tbody_tb_master_transaksi">
+                     <tbody id="tbody_pemindahan">
                             <?= $tables ?>
                       </tbody>
                   </table>
@@ -146,7 +151,7 @@ jQuery(document).ready(domo);
    </div>
 </section>
 <script>
-  var module_name = "tb_master_transaksi"
+  var module_name = "pemindahan"
   var use_ajax_crud = false  
 </script>
 <script src="<?= BASE_ASSET ?>js/filter.js"></script>
@@ -191,7 +196,7 @@ jQuery(document).ready(domo);
     $(document).on('click', '#apply', function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_tb_master_transaksi').serialize();
+      var serialize_bulk = $('#form_pemindahan').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -253,6 +258,6 @@ jQuery(document).ready(domo);
         }
         checkAll.iCheck('update');
     });
-    initSortableAjax('tb_master_transaksi', $('table.dataTable'));
+    initSortableAjax('pemindahan', $('table.dataTable'));
   }); /*end doc ready*/
 </script>

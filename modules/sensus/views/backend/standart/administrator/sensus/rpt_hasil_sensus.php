@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Sensus Aset</title>
+    <title>Laporan Hasil Sensus Aset</title>
 
     <!-- Normalize or reset CSS with your favorite library -->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">-->
@@ -13,6 +13,109 @@
     <!-- Load paper.css for happy printing -->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">-->
     <link href="<?php echo base_url(); ?>asset/templates/adminlte-2-3-11/dist/css/paper.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            font-size: 12pt;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background-color: #efefef;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .instansi {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .alamat {
+            font-size: 11pt;
+            margin-bottom: 5px;
+        }
+        
+        .kontak {
+            font-size: 11pt;
+            margin-bottom: 20px;
+        }
+        
+        .judul-laporan {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .tanggal-cetak {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        /* table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        } */
+        
+        /* th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        } */
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .footer {
+            margin-top: 50px;
+        }
+        
+        .page-number {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .ttd-container {
+            float: right;
+            text-align: center;
+            margin-right: 50px;
+        }
+        
+        .ttd-title {
+            margin-bottom: 120px;
+        }
+        
+        .ttd-nama {
+            text-decoration: underline;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .ttd-nip {
+            font-size: 11pt;
+        }
+
+        hr {
+            border-top: 3px double #000;
+            margin: 20px 0;
+        }
+  </style>
 
     <!-- Set page size here: A5, A4 or A3 -->
     <!-- Set also "landscape" if you need -->
@@ -142,28 +245,32 @@
                 <header>
                 
                   <table style="width:100%;">
-                    
                     <tr>
-                      <td valign="bottom" height="0.1"><div style="font-weight: bold; padding-top: 10px; padding-bottom: 0px; padding-left: 10px; font-size: 13pt;">KEMENTERIAN SEKRETARIAT NEGARA REPUBLIK INDONESIA</div></td>
-                      
-                      <td width="20%" align="middle" rowspan="5">
+                      <td width="10%" align="middle" rowspan="4">
                         <!--<div class="logo">-->
-                          <img src="<?php echo base_url(); ?>asset/img/icon/logosekneg.png" alt="generic business logo" height="120" width="180" />
+                        <img src="<?php echo base_url(); ?>asset/img/icon/logosekneg.png" alt="generic business logo" height="110"
+                          width="160" />
                         <!--</div>-->
                       </td>
-
+                      <td valign="bottom" height="0.1">
+                        <div style="font-weight: bold; padding-top: 10px; padding-bottom: 0px; font-size: 15pt;">KEMENTERIAN SEKRETARIAT NEGARA REPUBLIK INDONESIA</div>
+                      </td>
                     </tr>
 
                     <tr>
-                      <td valign="top" height="0.1"><div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; padding-left: 10px; font-size: 13pt;">LAPORAN SENSUS ASET TAHUN ANGGARAN 2025</div></td>
+                      <td valign="top" height="0.1">
+                        <div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; font-size: 11pt;">
+                          <!-- <?php echo $ds_alamat; ?> -->
+                          Jalan Veteran No. 17-18, Jakarta Pusat 10110
+                        </div>
+                      </td>
                     </tr>
 
                     <tr>
-                      <td valign="top" height="0.1"><div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; padding-left: 10px; font-size: 9pt;">Jalan Veteran No. 17-18, Jakarta Pusat 10110</div></td>
-                    </tr>
-                    
-                    <tr>
-                      <td valign="top" height="0.1"><div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; padding-left: 10px; font-size: 9pt;">Telepon: (021) 3832269 | Email: humas@setneg.go.id</div></td>
+                      <td valign="top" height="0.0">
+                        <div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; font-size: 11pt;">Telepon: (021) 3832269 | Email: humas@setneg.go.id | Website : https://www.setneg.go.id/
+                        </div>
+                      </td>
                     </tr>
 
                   </table>
@@ -176,12 +283,42 @@
 
                     <table style="width:100%;">
                       <tr>
-                        <td valign="top" height="0.1"><div style="padding-top: 25px; padding-bottom: 0px; padding-left: 10px;"><span style="font-weight: bold; font-size: 10pt;">Laporan Hasil Sensus</span></div></td>
+                        <td valign="top" height="0.1">
+                          <div style="padding-top: 25px; padding-bottom: 0px; padding-left: 10px;"><span
+                              style="font-weight: bold; font-size: 10pt;">Laporan Hasil Sensus</span></div>
+                        </td>
                       </tr>
+
+                      <tr>
+                        <td valign="top" height="0.1">
+                          <div style="padding-top: 2px; padding-bottom: 0px; padding-left: 10px;">
+                            <span style="font-weight: bold; font-size: 8pt;">Tanggal: <?php echo $this->fungsi->tanggal_indo($tb_master_transaksi->tanggal_sensus); ?></span>
+                            <span style="font-size: 8pt;"></span>
+                          </div>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td valign="top" height="0.1">
+                          <div style="padding-top: 2px; padding-bottom: 0px; padding-left: 10px;">
+                            <span style="font-weight: bold; font-size: 8pt;">Petugas: <?php echo $full_name; ?></span>
+                            <span style="font-size: 8pt;"></span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top" height="0.1">
+                          <div style="padding-top: 2px; padding-bottom: 0px; padding-left: 10px;">
+                            <span style="font-weight: bold; font-size: 8pt;">Uraian: <?php echo $tb_master_transaksi->ket_transaksi; ?></span>
+                            <span style="font-size: 8pt;"></span>
+                          </div>
+                        </td>
+                      </tr>
+
                     </table>
 
                     <br>
-
 
                     <table style="width:100%" class="tg">
                       <tr>
@@ -191,9 +328,12 @@
                         <th class="tg-0lax">NUP</th>
                         <th class="tg-0lax">Nama Aset</th>
                         <th class="tg-0lax">Kategori</th>
-                        <th class="tg-0lax">Status</th>
+                        <th class="tg-0lax">Lokasi Sensus</th>
+                        <th class="tg-0lax">Tahun Perolehan</th>
+                        <th class="tg-0lax">Status Aset</th>
                         <th class="tg-0lax">Kondisi</th>
-                        <th class="tg-0lax">Kategori Status</th>
+                        <th class="tg-0lax">Status Lokasi</th>
+                        <th class="tg-0lax">Nilai Perolehan</th>
                       </tr>
                       <!-- block if header -->
                       <?php } ?>
@@ -206,9 +346,12 @@
                         <td class="tg-0lax"><?php echo $val->nup; ?></td>
                         <td class="tg-0pky"><?php echo $val->nama_aset ?></td>
                         <td class="tg-0lax"><?php echo $val->kategori_aset ?></td>
+                        <td class="tg-0lax"><?php echo $val->lokasi_sensus ?></td>
+                        <td class="tg-0lax"><?php echo $val->tahun_perolehan ?></td>
                         <td class="tg-0lax"><?php echo $val->status_aset ?></td>
                         <td class="tg-0lax"><?php echo $val->kondisi_aset ?></td>
                         <td class="tg-0lax"><?php echo $val->ceklis_sensus ?></td>
+                        <td class="tg-0lax"><?php echo $val->nilai_perolehan ?></td>
 
                       </tr>
 
@@ -269,6 +412,170 @@
   } 
   // end query laporan
   ?>
+
+  <section class="sheet padding-0.5mm">
+
+    <header>
+
+      <table style="width:100%;">
+        <tr>
+          <td width="10%" align="middle" rowspan="4">
+            <!--<div class="logo">-->
+            <img src="<?php echo base_url(); ?>asset/img/icon/logosekneg.png" alt="generic business logo" height="110"
+              width="160" />
+            <!--</div>-->
+          </td>
+          <td valign="bottom" height="0.1">
+            <div style="font-weight: bold; padding-top: 10px; padding-bottom: 0px; font-size: 15pt;">KEMENTERIAN SEKRETARIAT NEGARA REPUBLIK INDONESIA</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td valign="top" height="0.1">
+            <div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; font-size: 11pt;">
+              <!-- <?php echo $ds_alamat; ?> -->
+               Jalan Veteran No. 17-18, Jakarta Pusat 10110
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td valign="top" height="0.0">
+            <div style="font-weight: bold; padding-top: 0px; padding-bottom: 0px; font-size: 11pt;">Telepon: (021) 3832269 | Email: humas@setneg.go.id | Website : https://www.setneg.go.id/
+            </div>
+          </td>
+        </tr>
+
+      </table>
+
+    </header>
+
+    <div class="halaman">
+
+      <br><br><br><br><br><br><br>
+
+      <br>
+      <!-- <span style="font-weight: bold; font-size: 11pt;">Laporan Rekon Sensus</span><br> -->
+      <!-- <span style="font-weight: bold; font-size: 8pt;">Tanggal: </span><br>
+      <span style="font-weight: bold; font-size: 8pt;">Petugas: </span> -->
+      <!-- <br><br> -->
+
+      <!-- <table style="width:100%;">
+        <tr>
+          <td valign="top" height="0.1">
+            <div style="padding-top: 25px; padding-bottom: 0px; padding-left: 10px;"><span
+                style="font-weight: bold; font-size: 10pt;">Laporan Rekon Sensus</span></div>
+          </td>
+        </tr>
+        
+        <tr>
+          <td valign="top" height="0.1">
+            <div style="padding-top: 2px; padding-bottom: 0px; padding-left: 10px;">
+              <span style="font-weight: bold; font-size: 8pt;">Tanggal Sensus: </span>
+              <span style="font-size: 8pt;"><?php echo $this->fungsi->tanggal_indo($tb_master_transaksi->tgl_awal_transaksi, false); ?></span>
+            </div>
+          </td>
+        </tr>
+        
+        <tr>
+          <td valign="top" height="0.1">
+            <div style="padding-top: 2px; padding-bottom: 10px; padding-left: 10px;">
+              <span style="font-weight: bold; font-size: 8pt;">Petugas Sensus: </span>
+              <span style="font-size: 8pt;"><?php echo $full_name; ?></span>
+            </div>
+          </td>
+        </tr>
+
+      </table> -->
+
+      <table style="width:31%" class="tg">
+
+        <tr>
+          <th style="width:15%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">Summary Report</span>
+          </th>
+          <th style="width:1%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">:</span></th>
+          <th style="width:15%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">Nilai</span></th>
+        </tr>
+
+        <tr>
+          <td><span style="font-weight: bold; font-size: 8pt;">Total Aset</span></td>
+          <td style="width:1%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">:</span></td>
+          <td class="tg-0pky"><span style="font-weight: bold; font-size: 8pt;">
+              <?php echo $summary_report['total_aset_tahun_all'] ?>
+            </span></td>
+        </tr>
+
+        <tr>
+          <td><span style="font-weight: bold; font-size: 8pt;">Total Aset Ruangan</span></td>
+          <td style="width:1%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">:</span></td>
+          <td class="tg-0pky"><span style="font-weight: bold; font-size: 8pt;">
+              <?php echo $summary_report['total_aset_ruangan'] ?>
+            </span></td>
+        </tr>
+
+        <tr>
+          <td><span style="font-weight: bold; font-size: 8pt;">Total Aset Terdata</span></td>
+          <td style="width:1%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">:</span></td>
+          <td class="tg-0pky"><span style="font-weight: bold; font-size: 8pt;">
+              <?php echo $summary_report['total_aset_terdata'] ?>
+            </span></td>
+        </tr>
+
+        <tr>
+          <td><span style="font-weight: bold; font-size: 8pt;">Total Ditemukan</span></td>
+          <td style="width:1%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">:</span></td>
+          <td class="tg-0pky"><span style="font-weight: bold; font-size: 8pt;">
+              <?php echo $summary_report['total_cocok'] ?>
+            </span></td>
+        </tr>
+
+        <tr>
+          <td><span style="font-weight: bold; font-size: 8pt;">Total Tidak Ditemukan</span></td>
+          <td style="width:1%" class="tg-0lax"><span style="font-weight: bold; font-size: 8pt;">:</span></td>
+          <td class="tg-0pky"><span style="font-weight: bold; font-size: 8pt;">
+              <?php echo $summary_report['total_hilang'] ?>
+            </span></td>
+        </tr>
+
+      </table>
+
+    </div> <!-- end div halaman summary report  -->
+
+    <footer>
+
+      <table class="table-footer" style="width:100%">
+
+        <tr>
+          <td><span style="font-weight: bold; font-size: 8pt;">Tanggal Cetak :
+              <?php echo $this->fungsi->tanggal_indo(date('Y-m-d'), true); ?>
+            </span></td>
+        </tr>
+
+      </table>
+
+      <p align="center">
+        <?php echo $number_page+1; ?>
+      </p>
+
+    </footer>
+
+    <div class="footer">
+
+        <!-- <div class="page-number">
+            Halaman 1 dari 1
+        </div> -->
+        
+        <div class="ttd-container">
+            <div class="ttd-title">
+                Jakarta, <?php echo $this->fungsi->tanggal_indo(date('Y-m-d'), false) ?><br>
+                Kepala Biro Umum,
+            </div>
+            <div class="ttd-nama">Drs. Ahmad Sudrajat, M.M.</div>
+            <div class="ttd-nip">NIP. 196710151992031002</div>
+        </div>
+    </div>
+
+  </section>
 
   </body>
 

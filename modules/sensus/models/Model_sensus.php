@@ -290,7 +290,7 @@ class Model_sensus extends MY_Model
 
     function getTransaksiById($id)
     {
-        $this->db->select('tb_master_transaksi.*, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan');
+        $this->db->select('tb_master_transaksi.*, date(tb_master_transaksi.tgl_awal_transaksi) as tanggal_sensus, tb_master_area.area as tb_master_area_area, tb_master_gedung.gedung as tb_master_gedung_gedung, tb_master_ruangan.ruangan as tb_master_ruangan_ruangan');
         $this->db->from('tb_master_transaksi');
         $this->db->join('tb_master_area', 'tb_master_area.id = tb_master_transaksi.id_area', 'left');
         $this->db->join('tb_master_gedung', 'tb_master_gedung.id = tb_master_transaksi.id_gedung', 'left');
@@ -384,14 +384,41 @@ class Model_sensus extends MY_Model
 
     function getHasilSensusById($id)
     {
-        $this->db->select("a.*, b.status as status_aset, c.kondisi as kondisi_aset, case when a.flag_transaksi = 1 then 'Normal' else 'Anomali' end as ceklis_sensus, e.kategori as kategori_aset");
+        $this->db->select("a.*, b.status as status_aset, c.kondisi as kondisi_aset, case when a.flag_transaksi = 1 then 'Normal' else 'Anomali' end as ceklis_sensus, e.kategori as kategori_aset, YEAR(d.tgl_perolehan) as tahun_perolehan, d.nilai_perolehan, f.ruangan as lokasi_sensus");
         $this->db->from("tb_detail_transaksi a");
         $this->db->join("tb_master_status b", "a.status = b.id", "LEFT");
         $this->db->join("tb_master_kondisi c", "a.id_kondisi = c.id", "LEFT");
         $this->db->join("tb_master_aset d", "a.id_aset = d.id_aset", "LEFT");
         $this->db->join("tb_master_kategori e", "e.id = d.kategori", "LEFT");
+        $this->db->join("tb_master_ruangan f", "a.id_ruangan = f.id", "LEFT");
         $this->db->where("a.id_transaksi", $id);
         return $this->db->get()->result();
+    }
+
+    function getRekonSensusById($id)
+    {
+        $this->db->select("a.*, YEAR(b.tgl_perolehan) as tahun_perolehan, c.ruangan AS lokasi_master, d.ruangan AS lokasi_sensus, case when a.flag_transaksi = 1 then 'Normal' ELSE 'Anomali' END AS status_sensus, e.status AS catatan_sensus, f.kondisi AS kondisi_aset, g.kategori AS kategori_aset");
+        $this->db->from("tb_detail_transaksi a");
+        $this->db->join("tb_master_aset b", "a.id_aset = b.id_aset");
+        $this->db->join("tb_master_ruangan c", "c.id = b.id_lokasi");
+        $this->db->join("tb_master_ruangan d", "d.id = a.id_ruangan");
+        $this->db->join("tb_master_status e", "e.id = a.status");
+        $this->db->join("tb_master_kondisi f", "f.id = a.id_kondisi");
+        $this->db->join("tb_master_kategori g", "g.id = b.kategori");
+        $this->db->where("a.id_transaksi", $id);
+        return $this->db->get()->result();
+    }
+
+    function getSummaryRekonSensusById($id, $id_ruangan)
+    {
+        $this->db->select("
+            (SELECT COUNT(id_aset) FROM tb_master_aset WHERE kode_tid IS NOT null) AS total_aset_tahun_all,
+            (SELECT COUNT(id_aset) FROM tb_master_aset WHERE kode_tid IS NOT NULL AND id_lokasi = $id_ruangan) AS total_aset_ruangan,
+            (SELECT COUNT(id) FROM tb_detail_transaksi WHERE id_transaksi = $id) AS total_aset_terdata,
+            (SELECT COUNT(id) FROM tb_detail_transaksi WHERE id_transaksi = $id AND status = 1) AS total_cocok,
+            (SELECT COUNT(id) FROM tb_detail_transaksi WHERE id_transaksi = $id AND status <> 1) AS total_hilang
+        ");
+        return $this->db->get()->row_array();
     }
 
 }

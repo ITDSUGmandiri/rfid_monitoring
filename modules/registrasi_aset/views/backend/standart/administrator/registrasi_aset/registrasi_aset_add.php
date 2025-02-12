@@ -189,48 +189,22 @@
                 <!-- <section> -->
                 <fieldset>
 
-                    <!-- <div class="row">
+                    <div class="form-group group-id_area ">
+                        <label for="id_area" class="col-sm-2 control-label">Filter Kategori Aset<i class="required">*</i>
+                        </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="selectkategori" id="selectkategori" data-placeholder="Pilih Kategori">
+                                <option value=""></option>
+                                <?php foreach (db_get_all_data('tb_master_kategori') as $row): ?>
+                                    <option value="<?= $row->id ?>"><?= $row->kategori; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <small class="info help-block">
+                            </small>
+                        </div>
+                    </div>
 
-                            <div class="col-md-8">
-                                                                
-                                        <div class="col-sm-2 padd-left-0 " >
-                                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >                                
-                                                <option value="delete">Delete</option>
-                                            </select>
-                                        </div>
 
-                                        <div class="col-sm-2 padd-left-0 ">
-                                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                                        </div>
-                                                    
-                                        <div class="col-sm-3 padd-left-0  " >
-                                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
-                                        </div>
-                                        
-                                        <div class="col-sm-3 padd-left-0 " >
-                                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
-                                                <option value=""><?= cclang('all'); ?></option>
-                                                <option <?= $this->input->get('f') == 'nama_aset' ? 'selected' : ''; ?> value="nama_aset">Nama Aset</option>
-                                                <option <?= $this->input->get('f') == 'kode_aset' ? 'selected' : ''; ?> value="kode_aset">Kode Aset</option>
-                                                <option <?= $this->input->get('f') == 'nup' ? 'selected' : ''; ?> value="nup">NUP</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="col-sm-1 padd-left-0 ">
-                                            <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
-                                            Filter
-                                            </button>
-                                        </div>
-                                        
-                                        <div class="col-sm-1 padd-left-0 ">
-                                            <a class="btn btn-default btn-flat" name="refresh" id="refresh" value="Apply" title="<?= cclang('reset_filter'); ?>">
-                                                <i class="fa fa-undo"></i>
-                                            </a>
-                                        </div>
-                                
-                            </div>
-
-                        </div> -->
 
                     <div class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">
@@ -328,7 +302,7 @@
 
                 </fieldset>
 
-                <!-- <fieldset>
+                <fieldset>
 
                         <div class="row">
 
@@ -374,7 +348,7 @@
                             
                         </div>
 
-                    </fieldset> -->
+                    </fieldset>
 
                 <div class="row">
 
@@ -692,71 +666,6 @@
         var url = BASE_URL + ADMIN_NAMESPACE_URL + '/' + module_name + '/serverSideData';
 
 
-
-        // table = $('#asetTable').DataTable({
-        //     // "paging": true,
-        //     // "searching": true,
-        //     // "ordering": true,
-        //     // "info": true,
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         url: url,
-        //         type: "POST",
-        //         // type: "GET",
-        //         // data: function (d) {
-        //         //     d.filter_id_parameter = $('#filter_id_parameter').val();
-        //         // }
-        //     },
-        //     "order": [
-        //         [3, 'asc']
-        //     ],
-        //     columns: [{
-
-        //             "data": "checkbox_id_master_aset",
-        //             "className": "dt-center",
-        //             "orderable": false,
-        //             "searchable": false
-        //         },
-        //         {
-        //             "data": "auto_number",
-        //             "className": "dt-center",
-        //             "orderable": false,
-        //             "searchable": false
-        //         },
-        //         {
-        //             data: "id",
-        //             className: "dt-center",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         {
-        //             data: "nama_aset",
-        //             className: "dt-left",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         {
-        //             data: "kode_aset",
-        //             className: "dt-left",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         {
-        //             data: "nup",
-        //             className: "dt-center",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         // { data: "Action", className: "dt-center", orderable: false, searchable: false },
-        //     ],
-        //     "createdRow": function(row, data, dataIndex) {
-        //         // Paksa semua kolom angka menjadi rata tengah
-        //         $('td', row).eq(1).css('text-align', 'center');
-        //         $('td', row).eq(2).css('text-align', 'center');
-        //         $('td', row).eq(5).css('text-align', 'center');
-        //     }
-        // });
 
 
 
@@ -1502,11 +1411,6 @@
             return false;
         });
 
-        // $('#btn_pilih_aset').click(function(e) {
-        //     e.preventDefault();
-        //     get_datatables_checked();
-        //     return false;
-        // });
 
         $('#btn_search').click(async function() {
 
@@ -2501,4 +2405,95 @@
         });
 
     }); /*end doc ready*/
+
+    //ketika milih kategori
+    $(document).ready(function() {
+        var tableregister = $('#register').DataTable();
+
+        $('#selectkategori').change(function() {
+            var selectedValue = $(this).val(); // Ambil nilai yang dipilih
+            // Periksa jika ada nilai yang dipilih
+            if (selectedValue) {
+                $.ajax({
+                    url: ADMIN_BASE_URL + '/registrasi_aset/getKategori', // Ganti dengan URL controller Anda
+                    type: 'POST',
+                    dataType: 'json', // Minta respons dalam format JSON
+                    data: {
+                        value: selectedValue
+                    }, // Kirim data ke controller
+                    success: function(response) {
+                        console.log('dipilih', response.length);
+
+
+                        if (Array.isArray(response)) {
+                            // Hanya akses .length jika data adalah array
+                            tableregister.clear(); // Hapus data lama
+                            // Looping melalui respons dan menambahkan data ke DataTable
+                            response.forEach(function(item) {
+                                tableregister.row.add([
+                                    '<td></td>',
+                                    item.id_aset,
+                                    item.nama_aset,
+                                    item.kode_aset,
+                                    item.nup
+                                ]).draw(); // Tambahkan baris baru ke DataTable
+                            });
+
+                        } else if (typeof data === 'object') {
+                            // Jika data adalah objek
+                            console.log('Data received is an object:', data);
+                            // Lakukan sesuatu dengan objek
+                        } else {
+                            console.error('Data format is not correct!');
+                        }
+
+                        // Bisa lakukan sesuatu dengan response, misalnya tampilkan pesan atau perbarui elemen lain
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error: " + error);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: ADMIN_BASE_URL + '/registrasi_aset/getKategori', // Ganti dengan URL controller Anda
+                    type: 'POST',
+                    dataType: 'json', // Minta respons dalam format JSON
+                    data: {
+                        value: 0
+                    }, // Kirim data ke controller
+                    success: function(response) {
+                        console.log('disilang', response.length);
+
+
+                        if (Array.isArray(response)) {
+                            // Hanya akses .length jika data adalah array
+                            tableregister.clear(); // Hapus data lama
+                            // Looping melalui respons dan menambahkan data ke DataTable
+                            response.forEach(function(item) {
+                                tableregister.row.add([
+                                    '<td></td>',
+                                    item.id_aset,
+                                    item.nama_aset,
+                                    item.kode_aset,
+                                    item.nup
+                                ]).draw(); // Tambahkan baris baru ke DataTable
+                            });
+
+                        } else if (typeof data === 'object') {
+                            // Jika data adalah objek
+                            console.log('Data received is an object:', data);
+                            // Lakukan sesuatu dengan objek
+                        } else {
+                            console.error('Data format is not correct!');
+                        }
+
+                        // Bisa lakukan sesuatu dengan response, misalnya tampilkan pesan atau perbarui elemen lain
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error: " + error);
+                    }
+                });
+            }
+        });
+    });
 </script>
