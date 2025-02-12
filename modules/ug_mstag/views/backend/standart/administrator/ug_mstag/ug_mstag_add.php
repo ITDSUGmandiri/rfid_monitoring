@@ -472,39 +472,39 @@
                 }
 
                 // 3. Koneksi WebSocket dan kirim data
-                const socket = new WebSocket(`ws://${ip_address_server}:${port_ws_server}`);
+                // const socket = new WebSocket(`ws://${ip_address_server}:${port_ws_server}`);
                 
-                await new Promise((resolve, reject) => {
-                    socket.onopen = async () => {
-                        try {
-                            console.log('Connected to WebSocket server');
+                // await new Promise((resolve, reject) => {
+                //     socket.onopen = async () => {
+                //         try {
+                //             console.log('Connected to WebSocket server');
                             
-                            // Kirim data satu per satu
-                            for (const item of uniqueDataArray) {
-                                const data = {
-                                    event: "db-storage-insert-rfid-list",
-                                    value: {
-                                        tid: item.tid,
-                                        epc: item.epc,
-                                        status: 1,
-                                        description: 'DEMO-RFID',
-                                        flag_alarm: 0,
-                                        category: 0
-                                    }
-                                };
-                                socket.send(JSON.stringify(data));
-                                await new Promise(resolve => setTimeout(resolve, 100)); // Delay antar pengiriman
-                            }
-                            resolve();
-                        } catch (error) {
-                            reject(error);
-                        }
-                    };
+                //             // Kirim data satu per satu
+                //             for (const item of uniqueDataArray) {
+                //                 const data = {
+                //                     event: "db-storage-insert-rfid-list",
+                //                     value: {
+                //                         tid: item.tid,
+                //                         epc: item.epc,
+                //                         status: 1,
+                //                         description: 'DEMO-RFID',
+                //                         flag_alarm: 0,
+                //                         category: 0
+                //                     }
+                //                 };
+                //                 socket.send(JSON.stringify(data));
+                //                 await new Promise(resolve => setTimeout(resolve, 100)); // Delay antar pengiriman
+                //             }
+                //             resolve();
+                //         } catch (error) {
+                //             reject(error);
+                //         }
+                //     };
 
-                    socket.onerror = (error) => {
-                        reject(new Error('WebSocket connection failed'));
-                    };
-                });
+                //     socket.onerror = (error) => {
+                //         reject(new Error('WebSocket connection failed'));
+                //     };
+                // });
 
                 // 4. Simpan ke database lokal
                 const form_ug_mstag = $('#form_ug_mstag_add');

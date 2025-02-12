@@ -1,17 +1,17 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 /**
-*| --------------------------------------------------------------------------
-*| Tag Reader Controller
-*| --------------------------------------------------------------------------
-*| Tag Reader site
-*|
-*/
-class Tag_reader extends Admin	
+ *| --------------------------------------------------------------------------
+ *| Tag Reader Controller
+ *| --------------------------------------------------------------------------
+ *| Tag Reader site
+ *|
+ */
+class Tag_reader extends Admin
 {
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,12 +22,13 @@ class Tag_reader extends Admin
 	}
 
 	/**
-	* show all Tag Readers
-	*
-	* @var $offset String
-	*/
+	 * show all Tag Readers
+	 *
+	 * @var $offset String
+	 */
 	public function index($offset = 0)
 	{
+
 		$this->is_allowed('tag_reader_list');
 
 		$filter = $this->input->get('q');
@@ -44,9 +45,11 @@ class Tag_reader extends Admin
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
-		
+
+
+
 		$this->data['tables'] = $this->load->view('backend/standart/administrator/tag_reader/tag_reader_data_table', $this->data, true);
-		
+
 		if ($this->input->get('ajax')) {
 			$this->response([
 				'tables' => $this->data['tables'],
@@ -58,11 +61,11 @@ class Tag_reader extends Admin
 		$this->template->title('Reader Info List');
 		$this->render('backend/standart/administrator/tag_reader/tag_reader_list', $this->data);
 	}
-	
+
 	/**
-	* Add new tag_readers
-	*
-	*/
+	 * Add new tag_readers
+	 *
+	 */
 	public function add()
 	{
 		$this->is_allowed('tag_reader_add');
@@ -72,94 +75,94 @@ class Tag_reader extends Admin
 	}
 
 	/**
-	* Add New Tag Readers
-	*
-	* @return JSON
-	*/
+	 * Add New Tag Readers
+	 *
+	 * @return JSON
+	 */
 	public function add_save()
 	{
 		if (!$this->is_allowed('tag_reader_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
-				]);
+			]);
 			exit;
 		}
-		
-		
+
+
 
 		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_name', 'Nama Reader', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('setfor', 'Posisi Untuk IN/OUT?', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_serialnumber', 'Serial Number', 'trim|required|max_length[10]');
-		
+
 
 		$this->form_validation->set_rules('reader_type', 'Tipe', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_ip', 'IP Address', 'trim|required|max_length[45]');
-		
+
 
 		$this->form_validation->set_rules('reader_port', 'Port', 'trim|required|max_length[7]');
-		
+
 
 		$this->form_validation->set_rules('reader_com', 'COM', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_baudrate', 'Baudrate', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_power', 'Power', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_interval', 'Interval', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_mode', 'Mode', 'trim|required');
-		
 
-		$this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
-		
+
+		// $this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
+
 
 		$this->form_validation->set_rules('reader_updated', 'Updated', 'trim|required');
-		
 
-		$this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
-		
+
+		// $this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
+
 
 		$this->form_validation->set_rules('reader_created', 'Created', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_family', 'Reader Series', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_model', 'Model', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('reader_identity', 'Reader Identity', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('reader_antena', 'Antena', 'trim|required');
-		
 
-		
 
-		
 
-		
+
+
+
+
 
 		if ($this->form_validation->run()) {
-		
+
 			$save_data = [
 				'room_id' => $this->input->post('room_id'),
 				'reader_name' => $this->input->post('reader_name'),
-				'setfor' => $this->input->post('setfor'),
+				'reader_angle' => $this->input->post('setfor'),
 				'reader_serialnumber' => $this->input->post('reader_serialnumber'),
 				'reader_type' => $this->input->post('reader_type'),
 				'reader_ip' => $this->input->post('reader_ip'),
@@ -169,9 +172,13 @@ class Tag_reader extends Admin
 				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'reader_updatedby' => $this->input->post('reader_updatedby'),
+				'reader_updatedby' =>
+				$this->session->userdata('username'),
+
 				'reader_updated' => $this->input->post('reader_updated'),
-				'reader_createdby' => $this->input->post('reader_createdby'),
+				'reader_createdby' =>
+				$this->session->userdata('username'),
+
 				'reader_created' => $this->input->post('reader_created'),
 				'reader_family' => $this->input->post('reader_family'),
 				'connecting' => $this->input->post('connecting'),
@@ -181,21 +188,21 @@ class Tag_reader extends Admin
 				'alias_antenna' => $this->input->post('alias_antenna'),
 			];
 
-			
-			
 
 
 
-			
-			
+
+
+
+
 			$save_tag_reader = $id = $this->model_tag_reader->store($save_data);
-            
+
 
 			if ($save_tag_reader) {
-				
-				
-					
-				
+
+
+
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_tag_reader;
@@ -206,10 +213,12 @@ class Tag_reader extends Admin
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						admin_anchor('/tag_reader/edit/' . $save_tag_reader, 'Edit Tag Reader')
-					]), 'success');
+							admin_anchor('/tag_reader/edit/' . $save_tag_reader, 'Edit Tag Reader')
+						]),
+						'success'
+					);
 
-            		$this->data['success'] = true;
+					$this->data['success'] = true;
 					$this->data['redirect'] = admin_base_url('/tag_reader');
 				}
 			} else {
@@ -217,12 +226,11 @@ class Tag_reader extends Admin
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
 				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
 					$this->data['redirect'] = admin_base_url('/tag_reader');
 				}
 			}
-
 		} else {
 			$this->data['success'] = false;
 			$this->data['message'] = 'Opss validation failed';
@@ -231,12 +239,12 @@ class Tag_reader extends Admin
 
 		$this->response($this->data);
 	}
-	
-		/**
-	* Update view Tag Readers
-	*
-	* @var $id String
-	*/
+
+	/**
+	 * Update view Tag Readers
+	 *
+	 * @var $id String
+	 */
 	public function edit($id)
 	{
 		$this->is_allowed('tag_reader_update');
@@ -248,86 +256,86 @@ class Tag_reader extends Admin
 	}
 
 	/**
-	* Update Tag Readers
-	*
-	* @var $id String
-	*/
+	 * Update Tag Readers
+	 *
+	 * @var $id String
+	 */
 	public function edit_save($id)
 	{
 		if (!$this->is_allowed('tag_reader_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
-				]);
+			]);
 			exit;
 		}
-				$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
-		
+		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
+
 
 		$this->form_validation->set_rules('reader_name', 'Nama Reader', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('setfor', 'Posisi Untuk IN/OUT?', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_serialnumber', 'Serial Number', 'trim|required|max_length[10]');
-		
+
 
 		$this->form_validation->set_rules('reader_type', 'Tipe', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_ip', 'IP Address', 'trim|required|max_length[45]');
-		
+
 
 		$this->form_validation->set_rules('reader_port', 'Port', 'trim|required|max_length[7]');
-		
+
 
 		$this->form_validation->set_rules('reader_com', 'COM', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_baudrate', 'Baudrate', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_power', 'Power', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_interval', 'Interval', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_mode', 'Mode', 'trim|required');
-		
 
-		$this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
-		
+
+		// $this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
+
 
 		$this->form_validation->set_rules('reader_updated', 'Updated', 'trim|required');
-		
 
-		$this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
-		
+
+		// $this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
+
 
 		$this->form_validation->set_rules('reader_created', 'Created', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_family', 'Reader Series', 'trim|required');
-		
+
 
 		$this->form_validation->set_rules('reader_model', 'Model', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('reader_identity', 'Reader Identity', 'trim|required|max_length[50]');
-		
+
 
 		$this->form_validation->set_rules('reader_antena', 'Antena', 'trim|required');
-		
 
-		
 
-		
 
-		
+
+
+
+
 		if ($this->form_validation->run()) {
-		
+
 			$save_data = [
 				'room_id' => $this->input->post('room_id'),
 				'reader_name' => $this->input->post('reader_name'),
@@ -341,9 +349,10 @@ class Tag_reader extends Admin
 				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'reader_updatedby' => $this->input->post('reader_updatedby'),
+				'reader_updatedby' => $this->session->userdata('username'),
 				'reader_updated' => $this->input->post('reader_updated'),
-				'reader_createdby' => $this->input->post('reader_createdby'),
+				'reader_createdby' =>
+				$this->session->userdata('username'),
 				'reader_created' => $this->input->post('reader_created'),
 				'reader_family' => $this->input->post('reader_family'),
 				'connecting' => $this->input->post('connecting'),
@@ -353,21 +362,21 @@ class Tag_reader extends Admin
 				'alias_antenna' => $this->input->post('alias_antenna'),
 			];
 
-			
-
-			
 
 
-			
-			
+
+
+
+
+
 			$save_tag_reader = $this->model_tag_reader->change($id, $save_data);
 
 			if ($save_tag_reader) {
 
-				
 
-				
-				
+
+
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
@@ -376,10 +385,11 @@ class Tag_reader extends Admin
 					]);
 				} else {
 					set_message(
-						cclang('success_update_data_redirect', [
-					]), 'success');
+						cclang('success_update_data_redirect', []),
+						'success'
+					);
 
-            		$this->data['success'] = true;
+					$this->data['success'] = true;
 					$this->data['redirect'] = admin_base_url('/tag_reader');
 				}
 			} else {
@@ -387,8 +397,8 @@ class Tag_reader extends Admin
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
 				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
 					$this->data['redirect'] = admin_base_url('/tag_reader');
 				}
 			}
@@ -400,12 +410,12 @@ class Tag_reader extends Admin
 
 		$this->response($this->data);
 	}
-	
+
 	/**
-	* delete Tag Readers
-	*
-	* @var $id String
-	*/
+	 * delete Tag Readers
+	 *
+	 * @var $id String
+	 */
 	public function delete($id = null)
 	{
 		$this->is_allowed('tag_reader_delete');
@@ -417,7 +427,7 @@ class Tag_reader extends Admin
 
 		if (!empty($id)) {
 			$remove = $this->_remove($id);
-		} elseif (count($arr_id) >0) {
+		} elseif (count($arr_id) > 0) {
 			foreach ($arr_id as $id) {
 				$remove = $this->_remove($id);
 			}
@@ -435,7 +445,6 @@ class Tag_reader extends Admin
 					"message" => cclang('error_delete', 'tag_reader')
 				]);
 			}
-
 		} else {
 			if ($remove) {
 				set_message(cclang('has_been_deleted', 'tag_reader'), 'success');
@@ -444,14 +453,13 @@ class Tag_reader extends Admin
 			}
 			redirect_back();
 		}
-
 	}
 
-		/**
-	* View view Tag Readers
-	*
-	* @var $id String
-	*/
+	/**
+	 * View view Tag Readers
+	 *
+	 * @var $id String
+	 */
 	public function view($id)
 	{
 		$this->is_allowed('tag_reader_view');
@@ -461,43 +469,43 @@ class Tag_reader extends Admin
 		$this->template->title('Reader Info Detail');
 		$this->render('backend/standart/administrator/tag_reader/tag_reader_view', $this->data);
 	}
-	
+
 	/**
-	* delete Tag Readers
-	*
-	* @var $id String
-	*/
+	 * delete Tag Readers
+	 *
+	 * @var $id String
+	 */
 	private function _remove($id)
 	{
 		$tag_reader = $this->model_tag_reader->find($id);
 
-		
-		
+
+
 		return $this->model_tag_reader->remove($id);
 	}
-	
-	
+
+
 	/**
-	* Export to excel
-	*
-	* @return Files Excel .xls
-	*/
+	 * Export to excel
+	 *
+	 * @return Files Excel .xls
+	 */
 	public function export()
 	{
 		$this->is_allowed('tag_reader_export');
 
 		$this->model_tag_reader->export(
-			'tag_reader', 
+			'tag_reader',
 			'tag_reader',
 			$this->model_tag_reader->field_search
 		);
 	}
 
 	/**
-	* Export to PDF
-	*
-	* @return Files PDF .pdf
-	*/
+	 * Export to PDF
+	 *
+	 * @return Files PDF .pdf
+	 */
 	public function export_pdf()
 	{
 		$this->is_allowed('tag_reader_export');
@@ -512,34 +520,32 @@ class Tag_reader extends Admin
 
 		$table = $title = 'tag_reader';
 		$this->load->library('HtmlPdf');
-      
-        $config = array(
-            'orientation' => 'p',
-            'format' => 'a4',
-            'marges' => array(5, 5, 5, 5)
-        );
 
-        $this->pdf = new HtmlPdf($config);
-        $this->pdf->setDefaultFont('stsongstdlight'); 
+		$config = array(
+			'orientation' => 'p',
+			'format' => 'a4',
+			'marges' => array(5, 5, 5, 5)
+		);
 
-        $result = $this->db->get($table);
-       
-        $data = $this->model_tag_reader->find($id);
-        $fields = $result->list_fields();
+		$this->pdf = new HtmlPdf($config);
+		$this->pdf->setDefaultFont('stsongstdlight');
 
-        $content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
-            'data' => $data,
-            'fields' => $fields,
-            'title' => $title
-        ], TRUE);
+		$result = $this->db->get($table);
 
-        $this->pdf->initialize($config);
-        $this->pdf->pdf->SetDisplayMode('fullpage');
-        $this->pdf->writeHTML($content);
-        $this->pdf->Output($table.'.pdf', 'H');
+		$data = $this->model_tag_reader->find($id);
+		$fields = $result->list_fields();
+
+		$content = $this->pdf->loadHtmlPdf('core_template/pdf/pdf_single', [
+			'data' => $data,
+			'fields' => $fields,
+			'title' => $title
+		], TRUE);
+
+		$this->pdf->initialize($config);
+		$this->pdf->pdf->SetDisplayMode('fullpage');
+		$this->pdf->writeHTML($content);
+		$this->pdf->Output($table . '.pdf', 'H');
 	}
-
-	
 }
 
 
