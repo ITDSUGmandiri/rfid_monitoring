@@ -117,6 +117,7 @@ $CI = &get_instance();
     background-color: #939c91 !important;
   }
 
+  /* blink ilegal */
   @keyframes flash-bg {
 
     0%,
@@ -181,7 +182,7 @@ $CI = &get_instance();
     padding: 5px;
     border-radius: 5px;
     position: absolute;
-    left: 50%;
+    left: 60%;
     transform: translateX(-50%);
     white-space: nowrap;
     opacity: 1;
@@ -313,7 +314,7 @@ $CI = &get_instance();
                           </path>
                         </svg> -->
                     </h4><span id='perpindahan' class="hind-font caption-12 c-dashboardInfo__count">loading...</span>
-                    <a id='perpindahan' style="cursor:pointer; color:white;">click for detail</a>
+                    <a id='perpindahan' style="cursor:pointer;">click for detail</a>
 
                   </div>
                 </div>
@@ -464,7 +465,6 @@ $CI = &get_instance();
           topic = '';
           break;
         case 'aset_total_pantau':
-          // console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/total';
           title = 'TOTAL ASET';
           topic = '';
@@ -513,6 +513,7 @@ $CI = &get_instance();
       showModalWithPagination(endpoint, title, topic);
     });
 
+
     // Fungsi untuk menampilkan modal dengan konten dari endpoint yang diberikan
     function showModalWithPagination(endpoint, title, topic) {
 
@@ -522,10 +523,10 @@ $CI = &get_instance();
         method: 'GET',
         dataType: 'json',
         success: function(data) {
-          console.log("bbb", topic);
           // Proses data dan tampilkan dalam modal
           // Misalnya, Anda dapat membuat HTML untuk menampilkan data dalam bentuk tabel dan menambahkan pagination di dalamnya
-          var modalContent = '<div class="modal-header"><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
+
+          var modalContent = '<div class="modal-header"> <span class="close-btn" id="closeModal">&times;</span><h1>' + title + '</h1></div>'; // Contoh pembuatan konten modal
           modalContent += '<div class="modal-body">';
           // Misalnya, tampilkan data dalam bentuk tabel
           modalContent += '<table class="table table-bordered dataTable responsive">';
@@ -537,7 +538,7 @@ $CI = &get_instance();
           } else if (topic == 'borrow' || topic == 'mainten') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th></tr>';
           } else if (topic == 'moving') {
-            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Ruangan Eksisting</th></tr>';
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Posisi Terakhir</th></tr>';
 
 
           } else {
@@ -588,7 +589,7 @@ $CI = &get_instance();
           modalContent += '</div>';
           // Tambahkan tombol pagination di bagian bawah modal jika diperlukan
           // Misalnya, Anda dapat menambahkan tombol Next dan Previous untuk pagination
-          modalContent += '<div class="modal-footer">';
+          modalContent += '<div class="modal-footer"><button id="closeBtn">Tutup</button>';
           // modalContent += '<button type="button" class="btn btn-secondary">Previous</button>';
           // modalContent += '<button type="button" class="btn btn-secondary">Next</button>';
           modalContent += '</div>';
@@ -597,6 +598,17 @@ $CI = &get_instance();
           $('#myModal').modal('show');
           $('.modal-content').html(modalContent);
 
+          var closeModal = document.getElementById("closeModal");
+          var closeBtn = document.getElementById("closeBtn");
+
+          closeModal.onclick = function() {
+            $('#myModal').modal('hide');
+          }
+
+          // Event listener untuk tombol tutup di footer
+          closeBtn.onclick = function() {
+            $('#myModal').modal('hide');
+          }
 
         },
         error: function(xhr, status, error) {
@@ -644,6 +656,8 @@ $CI = &get_instance();
         $('#perp').addClass('blink-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
+        // $('#perp').removeClass('blink-ilegal');
+
       }
       if (data.ilegal == 0 && data.legal == 0) {
         $('#perp').removeClass('bg-ilegal');
@@ -670,7 +684,6 @@ $CI = &get_instance();
       // Menggunakan ID div untuk memilih endpoint yang sesuai
       var endpoint = '';
 
-      // console.log('tape total');
       endpoint = BASE_URL + '/administrator/dashboard/abc/' + divId;
       title = 'ASET DI ' + roomName;
       topic = 'ruangan';
@@ -686,7 +699,6 @@ $CI = &get_instance();
 
       // Iterasi melalui setiap item dalam array 'librarian' di respons JSON
       data.librarian.forEach(function(item) {
-        // console.log(item);
         // Jika nama bangunan tidak sama dengan nama bangunan saat ini, tambahkan pemisah (div row)
         if (item.building_name !== current_building) {
           if (current_building !== '') {
@@ -769,6 +781,7 @@ $CI = &get_instance();
           // librarian(data);
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -815,6 +828,7 @@ $CI = &get_instance();
 
           dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
           dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+          dChart.data.datasets[0].backgroundColor = data.labelcateg.map(item => [item.color]);
 
           myChart1.data.labels = data.label.map(item => [item.ruangan]); // Mengganti labels
           myChart1.data.datasets[0].data = data.label.map(item => item.total); // Mengganti data
@@ -842,13 +856,7 @@ $CI = &get_instance();
       data: {
         datasets: [{
           data: [],
-          backgroundColor: [
-            '#7fffd4',
-            '#ff4500',
-            '#ffa500',
-            '#ffff00',
-            '#faebd7',
-          ],
+          backgroundColor: [],
         }, ],
         labels: [],
       },
@@ -858,7 +866,9 @@ $CI = &get_instance();
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20
+            padding: 20,
+            fontSize: 18,
+
           }
         },
         plugins: {
@@ -878,9 +888,9 @@ $CI = &get_instance();
         datasets: [{
           data: [],
           backgroundColor: [
-
             '#0d1d4a',
             '#916306',
+            '#939c91',
           ],
         }, ],
         labels: [],
@@ -891,7 +901,9 @@ $CI = &get_instance();
           labels: {
             fontColor: "black",
             boxWidth: 20,
-            padding: 20
+            padding: 20,
+            fontSize: 18,
+
           }
         },
         plugins: {
@@ -922,6 +934,7 @@ $CI = &get_instance();
         legend: {
           position: 'top',
           labels: {
+            fontSize: 18,
             fontColor: "black",
             boxWidth: 20,
             padding: 20
@@ -963,7 +976,6 @@ $CI = &get_instance();
               // Draw the text in black, with the specified font
               ctx.fillStyle = '#FFF';
 
-
               var fontSize = 16;
               var fontStyle = 'bold';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle);
@@ -984,7 +996,7 @@ $CI = &get_instance();
       }
     });
 
-    setInterval(newLibraraian, 5000);
+    setInterval(newLibraraian, 3000);
 
     $(document).ready(function() {
 
