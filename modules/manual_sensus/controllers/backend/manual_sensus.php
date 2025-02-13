@@ -222,11 +222,11 @@ class manual_sensus extends Admin
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_sensus;
-					$this->data['message'] = cclang('success_save_data_stay', [admin_anchor('/manual_sensus', 'Go back to list')]);
+					$this->data['message'] = cclang('success_save_data_stay', [admin_anchor('/sensus', 'Go back to list')]);
 				} else {
-					set_message(cclang('success_save_data_redirect', [admin_anchor('/manual_sensus/view/' . $save_sensus, 'See detail')]), 'success');
+					set_message(cclang('success_save_data_redirect', [admin_anchor('/sensus/view/' . $save_sensus, 'See detail')]), 'success');
 					$this->data['success'] = true;
-					$this->data['redirect'] = admin_base_url('/manual_sensus');
+					$this->data['redirect'] = admin_base_url('/sensus');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -235,9 +235,10 @@ class manual_sensus extends Admin
 				} else {
 					$this->data['success'] = false;
 					$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = admin_base_url('/manual_sensus');
+					$this->data['redirect'] = admin_base_url('/sensus');
 				}
 			}
+			
 		} else {
 			$this->data['success'] = false;
 			$this->data['message'] = 'Opss validation failed';
@@ -833,6 +834,36 @@ class manual_sensus extends Admin
 		// Kirim response dalam format JSON
 		$this->response($response);
 	}
+
+	function load_dropdown_ruangan()
+    {
+
+        if ($this->model_manual_sensus->getRuangan('')->num_rows() > 0) {
+            $is_data_ada = TRUE;
+            $list_data = $this->model_manual_sensus->getRuangan('')->result_array();
+        } else {
+            $is_data_ada = FALSE;
+        }
+
+        $ddata = array();
+
+        foreach ($list_data as $qryget) {
+
+            $row = array();
+
+            $row['id'] = $qryget['id'];
+            $row['ruangan'] = $qryget['ruangan'];
+            $ddata[] = $row;
+        }
+
+        $output = array(
+            "is_data_ada" => $is_data_ada,
+            "list_data" => $ddata,
+        );
+
+        //output to json format
+        echo json_encode($output);
+    }
 
 }
 

@@ -437,6 +437,37 @@ class Model_manual_sensus extends MY_Model
         return $query->result();
     }
 
+    public function getRuangan($id)
+    {
+
+        if ($id != '') {
+            // Add your logic here for when $id is null
+            $this->db->where('id', $id);
+        }
+
+        $query = $this->db->get('tb_master_ruangan');
+        $this->db->order_by('ruangan', 'ASC');
+
+        return $query;
+    }
+
+    public function getReader($id_ruangan, $reader_id)
+    {
+
+        if ($id_ruangan != '') {
+            $this->db->where('room_id', $id_ruangan);
+        }
+
+        if ($reader_id != '') {
+            $this->db->where('reader_id', $reader_id);
+        }
+
+        $query = $this->db->get('tag_reader');
+        $this->db->order_by('reader_name', 'ASC');
+
+        return $query;
+    }
+
 }
 
 /* End of file model_manual_sensus.php */

@@ -104,6 +104,55 @@
     var chart_aset_wrong_room = 0;
     var chart_aset_foreign_tag = 0;
 
+    function load_dropdown_ruangan(id_parameter) {
+
+        //get a reference to the select element
+        var $ruangan_id = $('#ruangan_id');
+        $("#ruangan_id").html('<option value="0">Loading...</option>');
+
+        let hidden_ruangan_id = $("#hidden_ruangan_id").val();
+
+        $.ajax({
+        method: "POST",
+        // url: '<?php echo site_url() . 'manual_sensus/load_dropdown_ruangan'; ?>',
+        url: ADMIN_BASE_URL + '/manual_sensus/load_dropdown_ruangan/',
+        dataType: 'JSON',
+        success: function(data) {
+
+            if (data.is_data_ada) {
+
+            //clear the current content of the select
+            $ruangan_id.html('');
+            $ruangan_id.append('<option value = "0">- Silahkan Pilih -</option>');
+
+            //iterate over the data and append a select option
+
+            $.each(data.list_data, function(key, val) {
+
+                if (hidden_ruangan_id == val.id) {
+                $ruangan_id.append('<option selected="selected" value = "' + val.id + '">' + val.ruangan + '</option>');
+                } else {
+                $ruangan_id.append('<option value = "' + val.id + '">' + val.ruangan + '</option>');
+                }
+
+            });
+
+            $ruangan_id.val('0');
+
+            } else {
+            $ruangan_id.html('<option value = "0">- Tidak Ada Data -</option>');
+            }
+
+        },
+        error: function() {
+            //if there is an error append a 'none available' option
+            $ruangan_id.html('<option value = "0">- Tidak Ada Data -</option>');
+        }
+
+        });
+
+    }
+
     function prepareHasilSensusAnomali() {
 
         var flag_sensus_anomali = $('#flag_sensus_anomali').val();
@@ -123,7 +172,7 @@
 
                 var asset_condition_dropdown = $(tr).find('td:eq(8) select').val();
 
-                // console.log('Data Aset Anomali: ', id_aset, nama_aset, kode_aset, nup, kode_tid, asset_condition_dropdown);
+                console.log('Data Aset Anomali: ', id_aset, nama_aset, kode_aset, nup, kode_tid, asset_condition_dropdown);
 
                 dataHasilSensusAnomali.push({
                     id: id_aset,
@@ -1824,19 +1873,17 @@
                                     <input type="hidden" class="form-control" id="room_name" name="room_name" value="">
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="reader_id">Reader</label>
                                     <select class="form-control" id="reader_id" name="reader_id">
-                                    <!-- Add your select options here -->
+                                    
                                     </select>
                                     <input type="hidden" class="form-control" id="reader_antena" name="reader_antena" value="">
                                     <input type="hidden" class="form-control" id="reader_angle" name="reader_angle" value="">
                                     <input type="hidden" class="form-control" id="reader_gate" name="reader_gate" value="">
-                                </div>
+                                </div> -->
 
-
-
-                                <input type="hidden" class="form-control" id="rfid_tag_number" name="rfid_tag_number" value="">
+                                <!-- <input type="hidden" class="form-control" id="rfid_tag_number" name="rfid_tag_number" value=""> -->
 
                             </form>
 
@@ -1902,7 +1949,7 @@
         </div>
     </div>
 
-    <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript">
@@ -2056,7 +2103,7 @@
                                 
                         } else {
 
-                            // console.log('Data dengan TID ' + tid + ' tidak ada');
+                            // console.log('Data dengan TID ' + tid + ' tidak ada'); inez
                             // kalo ngga ada ya berarti kemungkinannya tidak ada di dataArrayAsetForBulk / salah ruangan / bukan rfid tag milik kita
 
                             get_check_unique_single_tag(tid).then(async function(response) {
@@ -2400,6 +2447,8 @@
         // }
         // });
         // batas check pagination
+
+        load_dropdown_ruangan();
 
         $('#metode_pencarian').val('bulk');
         $('#metode_pencarian_terakhir').val('bulk');
@@ -3158,18 +3207,39 @@
                 selectedData.push(data);
             });
 
+            if (selectedData.length === 0) {
+                alert('Silakan pilih minimal satu aset terlebih dahulu!');
+                return;
+            }
+
             // Sekarang selectedData berisi array dari semua data yang dipilih
             console.log(selectedData);
+
+            // Pengecekan data duplikat di tabel
+            // let isDuplicate = false;
             
-            // Contoh penggunaan data
+            // selectedData.forEach(function(item) {
+
+            //     // console.log('ID Aset:', item.id);
+            //     // console.log('Nama Aset:', item.nama_aset);
+            //     // console.log('Kode Aset:', item.kode_aset);
+            //     // console.log('Kode TID:', item.kode_tid);
+            //     // console.log('NUP:', item.nup);
+
+            //     // Cek apakah kode TID sudah ada di tabel
+            //     // if ($('#your_table_id_bulk tbody').find(`td.asset_tid:contains("${item.kode_tid}")`).length > 0) {
+            //     //     isDuplicate = true;
+            //     //     alert(`Aset dengan RFID Code ${item.kode_tid} sudah ada dalam tabel!`);
+            //     //     return false; // break forEach loop
+            //     // }
+
+            // });
+
+            // if (isDuplicate) return;
+
             selectedData.forEach(function(item) {
 
-                // console.log('ID Aset:', item.id);
-                // console.log('Nama Aset:', item.nama_aset);
-                // console.log('Kode Aset:', item.kode_aset);
-                // console.log('Kode TID:', item.kode_tid);
-                // console.log('NUP:', item.nup);
-
+                // inez
                 ceklis_sensus = 'Sudah';
                 hasil_pencarian = 'Wrong Room Tag';
 
@@ -3177,40 +3247,60 @@
                 let gedung = '-';
                 let ruangan = '-';
 
-                // inez
+                let kode_tid = item.kode_tid 
 
-                let posisi_seharusnya = `Area: ${area}, Gedung: ${gedung}, Ruangan: ${ruangan}`;
+                if (!(kode_tid in tidCountWrongRoom)) {
 
-                $('#your_table_id_bulk tbody').append(`
-                    <tr>
-                        <td style="text-align: center">${$('#your_table_id_bulk tbody tr').length + 1}</td>
-                        <td class="asset_id" style="text-align: center">${item.id}</td>
-                        <td class="asset_name" style="text-align: left">${item.nama_aset}</td>
-                        <td class="asset_code" style="text-align: left">${item.kode_aset}</td>
-                        <td class="asset_nup" style="text-align: center">${item.nup}</td>
-                        <td class="asset_tid" style="text-align: center">${item.kode_tid}</td>
-                        
-                        <td id="asset_tid_wrong_room_${item.kode_tid}" style="text-align: center; background-color:rgb(234, 255, 0)" data-id="${item.id}" data-nama-aset="${item.nama_aset}" data-kode-aset="${item.kode_aset}" data-nup="${item.nup}" data-tid="${item.kode_tid}">${hasil_pencarian}</td>
+                    tidCountWrongRoom[kode_tid] = 1;
 
-                        <td id="asset_ruangan" style="text-align: center">${posisi_seharusnya}</td>
+                    let posisi_seharusnya = `Area: ${area}, Gedung: ${gedung}, Ruangan: ${ruangan}`;
 
-                        <td class="asset_condition" style="text-align: center;">
-                            <select class="asset_condition_dropdown" id="asset_condition_dropdown_${item.kode_tid}" style="margin: 0 auto;">
-                                ${arrayAllKondisi.map(kondisi => `<option value="${kondisi.id}">${kondisi.kondisi}</option>`).join('')}
-                            </select>
-                        </td>
+                    $('#your_table_id_bulk tbody').append(`
+                        <tr>
+                            <td style="text-align: center">${$('#your_table_id_bulk tbody tr').length + 1}</td>
+                            <td class="asset_id" style="text-align: center">${item.id}</td>
+                            <td class="asset_name" style="text-align: left">${item.nama_aset}</td>
+                            <td class="asset_code" style="text-align: left">${item.kode_aset}</td>
+                            <td class="asset_nup" style="text-align: center">${item.nup}</td>
 
-                        <td id="flag_sensus_${item.kode_tid}" style="text-align: center; background-color: #90EE90">
-                            <input type="checkbox" id="flag_sensus_check_${item.kode_tid}" name="flag_sensus_check_${item.kode_tid}" value="1" style="margin-right: 5px;" checked disabled>` + ceklis_sensus + `
-                        </td>
+                            <td class="asset_tid_${item.kode_tid}" id="asset_tid_${item.kode_tid}" style="text-align: center">${item.kode_tid}</td>
+                            
+                            <td id="asset_tid_wrong_room_${item.kode_tid}" style="text-align: center; background-color:rgb(234, 255, 0)" data-id="${item.id}" data-nama-aset="${item.nama_aset}" data-kode-aset="${item.kode_aset}" data-nup="${item.nup}" data-tid="${item.kode_tid}">${hasil_pencarian}</td>
 
-                        <td style="text-align: center">
-                            <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" onclick="removeRowBulk(this)"></i>
-                        </td>
-                    </tr>
-                `);
+                            <td id="asset_ruangan" style="text-align: center">${posisi_seharusnya}</td>
 
-            });
+                            <td class="asset_condition" style="text-align: center;">
+                                <select class="asset_condition_dropdown" id="asset_condition_dropdown_${item.kode_tid}" style="margin: 0 auto;">
+                                    ${arrayAllKondisi.map(kondisi => `<option value="${kondisi.id}">${kondisi.kondisi}</option>`).join('')}
+                                </select>
+                            </td>
+
+                            <td id="flag_sensus_${item.kode_tid}" style="text-align: center; background-color: #90EE90">
+                                <input type="checkbox" id="flag_sensus_check_${item.kode_tid}" name="flag_sensus_check_${item.kode_tid}" value="1" style="margin-right: 5px;" checked disabled>` + ceklis_sensus + `
+                            </td>
+
+                            <td style="text-align: center">
+                                <i class="ui-tooltip fa fa-trash-o" title="Hapus Data" style="font-size: 22px; cursor:pointer;" onclick="removeRowBulk(this)"></i>
+                            </td>
+                        </tr>
+                    `);
+
+                } else {
+                    tidCountWrongRoom[kode_tid] += 1;
+                }
+
+            }); // end selectedData
+
+            // another tag
+
+            chart_aset_wrong_room = Object.keys(tidCountWrongRoom).length;
+            // chart_aset_foreign_tag = Object.keys(tidCountForeignTag).length;
+            chart_aset_foreign_tag = 0;
+
+            $('#chart_aset_wrong_room').html(chart_aset_wrong_room);
+            $('#chart_aset_foreign_tag').html(chart_aset_foreign_tag);
+
+            $('#databaseModal').modal('hide');
 
         });
 

@@ -93,12 +93,10 @@ class Model_sensus extends MY_Model
 
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 3');
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
-
         $this->sortable();
-
         $query = $this->db->get($this->table_name);
-
         return $query->result();
     }
 

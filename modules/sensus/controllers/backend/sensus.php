@@ -786,6 +786,147 @@ class sensus extends Admin
 		$this->response($response);
 	}
 
+	public function sensus_selesai()
+	{
+
+		$this->is_allowed('sensus_selesai');
+
+		$id = $this->input->post('id');
+
+		// Ambil detail aset berdasarkan ID perbaikan
+		$detail_aset = $this->model_sensus->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// Ambil keterangan selesai dari request POST
+		$keterangan_selesai = $this->input->post('keterangan_selesai');
+		
+		// if (!$keterangan_selesai) {
+		// 	show_error('Keterangan selesai tidak ditemukan!', 400);
+		// }
+
+		// Simpan file foto selesai
+		// if (!empty($_FILES['foto']['name'])) {
+		// 	$upload_dir = 'uploads/Perbaikan/';
+			
+		// 	// Pastikan direktori ada
+		// 	if (!is_dir($upload_dir)) {
+		// 		if (!mkdir($upload_dir, 0755, true)) {
+		// 			show_error('Gagal membuat direktori unggahan: ' . $upload_dir, 500);
+		// 		}
+		// 	}
+		
+		// 	$file_name = time() . '_' . basename($_FILES['foto']['name']);
+		// 	$file_path = $upload_dir . $file_name;
+		
+		// 	// Simpan file ke direktori
+		// 	if (move_uploaded_file($_FILES['foto']['tmp_name'], $file_path)) {
+		// 		$response['foto_url'] = base_url($file_path);
+		// 	} else {
+		// 		// Tambahkan logging error
+		// 		log_message('error', 'Gagal mengunggah file: ' . $_FILES['foto']['error']);
+				
+		// 		$response['success'] = false;
+		// 		$response['message'] = 'Gagal mengunggah foto.';
+		// 		echo json_encode($response);
+		// 		exit;
+		// 	}
+		// }
+
+		// Mulai transaksi untuk memastikan atomicity
+		// $this->db->trans_start();
+
+		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan selesai
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 3,    // Set status menjadi 3 (selesai)
+			'ket_transaksi2' => $keterangan_selesai  // Simpan keterangan selesai
+			// 'image_uri' => $file_name		//menyimpan informasi nama foto
+		]);
+
+		// Perbarui status aset terkait dengan perbaikan
+		foreach ($detail_aset as $aset) {
+			$this->db->where('id_aset', $aset->id_aset);
+			$this->db->update('tb_master_aset', [
+				'tgl_inventarisasi' => date('Y-m-d H:i:s'),
+				'no_batch_sensus' => $id,
+				'keterangan' => $keterangan_selesai,
+				'flag_inventarisasi' => 1
+			]);
+		}
+
+		// Selesaikan transaksi
+		// $this->db->trans_complete();
+
+		// // Cek apakah transaksi berhasil
+		// if ($this->db->trans_status() === FALSE) {
+		// 	log_message('error', 'Gagal melakukan update transaksi selesai untuk ID: ' . $id);
+		// 	show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		// }
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
+	}
+
+	public function sensus_batal()
+	{
+
+		$this->is_allowed('sensus_batal');
+
+		$id = $this->input->post('id');
+
+		// Ambil detail aset berdasarkan ID perbaikan
+		$detail_aset = $this->model_sensus->getDetailTransaksiById($id);
+
+		// Debugging $detail_aset
+		if (!$detail_aset) {
+			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
+		}
+
+		// Ambil keterangan batal dari request POST
+		$keterangan_batal = $this->input->post('keterangan_batal');
+
+		// if (!$keterangan_batal) {
+		// 	show_error('Keterangan batal tidak ditemukan!', 400);
+		// }
+
+		// Mulai transaksi untuk memastikan atomicity
+		// $this->db->trans_start();
+
+		// Update status transaksi menjadi 4 (batal) dan simpan keterangan batal
+		$this->db->where('id', $id);
+		$this->db->update('tb_master_transaksi', [
+			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
+			'ket_transaksi2' => $keterangan_batal,  // Simpan keterangan batal
+			// 'image_uri' => $file_name		//menyimpan informasi nama foto
+		]);
+
+		// foreach ($detail_aset as $aset) {
+		// 	// Update status aset menjadi 1 dan set borrow menjadi 0
+		// 	$this->db->where('id_aset', $aset->id_aset);
+		// 	$this->db->update('tb_master_aset', [
+		// 		'status' => 1,  // Aset sudah kembali
+		// 		'borrow' => 0,   // Aset tidak dipinjam lagi
+		// 		'tipe_moving' => 0   // Aset tidak ada izin moving
+		// 	]);
+		// }
+
+		// Selesaikan transaksi
+		// $this->db->trans_complete();
+
+		// Cek apakah transaksi berhasil
+		// if ($this->db->trans_status() === FALSE) {
+		// 	log_message('error', 'Gagal melakukan update transaksi pembatalan untuk ID: ' . $id);
+		// 	show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
+		// }
+
+		// Berikan response sukses')
+		echo json_encode(['success' => true]);
+	}
+
 }
 
 /* End of file tb_master_transaksi.php */
