@@ -84,10 +84,12 @@ jQuery(document).ready(domo);
                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                               <option value=""><?= cclang('all'); ?></option>
                               <!-- <option <?= $this->input->get('f') == 'kode_transaksi' ? 'selected' :''; ?> value="kode_transaksi">Kode Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' :''; ?> value="status_transaksi">Status Transaksi</option> -->
-                              <!-- <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tgl Awal Transaksi</option> -->
-                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Ket Transaksi</option>
+                              <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' :''; ?> value="tipe_transaksi">Tipe</option>
+                              <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' :''; ?> value="status_transaksi">Status Peminjaman</option>
+                              <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' :''; ?> value="tgl_awal_transaksi">Tanggal Peminjaman</option>
+                              <option <?= $this->input->get('f') == 'tgl_akhir_transaksi' ? 'selected' :''; ?> value="tgl_akhir_transaksi">Tanggal Pengembalian</option>
+                              <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' :''; ?> value="ket_transaksi">Keterangan</option>
+                              <option <?= $this->input->get('f') == 'id_pegawai' ? 'selected' :''; ?> value="id_pegawai">Nama Peminjam</option>
                               <!-- <option <?= $this->input->get('f') == 'id_pegawai_input' ? 'selected' :''; ?> value="id_pegawai_input">Id Pegawai Input</option
                               <option <?= $this->input->get('f') == 'nama_pegawai_input' ? 'selected' :''; ?> value="nama_pegawai_input">Nama Pegawai Input</option> -->
                            </select>
