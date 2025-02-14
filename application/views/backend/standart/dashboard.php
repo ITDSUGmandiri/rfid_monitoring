@@ -117,6 +117,7 @@ $CI = &get_instance();
     background-color: #939c91 !important;
   }
 
+  /* blink ilegal */
   @keyframes flash-bg {
 
     0%,
@@ -137,6 +138,30 @@ $CI = &get_instance();
   .bg-ilegal {
     color: white;
     background-color: #ff4500 !important;
+  }
+
+  /* blink overdue */
+
+  @keyframes flash-bgo {
+
+    0%,
+    100% {
+      background-color: #eba834;
+    }
+
+    50% {
+      background-color: transparent;
+    }
+  }
+
+  .blink-overdue {
+    color: white;
+    animation: flash-bgo 0.8s infinite;
+  }
+
+  .bg-overdue {
+    color: white;
+    background-color: #eba834 !important;
   }
 
   .bg-perbaikan {
@@ -440,7 +465,6 @@ $CI = &get_instance();
           topic = '';
           break;
         case 'aset_total_pantau':
-          // console.log('tape total');
           endpoint = BASE_URL + '/administrator/dashboard/abc/total';
           title = 'TOTAL ASET';
           topic = '';
@@ -612,18 +636,27 @@ $CI = &get_instance();
       } else {
         $('#ava').removeClass('bg-tersedia');
       }
+
       $('#peminjaman').text(data.peminjaman);
-      if (data.peminjaman > 0) {
+      if (data.peminjaman > 0 && data.pinjamlewathari == 0) {
         $('#pem').addClass('bg-peminjaman');
+      } else if (data.peminjaman > 0 && data.pinjamlewathari > 0) {
+        $('#pem').removeClass('bg-peminjaman');
+
+        $('#pem').addClass('blink-overdue');
+
       } else {
         $('#pem').removeClass('bg-peminjaman');
+        $('#pem').removeClass('blink-overdue');
+
       }
+
       $('#perpindahan').text(parseInt(data.ilegal) + parseInt(data.legal));
       if (data.ilegal > 0) {
         $('#perp').addClass('blink-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
-        $('#perp').removeClass('blink-ilegal');
+        // $('#perp').removeClass('blink-ilegal');
 
       }
       if (data.ilegal == 0 && data.legal == 0) {
@@ -651,7 +684,6 @@ $CI = &get_instance();
       // Menggunakan ID div untuk memilih endpoint yang sesuai
       var endpoint = '';
 
-      // console.log('tape total');
       endpoint = BASE_URL + '/administrator/dashboard/abc/' + divId;
       title = 'ASET DI ' + roomName;
       topic = 'ruangan';
@@ -667,7 +699,6 @@ $CI = &get_instance();
 
       // Iterasi melalui setiap item dalam array 'librarian' di respons JSON
       data.librarian.forEach(function(item) {
-        // console.log(item);
         // Jika nama bangunan tidak sama dengan nama bangunan saat ini, tambahkan pemisah (div row)
         if (item.building_name !== current_building) {
           if (current_building !== '') {
@@ -769,25 +800,25 @@ $CI = &get_instance();
     }
 
     // Panggil fungsi AJAX saat halaman dimuat
-    $.ajax({
-      url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
-      method: 'GET',
-      dataType: 'json',
-      success: function(data) {
-        // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
-        // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-        // dChart.update();
-        updateDashboard(data);
-        // librarian(data);
-        // readerradar(data);
-      },
-      error: function(xhr, status, error) {
-        console.error("Failed to fetch data:", error);
-      }
-    });
+    // $.ajax({
+    //   url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   success: function(data) {
+    //     // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
+    //     // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
+    //     // dChart.update();
+    //     updateDashboard(data);
+    //     // librarian(data);
+    //     // readerradar(data);
+    //   },
+    //   error: function(xhr, status, error) {
+    //     console.error("Failed to fetch data:", error);
+    //   }
+    // });
 
 
-    window.setInterval(function() {
+    function updateStatus() {
       $.ajax({
         url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
         method: 'GET',
@@ -815,9 +846,10 @@ $CI = &get_instance();
           console.error("Failed to fetch data:", error);
         }
       });
-    }, 2000);
+    }
 
-
+    // Jalankan setiap 5 detik
+    setInterval(updateStatus, 2000);
     var ctx2 = document.getElementById('myChartSIMAN').getContext('2d');
     var dChart = new Chart(ctx2, {
       type: 'doughnut',

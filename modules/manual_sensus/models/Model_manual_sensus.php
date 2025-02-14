@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Model_sensus extends MY_Model
+class Model_manual_sensus extends MY_Model
 {
 
     private $primary_key    = 'id';
@@ -93,10 +93,12 @@ class Model_sensus extends MY_Model
 
         $this->join_avaiable()->filter_avaiable();
         $this->db->where('tb_master_transaksi.tipe_transaksi = 3');
-        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
+
         $this->sortable();
+
         $query = $this->db->get($this->table_name);
+
         return $query->result();
     }
 
@@ -316,6 +318,12 @@ class Model_sensus extends MY_Model
 
     // sensus
 
+    public function getMasterStatus(){
+        $this->db->select('*');
+        $this->db->from('tb_master_status');
+        return $this->db->get()->result();
+    }
+
     public function get_all_aset($filter_data) {
 
         if ($filter_data['metode_pencarian'] == 'partial') {
@@ -419,6 +427,47 @@ class Model_sensus extends MY_Model
         return $this->db->get()->row_array();
     }
 
+    public function get_dataaset()
+    {
+        $query = $this->db->query(
+            // "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset, s.id, s.status FROM tb_master_aset a JOIN tb_master_status s ON s.id = a.status WHERE a.kode_tid != '' ORDER BY a.kode_tid DESC LIMIT 500 OFFSET 0"
+            "SELECT a.id_aset, a.kode_tid, a.kode_aset, a.nup, a.nama_aset FROM tb_master_aset a WHERE a.kode_tid IS NOT NULL ORDER BY a.kode_tid DESC LIMIT 500 OFFSET 0"
+        );
+
+        return $query->result();
+    }
+
+    public function getRuangan($id)
+    {
+
+        if ($id != '') {
+            // Add your logic here for when $id is null
+            $this->db->where('id', $id);
+        }
+
+        $query = $this->db->get('tb_master_ruangan');
+        $this->db->order_by('ruangan', 'ASC');
+
+        return $query;
+    }
+
+    public function getReader($id_ruangan, $reader_id)
+    {
+
+        if ($id_ruangan != '') {
+            $this->db->where('room_id', $id_ruangan);
+        }
+
+        if ($reader_id != '') {
+            $this->db->where('reader_id', $reader_id);
+        }
+
+        $query = $this->db->get('tag_reader');
+        $this->db->order_by('reader_name', 'ASC');
+
+        return $query;
+    }
+
 }
 
-/* End of file model_sensus.php */
+/* End of file model_manual_sensus.php */

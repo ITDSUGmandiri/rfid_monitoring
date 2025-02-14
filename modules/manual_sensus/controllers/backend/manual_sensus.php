@@ -4,12 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  *| --------------------------------------------------------------------------
- *| Tb Master Transaksi Controller
+ *| manual_sensus Controller
  *| --------------------------------------------------------------------------
- *| Tb Master Transaksi site
+ *| manual_sensus site
  *|
  */
-class sensus extends Admin
+class manual_sensus extends Admin
 {
 
 	public function __construct()
@@ -17,14 +17,14 @@ class sensus extends Admin
 		parent::__construct();
 		$this->load->model('tb_master_aset/model_tb_master_aset');
 
-		$this->load->model('model_sensus');
+		$this->load->model('model_manual_sensus');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);
 		$this->output->enable_profiler(TRUE);
 	}
 
 	/**
-	 * show all Tb Master Transaksis
+	 * show all manual_sensuss
 	 *
 	 * @var $offset String
 	 */
@@ -35,13 +35,13 @@ class sensus extends Admin
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
-		$this->data['pengaturan_sistem'] = $this->model_sensus->getPengaturanSistem();
+		$this->data['pengaturan_sistem'] = $this->model_manual_sensus->getPengaturanSistem();
 
-		$this->data['sensus'] = $this->model_sensus->get($filter, $field, $this->limit_page, $offset);
-		$this->data['sensus_counts'] = $this->model_sensus->count_all($filter, $field);
+		$this->data['sensus'] = $this->model_manual_sensus->get($filter, $field, $this->limit_page, $offset);
+		$this->data['sensus_counts'] = $this->model_manual_sensus->count_all($filter, $field);
 
 		$config = [
-			'base_url'     => ADMIN_NAMESPACE_URL  . '/sensus/index/',
+			'base_url'     => ADMIN_NAMESPACE_URL  . '/manual_sensus/index/',
 			'total_rows'   => $this->data['sensus_counts'],
 			'per_page'     => $this->limit_page,
 			'uri_segment'  => 4,
@@ -49,7 +49,7 @@ class sensus extends Admin
 
 		$this->data['pagination'] = $this->pagination($config);
 
-		$this->data['tables'] = $this->load->view('backend/standart/administrator/sensus/sensus_data_table', $this->data, true);
+		$this->data['tables'] = $this->load->view('backend/standart/administrator/manual_sensus/sensus_data_table', $this->data, true);
 
 		if ($this->input->get('ajax')) {
 			$this->response([
@@ -59,8 +59,8 @@ class sensus extends Admin
 			]);
 		}
 
-		$this->template->title('Sensus List');
-		$this->render('backend/standart/administrator/sensus/sensus_list', $this->data);
+		$this->template->title('Manual Sensus List');
+		$this->render('backend/standart/administrator/manual_sensus/sensus_list', $this->data);
 	}
 
 	public function serverSideData()
@@ -123,18 +123,36 @@ class sensus extends Admin
 	}
 
 	/**
-	 * Add new sensuss
+	 * Add new manual sensuss
 	 *
 	 */
 	public function add()
 	{
 		$this->is_allowed('sensus_add');
 
-		$this->data['pengaturan_sistem'] = $this->model_sensus->getPengaturanSistem();
+		$this->data['pengaturan_sistem'] = $this->model_manual_sensus->getPengaturanSistem();
+		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+
+		$this->data['master_asets'] = $this->model_manual_sensus->get_dataaset();
+
+		// echo '<pre>';
+		// print_r($this->data['master_asets']);
+		// echo '</pre>';
+		// exit();
+
+		$this->template->title('Sensus');
+		$this->render('backend/standart/administrator/manual_sensus/sensus_add', $this->data);
+	}
+
+	public function manual_sensus_add_anomali()
+	{
+		$this->is_allowed('sensus_add');
+
+		$this->data['pengaturan_sistem'] = $this->model_manual_sensus->getPengaturanSistem();
 		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
 
 		$this->template->title('Sensus');
-		$this->render('backend/standart/administrator/sensus/sensus_add', $this->data);
+		$this->render('backend/standart/administrator/manual_sensus/manual_sensus_add_anomali', $this->data);
 	}
 
 	/**
@@ -197,7 +215,7 @@ class sensus extends Admin
 			// echo '</pre>';
 			// exit();
 
-			$save_sensus = $id = $this->model_sensus->saveSensus($save_data_master_transaksi, $save_data_detail_transaksi, $hasil_sensus_normal, $hasil_sensus_anomali);
+			$save_sensus = $id = $this->model_manual_sensus->saveSensus($save_data_master_transaksi, $save_data_detail_transaksi, $hasil_sensus_normal, $hasil_sensus_anomali);
 
 			if ($save_sensus) {
 
@@ -220,6 +238,7 @@ class sensus extends Admin
 					$this->data['redirect'] = admin_base_url('/sensus');
 				}
 			}
+			
 		} else {
 			$this->data['success'] = false;
 			$this->data['message'] = 'Opss validation failed';
@@ -405,14 +424,14 @@ class sensus extends Admin
 	 */
 	public function view($id, $id_ruangan)
 	{
-		$this->is_allowed('sensus_view');
+		$this->is_allowed('manual_sensus_view');
 
-		$this->data['tb_master_transaksi'] = $this->model_sensus->getTransaksiById($id);
-		$this->data['tb_detail_transaksi'] = $this->model_sensus->getHasilSensusById($id);
-		$this->data['summary_report'] = $this->model_sensus->getSummaryRekonSensusById($id, $id_ruangan);
+		$this->data['tb_master_transaksi'] = $this->model_manual_sensus->getTransaksiById($id);
+		$this->data['tb_detail_transaksi'] = $this->model_manual_sensus->getHasilSensusById($id);
+		$this->data['summary_report'] = $this->model_manual_sensus->getSummaryRekonSensusById($id, $id_ruangan);
 
-		$this->template->title('Detail Sensus');
-		$this->render('backend/standart/administrator/sensus/sensus_view', $this->data);
+		$this->template->title('Detail Manual Sensus');
+		$this->render('backend/standart/administrator/manual_sensus/sensus_view', $this->data);
 	}
 
 	public function hasilSensus($id, $id_ruangan)
@@ -755,7 +774,7 @@ class sensus extends Admin
 			'metode_pencarian' => $metode_pencarian
 		);
 
-		$results = $this->model_sensus->get_all_aset($filter_data);
+		$results = $this->model_manual_sensus->get_all_aset($filter_data);
 		
 		$response = [
 			'success' => true,
@@ -786,146 +805,65 @@ class sensus extends Admin
 		$this->response($response);
 	}
 
-	public function sensus_selesai()
+	public function get_all_status()
 	{
+		// Ambil semua data tag dari database
+		$tags = $this->db->where_in('id', [1, 5])->get('tb_master_status')->result();
 
-		$this->is_allowed('sensus_selesai');
+		// Format response
+		$response = [
+			'success' => true,
+			'data' => $tags
+		];
 
-		$id = $this->input->post('id');
-
-		// Ambil detail aset berdasarkan ID perbaikan
-		$detail_aset = $this->model_sensus->getDetailTransaksiById($id);
-
-		// Debugging $detail_aset
-		if (!$detail_aset) {
-			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
-		}
-
-		// Ambil keterangan selesai dari request POST
-		$keterangan_selesai = $this->input->post('keterangan_selesai');
-		
-		// if (!$keterangan_selesai) {
-		// 	show_error('Keterangan selesai tidak ditemukan!', 400);
-		// }
-
-		// Simpan file foto selesai
-		// if (!empty($_FILES['foto']['name'])) {
-		// 	$upload_dir = 'uploads/Perbaikan/';
-			
-		// 	// Pastikan direktori ada
-		// 	if (!is_dir($upload_dir)) {
-		// 		if (!mkdir($upload_dir, 0755, true)) {
-		// 			show_error('Gagal membuat direktori unggahan: ' . $upload_dir, 500);
-		// 		}
-		// 	}
-		
-		// 	$file_name = time() . '_' . basename($_FILES['foto']['name']);
-		// 	$file_path = $upload_dir . $file_name;
-		
-		// 	// Simpan file ke direktori
-		// 	if (move_uploaded_file($_FILES['foto']['tmp_name'], $file_path)) {
-		// 		$response['foto_url'] = base_url($file_path);
-		// 	} else {
-		// 		// Tambahkan logging error
-		// 		log_message('error', 'Gagal mengunggah file: ' . $_FILES['foto']['error']);
-				
-		// 		$response['success'] = false;
-		// 		$response['message'] = 'Gagal mengunggah foto.';
-		// 		echo json_encode($response);
-		// 		exit;
-		// 	}
-		// }
-
-		// Mulai transaksi untuk memastikan atomicity
-		// $this->db->trans_start();
-
-		// Update status transaksi menjadi 3 (selesai) dan simpan keterangan selesai
-		$this->db->where('id', $id);
-		$this->db->update('tb_master_transaksi', [
-			'status_transaksi' => 3,    // Set status menjadi 3 (selesai)
-			'ket_transaksi2' => $keterangan_selesai  // Simpan keterangan selesai
-			// 'image_uri' => $file_name		//menyimpan informasi nama foto
-		]);
-
-		// Perbarui status aset terkait dengan perbaikan
-		foreach ($detail_aset as $aset) {
-			$this->db->where('id_aset', $aset->id_aset);
-			$this->db->update('tb_master_aset', [
-				'tgl_inventarisasi' => date('Y-m-d H:i:s'),
-				'no_batch_sensus' => $id,
-				'keterangan' => $keterangan_selesai,
-				'flag_inventarisasi' => 1
-			]);
-		}
-
-		// Selesaikan transaksi
-		// $this->db->trans_complete();
-
-		// // Cek apakah transaksi berhasil
-		// if ($this->db->trans_status() === FALSE) {
-		// 	log_message('error', 'Gagal melakukan update transaksi selesai untuk ID: ' . $id);
-		// 	show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
-		// }
-
-		// Berikan response sukses')
-		echo json_encode(['success' => true]);
+		// Kirim response dalam format JSON
+		$this->response($response);
 	}
 
-	public function sensus_batal()
+	public function get_all_kondisi()
 	{
+		// Ambil semua data tag dari database
+		$tags = $this->db->get('tb_master_kondisi')->result();
 
-		$this->is_allowed('sensus_batal');
+		// Format response
+		$response = [
+			'success' => true,
+			'data' => $tags
+		];
 
-		$id = $this->input->post('id');
-
-		// Ambil detail aset berdasarkan ID perbaikan
-		$detail_aset = $this->model_sensus->getDetailTransaksiById($id);
-
-		// Debugging $detail_aset
-		if (!$detail_aset) {
-			show_error('Detail aset tidak ditemukan untuk ID: ' . $id, 404);
-		}
-
-		// Ambil keterangan batal dari request POST
-		$keterangan_batal = $this->input->post('keterangan_batal');
-
-		// if (!$keterangan_batal) {
-		// 	show_error('Keterangan batal tidak ditemukan!', 400);
-		// }
-
-		// Mulai transaksi untuk memastikan atomicity
-		// $this->db->trans_start();
-
-		// Update status transaksi menjadi 4 (batal) dan simpan keterangan batal
-		$this->db->where('id', $id);
-		$this->db->update('tb_master_transaksi', [
-			'status_transaksi' => 4,    // Set status menjadi 4 (batal)
-			'ket_transaksi2' => $keterangan_batal,  // Simpan keterangan batal
-			// 'image_uri' => $file_name		//menyimpan informasi nama foto
-		]);
-
-		// foreach ($detail_aset as $aset) {
-		// 	// Update status aset menjadi 1 dan set borrow menjadi 0
-		// 	$this->db->where('id_aset', $aset->id_aset);
-		// 	$this->db->update('tb_master_aset', [
-		// 		'status' => 1,  // Aset sudah kembali
-		// 		'borrow' => 0,   // Aset tidak dipinjam lagi
-		// 		'tipe_moving' => 0   // Aset tidak ada izin moving
-		// 	]);
-		// }
-
-		// Selesaikan transaksi
-		// $this->db->trans_complete();
-
-		// Cek apakah transaksi berhasil
-		// if ($this->db->trans_status() === FALSE) {
-		// 	log_message('error', 'Gagal melakukan update transaksi pembatalan untuk ID: ' . $id);
-		// 	show_error('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 500);
-		// }
-
-		// Berikan response sukses')
-		echo json_encode(['success' => true]);
+		// Kirim response dalam format JSON
+		$this->response($response);
 	}
+
+	function load_dropdown_ruangan()
+    {
+
+        if ($this->model_manual_sensus->getRuangan('')->num_rows() > 0) {
+            $is_data_ada = TRUE;
+            $list_data = $this->model_manual_sensus->getRuangan('')->result_array();
+        } else {
+            $is_data_ada = FALSE;
+        }
+
+        $ddata = array();
+
+        foreach ($list_data as $qryget) {
+
+            $row = array();
+
+            $row['id'] = $qryget['id'];
+            $row['ruangan'] = $qryget['ruangan'];
+            $ddata[] = $row;
+        }
+
+        $output = array(
+            "is_data_ada" => $is_data_ada,
+            "list_data" => $ddata,
+        );
+
+        //output to json format
+        echo json_encode($output);
+    }
 
 }
 

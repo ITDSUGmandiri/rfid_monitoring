@@ -8,7 +8,7 @@
   <meta name="keywords" content="<?= get_option('keywords'); ?>">
   <meta name="author" content="<?= get_option('author'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <meta http-equiv="refresh" content="1800;url=<?= admin_site_url('/auth/logout/1' . get_user_data('id')); ?>" /> -->
+  <meta http-equiv="refresh" content="1800;url=<?= admin_site_url('/auth/logout/1' . get_user_data('id')); ?>" />
   <title><?= get_option('site_name'); ?> | <?= $template['title']; ?></title>
   <link rel="icon" href="<?= BASE_URL ?>/asset/img/icon/logosekneg.png" type="image/x-icon" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -19,7 +19,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" />
 
   <?php } ?>
-
+  <?php if (get_user_data('oauth_uid') == '') { ?>
+    <?php
+    header("Location: http://localhost/rfid_monitoring/administrator/auth/logout/1");
+    die();
+    ?>
+  <?php } ?>
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.0/css/dataTables.dataTables.css">
 
   <link rel="stylesheet" href="<?= BASE_ASSET ?>admin-lte/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET ?>font-awesome-4.5.0/css/font-awesome.min.css">
@@ -72,6 +78,7 @@
     var csrf = '<?= $this->security->get_csrf_token_name(); ?>';
     var token = '<?= $this->security->get_csrf_hash(); ?>';
     var _lang = [];
+
 
     <?php
     include(APPPATH . 'language/' . get_cookie('language') . '/web_lang.php');
@@ -206,7 +213,7 @@
       <?= $template['partials']['content']; ?>
       <?php cicool()->eventListen('backend_content_bottom'); ?>
 
-      <div class="modal   " id="modalPopUp">
+      <div class="modal" id="modalPopUp">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-body">
@@ -259,10 +266,9 @@
 
 
 
-
+  <!-- http://localhost/rfid_monitoring/administrator/manual_sensus/add -->
 
   <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'registrasi_aset') { ?>
-    
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js">
     </script>
     <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js">
@@ -270,7 +276,12 @@
   <?php } ?>
 
 
+  <!-- <?php if (basename(dirname($_SERVER['REQUEST_URI'])) != 'manual_sensus/add') { ?>
 
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+
+  <?php } ?> -->
 
   <script>
     $(document).ready(function() {
@@ -279,10 +290,6 @@
         var file = $('#choose-file')[0].files[0].name;
         $(this).prev('label').text(file);
       });
-    });
-
-    $(document).ready(function() {
-      new DataTable('#masterdata');
     });
 
 
