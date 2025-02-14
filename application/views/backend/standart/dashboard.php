@@ -516,8 +516,11 @@ $CI = &get_instance();
 
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Ruangan</th></tr>';
 
-          } else if (topic == 'borrow' || topic == 'mainten') {
+          } else if (topic == 'borrow') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Peminjaman</th><th>Pengembalian</th></tr>';
+          } else if (topic == 'mainten') {
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th></tr>';
+
           } else if (topic == 'moving') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Posisi Terakhir</th></tr>';
 
@@ -549,10 +552,12 @@ $CI = &get_instance();
 
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
 
-            } else if (topic == 'borrow' || topic == 'mainten') {
+            } else if (topic == 'borrow') {
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
               modalContent += '<td>' + item.pinjam + '</td>'; // Misalnya, ambil field2 dari item
               modalContent += '<td>' + item.kembali + '</td>'; // Misalnya, ambil field2 dari item
+            } else if (topic == 'mainten') {
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
 
             } else if (topic == 'moving') {
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
