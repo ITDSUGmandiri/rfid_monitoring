@@ -71,7 +71,7 @@ class Dashboard extends Admin
 			case "moving":
 				$query_mov = "SELECT x.kode_tid, x.nama_aset, x.kode_aset, x.nup,x.nama_lokasi_terakhir, x.status,x.tipe_moving, x.id_lokasi AS asal, y.id, y.ruangan, akhir.ruangan as ruanganterakhir FROM tb_master_aset x 
 				JOIN tb_master_ruangan y ON y.id = x.id_lokasi 
-				JOIN tb_master_ruangan akhir ON akhir.id = x.lokasi_moving 
+				JOIN tb_master_ruangan akhir ON akhir.id = x.lokasi_terakhir 
 
 				WHERE x.status = 4 
 				AND x.borrow != 1 AND x.kode_tid !=''";
