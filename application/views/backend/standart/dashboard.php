@@ -556,7 +556,7 @@ $CI = &get_instance();
 
             } else if (topic == 'moving') {
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
-              modalContent += '<td>' + item.nama_lokasi_terakhir + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.ruanganterakhir + '</td>'; // Misalnya, ambil field2 dari item
 
 
             } else {
@@ -640,7 +640,7 @@ $CI = &get_instance();
         $('#perp').addClass('blink-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
-        // $('#perp').removeClass('blink-ilegal');
+        $('#perp').removeClass('blink-ilegal');
 
       }
       if (data.ilegal == 0 && data.legal == 0) {
