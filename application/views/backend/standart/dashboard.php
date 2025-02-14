@@ -656,7 +656,7 @@ $CI = &get_instance();
         $('#perp').addClass('blink-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
-        // $('#perp').removeClass('blink-ilegal');
+        $('#perp').removeClass('blink-ilegal');
 
       }
       if (data.ilegal == 0 && data.legal == 0) {
@@ -798,25 +798,6 @@ $CI = &get_instance();
         }
       });
     }
-
-    // Panggil fungsi AJAX saat halaman dimuat
-    // $.ajax({
-    //   url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
-    //   method: 'GET',
-    //   dataType: 'json',
-    //   success: function(data) {
-    //     // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
-    //     // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-    //     // dChart.update();
-    //     updateDashboard(data);
-    //     // librarian(data);
-    //     // readerradar(data);
-    //   },
-    //   error: function(xhr, status, error) {
-    //     console.error("Failed to fetch data:", error);
-    //   }
-    // });
-
 
     function updateStatus() {
       $.ajax({
