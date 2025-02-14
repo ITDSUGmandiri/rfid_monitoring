@@ -159,6 +159,19 @@
         }
     }
 
+    $(document).ready(function() {
+        // Ketika id_sub_transaksi berubah
+        $('#id_sub_transaksi').on('change', function() {
+            var idSubTransaksi = $(this).val();
+            
+            // Jika id_sub_transaksi = 1, maka status_transaksi = 3
+            if (idSubTransaksi == '1') {
+                $('#status_transaksi').val('3');
+            } else {
+                $('#status_transaksi').val('1'); // Mengatur default status jika id_sub_transaksi bukan 1
+            }
+        });
+    });
 
     // async function updateFlagAlarm() {
     //     var ip_address = $('#ip_address_server').val();

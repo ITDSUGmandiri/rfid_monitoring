@@ -395,8 +395,9 @@ class Model_pemindahan extends MY_Model {
                         // Jika sub_transaksi == 1, hanya update lokasi_moving
                         $update_data = array(
                             'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
-                            'borrow' => 2,
-                            'tipe_moving' => 1   // Aset ada izin moving
+                            'status' => 1,  // Aset sudah kembali
+                            'borrow' => 0,
+                            'tipe_moving' => 0   // Aset ada izin moving
                         );
                     } else {
                         // Jika sub_transaksi != 1, update sesuai dengan data yang ada
@@ -405,6 +406,7 @@ class Model_pemindahan extends MY_Model {
                             'id_gedung' => $save_data_master_transaksi['id_gedung2'],
                             'id_lokasi' => $save_data_master_transaksi['id_ruangan2'],
                             'lokasi_moving' => $save_data_master_transaksi['id_ruangan2'],
+                            'status' => 1,  // Aset sudah kembali
                             'borrow' => 2,
                             'tipe_moving' => 1   // Aset ada izin moving
                         );
