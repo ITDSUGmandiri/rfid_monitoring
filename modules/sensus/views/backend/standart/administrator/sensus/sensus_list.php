@@ -89,7 +89,7 @@
                                  <option value=""><?= cclang('all'); ?></option>
                                  <!-- <option <?= $this->input->get('f') == 'kode_transaksi' ? 'selected' : ''; ?> value="kode_transaksi">Kode Transaksi</option> -->
                                  <!-- <option <?= $this->input->get('f') == 'tipe_transaksi' ? 'selected' : ''; ?> value="tipe_transaksi">Tipe Transaksi</option> -->
-                                 <!-- <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' : ''; ?> value="status_transaksi">Status Transaksi</option> -->
+                                 <option <?= $this->input->get('f') == 'status_transaksi' ? 'selected' : ''; ?> value="status_transaksi">Status Transaksi</option>
                                  <!-- <option <?= $this->input->get('f') == 'tgl_awal_transaksi' ? 'selected' : ''; ?> value="tgl_awal_transaksi">Tgl Awal Transaksi</option> -->
                                  <option <?= $this->input->get('f') == 'ket_transaksi' ? 'selected' : ''; ?> value="ket_transaksi">Ket Transaksi</option>
                                  <!-- <option <?= $this->input->get('f') == 'id_pegawai_input' ? 'selected' : ''; ?> value="id_pegawai_input">Id Pegawai Input</option
@@ -256,6 +256,6 @@
          }
          checkAll.iCheck('update');
       });
-      initSortableAjax('tb_master_transaksi', $('table.dataTable'));
+      initSortableAjax('sensus', $('table.dataTable'));
    }); /*end doc ready*/
 </script>
