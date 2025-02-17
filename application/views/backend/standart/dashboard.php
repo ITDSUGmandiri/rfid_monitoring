@@ -342,26 +342,7 @@ $CI = &get_instance();
 
           </div>
 
-          <!-- <div class="col-md-12">
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">MONITORING READER</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body chart-responsive">
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        
-                      </div>
-                    </div>
-                  </div>
-                  <div id='librarian2'></div>
-                </div>
-              </div> -->
+
         </div>
 
       </div>
@@ -535,8 +516,11 @@ $CI = &get_instance();
 
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Ruangan</th></tr>';
 
-          } else if (topic == 'borrow' || topic == 'mainten') {
+          } else if (topic == 'borrow') {
+            modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Peminjaman</th><th>Pengembalian</th></tr>';
+          } else if (topic == 'mainten') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th></tr>';
+
           } else if (topic == 'moving') {
             modalContent += '<tr><th>No</th><th>RFID kode</th><th>Kode Aset</th><th>NUP</th><th>Nama Aset</th><th>Asal Ruangan</th><th>Posisi Terakhir</th></tr>';
 
@@ -568,11 +552,16 @@ $CI = &get_instance();
 
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
 
-            } else if (topic == 'borrow' || topic == 'mainten') {
+            } else if (topic == 'borrow') {
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.pinjam + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.kembali + '</td>'; // Misalnya, ambil field2 dari item
+            } else if (topic == 'mainten') {
+              modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
+
             } else if (topic == 'moving') {
               modalContent += '<td>' + item.ruangan + '</td>'; // Misalnya, ambil field2 dari item
-              modalContent += '<td>' + item.nama_lokasi_terakhir + '</td>'; // Misalnya, ambil field2 dari item
+              modalContent += '<td>' + item.ruanganterakhir + '</td>'; // Misalnya, ambil field2 dari item
 
 
             } else {
@@ -656,7 +645,7 @@ $CI = &get_instance();
         $('#perp').addClass('blink-ilegal');
       } else {
         $('#perp').addClass('bg-legal');
-        // $('#perp').removeClass('blink-ilegal');
+        $('#perp').removeClass('blink-ilegal');
 
       }
       if (data.ilegal == 0 && data.legal == 0) {
@@ -798,25 +787,6 @@ $CI = &get_instance();
         }
       });
     }
-
-    // Panggil fungsi AJAX saat halaman dimuat
-    // $.ajax({
-    //   url: BASE_URL + '/administrator/dashboard/getSumAsetRoom',
-    //   method: 'GET',
-    //   dataType: 'json',
-    //   success: function(data) {
-    //     // dChart.data.labels = data.labelcateg.map(item => [item.key_status]); // Mengganti labels
-    //     // dChart.data.datasets[0].data = data.labelcateg.map(item => item.total); // Mengganti data
-    //     // dChart.update();
-    //     updateDashboard(data);
-    //     // librarian(data);
-    //     // readerradar(data);
-    //   },
-    //   error: function(xhr, status, error) {
-    //     console.error("Failed to fetch data:", error);
-    //   }
-    // });
-
 
     function updateStatus() {
       $.ajax({
