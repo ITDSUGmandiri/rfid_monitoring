@@ -146,7 +146,7 @@
    </div>
 </section>
 <script>
-   var module_name = "tb_master_transaksi"
+   var module_name = "registrasi_aset"
    var use_ajax_crud = false
 </script>
 <script src="<?= BASE_ASSET ?>js/filter.js"></script>
@@ -253,6 +253,6 @@
          }
          checkAll.iCheck('update');
       });
-      initSortableAjax('tb_master_transaksi', $('table.dataTable'));
+      initSortableAjax('registrasi_aset', $('table.dataTable'));
    }); /*end doc ready*/
 </script>
