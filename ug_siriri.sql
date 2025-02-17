@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `aauth_login_attempts` (
   `timestamp` datetime DEFAULT NULL,
   `login_attempts` tinyint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2464 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2477 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.aauth_login_attempts: ~6 rows (approximately)
+-- Dumping data for table ug_siriri.aauth_login_attempts: ~7 rows (approximately)
 DELETE FROM `aauth_login_attempts`;
 INSERT INTO `aauth_login_attempts` (`id`, `ip_address`, `timestamp`, `login_attempts`) VALUES
 	(1218, '172.70.189.166', '2024-11-06 15:56:28', 1),
@@ -535,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `aauth_users` (
 -- Dumping data for table ug_siriri.aauth_users: ~5 rows (approximately)
 DELETE FROM `aauth_users`;
 INSERT INTO `aauth_users` (`id`, `email`, `oauth_uid`, `oauth_provider`, `pass`, `username`, `full_name`, `avatar`, `banned`, `last_login`, `last_activity`, `date_created`, `forgot_exp`, `remember_time`, `remember_exp`, `verification_code`, `top_secret`, `ip_address`) VALUES
-	(1, 'admin@gmail.com', 1, NULL, '0098f77459b6d78055fb8a02879ea004f1a49f18468a6ddc69a9c57327b957f4', 'administrator', 'Administrator', '20241108091405-setkab01.jpeg', 0, '2025-02-13 17:10:23', '2025-02-13 17:06:38', '2024-05-21 05:44:44', NULL, '2024-10-27 00:00:00', '5HfWD7Gjzn4Tdtyc', NULL, NULL, '::1'),
+	(1, 'admin@gmail.com', 1, NULL, '0098f77459b6d78055fb8a02879ea004f1a49f18468a6ddc69a9c57327b957f4', 'administrator', 'Administrator', '20241108091405-setkab01.jpeg', 0, '2025-02-17 13:42:58', '2025-02-17 13:42:58', '2024-05-21 05:44:44', NULL, '2024-10-27 00:00:00', '5HfWD7Gjzn4Tdtyc', NULL, NULL, '::1'),
 	(3, 'usersatu@gmail.com', 4, NULL, '4b1fbcf811f49742fac555ff6ecb931ebf35a396cc933877acbd13fe369f1793', 'usersatu', 'User Satu', '20241204094816-iconars.png', 0, '2024-12-05 16:41:14', '2024-12-05 16:41:14', '2024-12-04 09:48:16', NULL, '2024-10-27 00:00:00', '5HfWD7Gjzn4Tdtyc', NULL, NULL, '::1'),
 	(7, 'sinar@gmail.com', 4, NULL, 'e5a899a3b41a51b027b56708567a5a13f75473a233d4575539a70ac6128c4e81', 'sinar', 'sinta arinta', '20241212145134-nadia.png', 0, '2025-01-13 09:27:45', '2025-01-13 09:27:45', '2024-12-12 14:51:34', NULL, NULL, NULL, NULL, NULL, '::1'),
 	(8, 'aji@ugmandiri.co.id', 0, NULL, '7ef0004d5a659b7ec70c3736489f8638a63fafab11a7cd5699100562e65baeac', 'aji', 'aji', '', 0, '2024-12-13 14:55:50', '2024-12-13 14:55:50', '2024-12-13 14:52:03', NULL, NULL, NULL, NULL, NULL, '::1'),
@@ -819,7 +819,7 @@ CREATE TABLE IF NOT EXISTS `crud` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.crud: ~14 rows (approximately)
+-- Dumping data for table ug_siriri.crud: ~13 rows (approximately)
 DELETE FROM `crud`;
 INSERT INTO `crud` (`id`, `crud_modal`, `title`, `subject`, `table_name`, `sort_by`, `sort_field`, `javascript`, `style`, `javascript_setting_detail`, `javascript_setting_update`, `javascript_setting_create`, `javascript_setting_list`, `primary_key`, `page_read`, `page_create`, `page_update`) VALUES
 	(22, '', 'Tb Pegawai Master', 'Tb Pegawai Master', 'tb_master_pegawai', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 'id', 'yes', 'yes', 'yes'),
@@ -1018,7 +1018,7 @@ CREATE TABLE IF NOT EXISTS `crud_field` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5422 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.crud_field: ~650 rows (approximately)
+-- Dumping data for table ug_siriri.crud_field: ~629 rows (approximately)
 DELETE FROM `crud_field`;
 INSERT INTO `crud_field` (`id`, `crud_id`, `field_name`, `field_label`, `input_type`, `help_block`, `placeholder`, `auto_generate_help_block`, `wrapper_class`, `show_column`, `show_add_form`, `show_update_form`, `show_detail_page`, `sort`, `relation_table`, `relation_value`, `relation_label`) VALUES
 	(1, 1, 'building_id', 'building_id', 'number', '', '', 'yes', NULL, '', '', '', 'yes', 1, '', '', ''),
@@ -1693,7 +1693,7 @@ CREATE TABLE IF NOT EXISTS `crud_field_validation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5426 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.crud_field_validation: ~794 rows (approximately)
+-- Dumping data for table ug_siriri.crud_field_validation: ~757 rows (approximately)
 DELETE FROM `crud_field_validation`;
 INSERT INTO `crud_field_validation` (`id`, `crud_field_id`, `crud_id`, `validation_name`, `validation_value`) VALUES
 	(1, 2, 1, 'required', ''),
@@ -2938,7 +2938,7 @@ CREATE TABLE IF NOT EXISTS `pengaturan_sistem` (
 -- Dumping data for table ug_siriri.pengaturan_sistem: ~1 rows (approximately)
 DELETE FROM `pengaturan_sistem`;
 INSERT INTO `pengaturan_sistem` (`is_system_on`, `ip_address_server`, `protocol_ws_server`, `port_ws_server`, `validation_ip_address_server`, `validation_protocol_ws_server`, `validation_port_ws_server`, `validation_auto_reconnect`, `flag_moving_in`, `flag_moving_out`, `timeout_duration`, `is_web_play_buzzer`, `deras_status_default`, `deras_description`, `deras_category_default`, `flag_alarm_register_tag`, `flag_status_available`, `flag_status_not_available`, `flag_kondisi_baik`, `flag_sensus_normal`, `flag_sensus_anomali`, `moving_mode`) VALUES
-	(1, '192.168.86.100', 'ws', '3030', 'localhost', 'ws', '8080', 5000, 1, 4, 2000, 1, 1, 'DEMO-RFID', 0, 1, 1, 5, 1, 1, 2, 'license');
+	(1, '192.168.86.100', 'ws', '3030', 'localhost', 'ws', '8080', 5000, 1, 4, 2000, 1, 1, 'DEMO-RFID', 0, 1, 1, 5, 1, 1, 2, 'free');
 
 -- Dumping structure for table ug_siriri.reminder
 CREATE TABLE IF NOT EXISTS `reminder` (
@@ -3004,7 +3004,7 @@ CREATE TABLE IF NOT EXISTS `rest` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.rest: ~5 rows (approximately)
+-- Dumping data for table ug_siriri.rest: ~6 rows (approximately)
 DELETE FROM `rest`;
 INSERT INTO `rest` (`id`, `subject`, `table_name`, `primary_key`, `x_api_key`, `x_token`) VALUES
 	(6, 'Api Location', 'tag_location', 'location_id', 'no', 'no'),
@@ -3493,76 +3493,29 @@ CREATE TABLE IF NOT EXISTS `tag_temp_table` (
   `kategori_pergerakan` enum('normal','anomali') COLLATE armscii8_bin DEFAULT NULL,
   `keterangan_pergerakan` varchar(100) COLLATE armscii8_bin DEFAULT NULL,
   PRIMARY KEY (`id_temp_table`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin;
 
--- Dumping data for table ug_siriri.tag_temp_table: ~350 rows (approximately)
+-- Dumping data for table ug_siriri.tag_temp_table: ~64 rows (approximately)
 DELETE FROM `tag_temp_table`;
 INSERT INTO `tag_temp_table` (`id_temp_table`, `lokasi_terakhir_id`, `nama_lokasi_terakhir`, `is_legal_moving`, `room_id`, `room_name`, `reader_id`, `reader_antena`, `reader_angle`, `reader_gate`, `rfid_tag_number`, `waktu`, `output`, `kategori_pergerakan`, `keterangan_pergerakan`) VALUES
-	(1, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:12:55', 0, NULL, NULL),
-	(2, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:12:59', 0, NULL, NULL),
-	(3, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:03', 0, NULL, NULL),
-	(4, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280116020007590AE460A5E', '2025-02-13 10:13:05', 0, NULL, NULL),
-	(5, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:12', 0, NULL, NULL),
-	(6, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:16', 0, NULL, NULL),
-	(7, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:25', 0, NULL, NULL),
-	(8, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:29', 0, NULL, NULL),
-	(9, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:35', 0, NULL, NULL),
-	(10, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:38', 0, NULL, NULL),
-	(11, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:47', 0, NULL, NULL),
-	(12, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:54', 0, NULL, NULL),
-	(13, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:07', 0, NULL, NULL),
-	(14, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280116020007590AE460A5E', '2025-02-13 10:14:07', 0, NULL, NULL),
-	(15, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:10', 0, NULL, NULL),
-	(16, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:20', 0, NULL, NULL),
-	(17, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:23', 0, NULL, NULL),
-	(18, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:30', 0, NULL, NULL),
-	(19, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E280116020007590AE460A5E', '2025-02-13 10:17:31', 0, NULL, NULL),
-	(20, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:35', 0, NULL, NULL),
-	(21, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:46', 0, NULL, NULL),
-	(22, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:51', 0, NULL, NULL),
-	(23, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:54', 0, NULL, NULL),
-	(24, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:58', 0, NULL, NULL),
-	(25, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:03', 0, NULL, NULL),
-	(26, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:24', 0, NULL, NULL),
-	(27, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:33', 0, NULL, NULL),
-	(28, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:40', 0, NULL, NULL),
-	(29, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:44', 0, NULL, NULL),
-	(30, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:47', 0, NULL, NULL),
-	(31, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:00', 0, NULL, NULL),
-	(32, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:19', 0, NULL, NULL),
-	(33, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:25', 0, NULL, NULL),
-	(34, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:37', 0, NULL, NULL),
-	(35, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:43', 0, NULL, NULL),
-	(36, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:48', 0, NULL, NULL),
-	(37, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:20:20', 0, NULL, NULL),
-	(38, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:20:37', 0, NULL, NULL),
-	(39, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:20:51', 0, NULL, NULL),
-	(40, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:21:07', 0, NULL, NULL),
-	(41, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:05', 0, NULL, NULL),
-	(42, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:26', 0, NULL, NULL),
-	(43, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:33', 0, NULL, NULL),
-	(44, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:44', 0, NULL, NULL),
-	(45, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:56', 0, NULL, NULL),
-	(46, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:23:07', 0, NULL, NULL),
-	(47, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:23:53', 0, NULL, NULL),
-	(48, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:23', 0, NULL, NULL),
-	(49, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:30', 0, NULL, NULL),
-	(50, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:37', 0, NULL, NULL),
-	(51, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:44', 0, NULL, NULL),
-	(52, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:55', 0, NULL, NULL),
-	(53, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:25:01', 0, NULL, NULL),
-	(54, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:25:21', 0, NULL, NULL),
-	(55, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:03', 0, NULL, NULL),
-	(56, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:08', 0, NULL, NULL),
-	(57, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:13', 0, NULL, NULL),
-	(58, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:19', 0, NULL, NULL),
-	(59, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:26', 0, NULL, NULL),
-	(60, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:30', 0, NULL, NULL),
-	(61, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:49', 0, NULL, NULL),
-	(62, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:16', 0, NULL, NULL),
-	(63, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:19', 0, NULL, NULL),
-	(64, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:24', 0, NULL, NULL),
-	(65, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:36', 0, NULL, NULL);
+	(1, 2, '', 1, 2, '', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 02:53:31', 0, NULL, NULL),
+	(2, 2, '', 1, 2, '', 3, 'double', 'out', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:06:46', 0, NULL, NULL),
+	(3, 5, '', 0, 5, '', 8, 'double', 'out', 'Gate Veteran', 'E280699520005009F123AA96', '2025-02-17 03:07:13', 0, NULL, NULL),
+	(4, 2, '', 1, 2, '', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:11:25', 0, NULL, NULL),
+	(5, 2, '', 1, 2, '', 3, 'double', 'out', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:11:47', 0, NULL, NULL),
+	(6, 2, '', 1, 2, NULL, 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:20:37', 0, NULL, NULL),
+	(7, 2, '', 1, 2, '', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:22:47', 0, NULL, NULL),
+	(8, 2, '', 1, 2, NULL, 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:28:06', 0, NULL, NULL),
+	(9, 2, '', 1, 2, NULL, 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:29:35', 0, NULL, NULL),
+	(10, 2, 'Ruangan Biro Pers', 0, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:33:16', 0, NULL, NULL),
+	(11, 4, 'Ruangan Konservasi Seni', 0, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280116020007590AE460A5E', '2025-02-17 03:41:29', 0, NULL, NULL),
+	(12, 4, 'Ruangan Konservasi Seni', 0, 4, 'Ruangan Konservasi Seni', 1, 'double', 'in', 'pintu depan', 'E280699520004009F123AE96', '2025-02-17 03:43:00', 0, NULL, NULL),
+	(13, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:54:13', 0, NULL, NULL),
+	(14, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:54:37', 0, NULL, NULL),
+	(15, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 03:54:59', 0, NULL, NULL),
+	(16, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 3, 'double', 'out', 'pintu depan', 'E280699520005009F123BE96', '2025-02-17 04:02:57', 0, NULL, NULL),
+	(17, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123BE96', '2025-02-17 04:22:09', 0, NULL, NULL),
+	(18, 2, 'Ruangan Biro Pers', 1, 2, 'Ruangan Biro Pers', 4, 'double', 'in', 'pintu depan', 'E280699520005009F123AA96', '2025-02-17 04:22:09', 0, NULL, NULL);
 
 -- Dumping structure for table ug_siriri.tag_temp_table_process
 CREATE TABLE IF NOT EXISTS `tag_temp_table_process` (
@@ -3582,73 +3535,10 @@ CREATE TABLE IF NOT EXISTS `tag_temp_table_process` (
   `kategori_pergerakan` enum('normal','anomali') COLLATE armscii8_bin DEFAULT NULL,
   `keterangan_pergerakan` varchar(100) COLLATE armscii8_bin DEFAULT NULL,
   PRIMARY KEY (`id_temp_table`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=armscii8 COLLATE=armscii8_bin ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ug_siriri.tag_temp_table_process: ~1 rows (approximately)
+-- Dumping data for table ug_siriri.tag_temp_table_process: ~55 rows (approximately)
 DELETE FROM `tag_temp_table_process`;
-INSERT INTO `tag_temp_table_process` (`id_temp_table`, `lokasi_terakhir_id`, `nama_lokasi_terakhir`, `is_legal_moving`, `room_id`, `room_name`, `reader_id`, `reader_antena`, `reader_angle`, `reader_gate`, `rfid_tag_number`, `waktu`, `output`, `kategori_pergerakan`, `keterangan_pergerakan`) VALUES
-	(1, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:12:55', 0, NULL, NULL),
-	(2, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:12:59', 0, NULL, NULL),
-	(3, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:03', 0, NULL, NULL),
-	(5, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:12', 0, NULL, NULL),
-	(6, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:16', 0, NULL, NULL),
-	(7, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:25', 0, NULL, NULL),
-	(8, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:29', 0, NULL, NULL),
-	(9, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:35', 0, NULL, NULL),
-	(10, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:38', 0, NULL, NULL),
-	(11, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:47', 0, NULL, NULL),
-	(12, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:13:54', 0, NULL, NULL),
-	(13, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:07', 0, NULL, NULL),
-	(15, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:10', 0, NULL, NULL),
-	(16, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:20', 0, NULL, NULL),
-	(17, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:14:23', 0, NULL, NULL),
-	(18, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:30', 0, NULL, NULL),
-	(20, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:35', 0, NULL, NULL),
-	(21, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:46', 0, NULL, NULL),
-	(22, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:51', 0, NULL, NULL),
-	(23, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:54', 0, NULL, NULL),
-	(24, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:17:58', 0, NULL, NULL),
-	(25, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:03', 0, NULL, NULL),
-	(26, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:24', 0, NULL, NULL),
-	(27, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:33', 0, NULL, NULL),
-	(28, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:40', 0, NULL, NULL),
-	(29, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:44', 0, NULL, NULL),
-	(30, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:18:47', 0, NULL, NULL),
-	(31, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:00', 0, NULL, NULL),
-	(32, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:19', 0, NULL, NULL),
-	(33, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:25', 0, NULL, NULL),
-	(34, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:37', 0, NULL, NULL),
-	(35, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:43', 0, NULL, NULL),
-	(36, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:19:48', 0, NULL, NULL),
-	(37, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:20:20', 0, NULL, NULL),
-	(38, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:20:37', 0, NULL, NULL),
-	(39, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:20:51', 0, NULL, NULL),
-	(40, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:21:07', 0, NULL, NULL),
-	(41, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:05', 0, NULL, NULL),
-	(42, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:26', 0, NULL, NULL),
-	(43, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:33', 0, NULL, NULL),
-	(44, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:44', 0, NULL, NULL),
-	(45, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:22:56', 0, NULL, NULL),
-	(46, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:23:07', 0, NULL, NULL),
-	(47, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:23:53', 0, NULL, NULL),
-	(48, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:23', 0, NULL, NULL),
-	(49, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:30', 0, NULL, NULL),
-	(50, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:37', 0, NULL, NULL),
-	(51, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:44', 0, NULL, NULL),
-	(52, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:24:55', 0, NULL, NULL),
-	(53, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:25:01', 0, NULL, NULL),
-	(54, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:25:21', 0, NULL, NULL),
-	(55, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:03', 0, NULL, NULL),
-	(56, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:08', 0, NULL, NULL),
-	(57, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:13', 0, NULL, NULL),
-	(58, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:19', 0, NULL, NULL),
-	(59, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:26', 0, NULL, NULL),
-	(60, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:30', 0, NULL, NULL),
-	(61, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:26:49', 0, NULL, NULL),
-	(62, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:16', 0, NULL, NULL),
-	(63, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:19', 0, NULL, NULL),
-	(64, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:24', 0, NULL, NULL),
-	(65, 5, 'Gerbang Veteran', 0, 5, 'Gerbang Veteran', 8, 'double', 'out', 'Gate Veteran', 'E2806894200040174354A199', '2025-02-13 10:27:36', 0, NULL, NULL);
 
 -- Dumping structure for table ug_siriri.tb_asset_moving
 CREATE TABLE IF NOT EXISTS `tb_asset_moving` (
@@ -3662,48 +3552,26 @@ CREATE TABLE IF NOT EXISTS `tb_asset_moving` (
   `lokasi_terakhir_id` int DEFAULT NULL,
   `lokasi_terakhir` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.tb_asset_moving: ~302 rows (approximately)
+-- Dumping data for table ug_siriri.tb_asset_moving: ~33 rows (approximately)
 DELETE FROM `tb_asset_moving`;
 INSERT INTO `tb_asset_moving` (`id`, `tanggal`, `waktu`, `reader_id`, `room_id`, `tag_code`, `status_moving`, `lokasi_terakhir_id`, `lokasi_terakhir`) VALUES
-	(1, '2025-02-13', '2025-02-13 15:37:42', 4, 2, 'E280699520005009F123AA96', 'In', 2, ''),
-	(2, '2025-02-13', '2025-02-13 15:42:18', 8, 0, 'E280699520005009F123AA96', 'Out', 5, 'Gerbang Veteran'),
-	(3, '2025-02-13', '2025-02-13 15:43:03', 8, 0, 'E280699520005009F123AA96', 'Out', 5, 'Gerbang Veteran'),
-	(4, '2025-02-13', '2025-02-13 16:09:55', 4, 2, 'E280699520005009F123AA96', 'In', 2, ''),
-	(5, '2025-02-13', '2025-02-13 16:10:50', 8, 0, 'E280699520005009F123AA96', 'Out', 5, 'Gerbang Veteran'),
-	(6, '2025-02-13', '2025-02-13 16:12:05', 8, 0, 'E280699520005009F123AA96', 'Out', 5, 'Gerbang Veteran'),
-	(7, '2025-02-13', '2025-02-13 16:14:10', 4, 2, 'E280116020007590AE460A5E', 'In', 2, 'Ruangan Biro Pers'),
-	(8, '2025-02-13', '2025-02-13 16:15:25', 2, 0, 'E280116020007590AE460A5E', 'Out', 4, ''),
-	(9, '2025-02-13', '2025-02-13 16:16:20', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(10, '2025-02-13', '2025-02-13 16:16:40', 4, 2, 'E280116020007590AE460A5E', 'In', 2, 'Ruangan Biro Pers'),
-	(11, '2025-02-13', '2025-02-13 16:20:05', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(12, '2025-02-13', '2025-02-13 16:23:46', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(13, '2025-02-13', '2025-02-13 16:24:41', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(14, '2025-02-13', '2025-02-13 16:36:22', 1, 4, 'E280699520005009F123AA96', 'In', 4, ''),
-	(15, '2025-02-13', '2025-02-13 16:36:22', 1, 4, 'E280116020007590AE460A5E', 'In', 4, ''),
-	(16, '2025-02-13', '2025-02-13 16:39:32', 8, 0, 'E280699520004009F123AE96', 'Out', 5, 'Gerbang Veteran'),
-	(17, '2025-02-13', '2025-02-13 16:39:32', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(18, '2025-02-13', '2025-02-13 16:39:47', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(19, '2025-02-13', '2025-02-13 16:40:07', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(20, '2025-02-13', '2025-02-13 16:40:47', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(21, '2025-02-13', '2025-02-13 16:40:57', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(22, '2025-02-13', '2025-02-13 16:54:00', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(23, '2025-02-13', '2025-02-13 16:54:00', 8, 0, 'E280699520005009F123AA96', 'Out', 5, 'Gerbang Veteran'),
-	(24, '2025-02-13', '2025-02-13 16:54:00', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(25, '2025-02-13', '2025-02-13 16:54:05', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(26, '2025-02-13', '2025-02-13 16:54:05', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(27, '2025-02-13', '2025-02-13 16:54:05', 8, 0, 'E280699520005009F123AA96', 'Out', 5, 'Gerbang Veteran'),
-	(28, '2025-02-13', '2025-02-13 16:55:35', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(29, '2025-02-13', '2025-02-13 17:06:56', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(30, '2025-02-13', '2025-02-13 17:07:01', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(31, '2025-02-13', '2025-02-13 17:11:07', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(32, '2025-02-13', '2025-02-13 17:11:52', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(33, '2025-02-13', '2025-02-13 17:11:58', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(34, '2025-02-13', '2025-02-13 17:12:03', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(35, '2025-02-13', '2025-02-13 17:13:08', 3, 0, 'E280116020007590AE460A5E', 'Out', 2, 'Ruangan Biro Pers'),
-	(36, '2025-02-13', '2025-02-13 17:14:08', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran'),
-	(37, '2025-02-13', '2025-02-13 17:17:33', 8, 0, 'E280116020007590AE460A5E', 'Out', 5, 'Gerbang Veteran');
+	(1, '2025-02-17', '2025-02-17 10:06:18', 4, 2, 'E280699520005009F123AA96', 'In', 2, ''),
+	(2, '2025-02-17', '2025-02-17 10:06:48', 3, 0, 'E280699520005009F123AA96', 'Out', 2, ''),
+	(3, '2025-02-17', '2025-02-17 10:07:13', 8, 0, 'E280699520005009F123AA96', 'Out', 5, ''),
+	(4, '2025-02-17', '2025-02-17 10:11:28', 4, 2, 'E280699520005009F123AA96', 'In', 2, ''),
+	(5, '2025-02-17', '2025-02-17 10:11:48', 3, 0, 'E280699520005009F123AA96', 'Out', 2, ''),
+	(6, '2025-02-17', '2025-02-17 10:22:49', 4, 2, 'E280699520005009F123AA96', 'In', 2, ''),
+	(7, '2025-02-17', '2025-02-17 10:33:20', 4, 2, 'E280699520005009F123AA96', 'In', 2, 'Ruangan Biro Pers'),
+	(8, '2025-02-17', '2025-02-17 10:41:31', 1, 4, 'E280116020007590AE460A5E', 'In', 4, 'Ruangan Konservasi Seni'),
+	(9, '2025-02-17', '2025-02-17 10:43:01', 1, 4, 'E280699520004009F123AE96', 'In', 4, 'Ruangan Konservasi Seni'),
+	(10, '2025-02-17', '2025-02-17 10:54:17', 4, 2, 'E280699520005009F123AA96', 'In', 2, 'Ruangan Biro Pers'),
+	(11, '2025-02-17', '2025-02-17 10:54:42', 3, 0, 'E280699520005009F123AA96', 'Out', 2, 'Ruangan Biro Pers'),
+	(12, '2025-02-17', '2025-02-17 10:55:02', 3, 0, 'E280699520005009F123AA96', 'Out', 2, 'Ruangan Biro Pers'),
+	(13, '2025-02-17', '2025-02-17 11:03:02', 3, 0, 'E280699520005009F123BE96', 'Out', 2, 'Ruangan Biro Pers'),
+	(14, '2025-02-17', '2025-02-17 11:22:09', 4, 2, 'E280699520005009F123BE96', 'In', 2, 'Ruangan Biro Pers'),
+	(15, '2025-02-17', '2025-02-17 11:22:09', 4, 2, 'E280699520005009F123AA96', 'In', 2, 'Ruangan Biro Pers');
 
 -- Dumping structure for table ug_siriri.tb_category_aset
 CREATE TABLE IF NOT EXISTS `tb_category_aset` (
@@ -3740,7 +3608,7 @@ CREATE TABLE IF NOT EXISTS `tb_detail_transaksi` (
   CONSTRAINT `FK_tb_detail_transaksi_tb_master_transaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `tb_master_transaksi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.tb_detail_transaksi: ~73 rows (approximately)
+-- Dumping data for table ug_siriri.tb_detail_transaksi: ~59 rows (approximately)
 DELETE FROM `tb_detail_transaksi`;
 INSERT INTO `tb_detail_transaksi` (`id`, `id_transaksi`, `kode_transaksi`, `kode_tid`, `id_aset`, `kode_aset`, `nup`, `nama_aset`, `id_area`, `id_gedung`, `id_ruangan`, `status`, `id_kondisi`, `flag_transaksi`) VALUES
 	(336, 191, '', 'E28011702000000FC2010B49', 1, '6010303001', '1', 'Sejauh Bangau Terbang (uk.140x110)(Ampas kopi)', NULL, NULL, NULL, 1, 1, 0),
@@ -3813,9 +3681,9 @@ CREATE TABLE IF NOT EXISTS `tb_log_act` (
   `date` date NOT NULL,
   `time` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1385 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1412 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.tb_log_act: ~1.196 rows (approximately)
+-- Dumping data for table ug_siriri.tb_log_act: ~1.352 rows (approximately)
 DELETE FROM `tb_log_act`;
 INSERT INTO `tb_log_act` (`id`, `log_id`, `act_id`, `keterangan`, `user`, `date`, `time`) VALUES
 	(1, 'ACT3617am6994', 0, 'Login', '1', '2024-12-18', '08:36:17'),
@@ -5201,7 +5069,34 @@ INSERT INTO `tb_log_act` (`id`, `log_id`, `act_id`, `keterangan`, `user`, `date`
 	(1381, 'ACT0638pm1988', 0, 'Login', '1', '2025-02-13', '05:06:38'),
 	(1382, 'ACT1023pm9735', 0, 'Login', '1', '2025-02-13', '05:10:23'),
 	(1383, 'ACT2622pm6063', 0, 'Logout', '11', '2025-02-13', '05:26:22'),
-	(1384, 'ACT5927am2322', 0, 'Logout', '11', '2025-02-14', '07:59:27');
+	(1384, 'ACT5927am2322', 0, 'Logout', '11', '2025-02-14', '07:59:27'),
+	(1385, 'ACT5416am4535', 0, 'Login', '1', '2025-02-14', '09:54:16'),
+	(1386, 'ACT2418am6170', 0, 'Logout', '11', '2025-02-14', '10:24:18'),
+	(1387, 'ACT3815am5527', 0, 'Login', '1', '2025-02-14', '10:38:15'),
+	(1388, 'ACT3817am6127', 0, 'Login', '1', '2025-02-14', '10:38:17'),
+	(1389, 'ACT0817am3692', 0, 'Logout', '11', '2025-02-14', '11:08:17'),
+	(1390, 'ACT0818am5878', 0, 'Logout', '11', '2025-02-14', '11:08:18'),
+	(1391, 'ACT0335am5345', 0, 'Login', '1', '2025-02-17', '08:03:35'),
+	(1392, 'ACT3341am4117', 0, 'Logout', '11', '2025-02-17', '08:33:41'),
+	(1393, 'ACT4035am8627', 0, 'Login', '1', '2025-02-17', '08:40:35'),
+	(1394, 'ACT0157am8128', 0, 'Login', '1', '2025-02-17', '09:01:57'),
+	(1395, 'ACT3159am9832', 0, 'Logout', '11', '2025-02-17', '09:31:59'),
+	(1396, 'ACT3205am4492', 0, 'Logout', '11', '2025-02-17', '09:32:05'),
+	(1397, 'ACT5236am2551', 0, 'Login', '1', '2025-02-17', '09:52:36'),
+	(1398, 'ACT2237am7880', 0, 'Logout', '11', '2025-02-17', '10:22:37'),
+	(1399, 'ACT2652am8317', 0, 'Login', '1', '2025-02-17', '10:26:52'),
+	(1400, 'ACT5654am3313', 0, 'Logout', '11', '2025-02-17', '10:56:54'),
+	(1401, 'ACT0308am5722', 0, 'Login', '1', '2025-02-17', '11:03:08'),
+	(1402, 'ACT1357am7201', 0, 'Logout', '11', '2025-02-17', '11:13:57'),
+	(1403, 'ACT3310am5938', 0, 'Logout', '11', '2025-02-17', '11:33:10'),
+	(1404, 'ACT3342am4544', 0, 'Login', '1', '2025-02-17', '11:33:42'),
+	(1405, 'ACT3436am3547', 0, 'Login', '1', '2025-02-17', '11:34:36'),
+	(1406, 'ACT0438pm4300', 0, 'Logout', '11', '2025-02-17', '12:04:38'),
+	(1407, 'ACT0529pm9026', 0, 'Logout', '1', '2025-02-17', '12:05:29'),
+	(1408, 'ACT0532pm7130', 0, 'Login', '1', '2025-02-17', '12:05:32'),
+	(1409, 'ACT4254pm1752', 0, 'Logout', '11', '2025-02-17', '01:42:54'),
+	(1410, 'ACT4254pm2042', 0, 'Logout', '11', '2025-02-17', '01:42:54'),
+	(1411, 'ACT4258pm9557', 0, 'Login', '1', '2025-02-17', '01:42:58');
 
 -- Dumping structure for table ug_siriri.tb_master_area
 CREATE TABLE IF NOT EXISTS `tb_master_area` (
@@ -5259,7 +5154,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_aset` (
 DELETE FROM `tb_master_aset`;
 INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `kategori`, `merk`, `tipe`, `kondisi`, `status`, `borrow`, `tipe_moving`, `nama_aset`, `id_area`, `id_gedung`, `id_lokasi`, `tgl_perolehan`, `nilai_perolehan`, `tgl_inventarisasi`, `tgl_peminjaman`, `tgl_pengembalian`, `flag_inventarisasi`, `id_peminjam`, `lokasi_moving`, `lokasi_terakhir`, `nama_lokasi_terakhir`, `id_pegawai`, `image_uri`, `id_transaksi`, `no_batch_sensus`, `keterangan`) VALUES
 	(1, 'E280699520004009F1239E96', '6010303001', 1, 1, '0', '0', 1, 1, 0, 0, 'Sejauh Bangau Terbang (uk.140x110)(Ampas kopi)', 3, 4, 4, '2010-12-31 00:00:00', 0, '2025-01-24 17:28:44', '2025-02-21 00:00:00', '2025-01-22 00:00:00', 1, 1, 4, 4, '', 0, '', 243, '-', ''),
-	(2, 'E280699520004009F123AE96', '6010303001', 2, 1, '0', '0', 1, 4, 0, 0, 'Bunga Anggrek (Repro uk.70x60)', 3, 4, 4, '2013-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 5, 'Gerbang Veteran', 0, '', 243, '-', ''),
+	(2, 'E280699520004009F123AE96', '6010303001', 2, 1, '0', '0', 1, 1, 0, 0, 'Bunga Anggrek (Repro uk.70x60)', 3, 4, 4, '2013-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 243, '-', ''),
 	(3, 'E280117020001594ED570A51', '6010303001', 3, 1, '0', '0', 1, 1, 0, 0, 'Capung diatas Rumpun Padi (uk.99x79) Foto', 4, 3, 3, '2012-12-31 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, '', 0, '', 243, '-', ''),
 	(4, NULL, '6010303001', 4, 1, '0', '0', 1, 1, 0, 0, 'Tangkasi/Tarsius Spectrum (Repro, uk.40x50)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(5, NULL, '6010303001', 5, 1, '0', '0', 1, 1, 0, 0, 'Foto Heavent on Eart Central Java (uk.40x60)', 0, 0, 0, '2014-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5269,7 +5164,7 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(9, NULL, '6010303001', 9, 1, '0', '0', 1, 1, 0, 0, 'Wanita Duduk Berkain Merah uk. 88 x 58', 0, 0, 0, '2001-01-01 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(10, 'E280699520005009F123B296', '6010303001', 10, 1, '0', '0', 1, 1, 0, 0, 'Lukisan gambar Ka\'bah', 4, 3, 3, '2021-11-11 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 4, '', 0, '', 243, '-', ''),
 	(11, NULL, '6010303002', 1, 1, '0', '0', 1, 1, 0, 0, 'Hiasan Dinding motif burung (uk.50x50)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(12, 'E280116020007590AE460A5E', '6010303002', 2, 1, '0', '0', 1, 4, 0, 0, 'Sungai dan Hutan Pinus (uk.30x45)', 4, 3, 3, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 4, 5, 'Gerbang Veteran', 0, '', 0, NULL, ''),
+	(12, 'E280116020007590AE460A5E', '6010303002', 2, 1, '0', '0', 1, 1, 0, 0, 'Sungai dan Hutan Pinus (uk.30x45)', 4, 3, 3, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 4, 4, 'Ruangan Konservasi Seni', 0, '', 0, NULL, ''),
 	(13, NULL, '6010303002', 3, 1, '0', '0', 1, 1, 0, 0, 'Panen Padi (uk.40x40)', 3, 4, 4, '2014-12-31 00:00:00', 0, '2025-01-10 13:58:56', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 4, 4, 'Konservasi Seni', 0, '', 80, '-', ''),
 	(14, NULL, '6010303002', 4, 1, '0', '0', 1, 1, 0, 0, 'Pasar Ikan (uk,40x40)', 0, 0, 0, '2014-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(15, NULL, '6010303002', 5, 1, '0', '0', 1, 1, 0, 0, 'Penari Bali Kipas (Keramik uk.40x40)', 0, 0, 0, '2014-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5387,7 +5282,7 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(127, NULL, '6020102003', 12, 1, '0', '0', 1, 1, 0, 0, 'Pemandangan Gunung dan Sawah', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(128, NULL, '6020102003', 13, 1, '0', '0', 1, 1, 0, 0, 'Pemandangan Tebing', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(129, NULL, '6020102003', 14, 1, '0', '0', 1, 1, 0, 0, 'Memancing didekat pura (30x40 cm)', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(130, '', '6020102003', 15, 1, '0', '0', 1, 4, 0, 0, '4 Burung (88x136 cm)', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 5, 'Gerbang Veteran', 0, '', 0, NULL, ''),
+	(130, NULL, '6020102003', 15, 1, '0', '0', 1, 4, 0, 0, '4 Burung (88x136 cm)', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 5, 'Gerbang Veteran', 0, '', 0, NULL, ''),
 	(131, NULL, '6020102003', 16, 1, '0', '0', 1, 1, 0, 0, 'Pasar Tradisional (88x140 cm)', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(132, NULL, '6020102003', 17, 1, '0', '0', 1, 1, 0, 0, 'Wayang (106x257 cm)', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(133, NULL, '6020102003', 18, 1, '0', '0', 1, 1, 0, 0, 'Pemandangan didanau Sumbar (48x68 cm)', 0, 0, 0, '2009-11-26 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5408,20 +5303,20 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(148, NULL, '6020102003', 33, 1, '0', '0', 1, 1, 0, 0, 'Mayjen TNI MT Haryono (CM.uk 60x45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(149, NULL, '6020102003', 34, 1, '0', '0', 1, 1, 0, 0, 'Letjen TNI Basuki Rahmat (CM.uk.60x45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(150, NULL, '6020102003', 35, 1, '0', '0', 1, 1, 0, 0, 'Dr. Setia BUDI (cm.UK60X45)', 0, 0, 0, '2001-12-31 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(151, 'E280699520004009F123B696', '3050206020', 1, 2, 'gopro', 'vusion', 1, 1, 0, 0, 'GoPro Vusion, Video Spherical 5.2K', 3, 2, 2, '2018-12-19 00:00:00', 0, '2025-01-24 17:26:27', '2025-01-21 00:00:00', '2025-01-21 00:00:00', 1, 2, 2, 2, '', 2, '', 242, '-', ''),
+	(151, 'E280699520004009F123B696', '3050206020', 1, 2, 'gopro', 'vusion', 1, 1, 0, 0, 'GoPro Vusion, Video Spherical 5.2K', 3, 2, 2, '2018-12-19 00:00:00', 0, '2025-02-17 11:35:45', '2025-01-21 00:00:00', '2025-01-21 00:00:00', 1, 2, 2, 2, '', 2, '', 242, '242', 'ajib'),
 	(152, NULL, '3050206020', 2, 2, '0', '0', 1, 1, 0, 0, 'Sony PXW-Z280, 45121516-PKM-000593807', 3, 2, 2, '2018-12-17 00:00:00', 0, '2025-01-15 00:00:00', '2024-12-30 00:00:00', '2024-12-31 00:00:00', 1, 1, 2, 4, 'Ruang Konservasi Seni', 0, '', 96, '-', ''),
-	(153, 'E280699520005009F1239696', '3050206020', 3, 2, '0', '0', 1, 1, 0, 0, 'Gopro HERO 5-Black', 3, 2, 2, '2018-12-10 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, '', 0, '', 242, '-', ''),
+	(153, 'E280699520005009F1239696', '3050206020', 3, 2, '0', '0', 1, 1, 0, 0, 'Gopro HERO 5-Black', 3, 2, 2, '2018-12-10 00:00:00', 0, '2025-02-17 11:35:45', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, '', 0, '', 242, '242', 'ajib'),
 	(154, NULL, '3050206020', 4, 0, '0', '0', 1, 1, 0, 0, 'Sony Camcorder NXCAM HXR-NX100 FULL HD', 3, 2, 2, '2019-10-30 00:00:00', 0, '2025-01-10 17:45:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 4, 'Konservasi Seni', 1, '2120616493_', 96, '-', ''),
 	(155, NULL, '3050206020', 5, 2, '0', '0', 1, 1, 0, 0, 'Sony Camcorder PXW-Z280', 3, 2, 2, '2019-11-08 00:00:00', 0, '2025-01-16 08:23:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 119, '-', ''),
 	(156, NULL, '3050206020', 6, 2, '0', '0', 1, 1, 0, 0, 'Sony Camcorder PXW-Z280', 0, 0, 0, '2019-11-08 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(157, 'E280699520004009F123C296', '3050206020', 7, 2, '0', '0', 1, 3, 1, 1, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme', 3, 2, 2, '2020-11-11 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, '', 1, '', 242, '-', ''),
+	(157, 'E280699520004009F123C296', '3050206020', 7, 2, '0', '0', 1, 3, 1, 1, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme', 3, 2, 2, '2020-11-11 00:00:00', 0, '2025-02-17 11:35:45', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, '', 1, '', 242, '242', 'ajib'),
 	(158, NULL, '3050206020', 8, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme ', 0, 0, 0, '2020-11-11 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(159, NULL, '3050206020', 9, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme ', 3, 2, 2, '2020-11-11 00:00:00', 0, '2024-12-18 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 0, NULL, ''),
 	(160, NULL, '3050206020', 10, 2, '0', '0', 1, 1, 0, 0, 'Kamera Gopro Hero 7 Black Telesin 170 Jaws Flex Suction Cup car Mount Holder 4 Bh + Sandisk Extreme ', 3, 2, 2, '2020-11-11 00:00:00', 0, '2024-12-18 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 0, NULL, ''),
 	(161, NULL, '3050206020', 19, 2, '0', '0', 1, 1, 0, 0, 'Sony PXW X-200 XDCAM', 3, 2, 2, '2017-05-26 00:00:00', 0, '2025-01-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 3, 'Ruang Rapat', 0, '', 0, NULL, ''),
 	(162, NULL, '3050206020', 20, 2, '0', '0', 1, 1, 0, 0, 'Sony Profesional; PXW-X180 HD XD CAM', 0, 0, 0, '2017-12-11 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(163, NULL, '3050206020', 21, 2, '0', '0', 1, 1, 0, 0, 'Sony Profesional; PXW-X180 HD XD CAM', 0, 0, 0, '2017-12-11 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
-	(164, 'E280699520005009F123AA96', '3050206020', 22, 2, '0', '0', 1, 4, 0, 1, 'Gopro Hero 10 Black 2021 Action 23MP 5K', 3, 2, 2, '2021-12-02 00:00:00', 0, '2025-01-24 17:26:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 4, 5, 'Gerbang Veteran', 0, '', 242, '-', ''),
+	(164, 'E280699520005009F123AA96', '3050206020', 22, 2, '0', '0', 1, 1, 0, 1, 'Gopro Hero 10 Black 2021 Action 23MP 5K', 3, 2, 2, '2021-12-02 00:00:00', 0, '2025-02-17 11:35:45', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 242, '242', 'ajib'),
 	(165, NULL, '3050206020', 23, 2, '0', '0', 1, 1, 0, 0, 'Gopro Hero 10 Black 2021 Action 23MP 5K', 3, 2, 2, '2021-12-02 00:00:00', 0, '2025-01-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 0, NULL, ''),
 	(166, NULL, '3050206020', 24, 2, '0', '0', 1, 1, 0, 0, 'SonyΓö¼├í PXW-z280', 3, 2, 2, '2022-06-09 00:00:00', 0, '2025-01-21 19:31:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 187, '-', ''),
 	(167, NULL, '3050206020', 25, 2, '0', '0', 1, 1, 0, 0, 'Sony FX6 Full Frame Cinema (Body Only) + Lensa + Sony 128 GBΓö¼├í + Memory Card', 1, 1, 1, '2024-07-24 00:00:00', 0, '2025-01-16 08:35:46', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 1, 0, '', 0, '', 121, '-', ''),
@@ -5455,7 +5350,7 @@ INSERT INTO `tb_master_aset` (`id_aset`, `kode_tid`, `kode_aset`, `nup`, `katego
 	(195, NULL, '3060101036', 47, 2, '0', '0', 1, 1, 0, 0, 'Shure ULXD2/B87A', 0, 0, 0, '2016-11-24 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(196, NULL, '3060101036', 48, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 135-P G3', 0, 0, 0, '2018-12-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(197, NULL, '3060101036', 49, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 135-P G3', 3, 2, 2, '2018-12-10 00:00:00', 0, '2025-01-13 18:53:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 0, '', 0, '', 103, '-', ''),
-	(198, 'E280699520005009F123BE96', '3060101036', 50, 2, '0', '0', 1, 1, 0, 0, 'Televic Microphone 40cm', 3, 4, 4, '2019-09-10 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, '', 0, '', 243, '-', ''),
+	(198, 'E280699520005009F123BE96', '3060101036', 50, 2, '0', '0', 1, 1, 0, 1, 'Televic Microphone 40cm', 3, 4, 4, '2019-09-10 00:00:00', 0, '2025-01-24 17:28:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 2, 2, 'Ruangan Biro Pers', 0, '', 243, '-', ''),
 	(199, NULL, '3060101036', 51, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 100-ENG G3', 0, 0, 0, '2018-12-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(200, NULL, '3060101036', 52, 2, '0', '0', 1, 1, 0, 0, 'Sennheiser EW 100-ENG G3', 0, 0, 0, '2018-12-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
 	(201, NULL, '3060101036', 53, 2, '0', '0', 1, 1, 0, 0, 'Televic Microphone Uk. 40cm', 0, 0, 0, '2019-09-10 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, '', 0, '', 0, NULL, ''),
@@ -5673,7 +5568,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_tag_rfid` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.tb_master_tag_rfid: ~13 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_tag_rfid: ~14 rows (approximately)
 DELETE FROM `tb_master_tag_rfid`;
 INSERT INTO `tb_master_tag_rfid` (`id`, `kode_tid`, `status_tag`, `type_tag`, `id_aset`, `kode_epc`) VALUES
 	(127, 'E280117020001594ED570A51', 'N', NULL, 3, 'E280117020001594ED570A51'),
@@ -5719,7 +5614,7 @@ CREATE TABLE IF NOT EXISTS `tb_master_transaksi` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=269 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ug_siriri.tb_master_transaksi: ~32 rows (approximately)
+-- Dumping data for table ug_siriri.tb_master_transaksi: ~38 rows (approximately)
 DELETE FROM `tb_master_transaksi`;
 INSERT INTO `tb_master_transaksi` (`id`, `kode_transaksi`, `tipe_transaksi`, `id_sub_transaksi`, `status_transaksi`, `tgl_input`, `tgl_awal_transaksi`, `tgl_akhir_transaksi`, `id_pegawai_input`, `nama_pegawai_input`, `id_pegawai`, `nama_pegawai`, `id_area`, `id_gedung`, `id_ruangan`, `id_area2`, `id_gedung2`, `id_ruangan2`, `ket_transaksi`, `ket_transaksi2`, `ket_transaksi3`, `image_uri`, `image_uri2`) VALUES
 	(191, NULL, 2, NULL, 1, '2025-01-22 13:59:33', '2025-01-22 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, NULL, NULL, NULL, 'Registrasi, Labeling, Sensus di Ruangan Konservasi', '', '', '', ''),
@@ -5733,7 +5628,7 @@ INSERT INTO `tb_master_transaksi` (`id`, `kode_transaksi`, `tipe_transaksi`, `id
 	(237, NULL, 5, 1, 3, '2025-01-24 11:31:11', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, 3, 4, 4, 'Testing', 'Pemindahan selesai', '', '1737693196_17376931882771854414444263511520.jpg', ''),
 	(238, NULL, 5, 1, 4, '2025-01-24 14:49:41', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, 3, 2, 2, 'Coba pindahkan', 'Batal Tidak Jadi', '', '1737705318_sejarah-istana-merdeka-jakarta-lokasi-dan-fungsi-istana-1_169.jpeg', ''),
 	(241, NULL, 5, 1, 4, '2025-01-24 14:59:48', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 4, 4, 3, 2, 2, 'Coba', 'Tidak Jadi Pindah', '', '1737705753_sejarah-istana-merdeka-jakarta-lokasi-dan-fungsi-istana-1_169.jpeg', ''),
-	(242, NULL, 3, NULL, 1, '2025-01-24 17:26:27', '2025-01-24 00:00:00', NULL, 1, 'Administrator', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Sensus di biro pers', '', '', '', ''),
+	(242, NULL, 3, NULL, 3, '2025-01-24 17:26:27', '2025-01-24 00:00:00', NULL, 1, 'Administrator', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Sensus di biro pers', 'ajib', '', '', ''),
 	(243, NULL, 3, NULL, 1, '2025-01-24 17:28:43', '2025-01-24 00:00:00', NULL, 1, 'Administrator', 0, '0', 3, 4, 4, NULL, NULL, NULL, 'Sensus di konservasi', '', '', '', ''),
 	(244, NULL, 6, NULL, 4, '2025-01-24 18:47:48', '2025-01-24 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Testing', 'Batal', '', '1737719329_17377193200001328379191585378640.jpg', ''),
 	(245, NULL, 6, NULL, 3, '2025-01-30 14:31:56', '2025-01-30 00:00:00', NULL, 0, '0', 0, '0', 3, 2, 2, NULL, NULL, NULL, 'Ijin ya mau di benerin dlu', 'ok nih', '', '1738222389_Screenshot 2023-03-05 123716.png', ''),
