@@ -49,7 +49,7 @@ class Tag_reader extends API
 		$limit = $this->get('limit') ? $this->get('limit') : $this->limit_page;
 		$start = $this->get('start');
 
-		$select_field = ['reader_id', 'room_id', 'reader_name', 'setfor', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_baudrate', 'reader_power', 'reader_interval', 'reader_mode', 'reader_updatedby', 'reader_updated', 'reader_createdby', 'reader_created', 'reader_family', 'connecting', 'reader_model', 'reader_identity', 'reader_antena', 'reader_angle', 'reader_gate', 'flag_alarm'];
+		$select_field = ['reader_id', 'room_id', 'reader_name', 'setfor', 'reader_serialnumber', 'reader_type', 'reader_ip', 'reader_port', 'reader_com', 'reader_baudrate', 'reader_power', 'reader_interval', 'reader_mode', 'reader_updatedby', 'reader_updated', 'reader_createdby', 'reader_created', 'reader_family', 'connecting', 'reader_model', 'reader_identity', 'reader_antena', 'reader_angle', 'reader_gate', 'alias_antenna', 'flag_alarm'];
 		$tag_readers = $this->model_api_tag_reader->get($filter, $field, $limit, $start, $select_field);
 		$total = $this->model_api_tag_reader->count_all($filter, $field);
 		
