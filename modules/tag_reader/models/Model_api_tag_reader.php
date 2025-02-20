@@ -49,48 +49,51 @@ $query = $this->db->get($this->table_name);
 return $query->num_rows();
 }
 
-public function get($q = null, $field = null, $limit = 0, $offset = 0, $select_field = [])
-{
-$iterasi = 1;
-$num = count($this->field_search);
-$where = NULL;
-$q = $this->scurity($q);
-$field = $this->scurity($field);
+    public function get($q = null, $field = null, $limit = 0, $offset = 0, $select_field = [])
+    {
+        $iterasi = 1;
+        $num = count($this->field_search);
+        $where = NULL;
+        $q = $this->scurity($q);
+        $field = $this->scurity($field);
 
-if (empty($field)) {
-foreach ($this->field_search as $field) {
-if ($iterasi == 1) {
-$where .= $field . " LIKE '%" . $q . "%' ";
-} else {
-$where .= "OR " . $field . " LIKE '%" . $q . "%' ";
-}
-$iterasi++;
-}
+        if (empty($field)) {
+            foreach ($this->field_search as $field) {
+                if ($iterasi == 1) {
+                    $where .= $field . " LIKE '%" . $q . "%' ";
+                } else {
+                    $where .= "OR " . $field . " LIKE '%" . $q . "%' ";
+                }
+            $iterasi++;
+        }
 
-$where = '('.$where.')';
-} else {
-if (in_array($field, $select_field)) {
-$where .= "(" . $field . " LIKE '%" . $q . "%' )";
-}
-}
+        $where = '('.$where.')';
+        } else {
+            if (in_array($field, $select_field)) {
+                $where .= "(" . $field . " LIKE '%" . $q . "%' )";
+            }
+        }
 
-if (is_array($select_field) AND count($select_field)) {
-$this->db->select($select_field);
-}
+        if (is_array($select_field) AND count($select_field)) {
+            $this->db->select($select_field);
+        }
 
-if ($where) {
-$this->db->where($where);
-}
-$this->filter_query();
+        if ($where) {
+            $this->db->where($where);
+        }
+        
+        $this->db->where('is_active', 1);
+        $this->filter_query();
 
-$this->db->limit($limit, $offset);
-$sort_field = $this->input->get('sort_field') ? $this->input->get('sort_field') : $this->primary_key;
-$sort_order = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'DESC';
-$this->db->order_by($sort_field, $sort_order);
-$query = $this->db->get($this->table_name);
+        $this->db->limit($limit, $offset);
+        $sort_field = $this->input->get('sort_field') ? $this->input->get('sort_field') : $this->primary_key;
+        $sort_order = $this->input->get('sort_order') ? $this->input->get('sort_order') : 'DESC';
+        
+        $this->db->order_by($sort_field, $sort_order);
+        $query = $this->db->get($this->table_name);
 
-return $query->result();
-}
+        return $query->result();
+    }
 
 }
 
