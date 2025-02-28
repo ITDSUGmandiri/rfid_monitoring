@@ -171,6 +171,19 @@ class Tag_temp_table extends API
 		
 		if ($this->form_validation->run()) {
 
+			// $data = [
+			// 'lokasi_terakhir_id' => $dataReader->room_id,
+			// 'nama_lokasi_terakhir' => $dataReader->ruangan,
+			// 'room_id' => $dataReader->room_id,
+			// 'room_name' => $dataReader->ruangan,
+			// 'reader_id' => $dataReader->reader_id,
+			// 'reader_antena' => $dataReader->reader_antena,
+			// 'reader_angle' => $dataReader->reader_angle,
+			// 'reader_gate' => $dataReader->reader_gate,
+			// 'rfid_tag_number' => $tid,
+			// 'is_legal_moving' => $dataReader->reader_identity
+			// ];
+
 			$save_data = [
 				'lokasi_terakhir_id' => $this->input->post('room_id'),
 				'nama_lokasi_terakhir' => $this->input->post('room_name'),
