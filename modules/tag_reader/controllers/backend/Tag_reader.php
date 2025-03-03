@@ -89,73 +89,26 @@ class Tag_reader extends Admin
 			exit;
 		}
 
-
-
 		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_name', 'Nama Reader', 'trim|required|max_length[50]');
-
-
-		$this->form_validation->set_rules('setfor', 'Posisi Untuk IN/OUT?', 'trim|required');
-
-
+		// $this->form_validation->set_rules('setfor', 'Posisi Untuk IN/OUT?', 'trim|required');
 		$this->form_validation->set_rules('reader_serialnumber', 'Serial Number', 'trim|required|max_length[10]');
-
-
 		$this->form_validation->set_rules('reader_type', 'Tipe', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_ip', 'IP Address', 'trim|required|max_length[45]');
-
-
 		$this->form_validation->set_rules('reader_port', 'Port', 'trim|required|max_length[7]');
-
-
 		$this->form_validation->set_rules('reader_com', 'COM', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_baudrate', 'Baudrate', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_power', 'Power', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_interval', 'Interval', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_mode', 'Mode', 'trim|required');
-
-
 		// $this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_updated', 'Updated', 'trim|required');
-
-
 		// $this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_created', 'Created', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_family', 'Reader Series', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_model', 'Model', 'trim|required|max_length[50]');
-
-
 		$this->form_validation->set_rules('reader_identity', 'Reader Identity', 'trim|required|max_length[50]');
-
-
 		$this->form_validation->set_rules('reader_antena', 'Antena', 'trim|required');
-
-
-
-
-
-
-
 
 		if ($this->form_validation->run()) {
 
@@ -172,13 +125,9 @@ class Tag_reader extends Admin
 				'reader_power' => $this->input->post('reader_power'),
 				'reader_interval' => $this->input->post('reader_interval'),
 				'reader_mode' => $this->input->post('reader_mode'),
-				'reader_updatedby' =>
-				$this->session->userdata('username'),
-
+				'reader_updatedby' => $this->session->userdata('username'),
 				'reader_updated' => $this->input->post('reader_updated'),
-				'reader_createdby' =>
-				$this->session->userdata('username'),
-
+				'reader_createdby' => $this->session->userdata('username'),
 				'reader_created' => $this->input->post('reader_created'),
 				'reader_family' => $this->input->post('reader_family'),
 				'connecting' => $this->input->post('connecting'),
@@ -188,20 +137,9 @@ class Tag_reader extends Admin
 				'alias_antenna' => $this->input->post('alias_antenna'),
 			];
 
-
-
-
-
-
-
-
 			$save_tag_reader = $id = $this->model_tag_reader->store($save_data);
 
-
 			if ($save_tag_reader) {
-
-
-
 
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
@@ -269,77 +207,34 @@ class Tag_reader extends Admin
 			]);
 			exit;
 		}
+
 		$this->form_validation->set_rules('room_id', 'Ruangan', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_name', 'Nama Reader', 'trim|required|max_length[50]');
-
-
-		$this->form_validation->set_rules('setfor', 'Posisi Untuk IN/OUT?', 'trim|required');
-
-
+		// $this->form_validation->set_rules('setfor', 'Posisi Untuk IN/OUT?', 'trim|required');
 		$this->form_validation->set_rules('reader_serialnumber', 'Serial Number', 'trim|required|max_length[10]');
-
-
 		$this->form_validation->set_rules('reader_type', 'Tipe', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_ip', 'IP Address', 'trim|required|max_length[45]');
-
-
 		$this->form_validation->set_rules('reader_port', 'Port', 'trim|required|max_length[7]');
-
-
 		$this->form_validation->set_rules('reader_com', 'COM', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_baudrate', 'Baudrate', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_power', 'Power', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_interval', 'Interval', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_mode', 'Mode', 'trim|required');
-
-
 		// $this->form_validation->set_rules('reader_updatedby', 'Update By', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_updated', 'Updated', 'trim|required');
-
-
 		// $this->form_validation->set_rules('reader_createdby', 'Created By', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_created', 'Created', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_family', 'Reader Series', 'trim|required');
-
-
 		$this->form_validation->set_rules('reader_model', 'Model', 'trim|required|max_length[50]');
-
-
 		$this->form_validation->set_rules('reader_identity', 'Reader Identity', 'trim|required|max_length[50]');
-
-
 		$this->form_validation->set_rules('reader_antena', 'Antena', 'trim|required');
-
-
-
-
-
-
 
 		if ($this->form_validation->run()) {
 
 			$save_data = [
 				'room_id' => $this->input->post('room_id'),
 				'reader_name' => $this->input->post('reader_name'),
-				'setfor' => $this->input->post('setfor'),
+				// 'setfor' => $this->input->post('setfor'),
 				'reader_serialnumber' => $this->input->post('reader_serialnumber'),
 				'reader_type' => $this->input->post('reader_type'),
 				'reader_ip' => $this->input->post('reader_ip'),
@@ -360,22 +255,14 @@ class Tag_reader extends Admin
 				'reader_identity' => $this->input->post('reader_identity'),
 				'reader_antena' => $this->input->post('reader_antena'),
 				'alias_antenna' => $this->input->post('alias_antenna'),
+				'flag_alarm' => $this->input->post('flag_alarm'),
+				'flag_buzzer' => $this->input->post('flag_buzzer'),
+				'is_active' => $this->input->post('is_active')
 			];
-
-
-
-
-
-
-
 
 			$save_tag_reader = $this->model_tag_reader->change($id, $save_data);
 
 			if ($save_tag_reader) {
-
-
-
-
 
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;

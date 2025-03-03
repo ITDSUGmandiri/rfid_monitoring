@@ -96,7 +96,7 @@
 
 
 
-                        <div class="form-group  wrapper-options-crud group-setfor">
+                        <!-- <div class="form-group  wrapper-options-crud group-setfor">
                             <label for="setfor" class="col-sm-2 control-label">Posisi Untuk IN/OUT? <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
@@ -114,7 +114,7 @@
                                     </small>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 
@@ -376,8 +376,8 @@
                             </label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="reader_model" id="reader_model" placeholder="" value="<?= set_value('reader_model', $tag_reader->reader_model); ?>">
-                                <small class="info help-block">
-                                    <b>Input Reader Model</b> Max Length : 50.</small>
+                                <!-- <small class="info help-block">
+                                    <b>Input Reader Model</b> Max Length : 50.</small> -->
                             </div>
                         </div>
 
@@ -385,13 +385,13 @@
 
 
                         <div class="form-group group-reader_identity  ">
-                            <label for="reader_identity" class="col-sm-2 control-label">Reader Identity <i class="required">*</i>
+                            <label for="reader_identity" class="col-sm-2 control-label">Identity <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select" name="reader_identity" id="reader_identity" data-placeholder="Select Reader Identity">
                                     <option value=""></option>
-                                    <option <?= $tag_reader->reader_family == 1 ? 'selected' : ''; ?> value="1">Legal</option>
-                                    <option <?= $tag_reader->reader_family == 0 ? 'selected' : ''; ?> value="0">Ilegal</option>
+                                    <option <?= $tag_reader->reader_identity == 1 ? 'selected' : ''; ?> value="1">Legal</option>
+                                    <option <?= $tag_reader->reader_identity == 0 ? 'selected' : ''; ?> value="0">Ilegal</option>
 
                                 </select>
                                 <small class="info help-block">
@@ -403,7 +403,7 @@
 
 
                         <div class="form-group ">
-                            <label for="reader_antena" class="col-sm-2 control-label">Antena <i class="required">*</i>
+                            <label for="reader_antena" class="col-sm-2 control-label">Tipe Antena <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
                                 <select class="form-control chosen chosen-select" name="reader_antena" id="reader_antena" data-placeholder="Select Antena">
@@ -428,7 +428,44 @@
                             </div>
                         </div>
 
+                        <div class="form-group group-flag_alarm  ">
+                            <label for="flag_alarm" class="col-sm-2 control-label">Alarm <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select" name="flag_alarm" id="flag_alarm" data-placeholder="Select Alarm">
+                                    <option value=""></option>
+                                    <option <?= $tag_reader->flag_alarm == 1 ? 'selected' : ''; ?> value="1">On</option>
+                                    <option <?= $tag_reader->flag_alarm == 0 ? 'selected' : ''; ?> value="0">Off</option>
 
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group group-flag_buzzer  ">
+                            <label for="flag_buzzer" class="col-sm-2 control-label">Buzzer <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select" name="flag_buzzer" id="flag_buzzer" data-placeholder="Select Buzzer">
+                                    <option value=""></option>
+                                    <option <?= $tag_reader->flag_buzzer == 1 ? 'selected' : ''; ?> value="1">On</option>
+                                    <option <?= $tag_reader->flag_buzzer == 0 ? 'selected' : ''; ?> value="0">Off</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group group-is_active  ">
+                            <label for="is_active" class="col-sm-2 control-label">Active <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control chosen chosen-select" name="is_active" id="is_active" data-placeholder="Select Active">
+                                    <option value=""></option>
+                                    <option <?= $tag_reader->is_active == 1 ? 'selected' : ''; ?> value="1">On</option>
+                                    <option <?= $tag_reader->is_active == 0 ? 'selected' : ''; ?> value="0">Off</option>
+
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="message"></div>
                         <div class="row-fluid col-md-7 container-button-bottom">

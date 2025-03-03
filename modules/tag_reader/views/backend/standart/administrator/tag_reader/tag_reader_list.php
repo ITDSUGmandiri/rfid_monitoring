@@ -133,8 +133,13 @@
                                  <th data-field="reader_mode" data-sort="1" data-primary-key="0"> <?= cclang('reader_mode') ?></th>
                                  <th data-field="reader_family" data-sort="1" data-primary-key="0"> <?= cclang('reader_family') ?></th>
                                  <!-- <th data-field="connecting" data-sort="1" data-primary-key="0"> <?= cclang('connecting') ?></th> -->
-                                 <th data-field="reader_identity" data-sort="1" data-primary-key="0"> <?= cclang('reader_identity') ?></th>
+                                 <th data-field="identity" data-sort="1" data-primary-key="0"> <?= cclang('identity') ?></th>
                                  <th data-field="alias_antenna" data-sort="1" data-primary-key="0"> <?= cclang('alias_antenna') ?></th>
+
+                                 <th data-field="alarm" data-sort="1" data-primary-key="0"> <?= cclang('alarm') ?></th>
+                                 <th data-field="buzzer" data-sort="1" data-primary-key="0"> <?= cclang('buzzer') ?></th>
+                                 <th data-field="is_active" data-sort="1" data-primary-key="0"> <?= cclang('is_active') ?></th>
+
                                  <th>Action</th>
                               </tr>
                            </thead>

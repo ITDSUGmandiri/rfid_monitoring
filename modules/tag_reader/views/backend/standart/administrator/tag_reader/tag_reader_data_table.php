@@ -20,6 +20,11 @@
         <!-- <td><span class="list_group-connecting"><?= _ent($tag_reader->connecting); ?></span></td> -->
         <td><span class="list_group-reader_identity"><?= _ent($tag_reader->reader_identity) === '1' ? 'Legal' : 'Ilegal' ?></span></td>
         <td><span class="list_group-alias_antenna"><?= _ent($tag_reader->alias_antenna); ?></span></td>
+
+        <td><span class="list_group-reader_identity"><?= _ent($tag_reader->flag_alarm) === '1' ? 'On' : 'Off' ?></span></td>
+        <td><span class="list_group-reader_identity"><?= _ent($tag_reader->flag_buzzer) === '1' ? 'On' : 'Off' ?></span></td>
+        <td><span class="list_group-reader_identity"><?= _ent($tag_reader->is_active) === '1' ? 'On' : 'Off' ?></span></td>
+
         <td width="200">
 
             <?php is_allowed('tag_reader_view', function () use ($tag_reader) { ?>

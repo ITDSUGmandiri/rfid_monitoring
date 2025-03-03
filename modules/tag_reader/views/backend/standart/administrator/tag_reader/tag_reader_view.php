@@ -243,6 +243,30 @@
                                 </div>
                             </div>
 
+                            <div class="form-group ">
+                                <label for="flag_alarm" class="col-sm-2 control-label">Alarm </label>
+
+                                <div class="col-sm-8">
+                                    <span class="detail_group-flag_alarm"><?= _ent($tag_reader->flag_alarm == 1 ? 'On' : 'Off'); ?></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="flag_buzzer" class="col-sm-2 control-label">Buzzer </label>
+
+                                <div class="col-sm-8">
+                                    <span class="detail_group-flag_buzzer"><?= _ent($tag_reader->flag_buzzer == 1 ? 'On' : 'Off'); ?></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="is_active" class="col-sm-2 control-label">Is Active</label>
+
+                                <div class="col-sm-8">
+                                    <span class="detail_group-is_active"><?= _ent($tag_reader->is_active == 1 ? 'On' : 'Off'); ?></span>
+                                </div>
+                            </div>
+
                             <br>
                             <br>
 
