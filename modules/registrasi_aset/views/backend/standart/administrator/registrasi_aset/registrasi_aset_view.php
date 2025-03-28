@@ -175,6 +175,37 @@ jQuery(document).ready(domo);
 
 </section>
 
+<style>
+    .table thead th {
+        border-bottom: 1px solid #dee2e6 !important;
+        /* Pakai !important agar override */
+        border-top: none !important;
+        /* Hilangkan border atas */
+    }
+
+    .table tbody td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di baris data */
+    }
+
+    .table tfoot td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di footer */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    .table tfoot td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    #asetTable tbody td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+</style>
+
 <script>
 $(document).ready(function(){
 

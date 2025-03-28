@@ -63,7 +63,8 @@
 </script>
 
 <style>
-    </style>
+    
+</style>
 
 <section class="content-header">
     <h1>
@@ -109,6 +110,11 @@
                             <div class="col-md-3">
                                 <input type="hidden" id="ip_address_server" name="ip_address_server" value="<?= $pengaturan_sistem->ip_address_server; ?>">
                                 <input type="hidden" id="port_ws_server" name="port_ws_server" value="<?= $pengaturan_sistem->port_ws_server; ?>">
+                                <input type="hidden" id="flag_alarm_register_tag" name="flag_alarm_register_tag" value="<?= $pengaturan_sistem->flag_alarm_register_tag; ?>">
+                                <input type="hidden" id="deras_status_default" name="deras_status_default" value="<?= $pengaturan_sistem->deras_status_default; ?>">
+                                <input type="hidden" id="deras_description" name="deras_description" value="<?= $pengaturan_sistem->deras_description; ?>">
+                                <input type="hidden" id="deras_category_default" name="deras_category_default" value="<?= $pengaturan_sistem->deras_category_default; ?>">
+                                <input type="hidden" id="protocol_ws_server" name="protocol_ws_server" value="<?= $pengaturan_sistem->protocol_ws_server; ?>">
                             </div>
 
                             <div class="col-md-6">
@@ -200,6 +206,37 @@
 
 </section>
 
+<style>
+    .table thead th {
+        border-bottom: 1px solid #dee2e6 !important;
+        /* Pakai !important agar override */
+        border-top: none !important;
+        /* Hilangkan border atas */
+    }
+
+    .table tbody td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di baris data */
+    }
+
+    .table tfoot td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di footer */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    .table tfoot td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    #asetTable tbody td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+</style>
+
 <script src="<?php echo base_url(); ?>asset/js/socket.io.js"></script>
 
 <script>
@@ -274,9 +311,10 @@
                 return false;
             }
 
+            var protocol_ws_server = $('#protocol_ws_server').val();
             localStorage.setItem('ip_address', ip_address);
             
-            const socket = new WebSocket('ws://' + ip_address + ':3030');
+            const socket = new WebSocket(protocol_ws_server + '://' + ip_address + ':3030');
 
             $('#your_table_id tbody tr').remove();
 
@@ -411,6 +449,11 @@
                 $('#data_processing').html('Saving RFID Tag...');
                 $('.loading').show();
 
+                var flag_alarm_register_tag = $('#flag_alarm_register_tag').val();
+                var deras_status_default = $('#deras_status_default').val();
+                var deras_description = $('#deras_description').val();
+                var deras_category_default = $('#deras_category_default').val();
+
                 // 1. Validasi input
                 const ip_address_server = $('#ip_address_server').val();
                 const port_ws_server = $('#port_ws_server').val();
@@ -486,10 +529,10 @@
                                     value: {
                                         tid: item.tid,
                                         epc: item.epc,
-                                        status: 1,
-                                        description: 'DEMO-RFID',
-                                        flag_alarm: 0,
-                                        category: 0
+                                        status: deras_status_default,
+                                        description: deras_description,
+                                        flag_alarm: flag_alarm_register_tag,
+                                        category: deras_category_default
                                     }
                                 };
                                 socket.send(JSON.stringify(data));

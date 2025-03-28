@@ -1,9 +1,7 @@
 <link href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css" rel="stylesheet" type="text/css" />
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" rel="stylesheet" type="text/css" /> -->
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
 <script src="<?= BASE_ASSET; ?>js/loadingoverlay.min.js"></script>
-
 
 <section class="content-header">
     <h1>
@@ -190,48 +188,22 @@
                 <!-- <section> -->
                 <fieldset>
 
-                    <!-- <div class="row">
+                    <div class="form-group group-id_area ">
+                        <label for="id_area" class="col-sm-2 control-label">Filter Kategori Aset<i class="required">*</i>
+                        </label>
+                        <div class="col-sm-8">
+                            <select class="form-control chosen chosen-select-deselect" name="selectkategori" id="selectkategori" data-placeholder="Pilih Kategori">
+                                <option value=""></option>
+                                <?php foreach (db_get_all_data('tb_master_kategori') as $row): ?>
+                                    <option value="<?= $row->id ?>"><?= $row->kategori; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <small class="info help-block">
+                            </small>
+                        </div>
+                    </div>
 
-                            <div class="col-md-8">
-                                                                
-                                        <div class="col-sm-2 padd-left-0 " >
-                                            <select type="text" class="form-control chosen chosen-select" name="bulk" id="bulk" placeholder="Site Email" >                                
-                                                <option value="delete">Delete</option>
-                                            </select>
-                                        </div>
 
-                                        <div class="col-sm-2 padd-left-0 ">
-                                            <button type="button" class="btn btn-flat" name="apply" id="apply" title="<?= cclang('apply_bulk_action'); ?>"><?= cclang('apply_button'); ?></button>
-                                        </div>
-                                                    
-                                        <div class="col-sm-3 padd-left-0  " >
-                                            <input type="text" class="form-control" name="q" id="filter" placeholder="<?= cclang('filter'); ?>" value="<?= $this->input->get('q'); ?>">
-                                        </div>
-                                        
-                                        <div class="col-sm-3 padd-left-0 " >
-                                            <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
-                                                <option value=""><?= cclang('all'); ?></option>
-                                                <option <?= $this->input->get('f') == 'nama_aset' ? 'selected' : ''; ?> value="nama_aset">Nama Aset</option>
-                                                <option <?= $this->input->get('f') == 'kode_aset' ? 'selected' : ''; ?> value="kode_aset">Kode Aset</option>
-                                                <option <?= $this->input->get('f') == 'nup' ? 'selected' : ''; ?> value="nup">NUP</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="col-sm-1 padd-left-0 ">
-                                            <button type="submit" class="btn btn-flat" name="sbtn" id="sbtn" value="Apply" title="<?= cclang('filter_search'); ?>">
-                                            Filter
-                                            </button>
-                                        </div>
-                                        
-                                        <div class="col-sm-1 padd-left-0 ">
-                                            <a class="btn btn-default btn-flat" name="refresh" id="refresh" value="Apply" title="<?= cclang('reset_filter'); ?>">
-                                                <i class="fa fa-undo"></i>
-                                            </a>
-                                        </div>
-                                
-                            </div>
-
-                        </div> -->
 
                     <div class="row" style="margin-top: 10px; margin-bottom: 20px">
                         <div class="col-md-12">
@@ -329,7 +301,7 @@
 
                 </fieldset>
 
-                <!-- <fieldset>
+                <fieldset>
 
                         <div class="row">
 
@@ -375,7 +347,7 @@
                             
                         </div>
 
-                    </fieldset> -->
+                    </fieldset>
 
                 <div class="row">
 
@@ -390,7 +362,7 @@
                                 <i class="fa fa-search"></i>&nbsp;Search
                             </a>
 
-                            <!-- &nbsp;&nbsp;
+                            &nbsp;&nbsp;
 
                                 <a class="btn btn-flat btn-success btn_search btn_action btn_search_back btn-block" id="btn_get_list_tag" data-stype='back' title="Search">
                                     <i class="fa fa-list"></i>&nbsp;Get All Data RFID Tag
@@ -424,7 +396,7 @@
 
                                 <a class="btn btn-flat btn-default btn_search btn_action btn_search_back btn-block" id="btn_delete_tag" data-stype='back' title="Search">
                                     <i class="fa fa-check"></i>&nbsp;Cek Data Valid
-                                </a> -->
+                                </a>
 
                         </div>
                         <small class="info help-block"><b>Status:</b>
@@ -517,6 +489,37 @@
 
 </section>
 
+<style>
+    .table thead th {
+        border-bottom: 1px solid #dee2e6 !important;
+        /* Pakai !important agar override */
+        border-top: none !important;
+        /* Hilangkan border atas */
+    }
+
+    .table tbody td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di baris data */
+    }
+
+    .table tfoot td {
+        border-top: 1px solid #dee2e6 !important;
+        /* Pakai !important di footer */
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    .table tfoot td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+
+    #asetTable tbody td {
+        border-bottom: none !important;
+        /* Hilangkan border bawah */
+    }
+</style>
+
 <!-- 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -527,7 +530,6 @@
     var module_name = "registrasi_aset";
     var use_ajax_crud = false;
 </script>
-
 
 <script>
     $(document).ready(function() {
@@ -552,10 +554,7 @@
             ],
         });
 
-        // function reload_datatables() {
-        //     myTable.ajax.reload();
-        //     // table.ajax.reload(null,false); //reload datatable ajax 
-        // }
+
 
         $('#MyTableCheckAllButton').click(function() {
             if (myTable.rows({
@@ -631,6 +630,7 @@
             // e.preventDefault();
             // get_datatables_checked();
             // return false;
+            console.log("ridwan", myTable.rows('.selected').data().toArray().length);
 
             if (myTable.rows('.selected').data().toArray().length == 0) {
                 $('#total_aset_checklist').html(0);
@@ -696,71 +696,6 @@
 
 
 
-        // table = $('#asetTable').DataTable({
-        //     // "paging": true,
-        //     // "searching": true,
-        //     // "ordering": true,
-        //     // "info": true,
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         url: url,
-        //         type: "POST",
-        //         // type: "GET",
-        //         // data: function (d) {
-        //         //     d.filter_id_parameter = $('#filter_id_parameter').val();
-        //         // }
-        //     },
-        //     "order": [
-        //         [3, 'asc']
-        //     ],
-        //     columns: [{
-
-        //             "data": "checkbox_id_master_aset",
-        //             "className": "dt-center",
-        //             "orderable": false,
-        //             "searchable": false
-        //         },
-        //         {
-        //             "data": "auto_number",
-        //             "className": "dt-center",
-        //             "orderable": false,
-        //             "searchable": false
-        //         },
-        //         {
-        //             data: "id",
-        //             className: "dt-center",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         {
-        //             data: "nama_aset",
-        //             className: "dt-left",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         {
-        //             data: "kode_aset",
-        //             className: "dt-left",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         {
-        //             data: "nup",
-        //             className: "dt-center",
-        //             orderable: true,
-        //             searchable: true
-        //         },
-        //         // { data: "Action", className: "dt-center", orderable: false, searchable: false },
-        //     ],
-        //     "createdRow": function(row, data, dataIndex) {
-        //         // Paksa semua kolom angka menjadi rata tengah
-        //         $('td', row).eq(1).css('text-align', 'center');
-        //         $('td', row).eq(2).css('text-align', 'center');
-        //         $('td', row).eq(5).css('text-align', 'center');
-        //     }
-        // });
-
 
 
         $('#btn_search_single_tag').click(function() {
@@ -796,11 +731,6 @@
             //     return false;
             // }
 
-            localStorage.setItem('ip_address', ip_address);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             const socket = new WebSocket('ws://' + ip_address + ':3030');
 
             // socket.addEventListener('open', function() {
@@ -910,10 +840,7 @@
                 var flag_alarm = 0;
 
                 // var flag_alarm_input = prompt("Masukkan nilai flag alarm (0 atau 1):", "0");
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
                 // // Validasi input hanya boleh 0 atau 1
                 // if(flag_alarm_input !== "0" && flag_alarm_input !== "1") {
                 //     swal({
@@ -1017,10 +944,6 @@
                 });
                 return false;
             }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             const socket = new WebSocket('ws://' + ip_address + ':' + port_ws_server);
 
             socket.addEventListener('open', function() {
@@ -1030,10 +953,6 @@
                 var description = 'DEMO-RFID';
                 var flag_alarm = 0;
                 var category = 0;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 socket.send('{"event": "db-storage-insert-rfid-list", "value": {"tid": "' + single_rfid_tag + '", "epc": "' + single_kode_epc + '", "status": "' + status + '", "description": "' + description + '", "flag_alarm": "' + flag_alarm + '", "category": "' + category + '"}}');
                 console.log('post db-storage-insert-rfid-list: ' + single_rfid_tag);
             });
@@ -1203,10 +1122,6 @@
                                 await new Promise(resolve => setTimeout(resolve, 100)); // Delay antar pengiriman
 
                             }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                             resolve();
 
                         } catch (error) {
@@ -1427,10 +1342,6 @@
                 });
                 return false;
             }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             const socket = new WebSocket('ws://' + ip_address + ':' + port_ws_server);
 
             socket.addEventListener('open', function() {
@@ -1529,20 +1440,11 @@
             return false;
         });
 
-        // $('#btn_pilih_aset').click(function(e) {
-        //     e.preventDefault();
-        //     get_datatables_checked();
-        //     return false;
-        // });
 
         $('#btn_search').click(async function() {
 
             // Reset uniqueDataArray
             uniqueDataArray = [];
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             var ip_address = $('#ip_address').val();
 
             if (ip_address == '') {
@@ -1605,10 +1507,6 @@
                     // $('.loading').show();
 
                     try {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                         var tid = parsedData.data_tid;
                         var epc = parsedData.data;
                         var alias_antenna = 'handheld';
@@ -1665,10 +1563,6 @@
                                         $('#total_rfid_tag').html(uniqueDataArray.length);
 
                                         //console.log('Data baru ditambahkan:', parsedData.value);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                                     }
 
                                 } else {
@@ -1708,6 +1602,8 @@
 
             var total_aset_checklist = $('#total_aset_checklist').html();
 
+            console.log("ko", total_aset_checklis.length);
+
             if (total_aset_checklist == 0) {
 
                 swal({
@@ -1721,10 +1617,6 @@
                 });
 
                 return false;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             }
 
             var total_rfid_tag = $('#total_rfid_tag').html();
@@ -1745,10 +1637,6 @@
             }
 
             if (total_rfid_tag != total_aset_checklist) {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 swal({
                     title: "Error",
                     text: "Total RFID Tag tidak sama dengan total Aset yang dipilih!",
@@ -1767,10 +1655,6 @@
             // Cek apakah data RFID sudah ada di database
             try {
                 const response = await get_check_unique_data(uniqueDataArray);
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 if (response.exists) {
                     swal({
                         title: "Error",
@@ -1847,10 +1731,6 @@
             //     var tid = parsedData.value.tid;
 
             //     if (event_name == 'response-db-storage-insert-rfid-list') {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             //         if (message == '[Success] Insert Tags!') {
             //             is_posting_rfid_tag_success = true;
             //             console.log('posting data rfid tag: ' + tid + ', is_posting_rfid_tag_success: ' + is_posting_rfid_tag_success + ' berhasil!');
@@ -1888,10 +1768,6 @@
             //         } else if (message == '[Invalid] Rfid Tags!') {
 
             //             is_posting_rfid_tag_success = false;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             //             swal({
             //                 title: "Info",
             //                 text: "RFID Tag tidak valid!",
@@ -1907,10 +1783,6 @@
             //         }   
 
             //     } else if (event_name == 'error') {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             //         console.log('error: ' + message);
 
             //         swal({
@@ -2045,19 +1917,11 @@
                             });
 
                             $('.steps li').removeClass('error');
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                             $('.content section').each(function(index, el) {
                                 if ($(this).find('.has-error').length) {
                                     $('.steps li:eq(' + index + ')').addClass('error').find('a').trigger('click');
                                 }
                             });
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                         }
 
                         $('#data_processing').html('');
@@ -2570,4 +2434,95 @@
         });
 
     }); /*end doc ready*/
+
+    //ketika milih kategori
+    $(document).ready(function() {
+        var tableregister = $('#register').DataTable();
+
+        $('#selectkategori').change(function() {
+            var selectedValue = $(this).val(); // Ambil nilai yang dipilih
+            // Periksa jika ada nilai yang dipilih
+            if (selectedValue) {
+                $.ajax({
+                    url: ADMIN_BASE_URL + '/registrasi_aset/getKategori', // Ganti dengan URL controller Anda
+                    type: 'POST',
+                    dataType: 'json', // Minta respons dalam format JSON
+                    data: {
+                        value: selectedValue
+                    }, // Kirim data ke controller
+                    success: function(response) {
+                        console.log('dipilih', response.length);
+
+
+                        if (Array.isArray(response)) {
+                            // Hanya akses .length jika data adalah array
+                            tableregister.clear(); // Hapus data lama
+                            // Looping melalui respons dan menambahkan data ke DataTable
+                            response.forEach(function(item) {
+                                tableregister.row.add([
+                                    '<td></td>',
+                                    item.id_aset,
+                                    item.nama_aset,
+                                    item.kode_aset,
+                                    item.nup
+                                ]).draw(); // Tambahkan baris baru ke DataTable
+                            });
+
+                        } else if (typeof data === 'object') {
+                            // Jika data adalah objek
+                            console.log('Data received is an object:', data);
+                            // Lakukan sesuatu dengan objek
+                        } else {
+                            console.error('Data format is not correct!');
+                        }
+
+                        // Bisa lakukan sesuatu dengan response, misalnya tampilkan pesan atau perbarui elemen lain
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error: " + error);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: ADMIN_BASE_URL + '/registrasi_aset/getKategori', // Ganti dengan URL controller Anda
+                    type: 'POST',
+                    dataType: 'json', // Minta respons dalam format JSON
+                    data: {
+                        value: 0
+                    }, // Kirim data ke controller
+                    success: function(response) {
+                        console.log('disilang', response.length);
+
+
+                        if (Array.isArray(response)) {
+                            // Hanya akses .length jika data adalah array
+                            tableregister.clear(); // Hapus data lama
+                            // Looping melalui respons dan menambahkan data ke DataTable
+                            response.forEach(function(item) {
+                                tableregister.row.add([
+                                    '<td></td>',
+                                    item.id_aset,
+                                    item.nama_aset,
+                                    item.kode_aset,
+                                    item.nup
+                                ]).draw(); // Tambahkan baris baru ke DataTable
+                            });
+
+                        } else if (typeof data === 'object') {
+                            // Jika data adalah objek
+                            console.log('Data received is an object:', data);
+                            // Lakukan sesuatu dengan objek
+                        } else {
+                            console.error('Data format is not correct!');
+                        }
+
+                        // Bisa lakukan sesuatu dengan response, misalnya tampilkan pesan atau perbarui elemen lain
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error: " + error);
+                    }
+                });
+            }
+        });
+    });
 </script>

@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = BASE_URL;
+// $config['base_url'] = 'http://localhost/rfid_monitoring/';
 
 /*
 |--------------------------------------------------------------------------

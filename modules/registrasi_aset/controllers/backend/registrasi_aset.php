@@ -16,7 +16,6 @@ class registrasi_aset extends Admin
 	{
 		parent::__construct();
 		$this->load->model('tb_master_aset/model_tb_master_aset');
-
 		$this->load->model('model_registrasi_aset');
 		$this->load->model('group/model_group');
 		$this->lang->load('web_lang', $this->current_lang);
@@ -125,7 +124,9 @@ class registrasi_aset extends Admin
 	 */
 	public function add()
 	{
+
 		$this->is_allowed('registrasi_aset_add');
+
 
 		$this->data['pengaturan_sistem'] = $this->model_registrasi_aset->getPengaturanSistem();
 		$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
@@ -134,6 +135,20 @@ class registrasi_aset extends Admin
 		$this->render('backend/standart/administrator/registrasi_aset/registrasi_aset_add', $this->data);
 	}
 
+	public function getKategori()
+	{
+		if (isset($_POST['value']) && $_POST['value'] != 0) {
+			$category = $_POST['value'];
+			$this->data['tb_master_asets'] = array();
+			$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_asetkategori($category);
+
+			echo json_encode($this->data['tb_master_asets']);
+		} else {
+			$this->data['tb_master_asets'] = array();
+			$this->data['tb_master_asets'] = $this->model_tb_master_aset->get_aset();
+			echo json_encode($this->data['tb_master_asets']);
+		}
+	}
 	/**
 	 * Add New Tb Master Transaksis
 	 *
@@ -212,10 +227,6 @@ class registrasi_aset extends Admin
 			$save_register_aset = $id = $this->model_registrasi_aset->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 			// $save_register_aset = $this->model_tb_master_transaksi->saveRegisterAset($save_data_master_transaksi, $save_data_detail_transaksi, $linked_data);
 
-			// echo '<pre>';	
-			// print_r($save_register_aset);
-			// echo '</pre>';
-			// exit();
 
 			if ($save_register_aset) {
 
@@ -595,8 +606,12 @@ class registrasi_aset extends Admin
 
 	public function delete_all_tag()
 	{
-		// Hapus semua data dari tabel tb_master_tag_rfid
 		$this->db->empty_table('tb_master_tag_rfid');
+		$this->db->empty_table('tb_master_transaksi');
+		$this->db->empty_table('tb_asset_moving');
+		$this->db->empty_table('tag_temp_table');
+		$this->db->query("UPDATE tb_master_aset SET borrow = 0, STATUS = 1, tipe_moving = 0, kode_tid = NULL");
+		// UPDATE tb_master_tag_rfid SET status_tag = 'Y', id_aset = NULL
 
 		// Format response
 		$response = [
